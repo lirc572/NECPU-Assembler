@@ -88,7 +88,9 @@ def EncodeTypeB(inst, rd, rs, immediate):
     return "32'd%d" % (int(inst+rd+rs+immediate, 2),)
 
 def EncodeInst(instruction, line_number):
-    instruction = instruction[:instruction.find("//")].replace(",", " ")
+    if "//" in instruction:
+        instruction = instruction[:instruction.find("//")]
+    instruction = instruction.replace(",", " ")
     instruction = instruction.split()
     if len(instruction) == 0:
         return
@@ -108,7 +110,7 @@ def EncodeInst(instruction, line_number):
         elif op in ("LW", "SW", "ADDI", "SUBI", "ANDI", "ORI", "XORI"):
             return EncodeTypeB(op, RegToNum(instruction[1]), RegToNum(instruction[2]), ImmedToNum(instruction[3]))
         elif op in ("LLI", "LUI", "BEQ", "BNE"):
-            return EncodeTypeB(op, RegToNum(instruction[1]), RegToNum("$0"), ImmedToNum(instruction[3]))
+            return EncodeTypeB(op, RegToNum(instruction[1]), RegToNum("$0"), ImmedToNum(instruction[2]))
         elif op in ("JMP",):
             return EncodeTypeB(op, RegToNum(instruction[1]), RegToNum("$0"), ImmedToNum("0"))
         elif op == "JUMP": #pseudo-instruction
@@ -135,7 +137,7 @@ def Assembler(source):
     for line in source:
         c = EncodeInst(line, line_number)
         if c != None:
-            if type(c) == type("not", "you"):
+            if type(c) == type(("not", "you")):
                 for i in c:
                     code.append(i)
                     line_number += 1
