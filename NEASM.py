@@ -170,6 +170,7 @@ COMMENTBLOCK = '''
 '''
 
 import sys
+from pathlib import Path
 
 if __name__ == "__main__":
     assert len(sys.argv) in (3, 4)
@@ -178,13 +179,15 @@ if __name__ == "__main__":
     #2: src
     #3: output (optional)
     source = ""
-    with open(sys.argv[2]) as f:
+    with open(Path(sys.argv[2])) as f:
         source = f.read()
     code = Assembler(source)
     if sys.argv[1] == "-v":
-        out_dir = sys.argv[2].split(".")[0] + ".v"
+        out_dir = Path(sys.argv[2]).name.split(".")[0] + ".v"
         if len(sys.argv) == 4:
-            out_dir = sys.argv[3]
+            current_dir = Path(Path.cwd())
+            out_dir = current_dir / sys.argv[3]
+        print(out_dir)
         with open(out_dir, "w") as f:
             f.write("`timescale 1ns / 1ps\n")
             f.write(COMMENTBLOCK)
