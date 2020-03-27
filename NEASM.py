@@ -146,6 +146,29 @@ def Assembler(source):
                 line_number += 1
     return code
 
+COMMENTBLOCK = '''
+//////////////////////////////////////////////////////////////////////////////////
+// Company: lirc572
+// Engineer: lirc572
+// 
+// Create Date: 
+// Design Name: NECPU
+// Module Name: InstMem
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+'''
+
 import sys
 
 if __name__ == "__main__":
@@ -163,6 +186,8 @@ if __name__ == "__main__":
         if len(sys.argv) == 4:
             out_dir = sys.argv[3]
         with open(out_dir, "w") as f:
+            f.write("`timescale 1ns / 1ps\n")
+            f.write(COMMENTBLOCK)
             f.write("`define InstBusWidth  32\n")
             f.write("`define InstAddrBus   32\n")
             f.write("module instMem (\n")
