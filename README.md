@@ -1,17 +1,20 @@
 # NECPU-Assembler
 
-- Instructions:
-  - Command line usage:
-    - `NEASM.py [-v/-b] [source_dir] <[targer_dir]>`
-      - -v: full Verilog module output
-      - -b: bin output (not yet implemented)
-  - Empty lines are allowed
-  - immediate must be a valid Python integer literal or expression. Note that immediate must not contain any white space characters even if you put an expression!
-  - immediate will be ealuated with `eval()` without safety checking of any sort, so please don't write anything weird here :>
-  - Comments (starting with '`//`') can be put on an empty line or after a valid instruction
-  - Don't use register 31 because it is reserved for the assembler for pseudo-instructions!
+## Assembler
 
-## Architecture Description
+### How-To
+
+- Command line usage:
+  - `NEASM.py [-v/-b] [source_dir] <[targer_dir]>`
+  - -v: full Verilog module output
+  - -b: bin output (not yet implemented)
+- Empty lines are allowed
+- immediate must be a valid Python integer literal or expression. Note that immediate must not contain any white space characters even if you put an expression!
+- immediate will be ealuated with `eval()` without safety checking of any sort, so please don't write anything weird here :>
+- Comments (starting with '`//`') can be put on an empty line or after a valid instruction
+- Don't use register 31 because it is reserved for the assembler for pseudo-instructions!
+
+### Architecture Description
 
 The **NECPU** is a 32-bit general purpose register architecture processor with the specifications below. Registers `$rs`, `$rt`, and `$rd` are placeholders for actual general purpose registers `$0`, `$1`, `$2`, ..., `$31`, each holding a 32-bit value. `immediate` refers to an immediate value (constant) and `label` refers to label in the instruction corresponding to a specific line in the code. All *immediates* are given as 16-bit unsigned values. Whenever an *immediate* is used as an operand with a register as the other operand, the *immediate* is zero-extended to 32-bit before computation. All *labels* will be converted into actual addresses using direct addressing mode.
 
@@ -19,7 +22,7 @@ The **NECPU** is a 32-bit general purpose register architecture processor with t
 
 Every instruction of **NECPU** takes exactly one clock cycle to complete. Hence, the time taken of a code snippet can easily be calculated.
 
-### Instruction Set
+#### Instruction Set
 
 We will use the following convension to simplify our description:
 
@@ -53,7 +56,7 @@ XOR  `$rd`, `$rs`, `$rt`       | Xor                  | `R[$rd]` = `R[$rs]` ^ `R
 XORi `$rd`, `$rs`, `immediate` | Xor Immediate        | `R[$rd]` = `R[$rs]` ^ `immediate`
 JMP  `$rd`                     | Unconditional Jump   | `PC` = `R[$rd]`
 
-### Instruction Encoding
+#### Instruction Encoding
 
 ![Instruction Encoding](https://github.com/lirc572/NECPU/raw/master/necpu_encoding.png "Instruction Encoding")
 
@@ -87,7 +90,7 @@ Note that the `BEQ` and `BNE` instructions of **NECPU** differ from those of **M
 - **NECPU**'s `BEQ` and `BNE` instructions compare a register's value with an `immediate`, while **MIPS** compares the values of two registers.
 - **NECPU**'s `BEQ` and `BNE` instructions can only skip the next **one** instruction if the condition is satisfied.
 
-## Pseudo-Instructions
+### Pseudo-Instructions
 
 - **JUMP** (unstable)
   - `JUMP [label]`
@@ -99,8 +102,19 @@ Note that the `BEQ` and `BNE` instructions of **NECPU** differ from those of **M
   - `LWI` basically combines `LLI` and `LUI`
   - `immediate` here is a 32-bit constant value (zero-extended)
 
-## To-Do
+### To-Do
 
 - Implement `.data` directive to support preloading data into the ROM.
   - Support loading external files into ROM (in the format of bin or bmp)
 - **LA** (Load Address) pseudo-instruction to load the address of variable defined in the `.data` section
+
+## Disassembler
+
+*The disassembler is for the purpose of debugging only.*
+
+### How-To
+
+- Command line usage:
+  - `NEDISASM.py [verilog_instruction_rom_file_dir]`
+  - The disassembled file `disasmout.asm` will be created in the current directory
+
