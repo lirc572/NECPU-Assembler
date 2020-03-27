@@ -35,8 +35,16 @@ Instructions = {
 import sys
 from pathlib import Path
 
-def allign(ln, maxln):
+def allignNum(ln, maxln):
     return (len(str(maxln)) - len(str(ln))) * " " + str(ln)
+
+def allignOp(op):
+    assert type(op) == type("OP")
+    return op + " " * (4-len(op))
+
+def allignReg(reg):
+    reg = str(int(reg, 2))
+    return "$" + reg + " " * (2-len(reg))
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:
@@ -72,9 +80,9 @@ if __name__ == "__main__":
                 if value == int(op, 2):
                     inst = key
             if inst in ('SLT','SEQ','ADD','SUB','SLL','SRL','AND','OR','INV','XOR'):
-                source.append(allign(line_number, number_of_lines) + " :  " + inst + " " + str(int(rd, 2)) + " " + str(int(rs, 2)) + " " + str(int(rt, 2)) + " " + str(int(func, 2)))
+                source.append(allignNum(line_number, number_of_lines) + " :  " + allignOp(inst) + " " + allignReg(rd) + ", " + allignReg(rs) + ", " + allignReg(rt) + " " + str(int(func, 2)))
             else:
-                source.append(allign(line_number, number_of_lines) + " :  " + inst + " " + str(int(rd, 2)) + " " + str(int(rs, 2)) + " " + str(int(imme, 2)))
+                source.append(allignNum(line_number, number_of_lines) + " :  " + allignOp(inst) + " " + allignReg(rd) + ", " + allignReg(rs) + ", " + str(int(imme, 2)))
             line_number += 1
         current_dir = Path(Path.cwd())
         with open(current_dir / "disasmout.asm", "w") as f:
