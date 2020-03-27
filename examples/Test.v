@@ -19,7 +19,6 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-
 `define InstBusWidth  32
 `define InstAddrBus   32
 module instMem (
@@ -30,17 +29,17 @@ module instMem (
     inst = 32'd0;
     case (address)
       0: inst = 32'd205520897;
-      0: inst = 32'd203423744;
-      0: inst = 32'd203456512;
-      0: inst = 32'd207618049;
-      0: inst = 32'd209715200;
-      0: inst = 32'd1283719168;
-      0: inst = 32'd608311296;
-      0: inst = 32'd545259520;
-      0: inst = 32'd333447168;
-      0: inst = 32'd266338309;
-      0: inst = 32'd1541406720;
-      0: inst = 32'd138477568;
+      1: inst = 32'd203423744;
+      2: inst = 32'd203456512;
+      3: inst = 32'd207618049;
+      4: inst = 32'd209715200;
+      5: inst = 32'd1283719168;
+      6: inst = 32'd608311296;
+      7: inst = 32'd545259520;
+      8: inst = 32'd333447168;
+      9: inst = 32'd266338309;
+      10: inst = 32'd1541406720;
+      11: inst = 32'd138477568;
     endcase
   end
 endmodule

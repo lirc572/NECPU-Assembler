@@ -210,6 +210,7 @@ if __name__ == "__main__":
             line_number = 0
             for line in code:
                 f.write("      %d: inst = " % (line_number,) + line + ";\n")
+                line_number += 1
             f.write("    endcase\n")
             f.write("  end\n")
             f.write("endmodule\n")
