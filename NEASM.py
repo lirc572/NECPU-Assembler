@@ -134,6 +134,8 @@ def EncodeInst(instruction, line_number):
             else:
                 c1 = EncodeTypeB("LUI", RegToNum(instruction[1]), RegToNum("$0"), ImmedToNum("0"))
             return (c1, c2)
+        elif op == "NOP":
+            return "32'd0"
         else:
             raise ValueError("Unknown instruction: '" + op + "'")
 
