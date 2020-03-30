@@ -5,7 +5,7 @@ LOOP:
         INV  $1, $1                 //invert led output
         SW   $1, $0, 0              //Store to actual led reg
 
-        LWI  $2, 0b100000000 //24bit... around 
+        LWI  $2, 0b100000000000000000000000 //24bit... around 
 Delay:
         SUBI $2, $2, 1
         BEQ  $2, 0

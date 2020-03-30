@@ -97,6 +97,11 @@ Note that the `BEQ` and `BNE` instructions of **NECPU** differ from those of **M
   - `JUMP` instruction complements the native `JMP` instruction by accepting a label instead of a raw memory address. It simplifies the programming experience.
   - To create a label, put `[label]:` before the instruction you want to jump to. The label can be any valid string.
   - **Currently JUMP pseudo-instruction only supports jumping backwards (to a line that the assembler has already processed at the point)**
+  - A `JUMP` pseudo-instruction is translated to the following 3 instructions:
+    - `LUI $31 [Upper half of label's address]`
+    - `LLI $31 [Lower half of label's address]`
+    - `JMP $31`
+  - Note that when a `JUMP` pseudo-instruction is placed right after a branch instruction, the first two LI instructions will be put before the branch instruction so that the branch instruction can choose whether to skip the `JMP` instruction or not.
 - **LWI** - Load Word Immediate
   - `LWI $rd, immediate`
   - `LWI` basically combines `LLI` and `LUI`
