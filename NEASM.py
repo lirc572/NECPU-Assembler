@@ -98,7 +98,8 @@ def EncodeInst(instruction, line_number):
     if ":" in op:
         labels[op[:-1]] = line_number
         instruction = instruction[1:]
-        op = instruction[0]
+        if len(instruction) > 0:
+            op = instruction[0]
     if len(instruction) == 0:
         return
     else:
@@ -128,9 +129,9 @@ def EncodeInst(instruction, line_number):
                 raise ValueError("Label '" + label + "' not found!")
         elif op == "LWI": #LOAD WORD IMMEDIATE
             c1 = ""
-            c2 = EncodeTypeB("LLI", RegToNum(instruction[1]), RegToNum("$0"), bin(instruction[2])[2:][-16:])
-            if len(bin(instruction[2])) > 18:
-                c1 = EncodeTypeB("LUI", RegToNum(instruction[1]), RegToNum("$0"), bin(instruction[2])[2:][:-16])
+            c2 = EncodeTypeB("LLI", RegToNum(instruction[1]), RegToNum("$0"), bin(ImmedToNum(instruction[2]))[2:][-16:])
+            if len(bin(ImmedToNum(instruction[2]))) > 18:
+                c1 = EncodeTypeB("LUI", RegToNum(instruction[1]), RegToNum("$0"), bin(ImmedToNum(instruction[2]))[2:][:-16])
             else:
                 c1 = EncodeTypeB("LUI", RegToNum(instruction[1]), RegToNum("$0"), ImmedToNum("0"))
             return (c1, c2)
