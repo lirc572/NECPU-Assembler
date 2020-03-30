@@ -201,11 +201,9 @@ if __name__ == "__main__":
         with open(out_dir, "w") as f:
             f.write("`timescale 1ns / 1ps\n")
             f.write(COMMENTBLOCK)
-            f.write("`define InstBusWidth  32\n")
-            f.write("`define InstAddrBus   32\n")
             f.write("module instMem (\n")
-            f.write("    input  [`InstAddrBus-1:0]  address,\n")
-            f.write("    output reg [`InstBusWidth-1:0] inst\n")
+            f.write("    input  [31:0]  address,\n")
+            f.write("    output reg [31:0] inst\n")
             f.write("  );\n")
             f.write("  always @ (address) begin\n")
             f.write("    inst = 32'd0;\n")
