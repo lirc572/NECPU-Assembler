@@ -54,6 +54,19 @@ Instructions = {
 
 labels = {}
 
+def disassemble(code):
+    bincode = bin(int(code[4:]))[2:]
+    bincode = "0"*(32-len(bincode))+bincode
+    op=bincode[:6]
+    rd=bincode[6:11]
+    rs=bincode[11:16]
+    rt=bincode[16:21]
+    func=bincode[21:]
+    for k, v in Instructions.items():
+        if v==int(op,2):
+            return "%s $%d $%d $%d %d" % (k, int(rd,2), int(rs,2), int(rt,2), int(func,2))
+
+
 def ZeroExtend(num, width):
     if type(num) == type(520):
         num = bin(num)[2:]
@@ -149,9 +162,17 @@ def Assembler(source):
         c = EncodeInst(line, line_number)
         if c != None:
             if type(c) == type(("not", "you")):
-                for i in c:
-                    code.append(i)
-                    line_number += 1
+                if len(code) != 0 and len(c) == 3 and disassemble(c[2])[0] == "J" and disassemble(code[-1])[0] == "B":
+                    tmp = code[-1]
+                    code = code[:-1]
+                    for i in c:
+                        code.append(i)
+                        line_number += 1
+                    code = code[:-1] + [tmp] + [code[-1]]
+                else:
+                    for i in c:
+                        code.append(i)
+                        line_number += 1
             else:
                 code.append(c)
                 line_number += 1
