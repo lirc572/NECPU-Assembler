@@ -1,9 +1,4 @@
-*
-!.gitignore
-!NEASM.py
-!NEDISASM.py
-!README.md
-!examples/
-!examples/*
-!utils/
-!utils/*
+/.spyproject
+/assets
+/bitmaps
+/dist
