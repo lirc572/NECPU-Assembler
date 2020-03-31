@@ -54,6 +54,8 @@ Instructions = {
 
 labels = {}
 
+forward_jumps = []
+
 def disassemble(code):
     bincode = bin(int(code[4:]))[2:]
     bincode = "0"*(32-len(bincode))+bincode
@@ -65,7 +67,6 @@ def disassemble(code):
     for k, v in Instructions.items():
         if v==int(op,2):
             return "%s $%d $%d $%d %d" % (k, int(rd,2), int(rs,2), int(rt,2), int(func,2))
-
 
 def ZeroExtend(num, width):
     if type(num) == type(520):
@@ -139,7 +140,12 @@ def EncodeInst(instruction, line_number):
                 c3 = EncodeTypeB("JMP", RegToNum("$31"), RegToNum("$0"), ImmedToNum("0"))
                 return (c1, c2, c3)
             else:
-                raise ValueError("Label '" + label + "' not found!")
+                c1 = EncodeTypeB("LUI", RegToNum("$31"), RegToNum("$0"), 65535)
+                c2 = EncodeTypeB("LLI", RegToNum("$31"), RegToNum("$0"), 65535)
+                c3 = EncodeTypeB("JMP", RegToNum("$31"), RegToNum("$0"), ImmedToNum("0"))
+                forward_jumps.append((line_number, label))
+                return (c1, c2, c3)
+                #raise ValueError("Label '" + label + "' not found!")
         elif op == "LWI": #LOAD WORD IMMEDIATE
             c1 = ""
             c2 = EncodeTypeB("LLI", RegToNum(instruction[1]), RegToNum("$0"), bin(ImmedToNum(instruction[2]))[2:][-16:])
@@ -176,6 +182,15 @@ def Assembler(source):
             else:
                 code.append(c)
                 line_number += 1
+    for j in forward_jumps:
+        if j[1] in labels:
+            if len(bin(labels[j[1]])) > 18:
+                code[j[0]] = EncodeTypeB("LUI", RegToNum("$31"), RegToNum("$0"), bin(labels[j[1]])[2:][:-16])
+            else:
+                code[j[0]] = EncodeTypeB("LUI", RegToNum("$31"), RegToNum("$0"), ImmedToNum("0"))
+            code[j[0]+1] = EncodeTypeB("LLI", RegToNum("$31"), RegToNum("$0"), bin(labels[j[1]])[2:][-16:])
+        else:
+            raise ValueError("Label '" + j[1] + "' not found!")
     return code
 
 COMMENTBLOCK = '''
