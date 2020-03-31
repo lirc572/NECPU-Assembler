@@ -90,7 +90,7 @@ def RegToNum(reg):
     assert reg[0] == "$"
     return int(reg[1:])
 
-def ImmedToNum(imme):
+def ImmedToNum(imme, LINE_NUMBER = 0):
     assert type(imme) == type("1314")
     return eval(imme)
 
@@ -123,9 +123,9 @@ def EncodeInst(instruction, line_number):
         elif op in ("INV",):
             return EncodeTypeA(op, RegToNum(instruction[1]), RegToNum(instruction[2]), RegToNum("$0"), 0)
         elif op in ("LW", "SW", "ADDI", "SUBI", "ANDI", "ORI", "XORI"):
-            return EncodeTypeB(op, RegToNum(instruction[1]), RegToNum(instruction[2]), ImmedToNum(instruction[3]))
+            return EncodeTypeB(op, RegToNum(instruction[1]), RegToNum(instruction[2]), ImmedToNum(instruction[3], line_number))
         elif op in ("LLI", "LUI", "BEQ", "BNE"):
-            return EncodeTypeB(op, RegToNum(instruction[1]), RegToNum("$0"), ImmedToNum(instruction[2]))
+            return EncodeTypeB(op, RegToNum(instruction[1]), RegToNum("$0"), ImmedToNum(instruction[2], line_number))
         elif op in ("JMP",):
             return EncodeTypeB(op, RegToNum(instruction[1]), RegToNum("$0"), ImmedToNum("0"))
         elif op == "JUMP": #pseudo-instruction
@@ -148,9 +148,9 @@ def EncodeInst(instruction, line_number):
                 #raise ValueError("Label '" + label + "' not found!")
         elif op == "LWI": #LOAD WORD IMMEDIATE
             c1 = ""
-            c2 = EncodeTypeB("LLI", RegToNum(instruction[1]), RegToNum("$0"), bin(ImmedToNum(instruction[2]))[2:][-16:])
-            if len(bin(ImmedToNum(instruction[2]))) > 18:
-                c1 = EncodeTypeB("LUI", RegToNum(instruction[1]), RegToNum("$0"), bin(ImmedToNum(instruction[2]))[2:][:-16])
+            c2 = EncodeTypeB("LLI", RegToNum(instruction[1]), RegToNum("$0"), bin(ImmedToNum(instruction[2], line_number))[2:][-16:])
+            if len(bin(ImmedToNum(instruction[2], line_number))) > 18:
+                c1 = EncodeTypeB("LUI", RegToNum(instruction[1]), RegToNum("$0"), bin(ImmedToNum(instruction[2], line_number))[2:][:-16])
             else:
                 c1 = EncodeTypeB("LUI", RegToNum(instruction[1]), RegToNum("$0"), ImmedToNum("0"))
             return (c1, c2)
