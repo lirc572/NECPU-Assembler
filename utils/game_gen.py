@@ -56,30 +56,32 @@ def delayFunc():
         delayGenerator.number += 1
         delcounter = int(sec * freq / 6)
         return "    LWi $30, %d\nDELAY%d:\n    SUBi $30, $30, 1\n    BEQ $30, 0\n    JUMP DELAY%d\n" % (delcounter, delayGenerator.number, delayGenerator.number)
-    delay.number = 0
+    delayGenerator.number = 0
     return delayGenerator
 
 # Load bitmaps (converted using convert.py):
 images = {}
-with open("bitmap/start.bitmap") as bmp:
+with open("../bitmaps/start.bitmap") as bmp:
     images["start"] = bmp.readlines()
-with open("bitmaps/start_word.bitmap") as bmp:
+with open("../bitmaps/start_word.bitmap") as bmp:
     images["word"] = bmp.readlines()
-with open("bitmaps/start_menu.bitmap") as bmp:
+with open("../bitmaps/start_menu.bitmap") as bmp:
     images["menu"] = bmp.readlines()
-with open("bitmaps/map.bitmap") as bmp:
+'''
+with open("../bitmaps/map.bitmap") as bmp:
     images["map"] = bmp.readlines()
-with open("bitmaps/char.bitmap") as bmp:
+'''
+with open("../bitmaps/char.bitmap") as bmp:
     images["char"] = bmp.readlines()
-with open("bitmaps/enemy.bitmap") as bmp:
+with open("../bitmaps/enemy.bitmap") as bmp:
     images["enemy"] = bmp.readlines()
-with open("bitmaps/char_gg.bitmap") as bmp:
+with open("../bitmaps/char_gg.bitmap") as bmp:
     images["chargg"] = bmp.readlines()
-with open("bitmaps/bo_arrow.bitmap") as bmp:
+with open("../bitmaps/bo_arrow.bitmap") as bmp:
     images["bo_arrow"] = bmp.readlines()
-with open("bitmaps/bo_tail1.bitmap") as bmp:
+with open("../bitmaps/bo_tail1.bitmap") as bmp:
     images["bo_tail1"] = bmp.readlines()
-with open("bitmaps/bo_tail2.bitmap") as bmp:
+with open("../bitmaps/bo_tail2.bitmap") as bmp:
     images["bo_tail2"] = bmp.readlines()
 
 ram_addr = 0;
@@ -90,10 +92,10 @@ ram_data = []
 for img in images:
     img_addrs[img] = ram_addr;
     while (len(images[img]) > 1):
-        ram_data.append(eval(images[img][1])<<16+eval(img[0])) #RAM: [{img[1], img[0]}, {img[3], img[2]}, ...]
+        ram_data.append((eval(images[img][1])<<16)+(eval(images[img][0]))) #RAM: [{img[1], img[0]}, {img[3], img[2]}, ...]
         ram_addr += 1
         images[img] = images[img][2:]
-    if len(images[img] == 1):
+    if len(images[img]) == 1:
         ram_data.append(eval(images[img][0]))                  #If odd number of pixels, last memory addr holds one pix at lower half
         ram_addr += 1
 
@@ -113,7 +115,7 @@ GAMECODE = '''
 START:
 
 //display start screen
-    LWI  $31, ''' + img_addrs['start'] + ''' //Load starting address of start image      to $31
+    LWI  $31, ''' + str(img_addrs['start']) + ''' //Load starting address of start image      to $31
     ADDi $31, $31, 1                         //Add 1 to skip picture size data
     LWI  $30, 2147500000                     //Load starting address of oled framebuffer to $30
     LWI  $29, 3072                           //Repeats left                              at $29
@@ -134,9 +136,9 @@ LOADSTART:
 ''' + DELAY(0.5, CPU_FREQ) + '''
 
 //display start words
-($0 = return_address, $1 = img_mem_addr, $2 = {x_start, y_start}
+//($0 = return_address, $1 = img_mem_addr, $2 = {x_start, y_start}
     LWI  $0, LINE_NUMBER
-    LWI  $1, ''' + img_addrs['word'] + '''
+    LWI  $1, ''' + str(img_addrs['word']) + '''
     LWI  $2, 720911                          //(11, 15)
     JUMP DISPLAYIMG
 
@@ -157,8 +159,9 @@ LOADSTART:
 ''' + DELAY(2, CPU_FREQ) + '''
 
 //display instructions
+//($0 = return_address, $1 = img_mem_addr, $2 = {x_start, y_start}
     LWI  $0, LINE_NUMBER
-    LWI  $1, ''' + img_addrs['menu'] + '''
+    LWI  $1, ''' + str(img_addrs['menu']) + '''
     LWI  $2, 262150                          //(4, 6)
     JUMP DISPLAYIMG
 
