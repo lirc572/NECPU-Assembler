@@ -182,6 +182,7 @@ SHOWINGMENU:
 //load monsters
 %s
 
+//game logic
 
 
 //FUNCTIONS:
