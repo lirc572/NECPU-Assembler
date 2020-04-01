@@ -276,3 +276,10 @@ DISPENDL:
 
 
 '''
+
+
+with open("GameRAM.v", "w") as gr:
+    gr.write(RAM_CODE)
+
+with open("Game.asm", "w") as src:
+    src.write(GAMECODE)
