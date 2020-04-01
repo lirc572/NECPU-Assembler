@@ -193,6 +193,12 @@ def Assembler(source):
             raise ValueError("Label '" + j[1] + "' not found!")
     return code
 
+def dec2hex(dec):
+    if dec[3] == 'd':
+        return dec[:3] + 'h' + hex(int(dec[4:]))[2:]
+    else:
+        return dec
+
 COMMENTBLOCK = '''
 //////////////////////////////////////////////////////////////////////////////////
 // Company: lirc572
@@ -246,7 +252,7 @@ if __name__ == "__main__":
             f.write("    case (address)\n")
             line_number = 0
             for line in code:
-                f.write("      %d: inst = " % (line_number,) + line + ";\n")
+                f.write("      %d: inst = " % (line_number,) + dec2hex(line) + ";\n")
                 line_number += 1
             f.write("    endcase\n")
             f.write("  end\n")
