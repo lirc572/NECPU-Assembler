@@ -35,17 +35,17 @@ module RAM(
     input  write
     );
     
-    reg [31:0] memory [0:65535];
+    reg [31:0] memory [0:32767];
     
     initial begin
-        %s
+%s
     end
     
     always @ (negedge clk) begin //negedge!!!
         if (read)
-            data_out <= memory[address[15:0]];
+            data_out <= memory[address[14:0]];
         else if (write)
-            memory[address[15:0]] <= data_in;
+            memory[address[14:0]] <= data_in;
     end
     
 endmodule
@@ -100,9 +100,10 @@ for img in images:
         ram_addr += 1
 
 RAM_DATA_STR = ""
+ram_addr = 0
 for dt in ram_data:
-    ram_addr = 0
-    RAM_DATA_STR += "        memory[%d] <= 16'd%d;\n" % (ram_addr, dt)
+    RAM_DATA_STR += "        memory[%d] = 32'h%s;\n" % (ram_addr, hex(dt)[2:])
+    ram_addr += 1
 
 # Full verilog code for ram module
 RAM_CODE = RAM_CODE % (RAM_DATA_STR,)
@@ -177,13 +178,13 @@ SHOWINGMENU:
     JUMP SHOWINGMENU
 
 //load game screen
-%s
+
 
 //load char
-%s
+
 
 //load monsters
-%s
+
 
 //game logic
 
@@ -222,9 +223,9 @@ DISPMUL0DONE:
     ANDi $19, $19, 0                         //clear $19
 DISPHOR:                       //new line
     BNE  $21, 64
-    JUMP $0                    //last line of oled reached, return
+    JMP $0                     //last line of oled reached, return
     BNE  $6, 0
-    JUMP $0                    //last line of img reached, return
+    JMP $0                     //last line of img reached, return
     SRL  $7,  $2,  $20                       //x_coord                                   at $7
     BEQ  $19, 0
     JUMP DISPONEFROMLAST
