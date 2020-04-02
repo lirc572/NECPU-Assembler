@@ -32,7 +32,7 @@ Instructions = {
     "SW"   : 2,
     "LLI"  : 3,
     "LUI"  : 4,
-    "SLI"  : 5,
+    "SLT"  : 5,
     "SEQ"  : 6,
     "BEQ"  : 7,
     "BNE"  : 8,

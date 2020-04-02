@@ -41,6 +41,8 @@ GAMECODE += Functions.DISPCHAR
 GAMECODE += Functions.CHECKVOLUME
 GAMECODE += Functions.DISPMAP
 GAMECODE += Functions.GETMAPCOLOR
+GAMECODE += Functions.DIVISION
+GAMECODE += Functions.MODULUS
 
 with open("Game.asm", "w") as src:
     src.write(GAMECODE)

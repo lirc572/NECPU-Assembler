@@ -12,7 +12,10 @@ ABOUT = '''
 #   GETMAPCOLOR ($3: x_coord, $4: y_coord, $5: return_addr)
 #       return: ($6: color)
 #   DISPENEMY   ($0: return_addr, $1: enemy_x_rel_map, $2: enemy_y_rel_map)
-
+#   DIVISION    ($9: return_addr, $10: A, $11: B)
+#       return: ($12: C)
+#   MODULUS     ($9: return_addr, $10: A, $11: B)
+#       return  ($12: C)
 '''
 
 CPU_FREQ = 100000000
@@ -205,24 +208,45 @@ MAPSCALEEXP = 4 # coord>>4
 MAPX = int(images["map"][0])
 MAPY = int(images["map"][1])
 addr = -1
-for addr in range(OLEDX*OLEDY):
-    oled_x   = addr %  OLEDX
-    oled_y   = addr // OLEDX
-    x_offset = oled_x - OLEDX//2
-    y_offset = oled_y - OLEDY//2
-    inst  = ""
-    inst += "    LWI  $5, %d\n" % (x_offset % 2**32,) #x_coord on big map //offset in 2's complement
-    inst  = "    ADD  $3, $1, $5\n"                                              #follow above
-    inst += "    LWI  $5, %d\n" % (y_offset % 2**32,) #y_coord on big map //offset in 2's complement
-    inst += "    ADD  $4, $2, $5\n"                                              #follow above
-    inst += "    LWI  $5, %d\n" % (MAPSCALEEXP,)     #scale factor as power of 2
-    inst += "    SRL  $3, $3, $5\n"                  #x_coord on small map
-    inst += "    SRL  $4, $4, $5\n"                  #y_coord on small map
-    inst += "    LWI  $5, LINE_NUMBER+5\n"           #return_addr for GETMAPCOLOR
-    inst += "    JUMP GETMAPCOLOR"
-    inst += "    LWI  $5, %d\n" % (2147500000+addr,) #pix addr in memory
-    inst += "    SW   $6, $5, 0\n"                   #Draw pixel
-    DISPMAP += inst
+DISPMAP += "    LWI  $10, 0\n"
+#for addr in range(OLEDX*OLEDY):
+    #x_offset = addr % OLEDX - OLEDX//2
+    #y_offset = addr // OLEDX - OLEDY//2
+    #inst  = ""
+    #inst += "    LWI  $5, %d\n" % (x_offset % 2**32,) #x_coord on big map //offset in 2's complement
+    #inst += "    ADD  $3, $1, $5\n"                                              #follow above
+    #inst += "    LWI  $5, %d\n" % (y_offset % 2**32,) #y_coord on big map //offset in 2's complement
+    #inst += "    ADD  $4, $2, $5\n"                                              #follow above
+inst  = "DISPMAPLOOP:\n"
+inst += "    LWI  $11, %d\n" % (OLEDX,)
+inst += "    LWI  $9,  LINE_NUMBER+5\n"
+inst += "    JUMP MODULUS\n"
+inst += "    ADDi $15, $12, 0\n"
+inst += "    LWI  $16, %d\n" % (OLEDX,)
+inst += "    LWI  $17, 1\n"
+inst += "    SRL  $16, $16, $17\n"
+inst += "    SUB  $15, $15, $16\n"               #x_offset
+inst += "    LWI  $9,  LINE_NUMBER+5\n"
+inst += "    JUMP DIVISION\n"
+inst += "    ADDi $16, $12, 0\n"
+inst += "    LWI  $17, %d\n" % (OLEDY,)
+inst += "    LWI  $18, 1\n"
+inst += "    SRL  $17, $17, $18\n"
+inst += "    SUB  $16, $16, $17\n"               #y_offset
+inst += "    ADDi $10, $10, 1\n"                 #increment addr
+inst += "    ADD  $3,  $1,  $15\n"
+inst += "    ADD  $4,  $2,  $16\n"
+inst += "    LWI  $5, %d\n" % (MAPSCALEEXP,)     #scale factor as power of 2
+inst += "    SRL  $3, $3, $5\n"                  #x_coord on small map
+inst += "    SRL  $4, $4, $5\n"                  #y_coord on small map
+inst += "    LWI  $5, LINE_NUMBER+5\n"           #return_addr for GETMAPCOLOR
+inst += "    JUMP GETMAPCOLOR"
+inst += "    LWI  $5, %d\n" % (2147500000+addr,) #pix addr in memory
+inst += "    SW   $6, $5, 0\n"                   #Draw pixel
+inst += "    BNE  $10, %d\n" % (OLEDX*OLEDY,)
+inst += "    JUMP DISPMAPLOOP\n"
+inst += "    JMP  $0\n"
+DISPMAP += inst
 
 GETMAPCOLOR = "GETMAPCOLOR:\n"
 imgaddr = -1
@@ -296,6 +320,40 @@ CHECKVOLUME:
     BEQ  $2, 15
     JMP  $0
     JMP  $1
+'''
+
+#a//b = c
+#return_addr: $9
+#a: $10, b: $11, c: $12
+DIVISION = '''
+DIVISION:
+    LWI  $12, 0
+    LWI  $13, 0
+DIVISIONLOOP:
+    ADD  $13, $13, $11
+    SLT  $14, $10, $13
+    BNE  $14, 1
+    JMP  $9
+    ADDi $12, $12, 1
+    JUMP DIVISIONLOOP
+'''
+
+#a%b = c
+#return_addr: $9
+#a: $10, b: $11, c: $12
+MODULUS = '''
+MODULUS:
+    LWI  $12, 0
+MODULUSLOOP:
+    ADD $12, $12, $11
+    SLT $13, $10, $12
+    BNE $13, 1
+    JUMP MODULUSFIN
+    JUMP MODULUSLOOP
+MODULUSFIN:
+    SUB  $12, $12, $11
+    SUB  $12, $10, $12
+    JMP  $9
 '''
 
 del i
