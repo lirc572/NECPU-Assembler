@@ -210,8 +210,11 @@ for addr in range(OLEDX*OLEDY):
     oled_y   = addr // OLEDX
     x_offset = oled_x - OLEDX//2
     y_offset = oled_y - OLEDY//2
-    inst  = "    ADDi $3, $1, %d\n" % (x_offset if x_offset>=0 else 2**32-x_offset,)    #x_coord on big map //offset in 2's complement
-    inst += "    ADDi $4, $2, %d\n" % (y_offset if y_offset>=0 else 2**32-y_offset,)    #y_coord on big map //offset in 2's complement
+    inst  = ""
+    inst += "    LWI  $5, %d\n" % (x_offset % 2**32,) #x_coord on big map //offset in 2's complement
+    inst  = "    ADD  $3, $1, $5\n"                                              #follow above
+    inst += "    LWI  $5, %d\n" % (y_offset % 2**32,) #y_coord on big map //offset in 2's complement
+    inst += "    ADD  $4, $2, $5\n"                                              #follow above
     inst += "    LWI  $5, %d\n" % (MAPSCALEEXP,)     #scale factor as power of 2
     inst += "    SRL  $3, $3, $5\n"                  #x_coord on small map
     inst += "    SRL  $4, $4, $5\n"                  #y_coord on small map
