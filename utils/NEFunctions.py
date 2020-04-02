@@ -212,7 +212,7 @@ for addr in range(OLEDX*OLEDY):
     y_offset = oled_y - OLEDY//2
     inst  = "    ADDi $3, $1, %d\n" % (x_offset if x_offset>=0 else 2**32-x_offset,)    #x_coord on big map //offset in 2's complement
     inst += "    ADDi $4, $2, %d\n" % (y_offset if y_offset>=0 else 2**32-y_offset,)    #y_coord on big map //offset in 2's complement
-    inst += "    LWI  $5, %d\n" (MAPSCALEEXP)        #scale factor as power of 2
+    inst += "    LWI  $5, %d\n" % (MAPSCALEEXP,)     #scale factor as power of 2
     inst += "    SRL  $3, $3, $5\n"                  #x_coord on small map
     inst += "    SRL  $4, $4, $5\n"                  #y_coord on small map
     inst += "    LWI  $5, LINE_NUMBER+5\n"           #return_addr for GETMAPCOLOR
@@ -221,21 +221,22 @@ for addr in range(OLEDX*OLEDY):
     inst += "    SW   $6, $5, 0\n"                   #Draw pixel
     DISPMAP += inst
 
-GETGAMECOLOR = "GETGAMECOLOR:\n"
+GETMAPCOLOR = "GETMAPCOLOR:\n"
 imgaddr = -1
 for i in range(MAPX):
     inst  = "    BNE  $3, %d\n" % (i,)
     inst += "    JUMP MAPX%d" % (i,)
-    GETGAMECOLOR += inst
-GETGAMECOLOR += "    LWI  $6, 0\n    JMP  $5\n" #Return black if x out of range
+    GETMAPCOLOR += inst
+GETMAPCOLOR += "    LWI  $6, 0\n    JMP  $5\n" #Return black if x out of range
 for i in range(MAPX):
     inst  = "MAPX%d:\n" % (i,)
     for j in range(MAPY):
         inst += "    BNE  $4, %d\n" % (j,)
         inst += "    LWI  $6, %s" % (images["map"][2+j*MAPX+i],)
-    GETGAMECOLOR += inst
-GETGAMECOLOR += "    JMP  $5\n"
+    GETMAPCOLOR += inst
+GETMAPCOLOR += "    JMP  $5\n"
 
+'''
 DISPENEMY = "DISPENEMY:\n"
 ENEMYX = int(images["enemy"][0])
 ENEMYY = int(images["enemy"][1])
@@ -258,6 +259,7 @@ DISPENEMY += "    JMP $0\n"
 del ENEMY
 del ENEMYX
 del ENEMYY
+'''
 
 DISPBO = "DISPBO:\n"
 
