@@ -20,7 +20,7 @@ def rgb16b(fmt, rgb):
     b = "0"*(5-len(b)) + b
     if len(r+b+g)>16:
         print(r, g, b)
-    return "0b" + r+g+b
+    return "0b" + ("0" * (16-len(r+g+b))) + (r + g + b)
 
 if __name__ == '__main__':
     img = Image.open(sys.argv[-2])

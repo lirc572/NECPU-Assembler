@@ -62,7 +62,13 @@ if __name__ == "__main__":
         for i in range(len(code)):
             if "//" in code[i]:
                 code[i] = code[i][:code[i].find("//")]
-            code[i] = bin(int(code[i].split("'")[-1][1:-1]))[2:]
+            radix = code[i].split("'")[-1][0]
+            if radix == 'd':
+                code[i] = bin(int(code[i].split("'")[-1][1:-1]))[2:]
+            elif radix == 'h':
+                code[i] = bin(int(code[i].split("'")[-1][1:-1], 16))[2:]
+            else:
+                raise Exception("Unknown radix %s" % (radix,))
             if len(code[i]) < 32:
                 code[i] = "0" * (32 - len(code[i])) + code[i]
         source = []
