@@ -8,6 +8,11 @@ ABOUT = '''
 #   DISPCHAR    ($0: return_addr, $1: state)
 #   CHECKVOLUME ($0: inst_addr if volume != 15, $1: inst_addr if volume == 15)
 #   BLINK       (infinite loop, no input)
+#   DISPMAP     ($0: return_addr, $1: centre_x, $2: centre_y)
+#   GETMAPCOLOR ($3: x_coord, $4: y_coord, $5: return_addr)
+#       return: ($6: color)
+#   DISPENEMY   ($0: return_addr, $1: enemy_x_rel_map, $2: enemy_y_rel_map)
+
 '''
 
 CPU_FREQ = 100000000
@@ -60,11 +65,11 @@ for i in START:
 DISPSTART += "    JMP $0\n"
 del START
 
+DISPWORD = "DISPWORD:\n"
 WORDX = int(images["word"][0])
 WORDY = int(images["word"][1])
 WORDSTARTX = (OLEDX-WORDX)//2
 WORDSTARTY = (OLEDY-WORDY)//2
-DISPWORD = "DISPWORD:\n"
 WORD = {}
 addr = -1
 for pix in images["word"][2:]:
@@ -87,11 +92,11 @@ del WORDSTARTY
 del WORDX
 del WORDY
 
+DISPMENU = "DISPMENU:\n"
 MENUX = int(images["menu"][0])
 MENUY = int(images["menu"][1])
 MENUSTARTX = (OLEDX-MENUX)//2
 MENUSTARTY = (OLEDY-MENUY)//2
-DISPMENU = "DISPMENU:\n"
 MENU = {}
 addr = -1
 for pix in images["menu"][2:]:
@@ -115,11 +120,11 @@ del MENUX
 del MENUY
 
 #state: $1
-CHARX = int(images["char"][0])
-CHARY = int(images["char"][1])
+DISPCHAR = "DISPCHAR:\n"
+CHARX = int(images["chargg"][0])
+CHARY = int(images["chargg"][1])
 CHARSTARTX = (OLEDX-CHARX)//2
 CHARSTARTY = (OLEDY-CHARY)//2
-DISPCHAR = "DISPCHAR:\n"
 CHAR = {}
 addr = -1
 for pix in images["char"][2:]:
@@ -193,11 +198,69 @@ del CHAR
 del CHARX
 del CHARY
 
+#centre_x: $1, centre_y: $2
+#top_left_x: $1, top_left_y: $2
+DISPMAP = "DISPMAP:\n"
+MAPSCALEEXP = 4 # coord>>4
+MAPX = int(images["map"][0])
+MAPY = int(images["map"][1])
+addr = -1
+for addr in range(OLEDX*OLEDY):
+    oled_x   = addr %  OLEDX
+    oled_y   = addr // OLEDX
+    x_offset = oled_x - OLEDX//2
+    y_offset = oled_y - OLEDY//2
+    inst  = "    ADDi $3, $1, %d\n" % (x_offset if x_offset>=0 else 2**32-x_offset,)    #x_coord on big map //offset in 2's complement
+    inst += "    ADDi $4, $2, %d\n" % (y_offset if y_offset>=0 else 2**32-y_offset,)    #y_coord on big map //offset in 2's complement
+    inst += "    LWI  $5, %d\n" (MAPSCALEEXP)        #scale factor as power of 2
+    inst += "    SRL  $3, $3, $5\n"                  #x_coord on small map
+    inst += "    SRL  $4, $4, $5\n"                  #y_coord on small map
+    inst += "    LWI  $5, LINE_NUMBER+5\n"           #return_addr for GETMAPCOLOR
+    inst += "    JUMP GETMAPCOLOR"
+    inst += "    LWI  $5, %d\n" % (2147500000+addr,) #pix addr in memory
+    inst += "    SW   $6, $5, 0\n"                   #Draw pixel
+    DISPMAP += inst
+
+GETGAMECOLOR = "GETGAMECOLOR:\n"
+imgaddr = -1
+for i in range(MAPX):
+    inst  = "    BNE  $3, %d\n" % (i,)
+    inst += "    JUMP MAPX%d" % (i,)
+    GETGAMECOLOR += inst
+GETGAMECOLOR += "    LWI  $6, 0\n    JMP  $5\n" #Return black if x out of range
+for i in range(MAPX):
+    inst  = "MAPX%d:\n" % (i,)
+    for j in range(MAPY):
+        inst += "    BNE  $4, %d\n" % (j,)
+        inst += "    LWI  $6, %s" % (images["map"][2+j*MAPX+i],)
+    GETGAMECOLOR += inst
+GETGAMECOLOR += "    JMP  $5\n"
+
 DISPENEMY = "DISPENEMY:\n"
+ENEMYX = int(images["enemy"][0])
+ENEMYY = int(images["enemy"][1])
+ENEMY = {}
+addr = -1
+for pix in images["enemy"][2:]:
+    addr += 1
+    if eval(pix) != 0:
+        if pix in ENEMY:
+            ENEMY[pix].append(addr)
+        else:
+            ENEMY[pix] = [addr]
+for i in ENEMY:
+    inst = "    LLI  $1, %s" % (i,)
+    for j in ENEMY[i]:
+        inst += "    LWI  $2, %d\n" % ((2147500000+WORDSTARTY*OLEDX+WORDSTARTX) + j//WORDX*OLEDX+j%WORDX,)
+        inst += "    SW   $1, $2, 0\n"
+    DISPENEMY += inst
+DISPENEMY += "    JMP $0\n"
+del ENEMY
+del ENEMYX
+del ENEMYY
 
 DISPBO = "DISPBO:\n"
 
-DISPMAP = "DISPMAP:\n"
 
 
 BLINK = '''
