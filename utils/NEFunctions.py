@@ -6,6 +6,7 @@ ABOUT = '''
 #   DISPWORD    ($0: return_addr)
 #   DISPMENU    ($0: return_addr)
 #   DISPCHAR    ($0: return_addr, $1: state)
+#       state: 0: gg, 1: left1, 2: left2, 3: right1, 4: right2
 #   CHECKVOLUME ($0: inst_addr if volume != 15, $1: inst_addr if volume == 15)
 #   BLINK       (infinite loop, no input)
 #   DISPMAP     ($0: return_addr, $1: centre_x, $2: centre_y)
@@ -305,13 +306,6 @@ del ENEMYY
 
 DISPBO = "DISPBO:\n"
 
-#$1: top_left_coord({[15:0] x, [15:0] y})
-#$2: color
-#$3: stroke_size (inward, in pixels) //make use of this param to draw filled rect :>
-DRAWRECT = '''DRAWRECT:
-
-    JMP  $0
-'''
 
 #$1: top_left_coord({[15:0] x, [15:0] y})
 #$2: color
@@ -798,17 +792,17 @@ DISPCHDRAW:
     LWI  $5, 2147500000
     LWI  $6, 16
     SLL  $7, $1, $6
-    SRL  $7, $7, $6            //y_coord of tl
-    SRL  $6, $1, $6            //x_coord of tl
-    LWI  $19, %d               //OLEDX
-    LWI  $20, %d               //OLEDY
-    ADDi $13, $7, 0            //$13 = y_coord
+    SRL  $7, $7, $6                  //y_coord of tl
+    SRL  $6, $1, $6                  //x_coord of tl
+    LWI  $19, ''' + str(OLEDX) + ''' //OLEDX
+    LWI  $20, ''' + str(OLEDY) + ''' //OLEDY
+    ADDi $13, $7, 0                  //$13 = y_coord
 DISPCHLINLOOP:
-    BNE  $13, 5                //y_coord==5 -> out of bound
+    BNE  $13, 5                      //y_coord==5 -> out of bound
     JUMP DISPCHENDL
-    ADDi $14, $6, 0            //$8 = x_coord
+    ADDi $14, $6, 0                  //$8 = x_coord
 DISPCHCOLLOOP:
-    BNE  $14, 3                //x_coord==3 -> out of bound
+    BNE  $14, 3                      //x_coord==3 -> out of bound
     JUMP DISPCHCOLLOOPEND
     SLT  $15, $14, $19
     SLT  $16, $13, $20
@@ -830,7 +824,7 @@ DISPCHCOLLOOPEND:
     JUMP DISPCHLINLOOP
 DISPCHENDL:
     JMP  $0
-''' % (OLEDX, OLEDY)
+'''
 #$1: top_left_coord({[15:0] x, [15:0] y})
 #$2: color
 
@@ -903,6 +897,18 @@ MULTIPLICATIONLOOP:
     BNE  $13, 0
     JMP  $9
     JUMP  MULTIPLICATIONLOOP
+'''
+
+#TODO:
+#$1: top_left_coord({[15:0] x, [15:0] y})
+#$2: color
+#$3: size({[15:0] length, [15:0] width})
+DRAWRECT = '''DRAWRECT:
+    LWI  $15, 16
+    SLL  $4,  $1,  $15
+    SRL  $4,  $4,  $15    //x_coord_tl
+    SRL  $5,  $1,  $15    //y_coord_tl
+    JMP  $0
 '''
 
 del i
