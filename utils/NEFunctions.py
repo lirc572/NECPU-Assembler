@@ -11,7 +11,7 @@ ABOUT = '''
 #   DISPMAP     ($0: return_addr, $1: centre_x, $2: centre_y)
 #   GETMAPCOLOR ($3: x_coord, $4: y_coord, $5: return_addr)
 #       return: ($6: color)
-#   DISPENEMY   ($0: return_addr, $1: enemy_x_rel_map, $2: enemy_y_rel_map)
+#   DISPENEMY   ($0: return_addr, $1: centre_x, $2: centre_y, $3: enemy_x_rel_map, $4: enemy_y_rel_map)
 #   DIVISION    ($9: return_addr, $10: A, $11: B)
 #       return: ($12: C)
 #   MODULUS     ($9: return_addr, $10: A, $11: B)
@@ -202,57 +202,48 @@ del CHARX
 del CHARY
 
 #centre_x: $1, centre_y: $2
-#top_left_x: $1, top_left_y: $2
 DISPMAP = "DISPMAP:\n"
 MAPSCALEEXP = 4 # coord>>4
 MAPX = int(images["map"][0])
 MAPY = int(images["map"][1])
-addr = -1
-DISPMAP += "    LWI  $10, 0\n"
-#for addr in range(OLEDX*OLEDY):
-    #x_offset = addr % OLEDX - OLEDX//2
-    #y_offset = addr // OLEDX - OLEDY//2
-    #inst  = ""
-    #inst += "    LWI  $5, %d\n" % (x_offset % 2**32,) #x_coord on big map //offset in 2's complement
-    #inst += "    ADD  $3, $1, $5\n"                                              #follow above
-    #inst += "    LWI  $5, %d\n" % (y_offset % 2**32,) #y_coord on big map //offset in 2's complement
-    #inst += "    ADD  $4, $2, $5\n"                                              #follow above
+DISPMAP += "    LWI  $10, 0\n"                    #$10 = oled addr
 inst  = "DISPMAPLOOP:\n"
-inst += "    LWI  $11, %d\n" % (OLEDX,)
-inst += "    LWI  $9,  LINE_NUMBER+5\n"
-inst += "    JUMP MODULUS\n"
-inst += "    ADDi $15, $12, 0\n"
-inst += "    LWI  $16, %d\n" % (OLEDX,)
-inst += "    LWI  $17, 1\n"
-inst += "    SRL  $16, $16, $17\n"
-inst += "    SUB  $15, $15, $16\n"               #x_offset
-inst += "    LWI  $9,  LINE_NUMBER+5\n"
-inst += "    JUMP DIVISION\n"
-inst += "    ADDi $16, $12, 0\n"
-inst += "    LWI  $17, %d\n" % (OLEDY,)
-inst += "    LWI  $18, 1\n"
-inst += "    SRL  $17, $17, $18\n"
-inst += "    SUB  $16, $16, $17\n"               #y_offset
-inst += "    ADDi $10, $10, 1\n"                 #increment addr
-inst += "    ADD  $3,  $1,  $15\n"
-inst += "    ADD  $4,  $2,  $16\n"
-inst += "    LWI  $5, %d\n" % (MAPSCALEEXP,)     #scale factor as power of 2
-inst += "    SRL  $3, $3, $5\n"                  #x_coord on small map
-inst += "    SRL  $4, $4, $5\n"                  #y_coord on small map
-inst += "    LWI  $5, LINE_NUMBER+5\n"           #return_addr for GETMAPCOLOR
-inst += "    JUMP GETMAPCOLOR"
-inst += "    LWI  $5, %d\n" % (2147500000+addr,) #pix addr in memory
-inst += "    SW   $6, $5, 0\n"                   #Draw pixel
-inst += "    BNE  $10, %d\n" % (OLEDX*OLEDY,)
-inst += "    JUMP DISPMAPLOOP\n"
-inst += "    JMP  $0\n"
+inst += "    LWI  $11, %d\n" % (OLEDX,)           #$11 = OLEDX
+inst += "    LWI  $9,  LINE_NUMBER+5\n"           #Return addr
+inst += "    JUMP MODULUS\n"                      #$12 = $10 % $11
+inst += "    ADDi $15, $12, 0\n"                  #$15 = result
+inst += "    LWI  $16, 1\n"                       #$16 = 1
+inst += "    SRL  $16, $11, $16\n"                #$16 = OLEDX >> 1
+inst += "    SUB  $15, $15, $16\n"                #x_offset
+inst += "    LWI  $9,  LINE_NUMBER+5\n"           #Return addr
+inst += "    JUMP DIVISION\n"                     #$12 = $10 / $11
+inst += "    ADDi $16, $12, 0\n"                  #$16 = result
+inst += "    LWI  $17, %d\n" % (OLEDY,)           #$17 = OLEDY
+inst += "    LWI  $18, 1\n"                       #$18 = 1
+inst += "    SRL  $17, $17, $18\n"                #$17 = OLEDY >> 1
+inst += "    SUB  $16, $16, $17\n"                #y_offset
+inst += "    ADDi $10, $10, 1\n"                  #$10 ++; increment addr
+inst += "    ADD  $3,  $1,  $15\n"                #$3 = x coord on big map
+inst += "    ADD  $4,  $2,  $16\n"                #$4 = y_coord on big map
+inst += "    LWI  $5,  %d\n" % (MAPSCALEEXP,)     #scale factor as power of 2
+inst += "    SRL  $3,  $3,  $5\n"                 #$3 = x_coord on small map
+inst += "    SRL  $4,  $4,  $5\n"                 #$4 = y_coord on small map
+inst += "    LWI  $5,  LINE_NUMBER+5\n"           #return_addr for GETMAPCOLOR
+inst += "    JUMP GETMAPCOLOR\n"                    #$6 = color
+inst += "    LWI  $5,  %d\n" % (2147500000+addr,) #pix addr in memory
+inst += "    SW   $6,  $5,  0\n"                  #Draw pixel
+inst += "    BEQ  $10, %d\n" % (OLEDX*OLEDY,)     #If end of oled reached, skip next line
+inst += "    JUMP DISPMAPLOOP\n"                  #GOTO DISPMAPLOOP
+inst += "    JMP  $0\n"                           #Return...
 DISPMAP += inst
 
+#x_cooord: $3, y_coord: $4
+#return addr: $5
 GETMAPCOLOR = "GETMAPCOLOR:\n"
 imgaddr = -1
 for i in range(MAPX):
     inst  = "    BNE  $3, %d\n" % (i,)
-    inst += "    JUMP MAPX%d" % (i,)
+    inst += "    JUMP MAPX%d\n" % (i,)
     GETMAPCOLOR += inst
 GETMAPCOLOR += "    LWI  $6, 0\n    JMP  $5\n" #Return black if x out of range
 for i in range(MAPX):
@@ -260,10 +251,14 @@ for i in range(MAPX):
     for j in range(MAPY):
         inst += "    BNE  $4, %d\n" % (j,)
         inst += "    LWI  $6, %s" % (images["map"][2+j*MAPX+i],)
+    inst += "    JMP  $5\n"
     GETMAPCOLOR += inst
-GETMAPCOLOR += "    JMP  $5\n"
+del MAPX
+del MAPY
+del MAPSCALEEXP
 
-'''
+#centre_x: $1, centre_y: $2
+#enemy_x:  $3, enemy_y:  $4
 DISPENEMY = "DISPENEMY:\n"
 ENEMYX = int(images["enemy"][0])
 ENEMYY = int(images["enemy"][1])
@@ -276,17 +271,39 @@ for pix in images["enemy"][2:]:
             ENEMY[pix].append(addr)
         else:
             ENEMY[pix] = [addr]
+DISPENEMY += "    LWI  $13, 1\n"                         #$13 = constant 1
+DISPENEMY += "    LWI  $14, %d\n" % (OLEDX,)             #$14 = OLEDX
+DISPENEMY += "    LWI  $15, %d\n" % (OLEDY,)             #$15 = OLEDY
 for i in ENEMY:
-    inst = "    LLI  $1, %s" % (i,)
+    inst = "    LLI  $16, %s" % (i,)                     #$16 = color
     for j in ENEMY[i]:
-        inst += "    LWI  $2, %d\n" % ((2147500000+WORDSTARTY*OLEDX+WORDSTARTX) + j//WORDX*OLEDX+j%WORDX,)
-        inst += "    SW   $1, $2, 0\n"
+        inst += "    SRL  $5,  $14, $13\n"               #$5 = OLEDX >> 1
+        inst += "    SUB  $6,  $3,  $1 \n"               #$6 = EX - CX
+        inst += "    ADD  $5,  $6,  $5 \n"               #$5 = $6 + $5 (EXscr)
+        inst += "    SRL  $6,  $15, $13\n"               #$6 = OLEDY >> 1
+        inst += "    SUB  $7,  $4,  $2 \n"               #$7 = EY - CY
+        inst += "    ADD  $6,  $7,  $6 \n"               #$6 = $7 + $6 (EYscr)
+        inst += "    ADDi $5,  $5,  %d\n" % (j% ENEMYX,) #$5 = Pix_x
+        inst += "    ADDi $6,  $6,  %d\n" % (j//ENEMYX,) #$6 = Pix_y
+        inst += "    SLT  $7,  $5,  $14\n"               #$7 = Pix_x < OLEDX
+        inst += "    SLT  $8,  $6,  $15\n"               #$8 = Pix_y < OLEDY
+        inst += "    BEQ  $7,  1\n"                      #if within boundary, skip next
+        inst += "    JUMP %s\n" % ("DISPENEMY%s%sEND" % (i[:-1], j,),)
+        inst += "    BEQ  $8,  1\n"                      #if within boundary, skip next
+        inst += "    JUMP %s\n" % ("DISPENEMY%s%sEND" % (i[:-1], j,),)
+        inst += "    ADDi $10, $6, 0\n"                  #$10 = Pix_y
+        inst += "    LWI  $11, %d\n" % (ENEMYX,)         #$11 = ENEMYX
+        inst += "    LWI  $9,  LINE_NUMBER+5\n"          #$9 = Return addr
+        inst += "    JUMP MULTIPLICATION\n"              #$12 = $10 * $11
+        inst += "    ADD  $12, $12, $5\n"                #$12 = Pix_addr
+        inst += "    SW   $16, $12\n"                    #Draw $16 at $12
+        inst += "DISPENEMY%s%sEND:\n" % (i[:-1], j,)
     DISPENEMY += inst
 DISPENEMY += "    JMP $0\n"
 del ENEMY
 del ENEMYX
 del ENEMYY
-'''
+
 
 DISPBO = "DISPBO:\n"
 
@@ -306,7 +323,6 @@ BLINKDEL:
     JUMP BLINKDEL
     JUMP BLINKLOOP
 ''' % (int(1 * CPU_FREQ / 6),)
-
 
 CHECKVOLUME = '''
 //check if volume is 15, if so goto $1, else goto $0
@@ -345,15 +361,30 @@ MODULUS = '''
 MODULUS:
     LWI  $12, 0
 MODULUSLOOP:
-    ADD $12, $12, $11
-    SLT $13, $10, $12
-    BNE $13, 1
+    ADD  $12, $12, $11
+    SLT  $13, $10, $12
+    BNE  $13, 1
     JUMP MODULUSFIN
     JUMP MODULUSLOOP
 MODULUSFIN:
     SUB  $12, $12, $11
     SUB  $12, $10, $12
     JMP  $9
+'''
+
+#a*b = c
+#return_addr: $9
+#a: $10, b: $11, c: $12
+MULTIPLICATION = '''
+MULTIPLICATION:
+    LWI  $12, 0
+    ADDi $13, $11, 0
+MULTIPLICATIONLOOP:
+    SUBi $13, $13, 1
+    ADD  $12, $12, $10
+    BNE  $13, 0
+    JMP  $9
+    JUMP  MULTIPLICATIONLOOP
 '''
 
 del i
