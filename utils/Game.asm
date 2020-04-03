@@ -26,23 +26,7 @@ DELAYMENU:
     LWI  $0, LINE_NUMBER
     LWI  $1, LINE_NUMBER+5
     JUMP CHECKVOLUME
-    LWI  $1, 0
-    LWI  $0, LINE_NUMBER+5
-    JUMP DISPCHAR
     JUMP BLINK
-
-BLINK:
-    LWI  $3, 2147483648
-    LWI  $1, 0b1010101010101010
-BLINKLOOP:
-    INV  $1, $1
-    SW   $1, $3, 0
-    LWI  $2, 16666666
-BLINKDEL:
-    SUBI $2, $2, 1
-    BEQ  $2, 0
-    JUMP BLINKDEL
-    JUMP BLINKLOOP
 DISPSTART:
     LLI  $1, 0b1110111010110110
     LWI  $2, 2147500000
@@ -23477,9 +23461,2148 @@ CHARLEFT1:
     JUMP CHARAFTERDEF
 CHARAFTERDEF:
     JMP  $0
-
-//check if volume is 15, if so goto $1, else goto $0
-//volume: MEM[2147483650][19:16]
+DISPENEMY:
+    LWI  $13, 1
+    LWI  $14, 96
+    LWI  $15, 64
+    LLI  $16, 0b1110011100101110
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  5
+    ADDi $6,  $6,  2
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11100111001011137END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11100111001011137END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11100111001011137END:
+    LLI  $16, 0b1110011101010001
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  6
+    ADDi $6,  $6,  2
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11100111010100038END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11100111010100038END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11100111010100038END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  9
+    ADDi $6,  $6,  9
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111001110101000153END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111001110101000153END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111001110101000153END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  12
+    ADDi $6,  $6,  11
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111001110101000188END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111001110101000188END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111001110101000188END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  8
+    ADDi $6,  $6,  12
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111001110101000200END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111001110101000200END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111001110101000200END:
+    LLI  $16, 0b1111011110010111
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  7
+    ADDi $6,  $6,  2
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11110111100101139END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11110111100101139END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11110111100101139END:
+    LLI  $16, 0b1110011100110001
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  8
+    ADDi $6,  $6,  2
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11100111001100040END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11100111001100040END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11100111001100040END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  8
+    ADDi $6,  $6,  3
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11100111001100056END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11100111001100056END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11100111001100056END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  10
+    ADDi $6,  $6,  4
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11100111001100074END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11100111001100074END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11100111001100074END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  9
+    ADDi $6,  $6,  11
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111001110011000185END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111001110011000185END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111001110011000185END:
+    LLI  $16, 0b1110011100101111
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  5
+    ADDi $6,  $6,  3
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11100111001011153END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11100111001011153END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11100111001011153END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  6
+    ADDi $6,  $6,  4
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11100111001011170END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11100111001011170END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11100111001011170END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  9
+    ADDi $6,  $6,  4
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11100111001011173END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11100111001011173END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11100111001011173END:
+    LLI  $16, 0b1110011100001110
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  6
+    ADDi $6,  $6,  3
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11100111000011154END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11100111000011154END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11100111000011154END:
+    LLI  $16, 0b1101111011101100
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  7
+    ADDi $6,  $6,  3
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11011110111011055END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11011110111011055END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11011110111011055END:
+    LLI  $16, 0b1110011100110000
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  9
+    ADDi $6,  $6,  3
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11100111001100057END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11100111001100057END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11100111001100057END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  10
+    ADDi $6,  $6,  5
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11100111001100090END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11100111001100090END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11100111001100090END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  10
+    ADDi $6,  $6,  11
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111001110011000186END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111001110011000186END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111001110011000186END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  11
+    ADDi $6,  $6,  11
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111001110011000187END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111001110011000187END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111001110011000187END:
+    LLI  $16, 0b1110111110010011
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  5
+    ADDi $6,  $6,  4
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11101111100100169END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11101111100100169END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11101111100100169END:
+    LLI  $16, 0b1101011011000111
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  7
+    ADDi $6,  $6,  4
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11010110110001171END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11010110110001171END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11010110110001171END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  8
+    ADDi $6,  $6,  5
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11010110110001188END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11010110110001188END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11010110110001188END:
+    LLI  $16, 0b1101111011101011
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  8
+    ADDi $6,  $6,  4
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11011110111010172END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11011110111010172END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11011110111010172END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  10
+    ADDi $6,  $6,  7
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b110111101110101122END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b110111101110101122END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b110111101110101122END:
+    LLI  $16, 0b1100111001110001
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  5
+    ADDi $6,  $6,  5
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11001110011100085END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11001110011100085END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11001110011100085END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  6
+    ADDi $6,  $6,  6
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b110011100111000102END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b110011100111000102END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b110011100111000102END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  6
+    ADDi $6,  $6,  7
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b110011100111000118END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b110011100111000118END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b110011100111000118END:
+    LLI  $16, 0b1101111011110001
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  6
+    ADDi $6,  $6,  5
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11011110111100086END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11011110111100086END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11011110111100086END:
+    LLI  $16, 0b1101111011001000
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  7
+    ADDi $6,  $6,  5
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11011110110010087END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11011110110010087END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11011110110010087END:
+    LLI  $16, 0b1101111100001110
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  9
+    ADDi $6,  $6,  5
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b11011111000011189END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b11011111000011189END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b11011111000011189END:
+    LLI  $16, 0b1001010011101011
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  5
+    ADDi $6,  $6,  6
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b100101001110101101END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b100101001110101101END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b100101001110101101END:
+    LLI  $16, 0b1101111011000111
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  7
+    ADDi $6,  $6,  6
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b110111101100011103END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b110111101100011103END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b110111101100011103END:
+    LLI  $16, 0b1101111011101001
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  8
+    ADDi $6,  $6,  6
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b110111101110100104END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b110111101110100104END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b110111101110100104END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  8
+    ADDi $6,  $6,  7
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b110111101110100120END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b110111101110100120END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b110111101110100120END:
+    LLI  $16, 0b1101111100001100
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  9
+    ADDi $6,  $6,  6
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b110111110000110105END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b110111110000110105END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b110111110000110105END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  10
+    ADDi $6,  $6,  6
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b110111110000110106END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b110111110000110106END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b110111110000110106END:
+    LLI  $16, 0b1000010001000101
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  4
+    ADDi $6,  $6,  7
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b100001000100010116END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b100001000100010116END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b100001000100010116END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  4
+    ADDi $6,  $6,  8
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b100001000100010132END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b100001000100010132END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b100001000100010132END:
+    LLI  $16, 0b1001110100101100
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  5
+    ADDi $6,  $6,  7
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b100111010010110117END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b100111010010110117END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b100111010010110117END:
+    LLI  $16, 0b1101111011101010
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  9
+    ADDi $6,  $6,  7
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b110111101110101121END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b110111101110101121END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b110111101110101121END:
+    LLI  $16, 0b1001110100001011
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  5
+    ADDi $6,  $6,  8
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b100111010000101133END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b100111010000101133END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b100111010000101133END:
+    LLI  $16, 0b1011110111110001
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  6
+    ADDi $6,  $6,  8
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b101111011111000134END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b101111011111000134END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b101111011111000134END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  2
+    ADDi $6,  $6,  14
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b101111011111000226END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b101111011111000226END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b101111011111000226END:
+    LLI  $16, 0b1101011011001001
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  8
+    ADDi $6,  $6,  8
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b110101101100100136END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b110101101100100136END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b110101101100100136END:
+    LLI  $16, 0b1101111100001101
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  9
+    ADDi $6,  $6,  8
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b110111110000110137END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b110111110000110137END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b110111110000110137END:
+    LLI  $16, 0b1110011101010011
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  10
+    ADDi $6,  $6,  8
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111001110101001138END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111001110101001138END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111001110101001138END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  9
+    ADDi $6,  $6,  10
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111001110101001169END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111001110101001169END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111001110101001169END:
+    LLI  $16, 0b1001010011101001
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  3
+    ADDi $6,  $6,  9
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b100101001110100147END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b100101001110100147END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b100101001110100147END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  5
+    ADDi $6,  $6,  9
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b100101001110100149END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b100101001110100149END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b100101001110100149END:
+    LLI  $16, 0b0111110000100100
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  4
+    ADDi $6,  $6,  9
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b011111000010010148END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b011111000010010148END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b011111000010010148END:
+    LLI  $16, 0b1011010111010001
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  6
+    ADDi $6,  $6,  9
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b101101011101000150END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b101101011101000150END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b101101011101000150END:
+    LLI  $16, 0b1110111101110101
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  10
+    ADDi $6,  $6,  9
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111011110111010154END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111011110111010154END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111011110111010154END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  11
+    ADDi $6,  $6,  9
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111011110111010155END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111011110111010155END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111011110111010155END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  10
+    ADDi $6,  $6,  13
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111011110111010218END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111011110111010218END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111011110111010218END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  11
+    ADDi $6,  $6,  13
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111011110111010219END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111011110111010219END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111011110111010219END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  10
+    ADDi $6,  $6,  14
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111011110111010234END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111011110111010234END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111011110111010234END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  11
+    ADDi $6,  $6,  14
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111011110111010235END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111011110111010235END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111011110111010235END:
+    LLI  $16, 0b1010110110001110
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  2
+    ADDi $6,  $6,  10
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b101011011000111162END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b101011011000111162END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b101011011000111162END:
+    LLI  $16, 0b1000110010100111
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  3
+    ADDi $6,  $6,  10
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b100011001010011163END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b100011001010011163END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b100011001010011163END:
+    LLI  $16, 0b0111110000100011
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  4
+    ADDi $6,  $6,  10
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b011111000010001164END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b011111000010001164END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b011111000010001164END:
+    LLI  $16, 0b1000110010101000
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  5
+    ADDi $6,  $6,  10
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b100011001010100165END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b100011001010100165END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b100011001010100165END:
+    LLI  $16, 0b1011111000010001
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  6
+    ADDi $6,  $6,  10
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b101111100001000166END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b101111100001000166END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b101111100001000166END:
+    LLI  $16, 0b1110111101110110
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  8
+    ADDi $6,  $6,  10
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111011110111011168END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111011110111011168END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111011110111011168END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  13
+    ADDi $6,  $6,  10
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111011110111011173END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111011110111011173END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111011110111011173END:
+    LLI  $16, 0b1110011101010010
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  10
+    ADDi $6,  $6,  10
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111001110101001170END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111001110101001170END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111001110101001170END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  11
+    ADDi $6,  $6,  10
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111001110101001171END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111001110101001171END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111001110101001171END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  12
+    ADDi $6,  $6,  10
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111001110101001172END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111001110101001172END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111001110101001172END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  9
+    ADDi $6,  $6,  12
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111001110101001201END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111001110101001201END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111001110101001201END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  10
+    ADDi $6,  $6,  12
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111001110101001202END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111001110101001202END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111001110101001202END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  11
+    ADDi $6,  $6,  12
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111001110101001203END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111001110101001203END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111001110101001203END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  12
+    ADDi $6,  $6,  12
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111001110101001204END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111001110101001204END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111001110101001204END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  13
+    ADDi $6,  $6,  12
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111001110101001205END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111001110101001205END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111001110101001205END:
+    LLI  $16, 0b1010110110101111
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  2
+    ADDi $6,  $6,  11
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b101011011010111178END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b101011011010111178END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b101011011010111178END:
+    LLI  $16, 0b1000110010000111
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  3
+    ADDi $6,  $6,  11
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b100011001000011179END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b100011001000011179END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b100011001000011179END:
+    LLI  $16, 0b0111001111100010
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  4
+    ADDi $6,  $6,  11
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b011100111110001180END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b011100111110001180END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b011100111110001180END:
+    LLI  $16, 0b1001010011001001
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  5
+    ADDi $6,  $6,  11
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b100101001100100181END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b100101001100100181END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b100101001100100181END:
+    LLI  $16, 0b1101011010110101
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  6
+    ADDi $6,  $6,  11
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b110101101011010182END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b110101101011010182END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b110101101011010182END:
+    LLI  $16, 0b1111111111111000
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  7
+    ADDi $6,  $6,  11
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111111111111100183END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111111111111100183END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111111111111100183END:
+    LLI  $16, 0b1110111101110100
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  8
+    ADDi $6,  $6,  11
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111011110111010184END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111011110111010184END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111011110111010184END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  13
+    ADDi $6,  $6,  11
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111011110111010189END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111011110111010189END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111011110111010189END:
+    LLI  $16, 0b1110111110011000
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  14
+    ADDi $6,  $6,  11
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111011111001100190END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111011111001100190END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111011111001100190END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  14
+    ADDi $6,  $6,  12
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111011111001100206END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111011111001100206END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111011111001100206END:
+    LLI  $16, 0b1011010110101111
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  2
+    ADDi $6,  $6,  12
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b101101011010111194END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b101101011010111194END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b101101011010111194END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  4
+    ADDi $6,  $6,  14
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b101101011010111228END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b101101011010111228END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b101101011010111228END:
+    LLI  $16, 0b1000110010000110
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  3
+    ADDi $6,  $6,  12
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b100011001000011195END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b100011001000011195END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b100011001000011195END:
+    LLI  $16, 0b1000010001100110
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  4
+    ADDi $6,  $6,  12
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b100001000110011196END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b100001000110011196END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b100001000110011196END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  3
+    ADDi $6,  $6,  14
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b100001000110011227END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b100001000110011227END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b100001000110011227END:
+    LLI  $16, 0b1011010111001111
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  5
+    ADDi $6,  $6,  12
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b101101011100111197END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b101101011100111197END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b101101011100111197END:
+    LLI  $16, 0b1110011100111000
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  6
+    ADDi $6,  $6,  12
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111001110011100198END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111001110011100198END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111001110011100198END:
+    LLI  $16, 0b1111011110110111
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  7
+    ADDi $6,  $6,  12
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111101111011011199END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111101111011011199END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111101111011011199END:
+    LLI  $16, 0b1010110110101110
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  2
+    ADDi $6,  $6,  13
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b101011011010111210END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b101011011010111210END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b101011011010111210END:
+    LLI  $16, 0b1000010001100101
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  3
+    ADDi $6,  $6,  13
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b100001000110010211END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b100001000110010211END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b100001000110010211END:
+    LLI  $16, 0b1011010111010000
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  4
+    ADDi $6,  $6,  13
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b101101011101000212END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b101101011101000212END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b101101011101000212END:
+    LLI  $16, 0b1101111100011001
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  5
+    ADDi $6,  $6,  13
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b110111110001100213END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b110111110001100213END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b110111110001100213END:
+    LLI  $16, 0b1110111110010111
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  9
+    ADDi $6,  $6,  13
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111011111001011217END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111011111001011217END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111011111001011217END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  12
+    ADDi $6,  $6,  13
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111011111001011220END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111011111001011220END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111011111001011220END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  9
+    ADDi $6,  $6,  14
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111011111001011233END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111011111001011233END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111011111001011233END:
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  12
+    ADDi $6,  $6,  14
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b111011111001011236END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b111011111001011236END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b111011111001011236END:
+    LLI  $16, 0b1101111011111000
+    SRL  $5,  $14, $13
+    SUB  $6,  $3,  $1 
+    ADD  $5,  $6,  $5 
+    SRL  $6,  $15, $13
+    SUB  $7,  $4,  $2 
+    ADD  $6,  $7,  $6 
+    ADDi $5,  $5,  5
+    ADDi $6,  $6,  14
+    SLT  $7,  $5,  $14
+    SLT  $8,  $6,  $15
+    BEQ  $7,  1
+    JUMP DISPENEMY0b110111101111100229END
+    BEQ  $8,  1
+    JUMP DISPENEMY0b110111101111100229END
+    ADDi $10, $6, 0
+    LWI  $11, 16
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $12, $12, $5
+    SW   $16, $12, 0
+DISPENEMY0b110111101111100229END:
+    JMP $0
 CHECKVOLUME:
     LWI  $2, 2147483650
     LW   $2, $2, 0
@@ -24522,7 +26645,6 @@ MAPX24:
     BNE  $4, 17
     LWI  $6, 0b0110101101010000
     JMP  $5
-
 DIVISION:
     LWI  $12, 0
     LWI  $13, 0
@@ -24533,7 +26655,6 @@ DIVISIONLOOP:
     JMP  $9
     ADDi $12, $12, 1
     JUMP DIVISIONLOOP
-
 MODULUS:
     LWI  $12, 0
 MODULUSLOOP:
@@ -24546,3 +26667,24 @@ MODULUSFIN:
     SUB  $12, $12, $11
     SUB  $12, $10, $12
     JMP  $9
+MULTIPLICATION:
+    LWI  $12, 0
+    ADDi $13, $11, 0
+MULTIPLICATIONLOOP:
+    SUBi $13, $13, 1
+    ADD  $12, $12, $10
+    BNE  $13, 0
+    JMP  $9
+    JUMP  MULTIPLICATIONLOOP
+BLINK:
+    LWI  $3, 2147483648
+    LWI  $1, 0b1010101010101010
+BLINKLOOP:
+    INV  $1, $1
+    SW   $1, $3, 0
+    LWI  $2, 16666666
+BLINKDEL:
+    SUBI $2, $2, 1
+    BEQ  $2, 0
+    JUMP BLINKDEL
+    JUMP BLINKLOOP

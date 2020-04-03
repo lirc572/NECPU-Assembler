@@ -30,25 +30,25 @@ OLEDY = 64
 # Load bitmaps (converted using convert.py):
 images = {}
 with open("../bitmaps/start.bitmap") as bmp:
-    images["start"] = bmp.readlines()
+    images["start"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
 with open("../bitmaps/start_word.bitmap") as bmp:
-    images["word"] = bmp.readlines()
+    images["word"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
 with open("../bitmaps/start_menu.bitmap") as bmp:
-    images["menu"] = bmp.readlines()
+    images["menu"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
 with open("../bitmaps/map.bitmap") as bmp:
-    images["map"] = bmp.readlines()
+    images["map"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
 with open("../bitmaps/char.bitmap") as bmp:
-    images["char"] = bmp.readlines()
+    images["char"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
 with open("../bitmaps/enemy.bitmap") as bmp:
-    images["enemy"] = bmp.readlines()
+    images["enemy"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
 with open("../bitmaps/char_gg.bitmap") as bmp:
-    images["chargg"] = bmp.readlines()
+    images["chargg"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
 with open("../bitmaps/bo_arrow.bitmap") as bmp:
-    images["bo_arrow"] = bmp.readlines()
+    images["bo_arrow"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
 with open("../bitmaps/bo_tail1.bitmap") as bmp:
-    images["bo_tail1"] = bmp.readlines()
+    images["bo_tail1"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
 with open("../bitmaps/bo_tail2.bitmap") as bmp:
-    images["bo_tail2"] = bmp.readlines()
+    images["bo_tail2"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
 
 DISPSTART = "DISPSTART:\n"
 START = {}
@@ -60,7 +60,7 @@ for pix in images["start"][2:]:
     else:
         START[pix] = [addr]
 for i in START:
-    inst = "    LLI  $1, %s" % (i,)
+    inst = "    LLI  $1, %s\n" % (i,)
     for j in START[i]:
         inst += "    LWI  $2, %d\n" % (2147500000+j,)
         inst += "    SW   $1, $2, 0\n"
@@ -83,7 +83,7 @@ for pix in images["word"][2:]:
         else:
             WORD[pix] = [addr]
 for i in WORD:
-    inst = "    LLI  $1, %s" % (i,)
+    inst = "    LLI  $1, %s\n" % (i,)
     for j in WORD[i]:
         inst += "    LWI  $2, %d\n" % ((2147500000+WORDSTARTY*OLEDX+WORDSTARTX) + j//WORDX*OLEDX+j%WORDX,)
         inst += "    SW   $1, $2, 0\n"
@@ -110,7 +110,7 @@ for pix in images["menu"][2:]:
         else:
             MENU[pix] = [addr]
 for i in MENU:
-    inst = "    LLI  $1, %s" % (i,)
+    inst = "    LLI  $1, %s\n" % (i,)
     for j in MENU[i]:
         inst += "    LWI  $2, %d\n" % ((2147500000+MENUSTARTY*OLEDX+MENUSTARTX) + j//MENUX*OLEDX+j%MENUX,)
         inst += "    SW   $1, $2, 0\n"
@@ -159,7 +159,7 @@ DISPCHAR += "    JUMP CHARRIGHT\n"
 DISPCHAR += "    JUMP CHARGG\n"
 DISPCHAR += "CHARGG:\n"
 for i in CHARGG:
-    inst = "    LLI  $3, %s" % (i,)
+    inst = "    LLI  $3, %s\n" % (i,)
     for j in CHARGG[i]:
         inst += "    LWI  $2, %d\n" % ((2147500000+CHARSTARTY*OLEDX+CHARSTARTX) + j//CHARX*OLEDX+j%CHARX,)
         inst += "    SW   $3, $2, 0\n"
@@ -167,7 +167,7 @@ for i in CHARGG:
 DISPCHAR += "    JUMP CHARAFTERDEF\n"
 DISPCHAR += "CHARRIGHT:\n"
 for i in CHAR:
-    inst = "    LLI  $3, %s" % (i,)
+    inst = "    LLI  $3, %s\n" % (i,)
     for j in CHAR[i]:
         inst += "    LWI  $2, %d\n" % ((2147500000+CHARSTARTY*OLEDX+CHARSTARTX) + j//CHARX*OLEDX+j%CHARX,)
         inst += "    SW   $3, $2, 0\n"
@@ -182,7 +182,7 @@ DISPCHAR += ""                                                         #########
 DISPCHAR += "    JUMP CHARAFTERDEF\n"
 DISPCHAR += "CHARLEFT:\n"
 for i in CHAR:
-    inst = "    LLI  $3, %s" % (i,)
+    inst = "    LLI  $3, %s\n" % (i,)
     for j in CHAR[i]:
         inst += "    LWI  $2, %d\n" % ((2147500000+CHARSTARTY*OLEDX+CHARSTARTX) + (j//CHARX+1)*OLEDX-j%CHARX,)
         inst += "    SW   $3, $2, 0\n"
@@ -250,7 +250,7 @@ for i in range(MAPX):
     inst  = "MAPX%d:\n" % (i,)
     for j in range(MAPY):
         inst += "    BNE  $4, %d\n" % (j,)
-        inst += "    LWI  $6, %s" % (images["map"][2+j*MAPX+i],)
+        inst += "    LWI  $6, %s\n" % (images["map"][2+j*MAPX+i],)
     inst += "    JMP  $5\n"
     GETMAPCOLOR += inst
 del MAPX
@@ -275,7 +275,7 @@ DISPENEMY += "    LWI  $13, 1\n"                         #$13 = constant 1
 DISPENEMY += "    LWI  $14, %d\n" % (OLEDX,)             #$14 = OLEDX
 DISPENEMY += "    LWI  $15, %d\n" % (OLEDY,)             #$15 = OLEDY
 for i in ENEMY:
-    inst = "    LLI  $16, %s" % (i,)                     #$16 = color
+    inst = "    LLI  $16, %s\n" % (i,)                     #$16 = color
     for j in ENEMY[i]:
         inst += "    SRL  $5,  $14, $13\n"               #$5 = OLEDX >> 1
         inst += "    SUB  $6,  $3,  $1 \n"               #$6 = EX - CX
@@ -296,7 +296,7 @@ for i in ENEMY:
         inst += "    LWI  $9,  LINE_NUMBER+5\n"          #$9 = Return addr
         inst += "    JUMP MULTIPLICATION\n"              #$12 = $10 * $11
         inst += "    ADD  $12, $12, $5\n"                #$12 = Pix_addr
-        inst += "    SW   $16, $12\n"                    #Draw $16 at $12
+        inst += "    SW   $16, $12, 0\n"                 #Draw $16 at $12
         inst += "DISPENEMY%s%sEND:\n" % (i[:-1], j,)
     DISPENEMY += inst
 DISPENEMY += "    JMP $0\n"
@@ -308,9 +308,7 @@ del ENEMYY
 DISPBO = "DISPBO:\n"
 
 
-
-BLINK = '''
-BLINK:
+BLINK = '''BLINK:
     LWI  $3, 2147483648
     LWI  $1, 0b1010101010101010
 BLINKLOOP:
@@ -324,10 +322,7 @@ BLINKDEL:
     JUMP BLINKLOOP
 ''' % (int(1 * CPU_FREQ / 6),)
 
-CHECKVOLUME = '''
-//check if volume is 15, if so goto $1, else goto $0
-//volume: MEM[2147483650][19:16]
-CHECKVOLUME:
+CHECKVOLUME = '''CHECKVOLUME:
     LWI  $2, 2147483650
     LW   $2, $2, 0
     LWI  $3, 16
@@ -341,8 +336,7 @@ CHECKVOLUME:
 #a//b = c
 #return_addr: $9
 #a: $10, b: $11, c: $12
-DIVISION = '''
-DIVISION:
+DIVISION = '''DIVISION:
     LWI  $12, 0
     LWI  $13, 0
 DIVISIONLOOP:
@@ -357,8 +351,7 @@ DIVISIONLOOP:
 #a%b = c
 #return_addr: $9
 #a: $10, b: $11, c: $12
-MODULUS = '''
-MODULUS:
+MODULUS = '''MODULUS:
     LWI  $12, 0
 MODULUSLOOP:
     ADD  $12, $12, $11
@@ -375,8 +368,7 @@ MODULUSFIN:
 #a*b = c
 #return_addr: $9
 #a: $10, b: $11, c: $12
-MULTIPLICATION = '''
-MULTIPLICATION:
+MULTIPLICATION = '''MULTIPLICATION:
     LWI  $12, 0
     ADDi $13, $11, 0
 MULTIPLICATIONLOOP:

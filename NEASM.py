@@ -119,16 +119,28 @@ def EncodeInst(instruction, line_number):
     else:
         op = op.upper()
         if op in ("SLT", "SEQ", "ADD", "SUB", "SLL", "SRL", "AND", "OR", "XOR"):
+            if len(instruction) != 4:
+                raise ValueError("Instruction has abnormal format: '%s'" % (' '.join(instruction),))
             return EncodeTypeA(op, RegToNum(instruction[1]), RegToNum(instruction[2]), RegToNum(instruction[3]), 0)
         elif op in ("INV",):
+            if len(instruction) != 3:
+                raise ValueError("Instruction has abnormal format: '%s'" % (' '.join(instruction),))
             return EncodeTypeA(op, RegToNum(instruction[1]), RegToNum(instruction[2]), RegToNum("$0"), 0)
         elif op in ("LW", "SW", "ADDI", "SUBI", "ANDI", "ORI", "XORI"):
+            if len(instruction) != 4:
+                raise ValueError("Instruction has abnormal format: '%s'" % (' '.join(instruction),))
             return EncodeTypeB(op, RegToNum(instruction[1]), RegToNum(instruction[2]), ImmedToNum(instruction[3], line_number))
         elif op in ("LLI", "LUI", "BEQ", "BNE"):
+            if len(instruction) != 3:
+                raise ValueError("Instruction has abnormal format: '%s'" % (' '.join(instruction),))
             return EncodeTypeB(op, RegToNum(instruction[1]), RegToNum("$0"), ImmedToNum(instruction[2], line_number))
         elif op in ("JMP",):
+            if len(instruction) != 2:
+                raise ValueError("Instruction has abnormal format: '%s'" % (' '.join(instruction),))
             return EncodeTypeB(op, RegToNum(instruction[1]), RegToNum("$0"), ImmedToNum("0"))
         elif op == "JUMP": #pseudo-instruction
+            if len(instruction) != 2:
+                raise ValueError("Instruction has abnormal format: '%s'" % (' '.join(instruction),))
             label = instruction[1]
             if label in labels:
                 c1 = ""
@@ -147,6 +159,8 @@ def EncodeInst(instruction, line_number):
                 return (c1, c2, c3)
                 #raise ValueError("Label '" + label + "' not found!")
         elif op == "LWI": #LOAD WORD IMMEDIATE
+            if len(instruction) != 3:
+                raise ValueError("Instruction has abnormal format: '%s'" % (' '.join(instruction),))
             c1 = ""
             c2 = EncodeTypeB("LLI", RegToNum(instruction[1]), RegToNum("$0"), bin(ImmedToNum(instruction[2], line_number))[2:][-16:])
             if len(bin(ImmedToNum(instruction[2], line_number))) > 18:
