@@ -145,6 +145,12 @@ def EncodeInst(instruction, line_number):
                 raise ValueError("Instruction has abnormal format: '%s'" % (' '.join(instruction),))
             label = instruction[1]
             if label in labels:
+                c1 = EncodeTypeB("LUI", RegToNum("$31"), RegToNum("$0"), 65535)
+                c2 = EncodeTypeB("LLI", RegToNum("$31"), RegToNum("$0"), 65535)
+                c3 = EncodeTypeB("JMP", RegToNum("$31"), RegToNum("$0"), ImmedToNum("0"))
+                forward_jumps.append((line_number, label))
+                return (c1, c2, c3)
+                '''
                 c1 = ""
                 c2 = EncodeTypeB("LLI", RegToNum("$31"), RegToNum("$0"), bin(labels[label])[2:][-16:])
                 if len(bin(labels[label])) > 18:
@@ -153,11 +159,12 @@ def EncodeInst(instruction, line_number):
                     c1 = EncodeTypeB("LUI", RegToNum("$31"), RegToNum("$0"), ImmedToNum("0"))
                 c3 = EncodeTypeB("JMP", RegToNum("$31"), RegToNum("$0"), ImmedToNum("0"))
                 return (c1, c2, c3)
+                '''
             else:
                 c1 = EncodeTypeB("LUI", RegToNum("$31"), RegToNum("$0"), 65535)
                 c2 = EncodeTypeB("LLI", RegToNum("$31"), RegToNum("$0"), 65535)
                 c3 = EncodeTypeB("JMP", RegToNum("$31"), RegToNum("$0"), ImmedToNum("0"))
-                forward_jumps.append((line_number-1, label))
+                forward_jumps.append((line_number, label))
                 return (c1, c2, c3)
                 #raise ValueError("Label '" + label + "' not found!")
         elif op == "LWI": #LOAD WORD IMMEDIATE
@@ -188,12 +195,16 @@ def Assembler(source):
         if c != None:
             if type(c) == type(("not", "you")):
                 if len(code) != 0 and len(c) == 3 and disassemble(c[2])[0] == "J" and disassemble(code[-1])[0] == "B":
+                    #print(disassemble(code[-1]))
+                    #print(line)
+                    #print(forward_jumps[-1])
                     tmp = code[-1]    #Branch
                     code = code[:-1]  #Removed branch
                     for i in c:
                         code.append(i)
                         line_number += 1
                     code = code[:-1] + [tmp] + [code[-1]] #Code = LUI, LLI, Branch, JMP
+                    forward_jumps[-1] = (forward_jumps[-1][0]-1, forward_jumps[-1][1])
                 else:
                     for i in c:
                         code.append(i)
