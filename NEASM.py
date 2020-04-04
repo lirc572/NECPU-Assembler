@@ -157,7 +157,7 @@ def EncodeInst(instruction, line_number):
                 c1 = EncodeTypeB("LUI", RegToNum("$31"), RegToNum("$0"), 65535)
                 c2 = EncodeTypeB("LLI", RegToNum("$31"), RegToNum("$0"), 65535)
                 c3 = EncodeTypeB("JMP", RegToNum("$31"), RegToNum("$0"), ImmedToNum("0"))
-                forward_jumps.append((line_number, label))
+                forward_jumps.append((line_number-1, label))
                 return (c1, c2, c3)
                 #raise ValueError("Label '" + label + "' not found!")
         elif op == "LWI": #LOAD WORD IMMEDIATE
@@ -194,7 +194,6 @@ def Assembler(source):
                         code.append(i)
                         line_number += 1
                     code = code[:-1] + [tmp] + [code[-1]] #Code = LUI, LLI, Branch, JMP
-                    forward_jumps[-1] = (forward_jumps[-1][0]-1, forward_jumps[-1][1])
                 else:
                     for i in c:
                         code.append(i)
