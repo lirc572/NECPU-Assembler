@@ -17,6 +17,7 @@ ABOUT = '''
 #       return: ($12: C)
 #   MODULUS     ($9: return_addr, $10: A, $11: B)
 #       return  ($12: C)
+#   MULTIPLICATION ($12 = $10 * $11) ra $9
 '''
 
 CPU_FREQ = 100000000
@@ -38,8 +39,10 @@ with open("../bitmaps/start_menu.bitmap") as bmp:
     images["menu"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
 with open("../bitmaps/map.bitmap") as bmp:
     images["map"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
-with open("../bitmaps/char.bitmap") as bmp:
+with open("../bitmaps/char_right.bitmap") as bmp:
     images["char"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
+with open("../bitmaps/char_back.bitmap") as bmp:
+    images["char_back"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
 with open("../bitmaps/enemy.bitmap") as bmp:
     images["enemy"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
 with open("../bitmaps/char_gg.bitmap") as bmp:
@@ -50,6 +53,8 @@ with open("../bitmaps/bo_tail1.bitmap") as bmp:
     images["bo_tail1"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
 with open("../bitmaps/bo_tail2.bitmap") as bmp:
     images["bo_tail2"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
+with open("../bitmaps/simplemap.bitmap") as bmp:
+    images["simplemap"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
 
 DISPSTART = "DISPSTART:\n"
 START = {}
@@ -68,6 +73,24 @@ for i in START:
     DISPSTART += inst
 DISPSTART += "    JMP $0\n"
 del START
+
+DISPSIMPLEMAP = "DISPSIMPLEMAP:\n"
+SIMPLEMAP = {}
+addr = -1
+for pix in images["simplemap"][2:]:
+    addr += 1
+    if pix in SIMPLEMAP:
+        SIMPLEMAP[pix].append(addr)
+    else:
+        SIMPLEMAP[pix] = [addr]
+for i in SIMPLEMAP:
+    inst = "    LLI  $1, %s\n" % (i,)
+    for j in SIMPLEMAP[i]:
+        inst += "    LWI  $2, %d\n" % (2147500000+j,)
+        inst += "    SW   $1, $2, 0\n"
+    DISPSIMPLEMAP += inst
+DISPSIMPLEMAP += "    JMP $0\n"
+del SIMPLEMAP
 
 DISPWORD = "DISPWORD:\n"
 WORDX = int(images["word"][0])
@@ -123,13 +146,14 @@ del MENUSTARTY
 del MENUX
 del MENUY
 
+'''
 #state: $1
 DISPCHAR = "DISPCHAR:\n"
 CHARX = int(images["chargg"][0])
 CHARY = int(images["chargg"][1])
 CHARSTARTX = (OLEDX-CHARX)//2
 CHARSTARTY = (OLEDY-CHARY)//2
-CHAR = {}
+CHAR = {}   
 addr = -1
 for pix in images["char"][2:]:
     addr += 1
@@ -147,6 +171,15 @@ for pix in images["chargg"][2:]:
             CHARGG[pix].append(addr)
         else:
             CHARGG[pix] = [addr]
+CHARBACK = {}
+addr = -1
+for pix in images["char_back"][2:]:
+    addr += 1
+    if eval(pix) != 0:
+        if pix in CHARBACK:
+            CHARBACK[pix].append(addr)
+        else:
+            CHARBACK[pix] = [addr]
 DISPCHAR += "    BNE  $1, 0\n"
 DISPCHAR += "    JUMP CHARGG\n"
 DISPCHAR += "    BNE  $1, 1\n"
@@ -157,13 +190,22 @@ DISPCHAR += "    BNE  $1, 3\n"
 DISPCHAR += "    JUMP CHARRIGHT\n"
 DISPCHAR += "    BNE  $1, 4\n"
 DISPCHAR += "    JUMP CHARRIGHT\n"
-DISPCHAR += "    JUMP CHARGG\n"
+DISPCHAR += "    BNE  $1, 5\n"
+DISPCHAR += "    JUMP CHARBACK\n"
 DISPCHAR += "CHARGG:\n"
 for i in CHARGG:
     inst = "    LLI  $3, %s\n" % (i,)
     for j in CHARGG[i]:
         inst += "    LWI  $2, %d\n" % ((2147500000+CHARSTARTY*OLEDX+CHARSTARTX) + j//CHARX*OLEDX+j%CHARX,)
         inst += "    SW   $3, $2, 0\n"
+    DISPCHAR += inst
+DISPCHAR += "    JUMP CHARAFTERDEF\n"
+DISPCHAR += "CHARBACK:\n"
+for i in CHARBACK:
+    inst = "    LLI  $3, %s\n" % (i,)
+    for j in CHARBACK[i]:
+        inst += "    LWI  $2, %d\n" % ((2147500000+CHARSTARTY*OLEDX+CHARSTARTX) + j//CHARX*OLEDX+j%CHARX,)
+        inst += "    SW   $3, $2,  0\n"
     DISPCHAR += inst
 DISPCHAR += "    JUMP CHARAFTERDEF\n"
 DISPCHAR += "CHARRIGHT:\n"
@@ -185,7 +227,7 @@ DISPCHAR += "CHARLEFT:\n"
 for i in CHAR:
     inst = "    LLI  $3, %s\n" % (i,)
     for j in CHAR[i]:
-        inst += "    LWI  $2, %d\n" % ((2147500000+CHARSTARTY*OLEDX+CHARSTARTX) + (j//CHARX+1)*OLEDX-j%CHARX,)
+        inst += "    LWI  $2, %d\n" % ((2147500000+CHARSTARTY*OLEDX+CHARSTARTX) + (j//CHARX+1)*OLEDX-j%CHARX+CHARX,)
         inst += "    SW   $3, $2, 0\n"
     DISPCHAR += inst
 DISPCHAR += "    BNE  $1, 1\n"
@@ -201,6 +243,131 @@ DISPCHAR += "    JMP  $0\n" #return
 del CHAR
 del CHARX
 del CHARY
+'''
+
+#state: $1
+#x: $2
+#y: $3
+DISPCHARA = "DISPCHARA:\n"
+CHARX = int(images["chargg"][0])
+CHARY = int(images["chargg"][1])
+CHARSTARTX = (OLEDX-CHARX)//2
+CHARSTARTY = (OLEDY-CHARY)//2
+CHAR = {}   
+addr = -1
+for pix in images["char"][2:]:
+    addr += 1
+    if eval(pix) != 0:
+        if pix in CHAR:
+            CHAR[pix].append(addr)
+        else:
+            CHAR[pix] = [addr]
+CHARGG = {}
+addr = -1
+for pix in images["chargg"][2:]:
+    addr += 1
+    if eval(pix) != 0:
+        if pix in CHARGG:
+            CHARGG[pix].append(addr)
+        else:
+            CHARGG[pix] = [addr]
+CHARBACK = {}
+addr = -1
+for pix in images["char_back"][2:]:
+    addr += 1
+    if eval(pix) != 0:
+        if pix in CHARBACK:
+            CHARBACK[pix].append(addr)
+        else:
+            CHARBACK[pix] = [addr]
+DISPCHARA += "    ADDi $14, $2, 0\n"
+DISPCHARA += "    ADDi $15, $3, 0\n"
+DISPCHARA += "    LWI  $11, %d\n" % (OLEDX,)
+DISPCHARA += "    LWI  $17, 2147500000\n"
+DISPCHARA += "    BNE  $1, 0\n"
+DISPCHARA += "    JUMP CHARGG\n"
+DISPCHARA += "    BNE  $1, 1\n"
+DISPCHARA += "    JUMP CHARLEFT\n"
+DISPCHARA += "    BNE  $1, 2\n"
+DISPCHARA += "    JUMP CHARLEFT\n"
+DISPCHARA += "    BNE  $1, 3\n"
+DISPCHARA += "    JUMP CHARRIGHT\n"
+DISPCHARA += "    BNE  $1, 4\n"
+DISPCHARA += "    JUMP CHARRIGHT\n"
+DISPCHARA += "    BNE  $1, 5\n"
+DISPCHARA += "    JUMP CHARBACK\n"
+DISPCHARA += "CHARGG:\n"
+for i in CHARGG:
+    inst = "    LLI  $3, %s\n" % (i,)
+    for j in CHARGG[i]:
+        inst += "    ADDi $16, $14, %d\n" % (j %  CHARX,)
+        inst += "    ADDi $10, $15, %d\n" % (j // CHARX,)
+        inst += "    LWI  $9,  LINE_NUMBER+5\n"
+        inst += "    JUMP MULTIPLICATION\n"
+        inst += "    ADD  $2, $12, $16\n"    #OLEDADDR
+        inst += "    ADD  $2, $2,  $17\n"
+        inst += "    SW   $3, $2,  0\n"
+    DISPCHARA += inst
+DISPCHARA += "    JUMP CHARAFTERDEF\n"
+DISPCHARA += "CHARBACK:\n"
+for i in CHARBACK:
+    inst = "    LLI  $3, %s\n" % (i,)
+    for j in CHARBACK[i]:
+        inst += "    ADDi $16, $14, %d\n" % (j %  CHARX,)
+        inst += "    ADDi $10, $15, %d\n" % (j // CHARX,)
+        inst += "    LWI  $9,  LINE_NUMBER+5\n"
+        inst += "    JUMP MULTIPLICATION\n"
+        inst += "    ADD  $2, $12, $16\n"    #OLEDADDR
+        inst += "    ADD  $2, $2,  $17\n"
+        inst += "    SW   $3, $2,  0\n"
+    DISPCHARA += inst
+DISPCHARA += "    JUMP CHARAFTERDEF\n"
+DISPCHARA += "CHARRIGHT:\n"
+for i in CHAR:
+    inst = "    LLI  $3, %s\n" % (i,)
+    for j in CHAR[i]:
+        inst += "    ADDi $16, $14, %d\n" % (j % CHARX,)
+        inst += "    ADDi $10, $15, %d\n" % (j // CHARX,)
+        inst += "    LWI  $9,  LINE_NUMBER+5\n"
+        inst += "    JUMP MULTIPLICATION\n"
+        inst += "    ADD  $2, $12, $16\n"    #OLEDADDR
+        inst += "    ADD  $2, $2,  $17\n"
+        inst += "    SW   $3, $2, 0\n"
+    DISPCHARA += inst
+DISPCHARA += "    BNE  $1, 3\n"
+DISPCHARA += "    JUMP CHARRIGHT1\n"
+DISPCHARA += "CHARRIGHT2:\n"
+DISPCHARA += ""                                                         ###################################
+DISPCHARA += "    JUMP CHARAFTERDEF\n"
+DISPCHARA += "CHARRIGHT1:\n"
+DISPCHARA += ""                                                         ###################################
+DISPCHARA += "    JUMP CHARAFTERDEF\n"
+DISPCHARA += "CHARLEFT:\n"
+for i in CHAR:
+    inst = "    LLI  $3, %s\n" % (i,)
+    for j in CHAR[i]:
+        inst += "    ADDi $16, $14, %d\n" % (CHARX - j % CHARX,)
+        inst += "    ADDi $10, $15, %d\n" % (j // CHARX,)
+        inst += "    LWI  $9,  LINE_NUMBER+5\n"
+        inst += "    JUMP MULTIPLICATION\n"
+        inst += "    ADD  $2, $12, $16\n"    #OLEDADDR
+        inst += "    ADD  $2, $2,  $17\n"
+        inst += "    SW   $3, $2, 0\n"
+    DISPCHARA += inst
+DISPCHARA += "    BNE  $1, 1\n"
+DISPCHARA += "    JUMP CHARLEFT1\n"
+DISPCHARA += "CHARLEFT2:\n"
+DISPCHARA += ""                                                         ###################################
+DISPCHARA += "    JUMP CHARAFTERDEF\n"
+DISPCHARA += "CHARLEFT1:\n"
+DISPCHARA += ""                                                         ###################################
+DISPCHARA += "    JUMP CHARAFTERDEF\n"
+DISPCHARA += "CHARAFTERDEF:\n"
+DISPCHARA += "    JMP  $0\n" #return
+del CHAR
+del CHARX
+del CHARY
+
 
 #centre_x: $1, centre_y: $2
 DISPMAP = "DISPMAP:\n"
@@ -338,7 +505,7 @@ DISPCH = '''DISPCH:
     BNE  $3, 43  //+
     JUMP  DISPCH+
     BNE  $3, 44  //,
-    JUMP  DISPCH,
+    JUMP  DISPCHcomma
     BNE  $3, 45  //-
     JUMP  DISPCH-
     BNE  $3, 46  //.
@@ -539,7 +706,7 @@ DISPCH*:
 DISPCH+:
     LLI  $4, 0b000010111010000
     JUMP DISPCHDRAW
-DISPCH,:
+DISPCHcomma:
     LLI  $4, 0b000000000010100
     JUMP DISPCHDRAW
 DISPCH-:
@@ -796,41 +963,51 @@ DISPCHDRAW:
     SRL  $6, $1, $6                  //x_coord of tl
     LWI  $19, ''' + str(OLEDX) + ''' //OLEDX
     LWI  $20, ''' + str(OLEDY) + ''' //OLEDY
+    LWI  $21, 0                      //$21 = y_coord of font
     ADDi $13, $7, 0                  //$13 = y_coord
+    LWI  $22, 31                     //constant 31
 DISPCHLINLOOP:
-    BNE  $13, 5                      //y_coord==5 -> out of bound
+    BNE  $21, 5                      //y_coord==5 -> out of bound
     JUMP DISPCHENDL
-    ADDi $14, $6, 0                  //$8 = x_coord
+    ADDi $14, $6, 0                  //$14 = x_coord
+    LWI  $22, 0                      //$22 = x_coord of font
 DISPCHCOLLOOP:
-    BNE  $14, 3                      //x_coord==3 -> out of bound
+    BNE  $22, 3                      //x_coord==3 -> out of bound
     JUMP DISPCHCOLLOOPEND
-    SLT  $15, $14, $19
-    SLT  $16, $13, $20
-    BEQ  $15, 1
-    JUMP DISPCHCOLEND
-    BEQ  $16, 1
-    JUMP DISPCHCOLEND
-    ADDi $10, $19, 0           //OLEDX
-    ADDi $11, $13, 0           //y_coord
-    LWI  $9,  LINE_NUMBER+5    //return addr of multiplication function
-    JUMP MULTIPLICATION        //$12 = OLEDX * y_coord
-    ADD  $12, $12, $14         //$12 = pix mem addr
-    SW   $2,  $12, 0           //Draw pixel
+    SLT  $15, $14, $19               //x on oled?
+    SLT  $16, $13, $20               //y on oled?
+    BEQ  $15, 1                      //if not
+    JUMP DISPCHCOLLOOPEND            //next line
+    BEQ  $16, 1                      //if not
+    JUMP DISPCHENDL                  //exit function
+    ADDi $10, $19, 0                 //OLEDX
+    ADDi $11, $13, 0                 //y_coord
+    LWI  $9,  LINE_NUMBER+5          //return addr of multiplication function
+    JUMP MULTIPLICATION              //$12 = OLEDX * y_coord
+    ADD  $12, $12, $14               //$12 = pix mem addr
+    ADD  $9,  $21, $21
+    ADD  $9,  $9,  $21               //$9 = $21*3
+    ADD  $9,  $9,  $22               //$9 = bit position
+    SRL  $9,  $4,  $9
+    SLL  $9,  $9,  $22
+    SRL  $9,  $9,  $22               //$9 = bit
+    BEQ  $9,  0                      //if (bit==0): skip next
+    SW   $2,  $12, 0                 //Draw pixel
 DISPCHCOLEND:
-    ADDi $14, $14, 1           //x_coord++
+    ADDi $14, $14, 1                 //x_coord++
+    ADDi $22, $22, 1
     JUMP DISPCHCOLLOOP
 DISPCHCOLLOOPEND:
-    ADDi $13, $13, 1           //y_coord++
+    ADDi $13, $13, 1                 //y_coord++
+    ADDi $21, $21, 1
     JUMP DISPCHLINLOOP
 DISPCHENDL:
     JMP  $0
 '''
-#$1: top_left_coord({[15:0] x, [15:0] y})
-#$2: color
 
 BLINK = '''BLINK:
     LWI  $3, 2147483648
-    LWI  $1, 0b1010101010101010
+    LLI  $1, 0b1010101010101010
 BLINKLOOP:
     INV  $1, $1
     SW   $1, $3, 0

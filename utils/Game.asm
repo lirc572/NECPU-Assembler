@@ -17,20 +17,9 @@ DELAYWORD:
     LWI  $1, LINE_NUMBER+5
     JUMP CHECKVOLUME
     LWI  $0, LINE_NUMBER+5
-    JUMP DISPMENU
-    LWi  $1, 33333333
-DELAYMENU:
-    SUBi $1, $1, 1
-    BEQ  $1, 0
-    JUMP DELAYMENU
-    LWI  $0, LINE_NUMBER
-    LWI  $1, LINE_NUMBER+5
-    JUMP CHECKVOLUME
-    LWI  $30, 12*16
-    LWI  $31, 9*16 
     LWI  $29, 0
-    LWI  $27, 12*16+10
-    LWI  $28, 9*16-10
+    LWI  $27, 0
+    LWI  $28, 0
 GAMELOOP:
     LWI  $1,  2147483649
     LW   $1,  $1, 0
@@ -45,36 +34,47 @@ GAMELOOP:
     JUMP BTNLPRESSED
     BNE  $1,  0b00010
     JUMP BTNUPRESSED
-    JUMP CONTROLEND
+    JUMP CONTROLDEF
 BTNDPRESSED:
-    SUBi $31, $31, 1
+    SUBi $28, $28, 1
     LWI  $29, 0
+    LLI  $5,  1
+    LWI  $6,  2147483648
+    SW   $5,  $6, 0
     JUMP CONTROLEND
 BTNRPRESSED:
-    ADDi $30, $30, 1
+    ADDi $27, $27, 1
     LWI  $29, 3
+    LLI  $5,  2
+    LWI  $6,  2147483648
+    SW   $5,  $6, 0
     JUMP CONTROLEND
 BTNLPRESSED:
-    SUBi $30, $30, 1
+    SUBi $27, $27, 1
     LWI  $29, 1
+    LLI  $5,  4
+    LWI  $6,  2147483648
+    SW   $5,  $6, 0
     JUMP CONTROLEND
 BTNUPRESSED:
-    ADDi $31, $31, 1
-    LWI  $29, 0
+    ADDi $28, $28, 1
+    LWI  $29, 5
+    LLI  $5,  8
+    LWI  $6,  2147483648
+    SW   $5,  $6, 0
     JUMP CONTROLEND
 CONTROLDEF:
+    LLI  $5,  16
+    LWI  $6,  2147483648
+    SW   $5,  $6, 0
 CONTROLEND:
-    ADDi $1,  $30, 0
-    ADDi $2,  $31, 0
     LWI  $0,  LINE_NUMBER+5
-    JUMP DISPMAP
-    ADDi $3,  $27, 0
-    ADDi $4,  $28, 0
-    LWI  $0,  LINE_NUMBER+5
-    JUMP DISPENEMY
+    JUMP DISPSIMPLEMAP
     ADDi $1,  $29, 0
+    ADDi $2,  $27, 0
+    ADDi $3,  $28, 0
     LWI  $0,  LINE_NUMBER+5
-    JUMP DISPCHAR
+    JUMP DISPCHARA
     LWi  $1, 166666
 DELAYPOV:
     SUBi $1, $1, 1
@@ -13880,35 +13880,5957 @@ DISPWORD:
     LWI  $2, 2147504403
     SW   $1, $2, 0
     JMP $0
-DISPMENU:
-    LLI  $1, 0b0101001010011100
-    LWI  $2, 2147500580
+DISPCHARA:
+    ADDi $14, $2, 0
+    ADDi $15, $3, 0
+    LWI  $11, 96
+    LWI  $17, 2147500000
+    BNE  $1, 0
+    JUMP CHARGG
+    BNE  $1, 1
+    JUMP CHARLEFT
+    BNE  $1, 2
+    JUMP CHARLEFT
+    BNE  $1, 3
+    JUMP CHARRIGHT
+    BNE  $1, 4
+    JUMP CHARRIGHT
+    BNE  $1, 5
+    JUMP CHARBACK
+CHARGG:
+    LLI  $3, 0b0001100011000011
+    ADDi $16, $14, 0
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    LLI  $3, 0b1111010011001110
+    ADDi $16, $14, 1
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 12
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 12
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    LLI  $3, 0b0111100000000000
+    ADDi $16, $14, 2
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    LLI  $3, 0b1010000000000000
+    ADDi $16, $14, 4
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    LLI  $3, 0b0001000010101100
+    ADDi $16, $14, 2
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    LLI  $3, 0b1101010000101100
+    ADDi $16, $14, 3
+    ADDi $10, $15, 11
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 11
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    JUMP CHARAFTERDEF
+CHARBACK:
+    LLI  $3, 0b0001100011000011
+    ADDi $16, $14, 0
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    LLI  $3, 0b1111010011001110
+    ADDi $16, $14, 1
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    LLI  $3, 0b0111100001000001
+    ADDi $16, $14, 2
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    LLI  $3, 0b0001000010101100
+    ADDi $16, $14, 2
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    LLI  $3, 0b1101010000101100
+    ADDi $16, $14, 3
+    ADDi $10, $15, 11
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 11
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2,  0
+    JUMP CHARAFTERDEF
+CHARRIGHT:
+    LLI  $3, 0b0001100011000011
+    ADDi $16, $14, 0
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 0
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    LLI  $3, 0b1101010000101100
+    ADDi $16, $14, 2
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 11
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 11
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    LLI  $3, 0b1111010011001110
+    ADDi $16, $14, 1
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    LLI  $3, 0b0111100001000001
+    ADDi $16, $14, 2
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    LLI  $3, 0b1010000000000000
+    ADDi $16, $14, 3
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    LLI  $3, 0b0001000010101100
+    ADDi $16, $14, 2
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    BNE  $1, 3
+    JUMP CHARRIGHT1
+CHARRIGHT2:
+    JUMP CHARAFTERDEF
+CHARRIGHT1:
+    JUMP CHARAFTERDEF
+CHARLEFT:
+    LLI  $3, 0b0001100011000011
+    ADDi $16, $14, 10
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 0
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 10
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 1
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 10
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 10
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 10
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 10
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 10
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    LLI  $3, 0b1101010000101100
+    ADDi $16, $14, 8
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 2
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 11
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 11
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    LLI  $3, 0b1111010011001110
+    ADDi $16, $14, 9
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 3
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 9
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 4
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 5
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 1
+    ADDi $10, $15, 6
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 2
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    LLI  $3, 0b0111100001000001
+    ADDi $16, $14, 8
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    LLI  $3, 0b1010000000000000
+    ADDi $16, $14, 7
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 7
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 8
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 8
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 9
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    LLI  $3, 0b0001000010101100
+    ADDi $16, $14, 8
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 7
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 6
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 5
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 4
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    ADDi $16, $14, 3
+    ADDi $10, $15, 10
+    LWI  $9,  LINE_NUMBER+5
+    JUMP MULTIPLICATION
+    ADD  $2, $12, $16
+    ADD  $2, $2,  $17
+    SW   $3, $2, 0
+    BNE  $1, 1
+    JUMP CHARLEFT1
+CHARLEFT2:
+    JUMP CHARAFTERDEF
+CHARLEFT1:
+    JUMP CHARAFTERDEF
+CHARAFTERDEF:
+    JMP  $0
+CHECKVOLUME:
+    LWI  $2, 2147483650
+    LW   $2, $2, 0
+    LWI  $3, 16
+    SRL  $2, $2, $3
+    ANDi $2, $2, 0b0000000000001111
+    BEQ  $2, 15
+    JMP  $0
+    JMP  $1
+DISPSIMPLEMAP:
+    LLI  $1, 0b0110101101010000
+    LWI  $2, 2147500000
     SW   $1, $2, 0
-    LWI  $2, 2147500581
+    LWI  $2, 2147500001
     SW   $1, $2, 0
-    LWI  $2, 2147500582
+    LWI  $2, 2147500002
     SW   $1, $2, 0
-    LWI  $2, 2147500583
+    LWI  $2, 2147500021
     SW   $1, $2, 0
-    LWI  $2, 2147500584
+    LWI  $2, 2147500024
     SW   $1, $2, 0
-    LWI  $2, 2147500585
+    LWI  $2, 2147500025
     SW   $1, $2, 0
-    LWI  $2, 2147500586
+    LWI  $2, 2147500029
     SW   $1, $2, 0
-    LWI  $2, 2147500587
+    LWI  $2, 2147500030
     SW   $1, $2, 0
-    LWI  $2, 2147500588
+    LWI  $2, 2147500031
+    SW   $1, $2, 0
+    LWI  $2, 2147500032
+    SW   $1, $2, 0
+    LWI  $2, 2147500033
+    SW   $1, $2, 0
+    LWI  $2, 2147500034
+    SW   $1, $2, 0
+    LWI  $2, 2147500035
+    SW   $1, $2, 0
+    LWI  $2, 2147500036
+    SW   $1, $2, 0
+    LWI  $2, 2147500037
+    SW   $1, $2, 0
+    LWI  $2, 2147500038
+    SW   $1, $2, 0
+    LWI  $2, 2147500039
+    SW   $1, $2, 0
+    LWI  $2, 2147500040
+    SW   $1, $2, 0
+    LWI  $2, 2147500041
+    SW   $1, $2, 0
+    LWI  $2, 2147500042
+    SW   $1, $2, 0
+    LWI  $2, 2147500043
+    SW   $1, $2, 0
+    LWI  $2, 2147500044
+    SW   $1, $2, 0
+    LWI  $2, 2147500045
+    SW   $1, $2, 0
+    LWI  $2, 2147500046
+    SW   $1, $2, 0
+    LWI  $2, 2147500047
+    SW   $1, $2, 0
+    LWI  $2, 2147500048
+    SW   $1, $2, 0
+    LWI  $2, 2147500049
+    SW   $1, $2, 0
+    LWI  $2, 2147500050
+    SW   $1, $2, 0
+    LWI  $2, 2147500051
+    SW   $1, $2, 0
+    LWI  $2, 2147500052
+    SW   $1, $2, 0
+    LWI  $2, 2147500053
+    SW   $1, $2, 0
+    LWI  $2, 2147500054
+    SW   $1, $2, 0
+    LWI  $2, 2147500055
+    SW   $1, $2, 0
+    LWI  $2, 2147500056
+    SW   $1, $2, 0
+    LWI  $2, 2147500057
+    SW   $1, $2, 0
+    LWI  $2, 2147500058
+    SW   $1, $2, 0
+    LWI  $2, 2147500059
+    SW   $1, $2, 0
+    LWI  $2, 2147500060
+    SW   $1, $2, 0
+    LWI  $2, 2147500061
+    SW   $1, $2, 0
+    LWI  $2, 2147500062
+    SW   $1, $2, 0
+    LWI  $2, 2147500063
+    SW   $1, $2, 0
+    LWI  $2, 2147500064
+    SW   $1, $2, 0
+    LWI  $2, 2147500065
+    SW   $1, $2, 0
+    LWI  $2, 2147500066
+    SW   $1, $2, 0
+    LWI  $2, 2147500067
+    SW   $1, $2, 0
+    LWI  $2, 2147500068
+    SW   $1, $2, 0
+    LWI  $2, 2147500069
+    SW   $1, $2, 0
+    LWI  $2, 2147500070
+    SW   $1, $2, 0
+    LWI  $2, 2147500071
+    SW   $1, $2, 0
+    LWI  $2, 2147500072
+    SW   $1, $2, 0
+    LWI  $2, 2147500073
+    SW   $1, $2, 0
+    LWI  $2, 2147500074
+    SW   $1, $2, 0
+    LWI  $2, 2147500075
+    SW   $1, $2, 0
+    LWI  $2, 2147500076
+    SW   $1, $2, 0
+    LWI  $2, 2147500077
+    SW   $1, $2, 0
+    LWI  $2, 2147500078
+    SW   $1, $2, 0
+    LWI  $2, 2147500079
+    SW   $1, $2, 0
+    LWI  $2, 2147500080
+    SW   $1, $2, 0
+    LWI  $2, 2147500081
+    SW   $1, $2, 0
+    LWI  $2, 2147500082
+    SW   $1, $2, 0
+    LWI  $2, 2147500083
+    SW   $1, $2, 0
+    LWI  $2, 2147500084
+    SW   $1, $2, 0
+    LWI  $2, 2147500085
+    SW   $1, $2, 0
+    LWI  $2, 2147500086
+    SW   $1, $2, 0
+    LWI  $2, 2147500087
+    SW   $1, $2, 0
+    LWI  $2, 2147500088
+    SW   $1, $2, 0
+    LWI  $2, 2147500089
+    SW   $1, $2, 0
+    LWI  $2, 2147500090
+    SW   $1, $2, 0
+    LWI  $2, 2147500091
+    SW   $1, $2, 0
+    LWI  $2, 2147500092
+    SW   $1, $2, 0
+    LWI  $2, 2147500093
+    SW   $1, $2, 0
+    LWI  $2, 2147500094
+    SW   $1, $2, 0
+    LWI  $2, 2147500095
+    SW   $1, $2, 0
+    LWI  $2, 2147500096
+    SW   $1, $2, 0
+    LWI  $2, 2147500097
+    SW   $1, $2, 0
+    LWI  $2, 2147500098
+    SW   $1, $2, 0
+    LWI  $2, 2147500116
+    SW   $1, $2, 0
+    LWI  $2, 2147500119
+    SW   $1, $2, 0
+    LWI  $2, 2147500120
+    SW   $1, $2, 0
+    LWI  $2, 2147500124
+    SW   $1, $2, 0
+    LWI  $2, 2147500125
+    SW   $1, $2, 0
+    LWI  $2, 2147500126
+    SW   $1, $2, 0
+    LWI  $2, 2147500127
+    SW   $1, $2, 0
+    LWI  $2, 2147500128
+    SW   $1, $2, 0
+    LWI  $2, 2147500129
+    SW   $1, $2, 0
+    LWI  $2, 2147500130
+    SW   $1, $2, 0
+    LWI  $2, 2147500131
+    SW   $1, $2, 0
+    LWI  $2, 2147500132
+    SW   $1, $2, 0
+    LWI  $2, 2147500133
+    SW   $1, $2, 0
+    LWI  $2, 2147500134
+    SW   $1, $2, 0
+    LWI  $2, 2147500135
+    SW   $1, $2, 0
+    LWI  $2, 2147500136
+    SW   $1, $2, 0
+    LWI  $2, 2147500137
+    SW   $1, $2, 0
+    LWI  $2, 2147500138
+    SW   $1, $2, 0
+    LWI  $2, 2147500139
+    SW   $1, $2, 0
+    LWI  $2, 2147500140
+    SW   $1, $2, 0
+    LWI  $2, 2147500141
+    SW   $1, $2, 0
+    LWI  $2, 2147500142
+    SW   $1, $2, 0
+    LWI  $2, 2147500143
+    SW   $1, $2, 0
+    LWI  $2, 2147500144
+    SW   $1, $2, 0
+    LWI  $2, 2147500145
+    SW   $1, $2, 0
+    LWI  $2, 2147500146
+    SW   $1, $2, 0
+    LWI  $2, 2147500147
+    SW   $1, $2, 0
+    LWI  $2, 2147500148
+    SW   $1, $2, 0
+    LWI  $2, 2147500149
+    SW   $1, $2, 0
+    LWI  $2, 2147500150
+    SW   $1, $2, 0
+    LWI  $2, 2147500151
+    SW   $1, $2, 0
+    LWI  $2, 2147500152
+    SW   $1, $2, 0
+    LWI  $2, 2147500153
+    SW   $1, $2, 0
+    LWI  $2, 2147500154
+    SW   $1, $2, 0
+    LWI  $2, 2147500155
+    SW   $1, $2, 0
+    LWI  $2, 2147500156
+    SW   $1, $2, 0
+    LWI  $2, 2147500157
+    SW   $1, $2, 0
+    LWI  $2, 2147500158
+    SW   $1, $2, 0
+    LWI  $2, 2147500159
+    SW   $1, $2, 0
+    LWI  $2, 2147500160
+    SW   $1, $2, 0
+    LWI  $2, 2147500161
+    SW   $1, $2, 0
+    LWI  $2, 2147500162
+    SW   $1, $2, 0
+    LWI  $2, 2147500163
+    SW   $1, $2, 0
+    LWI  $2, 2147500164
+    SW   $1, $2, 0
+    LWI  $2, 2147500165
+    SW   $1, $2, 0
+    LWI  $2, 2147500166
+    SW   $1, $2, 0
+    LWI  $2, 2147500167
+    SW   $1, $2, 0
+    LWI  $2, 2147500168
+    SW   $1, $2, 0
+    LWI  $2, 2147500169
+    SW   $1, $2, 0
+    LWI  $2, 2147500170
+    SW   $1, $2, 0
+    LWI  $2, 2147500171
+    SW   $1, $2, 0
+    LWI  $2, 2147500172
+    SW   $1, $2, 0
+    LWI  $2, 2147500173
+    SW   $1, $2, 0
+    LWI  $2, 2147500174
+    SW   $1, $2, 0
+    LWI  $2, 2147500175
+    SW   $1, $2, 0
+    LWI  $2, 2147500176
+    SW   $1, $2, 0
+    LWI  $2, 2147500177
+    SW   $1, $2, 0
+    LWI  $2, 2147500178
+    SW   $1, $2, 0
+    LWI  $2, 2147500179
+    SW   $1, $2, 0
+    LWI  $2, 2147500180
+    SW   $1, $2, 0
+    LWI  $2, 2147500181
+    SW   $1, $2, 0
+    LWI  $2, 2147500182
+    SW   $1, $2, 0
+    LWI  $2, 2147500183
+    SW   $1, $2, 0
+    LWI  $2, 2147500184
+    SW   $1, $2, 0
+    LWI  $2, 2147500185
+    SW   $1, $2, 0
+    LWI  $2, 2147500186
+    SW   $1, $2, 0
+    LWI  $2, 2147500187
+    SW   $1, $2, 0
+    LWI  $2, 2147500188
+    SW   $1, $2, 0
+    LWI  $2, 2147500189
+    SW   $1, $2, 0
+    LWI  $2, 2147500190
+    SW   $1, $2, 0
+    LWI  $2, 2147500191
+    SW   $1, $2, 0
+    LWI  $2, 2147500192
+    SW   $1, $2, 0
+    LWI  $2, 2147500193
+    SW   $1, $2, 0
+    LWI  $2, 2147500194
+    SW   $1, $2, 0
+    LWI  $2, 2147500207
+    SW   $1, $2, 0
+    LWI  $2, 2147500210
+    SW   $1, $2, 0
+    LWI  $2, 2147500215
+    SW   $1, $2, 0
+    LWI  $2, 2147500216
+    SW   $1, $2, 0
+    LWI  $2, 2147500219
+    SW   $1, $2, 0
+    LWI  $2, 2147500220
+    SW   $1, $2, 0
+    LWI  $2, 2147500221
+    SW   $1, $2, 0
+    LWI  $2, 2147500222
+    SW   $1, $2, 0
+    LWI  $2, 2147500223
+    SW   $1, $2, 0
+    LWI  $2, 2147500224
+    SW   $1, $2, 0
+    LWI  $2, 2147500225
+    SW   $1, $2, 0
+    LWI  $2, 2147500226
+    SW   $1, $2, 0
+    LWI  $2, 2147500227
+    SW   $1, $2, 0
+    LWI  $2, 2147500228
+    SW   $1, $2, 0
+    LWI  $2, 2147500229
+    SW   $1, $2, 0
+    LWI  $2, 2147500230
+    SW   $1, $2, 0
+    LWI  $2, 2147500231
+    SW   $1, $2, 0
+    LWI  $2, 2147500232
+    SW   $1, $2, 0
+    LWI  $2, 2147500233
+    SW   $1, $2, 0
+    LWI  $2, 2147500234
+    SW   $1, $2, 0
+    LWI  $2, 2147500235
+    SW   $1, $2, 0
+    LWI  $2, 2147500236
+    SW   $1, $2, 0
+    LWI  $2, 2147500237
+    SW   $1, $2, 0
+    LWI  $2, 2147500238
+    SW   $1, $2, 0
+    LWI  $2, 2147500239
+    SW   $1, $2, 0
+    LWI  $2, 2147500240
+    SW   $1, $2, 0
+    LWI  $2, 2147500241
+    SW   $1, $2, 0
+    LWI  $2, 2147500242
+    SW   $1, $2, 0
+    LWI  $2, 2147500243
+    SW   $1, $2, 0
+    LWI  $2, 2147500244
+    SW   $1, $2, 0
+    LWI  $2, 2147500245
+    SW   $1, $2, 0
+    LWI  $2, 2147500246
+    SW   $1, $2, 0
+    LWI  $2, 2147500247
+    SW   $1, $2, 0
+    LWI  $2, 2147500248
+    SW   $1, $2, 0
+    LWI  $2, 2147500249
+    SW   $1, $2, 0
+    LWI  $2, 2147500250
+    SW   $1, $2, 0
+    LWI  $2, 2147500251
+    SW   $1, $2, 0
+    LWI  $2, 2147500252
+    SW   $1, $2, 0
+    LWI  $2, 2147500253
+    SW   $1, $2, 0
+    LWI  $2, 2147500254
+    SW   $1, $2, 0
+    LWI  $2, 2147500255
+    SW   $1, $2, 0
+    LWI  $2, 2147500256
+    SW   $1, $2, 0
+    LWI  $2, 2147500257
+    SW   $1, $2, 0
+    LWI  $2, 2147500258
+    SW   $1, $2, 0
+    LWI  $2, 2147500259
+    SW   $1, $2, 0
+    LWI  $2, 2147500260
+    SW   $1, $2, 0
+    LWI  $2, 2147500261
+    SW   $1, $2, 0
+    LWI  $2, 2147500262
+    SW   $1, $2, 0
+    LWI  $2, 2147500263
+    SW   $1, $2, 0
+    LWI  $2, 2147500264
+    SW   $1, $2, 0
+    LWI  $2, 2147500265
+    SW   $1, $2, 0
+    LWI  $2, 2147500266
+    SW   $1, $2, 0
+    LWI  $2, 2147500267
+    SW   $1, $2, 0
+    LWI  $2, 2147500268
+    SW   $1, $2, 0
+    LWI  $2, 2147500269
+    SW   $1, $2, 0
+    LWI  $2, 2147500270
+    SW   $1, $2, 0
+    LWI  $2, 2147500271
+    SW   $1, $2, 0
+    LWI  $2, 2147500272
+    SW   $1, $2, 0
+    LWI  $2, 2147500273
+    SW   $1, $2, 0
+    LWI  $2, 2147500274
+    SW   $1, $2, 0
+    LWI  $2, 2147500275
+    SW   $1, $2, 0
+    LWI  $2, 2147500276
+    SW   $1, $2, 0
+    LWI  $2, 2147500277
+    SW   $1, $2, 0
+    LWI  $2, 2147500278
+    SW   $1, $2, 0
+    LWI  $2, 2147500279
+    SW   $1, $2, 0
+    LWI  $2, 2147500280
+    SW   $1, $2, 0
+    LWI  $2, 2147500281
+    SW   $1, $2, 0
+    LWI  $2, 2147500282
+    SW   $1, $2, 0
+    LWI  $2, 2147500283
+    SW   $1, $2, 0
+    LWI  $2, 2147500284
+    SW   $1, $2, 0
+    LWI  $2, 2147500285
+    SW   $1, $2, 0
+    LWI  $2, 2147500286
+    SW   $1, $2, 0
+    LWI  $2, 2147500287
+    SW   $1, $2, 0
+    LWI  $2, 2147500288
+    SW   $1, $2, 0
+    LWI  $2, 2147500289
+    SW   $1, $2, 0
+    LWI  $2, 2147500290
+    SW   $1, $2, 0
+    LWI  $2, 2147500364
+    SW   $1, $2, 0
+    LWI  $2, 2147500365
+    SW   $1, $2, 0
+    LWI  $2, 2147500366
+    SW   $1, $2, 0
+    LWI  $2, 2147500381
+    SW   $1, $2, 0
+    LWI  $2, 2147500382
+    SW   $1, $2, 0
+    LWI  $2, 2147500383
+    SW   $1, $2, 0
+    LWI  $2, 2147500384
+    SW   $1, $2, 0
+    LWI  $2, 2147500385
+    SW   $1, $2, 0
+    LWI  $2, 2147500386
+    SW   $1, $2, 0
+    LWI  $2, 2147500460
+    SW   $1, $2, 0
+    LWI  $2, 2147500461
+    SW   $1, $2, 0
+    LWI  $2, 2147500462
+    SW   $1, $2, 0
+    LWI  $2, 2147500477
+    SW   $1, $2, 0
+    LWI  $2, 2147500478
+    SW   $1, $2, 0
+    LWI  $2, 2147500479
+    SW   $1, $2, 0
+    LWI  $2, 2147500480
+    SW   $1, $2, 0
+    LWI  $2, 2147500481
+    SW   $1, $2, 0
+    LWI  $2, 2147500482
+    SW   $1, $2, 0
+    LWI  $2, 2147500556
+    SW   $1, $2, 0
+    LWI  $2, 2147500557
+    SW   $1, $2, 0
+    LWI  $2, 2147500558
+    SW   $1, $2, 0
+    LWI  $2, 2147500573
+    SW   $1, $2, 0
+    LWI  $2, 2147500574
+    SW   $1, $2, 0
+    LWI  $2, 2147500575
+    SW   $1, $2, 0
+    LWI  $2, 2147500576
+    SW   $1, $2, 0
+    LWI  $2, 2147500577
+    SW   $1, $2, 0
+    LWI  $2, 2147500578
+    SW   $1, $2, 0
+    LWI  $2, 2147500652
+    SW   $1, $2, 0
+    LWI  $2, 2147500653
+    SW   $1, $2, 0
+    LWI  $2, 2147500654
+    SW   $1, $2, 0
+    LWI  $2, 2147500669
+    SW   $1, $2, 0
+    LWI  $2, 2147500670
+    SW   $1, $2, 0
+    LWI  $2, 2147500671
+    SW   $1, $2, 0
+    LWI  $2, 2147500672
+    SW   $1, $2, 0
+    LWI  $2, 2147500673
+    SW   $1, $2, 0
+    LWI  $2, 2147500674
+    SW   $1, $2, 0
+    LWI  $2, 2147500748
+    SW   $1, $2, 0
+    LWI  $2, 2147500749
+    SW   $1, $2, 0
+    LWI  $2, 2147500750
+    SW   $1, $2, 0
+    LWI  $2, 2147500765
+    SW   $1, $2, 0
+    LWI  $2, 2147500766
+    SW   $1, $2, 0
+    LWI  $2, 2147500767
+    SW   $1, $2, 0
+    LWI  $2, 2147500768
+    SW   $1, $2, 0
+    LWI  $2, 2147500769
+    SW   $1, $2, 0
+    LWI  $2, 2147500770
+    SW   $1, $2, 0
+    LWI  $2, 2147500844
+    SW   $1, $2, 0
+    LWI  $2, 2147500845
+    SW   $1, $2, 0
+    LWI  $2, 2147500846
+    SW   $1, $2, 0
+    LWI  $2, 2147500861
+    SW   $1, $2, 0
+    LWI  $2, 2147500862
+    SW   $1, $2, 0
+    LWI  $2, 2147500863
+    SW   $1, $2, 0
+    LWI  $2, 2147500864
+    SW   $1, $2, 0
+    LWI  $2, 2147500865
+    SW   $1, $2, 0
+    LWI  $2, 2147500866
+    SW   $1, $2, 0
+    LWI  $2, 2147500940
+    SW   $1, $2, 0
+    LWI  $2, 2147500941
+    SW   $1, $2, 0
+    LWI  $2, 2147500942
+    SW   $1, $2, 0
+    LWI  $2, 2147500957
+    SW   $1, $2, 0
+    LWI  $2, 2147500958
+    SW   $1, $2, 0
+    LWI  $2, 2147500959
+    SW   $1, $2, 0
+    LWI  $2, 2147500960
+    SW   $1, $2, 0
+    LWI  $2, 2147500961
+    SW   $1, $2, 0
+    LWI  $2, 2147500962
+    SW   $1, $2, 0
+    LWI  $2, 2147501036
+    SW   $1, $2, 0
+    LWI  $2, 2147501037
+    SW   $1, $2, 0
+    LWI  $2, 2147501038
+    SW   $1, $2, 0
+    LWI  $2, 2147501053
+    SW   $1, $2, 0
+    LWI  $2, 2147501054
+    SW   $1, $2, 0
+    LWI  $2, 2147501055
+    SW   $1, $2, 0
+    LWI  $2, 2147501056
+    SW   $1, $2, 0
+    LWI  $2, 2147501057
+    SW   $1, $2, 0
+    LWI  $2, 2147501058
+    SW   $1, $2, 0
+    LWI  $2, 2147501132
+    SW   $1, $2, 0
+    LWI  $2, 2147501133
+    SW   $1, $2, 0
+    LWI  $2, 2147501134
+    SW   $1, $2, 0
+    LWI  $2, 2147501149
+    SW   $1, $2, 0
+    LWI  $2, 2147501150
+    SW   $1, $2, 0
+    LWI  $2, 2147501151
+    SW   $1, $2, 0
+    LWI  $2, 2147501152
+    SW   $1, $2, 0
+    LWI  $2, 2147501153
+    SW   $1, $2, 0
+    LWI  $2, 2147501154
+    SW   $1, $2, 0
+    LWI  $2, 2147501228
+    SW   $1, $2, 0
+    LWI  $2, 2147501229
+    SW   $1, $2, 0
+    LWI  $2, 2147501230
+    SW   $1, $2, 0
+    LWI  $2, 2147501245
+    SW   $1, $2, 0
+    LWI  $2, 2147501246
+    SW   $1, $2, 0
+    LWI  $2, 2147501247
+    SW   $1, $2, 0
+    LWI  $2, 2147501248
+    SW   $1, $2, 0
+    LWI  $2, 2147501249
+    SW   $1, $2, 0
+    LWI  $2, 2147501250
+    SW   $1, $2, 0
+    LWI  $2, 2147501324
+    SW   $1, $2, 0
+    LWI  $2, 2147501325
+    SW   $1, $2, 0
+    LWI  $2, 2147501326
+    SW   $1, $2, 0
+    LWI  $2, 2147501341
+    SW   $1, $2, 0
+    LWI  $2, 2147501342
+    SW   $1, $2, 0
+    LWI  $2, 2147501343
+    SW   $1, $2, 0
+    LWI  $2, 2147501344
+    SW   $1, $2, 0
+    LWI  $2, 2147501345
+    SW   $1, $2, 0
+    LWI  $2, 2147501346
+    SW   $1, $2, 0
+    LWI  $2, 2147501420
+    SW   $1, $2, 0
+    LWI  $2, 2147501421
+    SW   $1, $2, 0
+    LWI  $2, 2147501422
+    SW   $1, $2, 0
+    LWI  $2, 2147501437
+    SW   $1, $2, 0
+    LWI  $2, 2147501438
+    SW   $1, $2, 0
+    LWI  $2, 2147501439
+    SW   $1, $2, 0
+    LWI  $2, 2147501440
+    SW   $1, $2, 0
+    LWI  $2, 2147501441
+    SW   $1, $2, 0
+    LWI  $2, 2147501442
+    SW   $1, $2, 0
+    LWI  $2, 2147501516
+    SW   $1, $2, 0
+    LWI  $2, 2147501517
+    SW   $1, $2, 0
+    LWI  $2, 2147501518
+    SW   $1, $2, 0
+    LWI  $2, 2147501533
+    SW   $1, $2, 0
+    LWI  $2, 2147501534
+    SW   $1, $2, 0
+    LWI  $2, 2147501535
+    SW   $1, $2, 0
+    LWI  $2, 2147501536
+    SW   $1, $2, 0
+    LWI  $2, 2147501537
+    SW   $1, $2, 0
+    LWI  $2, 2147501538
+    SW   $1, $2, 0
+    LWI  $2, 2147501612
+    SW   $1, $2, 0
+    LWI  $2, 2147501613
+    SW   $1, $2, 0
+    LWI  $2, 2147501614
+    SW   $1, $2, 0
+    LWI  $2, 2147501629
+    SW   $1, $2, 0
+    LWI  $2, 2147501630
+    SW   $1, $2, 0
+    LWI  $2, 2147501631
+    SW   $1, $2, 0
+    LWI  $2, 2147501632
+    SW   $1, $2, 0
+    LWI  $2, 2147501633
+    SW   $1, $2, 0
+    LWI  $2, 2147501634
+    SW   $1, $2, 0
+    LWI  $2, 2147501646
+    SW   $1, $2, 0
+    LWI  $2, 2147501647
+    SW   $1, $2, 0
+    LWI  $2, 2147501648
+    SW   $1, $2, 0
+    LWI  $2, 2147501649
+    SW   $1, $2, 0
+    LWI  $2, 2147501650
+    SW   $1, $2, 0
+    LWI  $2, 2147501651
+    SW   $1, $2, 0
+    LWI  $2, 2147501652
+    SW   $1, $2, 0
+    LWI  $2, 2147501653
+    SW   $1, $2, 0
+    LWI  $2, 2147501654
+    SW   $1, $2, 0
+    LWI  $2, 2147501655
+    SW   $1, $2, 0
+    LWI  $2, 2147501656
+    SW   $1, $2, 0
+    LWI  $2, 2147501657
+    SW   $1, $2, 0
+    LWI  $2, 2147501658
+    SW   $1, $2, 0
+    LWI  $2, 2147501659
+    SW   $1, $2, 0
+    LWI  $2, 2147501660
+    SW   $1, $2, 0
+    LWI  $2, 2147501661
+    SW   $1, $2, 0
+    LWI  $2, 2147501662
+    SW   $1, $2, 0
+    LWI  $2, 2147501663
+    SW   $1, $2, 0
+    LWI  $2, 2147501664
+    SW   $1, $2, 0
+    LWI  $2, 2147501665
+    SW   $1, $2, 0
+    LWI  $2, 2147501666
+    SW   $1, $2, 0
+    LWI  $2, 2147501667
+    SW   $1, $2, 0
+    LWI  $2, 2147501668
+    SW   $1, $2, 0
+    LWI  $2, 2147501669
+    SW   $1, $2, 0
+    LWI  $2, 2147501670
+    SW   $1, $2, 0
+    LWI  $2, 2147501671
+    SW   $1, $2, 0
+    LWI  $2, 2147501672
+    SW   $1, $2, 0
+    LWI  $2, 2147501673
+    SW   $1, $2, 0
+    LWI  $2, 2147501678
+    SW   $1, $2, 0
+    LWI  $2, 2147501679
+    SW   $1, $2, 0
+    LWI  $2, 2147501683
+    SW   $1, $2, 0
+    LWI  $2, 2147501686
+    SW   $1, $2, 0
+    LWI  $2, 2147501708
+    SW   $1, $2, 0
+    LWI  $2, 2147501709
+    SW   $1, $2, 0
+    LWI  $2, 2147501710
+    SW   $1, $2, 0
+    LWI  $2, 2147501725
+    SW   $1, $2, 0
+    LWI  $2, 2147501726
+    SW   $1, $2, 0
+    LWI  $2, 2147501727
+    SW   $1, $2, 0
+    LWI  $2, 2147501728
+    SW   $1, $2, 0
+    LWI  $2, 2147501729
+    SW   $1, $2, 0
+    LWI  $2, 2147501730
+    SW   $1, $2, 0
+    LWI  $2, 2147501742
+    SW   $1, $2, 0
+    LWI  $2, 2147501743
+    SW   $1, $2, 0
+    LWI  $2, 2147501744
+    SW   $1, $2, 0
+    LWI  $2, 2147501745
+    SW   $1, $2, 0
+    LWI  $2, 2147501746
+    SW   $1, $2, 0
+    LWI  $2, 2147501747
+    SW   $1, $2, 0
+    LWI  $2, 2147501748
+    SW   $1, $2, 0
+    LWI  $2, 2147501749
+    SW   $1, $2, 0
+    LWI  $2, 2147501750
+    SW   $1, $2, 0
+    LWI  $2, 2147501751
+    SW   $1, $2, 0
+    LWI  $2, 2147501752
+    SW   $1, $2, 0
+    LWI  $2, 2147501753
+    SW   $1, $2, 0
+    LWI  $2, 2147501754
+    SW   $1, $2, 0
+    LWI  $2, 2147501755
+    SW   $1, $2, 0
+    LWI  $2, 2147501756
+    SW   $1, $2, 0
+    LWI  $2, 2147501757
+    SW   $1, $2, 0
+    LWI  $2, 2147501758
+    SW   $1, $2, 0
+    LWI  $2, 2147501759
+    SW   $1, $2, 0
+    LWI  $2, 2147501760
+    SW   $1, $2, 0
+    LWI  $2, 2147501761
+    SW   $1, $2, 0
+    LWI  $2, 2147501762
+    SW   $1, $2, 0
+    LWI  $2, 2147501763
+    SW   $1, $2, 0
+    LWI  $2, 2147501764
+    SW   $1, $2, 0
+    LWI  $2, 2147501765
+    SW   $1, $2, 0
+    LWI  $2, 2147501766
+    SW   $1, $2, 0
+    LWI  $2, 2147501767
+    SW   $1, $2, 0
+    LWI  $2, 2147501768
+    SW   $1, $2, 0
+    LWI  $2, 2147501769
+    SW   $1, $2, 0
+    LWI  $2, 2147501774
+    SW   $1, $2, 0
+    LWI  $2, 2147501775
+    SW   $1, $2, 0
+    LWI  $2, 2147501776
+    SW   $1, $2, 0
+    LWI  $2, 2147501777
+    SW   $1, $2, 0
+    LWI  $2, 2147501782
+    SW   $1, $2, 0
+    LWI  $2, 2147501804
+    SW   $1, $2, 0
+    LWI  $2, 2147501805
+    SW   $1, $2, 0
+    LWI  $2, 2147501806
+    SW   $1, $2, 0
+    LWI  $2, 2147501821
+    SW   $1, $2, 0
+    LWI  $2, 2147501822
+    SW   $1, $2, 0
+    LWI  $2, 2147501823
+    SW   $1, $2, 0
+    LWI  $2, 2147501824
+    SW   $1, $2, 0
+    LWI  $2, 2147501825
+    SW   $1, $2, 0
+    LWI  $2, 2147501826
+    SW   $1, $2, 0
+    LWI  $2, 2147501838
+    SW   $1, $2, 0
+    LWI  $2, 2147501839
+    SW   $1, $2, 0
+    LWI  $2, 2147501840
+    SW   $1, $2, 0
+    LWI  $2, 2147501841
+    SW   $1, $2, 0
+    LWI  $2, 2147501842
+    SW   $1, $2, 0
+    LWI  $2, 2147501843
+    SW   $1, $2, 0
+    LWI  $2, 2147501844
+    SW   $1, $2, 0
+    LWI  $2, 2147501845
+    SW   $1, $2, 0
+    LWI  $2, 2147501846
+    SW   $1, $2, 0
+    LWI  $2, 2147501847
+    SW   $1, $2, 0
+    LWI  $2, 2147501848
+    SW   $1, $2, 0
+    LWI  $2, 2147501849
+    SW   $1, $2, 0
+    LWI  $2, 2147501850
+    SW   $1, $2, 0
+    LWI  $2, 2147501851
+    SW   $1, $2, 0
+    LWI  $2, 2147501852
+    SW   $1, $2, 0
+    LWI  $2, 2147501853
+    SW   $1, $2, 0
+    LWI  $2, 2147501854
+    SW   $1, $2, 0
+    LWI  $2, 2147501855
+    SW   $1, $2, 0
+    LWI  $2, 2147501856
+    SW   $1, $2, 0
+    LWI  $2, 2147501857
+    SW   $1, $2, 0
+    LWI  $2, 2147501858
+    SW   $1, $2, 0
+    LWI  $2, 2147501859
+    SW   $1, $2, 0
+    LWI  $2, 2147501860
+    SW   $1, $2, 0
+    LWI  $2, 2147501861
+    SW   $1, $2, 0
+    LWI  $2, 2147501862
+    SW   $1, $2, 0
+    LWI  $2, 2147501863
+    SW   $1, $2, 0
+    LWI  $2, 2147501864
+    SW   $1, $2, 0
+    LWI  $2, 2147501865
+    SW   $1, $2, 0
+    LWI  $2, 2147501866
+    SW   $1, $2, 0
+    LWI  $2, 2147501871
+    SW   $1, $2, 0
+    LWI  $2, 2147501878
+    SW   $1, $2, 0
+    LWI  $2, 2147501879
+    SW   $1, $2, 0
+    LWI  $2, 2147501880
+    SW   $1, $2, 0
+    LWI  $2, 2147501900
+    SW   $1, $2, 0
+    LWI  $2, 2147501901
+    SW   $1, $2, 0
+    LWI  $2, 2147501902
+    SW   $1, $2, 0
+    LWI  $2, 2147501917
+    SW   $1, $2, 0
+    LWI  $2, 2147501918
+    SW   $1, $2, 0
+    LWI  $2, 2147501919
+    SW   $1, $2, 0
+    LWI  $2, 2147501920
+    SW   $1, $2, 0
+    LWI  $2, 2147501921
+    SW   $1, $2, 0
+    LWI  $2, 2147501922
+    SW   $1, $2, 0
+    LWI  $2, 2147501934
+    SW   $1, $2, 0
+    LWI  $2, 2147501935
+    SW   $1, $2, 0
+    LWI  $2, 2147501936
+    SW   $1, $2, 0
+    LWI  $2, 2147501996
+    SW   $1, $2, 0
+    LWI  $2, 2147501997
+    SW   $1, $2, 0
+    LWI  $2, 2147501998
+    SW   $1, $2, 0
+    LWI  $2, 2147502013
+    SW   $1, $2, 0
+    LWI  $2, 2147502014
+    SW   $1, $2, 0
+    LWI  $2, 2147502015
+    SW   $1, $2, 0
+    LWI  $2, 2147502016
+    SW   $1, $2, 0
+    LWI  $2, 2147502017
+    SW   $1, $2, 0
+    LWI  $2, 2147502018
+    SW   $1, $2, 0
+    LWI  $2, 2147502030
+    SW   $1, $2, 0
+    LWI  $2, 2147502031
+    SW   $1, $2, 0
+    LWI  $2, 2147502032
+    SW   $1, $2, 0
+    LWI  $2, 2147502092
+    SW   $1, $2, 0
+    LWI  $2, 2147502093
+    SW   $1, $2, 0
+    LWI  $2, 2147502094
+    SW   $1, $2, 0
+    LWI  $2, 2147502109
+    SW   $1, $2, 0
+    LWI  $2, 2147502110
+    SW   $1, $2, 0
+    LWI  $2, 2147502111
+    SW   $1, $2, 0
+    LWI  $2, 2147502112
+    SW   $1, $2, 0
+    LWI  $2, 2147502113
+    SW   $1, $2, 0
+    LWI  $2, 2147502114
+    SW   $1, $2, 0
+    LWI  $2, 2147502126
+    SW   $1, $2, 0
+    LWI  $2, 2147502127
+    SW   $1, $2, 0
+    LWI  $2, 2147502128
+    SW   $1, $2, 0
+    LWI  $2, 2147502188
+    SW   $1, $2, 0
+    LWI  $2, 2147502189
+    SW   $1, $2, 0
+    LWI  $2, 2147502190
+    SW   $1, $2, 0
+    LWI  $2, 2147502205
+    SW   $1, $2, 0
+    LWI  $2, 2147502206
+    SW   $1, $2, 0
+    LWI  $2, 2147502207
+    SW   $1, $2, 0
+    LWI  $2, 2147502208
+    SW   $1, $2, 0
+    LWI  $2, 2147502209
+    SW   $1, $2, 0
+    LWI  $2, 2147502210
+    SW   $1, $2, 0
+    LWI  $2, 2147502222
+    SW   $1, $2, 0
+    LWI  $2, 2147502223
+    SW   $1, $2, 0
+    LWI  $2, 2147502224
+    SW   $1, $2, 0
+    LWI  $2, 2147502284
+    SW   $1, $2, 0
+    LWI  $2, 2147502285
+    SW   $1, $2, 0
+    LWI  $2, 2147502286
+    SW   $1, $2, 0
+    LWI  $2, 2147502301
+    SW   $1, $2, 0
+    LWI  $2, 2147502302
+    SW   $1, $2, 0
+    LWI  $2, 2147502303
+    SW   $1, $2, 0
+    LWI  $2, 2147502304
+    SW   $1, $2, 0
+    LWI  $2, 2147502305
+    SW   $1, $2, 0
+    LWI  $2, 2147502306
+    SW   $1, $2, 0
+    LWI  $2, 2147502318
+    SW   $1, $2, 0
+    LWI  $2, 2147502319
+    SW   $1, $2, 0
+    LWI  $2, 2147502320
+    SW   $1, $2, 0
+    LWI  $2, 2147502380
+    SW   $1, $2, 0
+    LWI  $2, 2147502381
+    SW   $1, $2, 0
+    LWI  $2, 2147502382
+    SW   $1, $2, 0
+    LWI  $2, 2147502397
+    SW   $1, $2, 0
+    LWI  $2, 2147502398
+    SW   $1, $2, 0
+    LWI  $2, 2147502399
+    SW   $1, $2, 0
+    LWI  $2, 2147502400
+    SW   $1, $2, 0
+    LWI  $2, 2147502401
+    SW   $1, $2, 0
+    LWI  $2, 2147502402
+    SW   $1, $2, 0
+    LWI  $2, 2147502414
+    SW   $1, $2, 0
+    LWI  $2, 2147502415
+    SW   $1, $2, 0
+    LWI  $2, 2147502416
+    SW   $1, $2, 0
+    LWI  $2, 2147502470
+    SW   $1, $2, 0
+    LWI  $2, 2147502471
+    SW   $1, $2, 0
+    LWI  $2, 2147502472
+    SW   $1, $2, 0
+    LWI  $2, 2147502473
+    SW   $1, $2, 0
+    LWI  $2, 2147502474
+    SW   $1, $2, 0
+    LWI  $2, 2147502475
+    SW   $1, $2, 0
+    LWI  $2, 2147502476
+    SW   $1, $2, 0
+    LWI  $2, 2147502477
+    SW   $1, $2, 0
+    LWI  $2, 2147502478
+    SW   $1, $2, 0
+    LWI  $2, 2147502493
+    SW   $1, $2, 0
+    LWI  $2, 2147502494
+    SW   $1, $2, 0
+    LWI  $2, 2147502495
+    SW   $1, $2, 0
+    LWI  $2, 2147502496
+    SW   $1, $2, 0
+    LWI  $2, 2147502497
+    SW   $1, $2, 0
+    LWI  $2, 2147502498
+    SW   $1, $2, 0
+    LWI  $2, 2147502510
+    SW   $1, $2, 0
+    LWI  $2, 2147502511
+    SW   $1, $2, 0
+    LWI  $2, 2147502512
+    SW   $1, $2, 0
+    LWI  $2, 2147502566
+    SW   $1, $2, 0
+    LWI  $2, 2147502567
+    SW   $1, $2, 0
+    LWI  $2, 2147502568
+    SW   $1, $2, 0
+    LWI  $2, 2147502569
+    SW   $1, $2, 0
+    LWI  $2, 2147502570
+    SW   $1, $2, 0
+    LWI  $2, 2147502571
+    SW   $1, $2, 0
+    LWI  $2, 2147502572
+    SW   $1, $2, 0
+    LWI  $2, 2147502573
+    SW   $1, $2, 0
+    LWI  $2, 2147502574
+    SW   $1, $2, 0
+    LWI  $2, 2147502589
+    SW   $1, $2, 0
+    LWI  $2, 2147502590
+    SW   $1, $2, 0
+    LWI  $2, 2147502591
+    SW   $1, $2, 0
+    LWI  $2, 2147502592
+    SW   $1, $2, 0
+    LWI  $2, 2147502593
+    SW   $1, $2, 0
+    LWI  $2, 2147502594
+    SW   $1, $2, 0
+    LWI  $2, 2147502606
+    SW   $1, $2, 0
+    LWI  $2, 2147502607
+    SW   $1, $2, 0
+    LWI  $2, 2147502608
+    SW   $1, $2, 0
+    LWI  $2, 2147502662
+    SW   $1, $2, 0
+    LWI  $2, 2147502663
+    SW   $1, $2, 0
+    LWI  $2, 2147502664
+    SW   $1, $2, 0
+    LWI  $2, 2147502665
+    SW   $1, $2, 0
+    LWI  $2, 2147502666
+    SW   $1, $2, 0
+    LWI  $2, 2147502667
+    SW   $1, $2, 0
+    LWI  $2, 2147502668
+    SW   $1, $2, 0
+    LWI  $2, 2147502669
+    SW   $1, $2, 0
+    LWI  $2, 2147502670
+    SW   $1, $2, 0
+    LWI  $2, 2147502685
+    SW   $1, $2, 0
+    LWI  $2, 2147502686
+    SW   $1, $2, 0
+    LWI  $2, 2147502687
+    SW   $1, $2, 0
+    LWI  $2, 2147502688
+    SW   $1, $2, 0
+    LWI  $2, 2147502689
+    SW   $1, $2, 0
+    LWI  $2, 2147502690
+    SW   $1, $2, 0
+    LWI  $2, 2147502702
+    SW   $1, $2, 0
+    LWI  $2, 2147502703
+    SW   $1, $2, 0
+    LWI  $2, 2147502704
+    SW   $1, $2, 0
+    LWI  $2, 2147502781
+    SW   $1, $2, 0
+    LWI  $2, 2147502782
+    SW   $1, $2, 0
+    LWI  $2, 2147502783
+    SW   $1, $2, 0
+    LWI  $2, 2147502784
+    SW   $1, $2, 0
+    LWI  $2, 2147502785
+    SW   $1, $2, 0
+    LWI  $2, 2147502786
+    SW   $1, $2, 0
+    LWI  $2, 2147502798
+    SW   $1, $2, 0
+    LWI  $2, 2147502799
+    SW   $1, $2, 0
+    LWI  $2, 2147502800
+    SW   $1, $2, 0
+    LWI  $2, 2147502877
+    SW   $1, $2, 0
+    LWI  $2, 2147502878
+    SW   $1, $2, 0
+    LWI  $2, 2147502879
+    SW   $1, $2, 0
+    LWI  $2, 2147502880
+    SW   $1, $2, 0
+    LWI  $2, 2147502881
+    SW   $1, $2, 0
+    LWI  $2, 2147502882
+    SW   $1, $2, 0
+    LWI  $2, 2147502883
+    SW   $1, $2, 0
+    LWI  $2, 2147502884
+    SW   $1, $2, 0
+    LWI  $2, 2147502885
+    SW   $1, $2, 0
+    LWI  $2, 2147502886
+    SW   $1, $2, 0
+    LWI  $2, 2147502887
+    SW   $1, $2, 0
+    LWI  $2, 2147502888
+    SW   $1, $2, 0
+    LWI  $2, 2147502889
+    SW   $1, $2, 0
+    LWI  $2, 2147502890
+    SW   $1, $2, 0
+    LWI  $2, 2147502891
+    SW   $1, $2, 0
+    LWI  $2, 2147502892
+    SW   $1, $2, 0
+    LWI  $2, 2147502893
+    SW   $1, $2, 0
+    LWI  $2, 2147502894
+    SW   $1, $2, 0
+    LWI  $2, 2147502895
+    SW   $1, $2, 0
+    LWI  $2, 2147502896
+    SW   $1, $2, 0
+    LWI  $2, 2147502973
+    SW   $1, $2, 0
+    LWI  $2, 2147502974
+    SW   $1, $2, 0
+    LWI  $2, 2147502975
+    SW   $1, $2, 0
+    LWI  $2, 2147502976
+    SW   $1, $2, 0
+    LWI  $2, 2147502977
+    SW   $1, $2, 0
+    LWI  $2, 2147502978
+    SW   $1, $2, 0
+    LWI  $2, 2147502979
+    SW   $1, $2, 0
+    LWI  $2, 2147502980
+    SW   $1, $2, 0
+    LWI  $2, 2147502981
+    SW   $1, $2, 0
+    LWI  $2, 2147502982
+    SW   $1, $2, 0
+    LWI  $2, 2147502983
+    SW   $1, $2, 0
+    LWI  $2, 2147502984
+    SW   $1, $2, 0
+    LWI  $2, 2147502985
+    SW   $1, $2, 0
+    LWI  $2, 2147502986
+    SW   $1, $2, 0
+    LWI  $2, 2147502987
+    SW   $1, $2, 0
+    LWI  $2, 2147502988
+    SW   $1, $2, 0
+    LWI  $2, 2147502989
+    SW   $1, $2, 0
+    LWI  $2, 2147502990
+    SW   $1, $2, 0
+    LWI  $2, 2147502991
+    SW   $1, $2, 0
+    LWI  $2, 2147502992
+    SW   $1, $2, 0
+    LWI  $2, 2147503069
+    SW   $1, $2, 0
+    LWI  $2, 2147503070
+    SW   $1, $2, 0
+    LWI  $2, 2147503071
+    SW   $1, $2, 0
+    LWI  $2, 2147503072
+    SW   $1, $2, 0
+    LWI  $2, 2147503073
+    SW   $1, $2, 0
+    LWI  $2, 2147503074
+    SW   $1, $2, 0
+    LWI  $2, 2147503075
+    SW   $1, $2, 0
+    LWI  $2, 2147503076
+    SW   $1, $2, 0
+    LWI  $2, 2147503077
+    SW   $1, $2, 0
+    LWI  $2, 2147503078
+    SW   $1, $2, 0
+    LWI  $2, 2147503079
+    SW   $1, $2, 0
+    LWI  $2, 2147503080
+    SW   $1, $2, 0
+    LWI  $2, 2147503081
+    SW   $1, $2, 0
+    LWI  $2, 2147503082
+    SW   $1, $2, 0
+    LWI  $2, 2147503083
+    SW   $1, $2, 0
+    LWI  $2, 2147503084
+    SW   $1, $2, 0
+    LWI  $2, 2147503085
+    SW   $1, $2, 0
+    LWI  $2, 2147503086
+    SW   $1, $2, 0
+    LWI  $2, 2147503087
+    SW   $1, $2, 0
+    LWI  $2, 2147503088
+    SW   $1, $2, 0
+    LWI  $2, 2147503165
+    SW   $1, $2, 0
+    LWI  $2, 2147503166
+    SW   $1, $2, 0
+    LWI  $2, 2147503167
+    SW   $1, $2, 0
+    LWI  $2, 2147503168
+    SW   $1, $2, 0
+    LWI  $2, 2147503169
+    SW   $1, $2, 0
+    LWI  $2, 2147503170
+    SW   $1, $2, 0
+    LWI  $2, 2147503261
+    SW   $1, $2, 0
+    LWI  $2, 2147503262
+    SW   $1, $2, 0
+    LWI  $2, 2147503263
+    SW   $1, $2, 0
+    LWI  $2, 2147503264
+    SW   $1, $2, 0
+    LWI  $2, 2147503265
+    SW   $1, $2, 0
+    LWI  $2, 2147503266
+    SW   $1, $2, 0
+    LWI  $2, 2147503357
+    SW   $1, $2, 0
+    LWI  $2, 2147503358
+    SW   $1, $2, 0
+    LWI  $2, 2147503359
+    SW   $1, $2, 0
+    LWI  $2, 2147503360
+    SW   $1, $2, 0
+    LWI  $2, 2147503361
+    SW   $1, $2, 0
+    LWI  $2, 2147503362
+    SW   $1, $2, 0
+    LWI  $2, 2147503397
+    SW   $1, $2, 0
+    LWI  $2, 2147503398
+    SW   $1, $2, 0
+    LWI  $2, 2147503399
+    SW   $1, $2, 0
+    LWI  $2, 2147503400
+    SW   $1, $2, 0
+    LWI  $2, 2147503401
+    SW   $1, $2, 0
+    LWI  $2, 2147503402
+    SW   $1, $2, 0
+    LWI  $2, 2147503403
+    SW   $1, $2, 0
+    LWI  $2, 2147503404
+    SW   $1, $2, 0
+    LWI  $2, 2147503405
+    SW   $1, $2, 0
+    LWI  $2, 2147503406
+    SW   $1, $2, 0
+    LWI  $2, 2147503407
+    SW   $1, $2, 0
+    LWI  $2, 2147503408
+    SW   $1, $2, 0
+    LWI  $2, 2147503409
+    SW   $1, $2, 0
+    LWI  $2, 2147503410
+    SW   $1, $2, 0
+    LWI  $2, 2147503411
+    SW   $1, $2, 0
+    LWI  $2, 2147503412
+    SW   $1, $2, 0
+    LWI  $2, 2147503413
+    SW   $1, $2, 0
+    LWI  $2, 2147503414
+    SW   $1, $2, 0
+    LWI  $2, 2147503415
+    SW   $1, $2, 0
+    LWI  $2, 2147503416
+    SW   $1, $2, 0
+    LWI  $2, 2147503417
+    SW   $1, $2, 0
+    LWI  $2, 2147503418
+    SW   $1, $2, 0
+    LWI  $2, 2147503453
+    SW   $1, $2, 0
+    LWI  $2, 2147503454
+    SW   $1, $2, 0
+    LWI  $2, 2147503455
+    SW   $1, $2, 0
+    LWI  $2, 2147503456
+    SW   $1, $2, 0
+    LWI  $2, 2147503457
+    SW   $1, $2, 0
+    LWI  $2, 2147503458
+    SW   $1, $2, 0
+    LWI  $2, 2147503493
+    SW   $1, $2, 0
+    LWI  $2, 2147503494
+    SW   $1, $2, 0
+    LWI  $2, 2147503495
+    SW   $1, $2, 0
+    LWI  $2, 2147503496
+    SW   $1, $2, 0
+    LWI  $2, 2147503497
+    SW   $1, $2, 0
+    LWI  $2, 2147503498
+    SW   $1, $2, 0
+    LWI  $2, 2147503499
+    SW   $1, $2, 0
+    LWI  $2, 2147503500
+    SW   $1, $2, 0
+    LWI  $2, 2147503501
+    SW   $1, $2, 0
+    LWI  $2, 2147503502
+    SW   $1, $2, 0
+    LWI  $2, 2147503503
+    SW   $1, $2, 0
+    LWI  $2, 2147503504
+    SW   $1, $2, 0
+    LWI  $2, 2147503505
+    SW   $1, $2, 0
+    LWI  $2, 2147503506
+    SW   $1, $2, 0
+    LWI  $2, 2147503507
+    SW   $1, $2, 0
+    LWI  $2, 2147503508
+    SW   $1, $2, 0
+    LWI  $2, 2147503509
+    SW   $1, $2, 0
+    LWI  $2, 2147503510
+    SW   $1, $2, 0
+    LWI  $2, 2147503511
+    SW   $1, $2, 0
+    LWI  $2, 2147503512
+    SW   $1, $2, 0
+    LWI  $2, 2147503513
+    SW   $1, $2, 0
+    LWI  $2, 2147503514
+    SW   $1, $2, 0
+    LWI  $2, 2147503549
+    SW   $1, $2, 0
+    LWI  $2, 2147503550
+    SW   $1, $2, 0
+    LWI  $2, 2147503551
+    SW   $1, $2, 0
+    LWI  $2, 2147503552
+    SW   $1, $2, 0
+    LWI  $2, 2147503553
+    SW   $1, $2, 0
+    LWI  $2, 2147503554
+    SW   $1, $2, 0
+    LWI  $2, 2147503589
+    SW   $1, $2, 0
+    LWI  $2, 2147503590
+    SW   $1, $2, 0
+    LWI  $2, 2147503591
+    SW   $1, $2, 0
+    LWI  $2, 2147503592
+    SW   $1, $2, 0
+    LWI  $2, 2147503593
+    SW   $1, $2, 0
+    LWI  $2, 2147503594
+    SW   $1, $2, 0
+    LWI  $2, 2147503595
+    SW   $1, $2, 0
+    LWI  $2, 2147503596
+    SW   $1, $2, 0
+    LWI  $2, 2147503597
+    SW   $1, $2, 0
+    LWI  $2, 2147503598
+    SW   $1, $2, 0
+    LWI  $2, 2147503599
+    SW   $1, $2, 0
+    LWI  $2, 2147503600
+    SW   $1, $2, 0
+    LWI  $2, 2147503601
+    SW   $1, $2, 0
+    LWI  $2, 2147503602
+    SW   $1, $2, 0
+    LWI  $2, 2147503603
+    SW   $1, $2, 0
+    LWI  $2, 2147503604
+    SW   $1, $2, 0
+    LWI  $2, 2147503605
+    SW   $1, $2, 0
+    LWI  $2, 2147503606
+    SW   $1, $2, 0
+    LWI  $2, 2147503607
+    SW   $1, $2, 0
+    LWI  $2, 2147503608
+    SW   $1, $2, 0
+    LWI  $2, 2147503609
+    SW   $1, $2, 0
+    LWI  $2, 2147503610
+    SW   $1, $2, 0
+    LWI  $2, 2147503645
+    SW   $1, $2, 0
+    LWI  $2, 2147503646
+    SW   $1, $2, 0
+    LWI  $2, 2147503647
+    SW   $1, $2, 0
+    LWI  $2, 2147503648
+    SW   $1, $2, 0
+    LWI  $2, 2147503649
+    SW   $1, $2, 0
+    LWI  $2, 2147503650
+    SW   $1, $2, 0
+    LWI  $2, 2147503704
+    SW   $1, $2, 0
+    LWI  $2, 2147503705
+    SW   $1, $2, 0
+    LWI  $2, 2147503706
+    SW   $1, $2, 0
+    LWI  $2, 2147503741
+    SW   $1, $2, 0
+    LWI  $2, 2147503742
+    SW   $1, $2, 0
+    LWI  $2, 2147503743
+    SW   $1, $2, 0
+    LWI  $2, 2147503744
+    SW   $1, $2, 0
+    LWI  $2, 2147503745
+    SW   $1, $2, 0
+    LWI  $2, 2147503746
+    SW   $1, $2, 0
+    LWI  $2, 2147503800
+    SW   $1, $2, 0
+    LWI  $2, 2147503801
+    SW   $1, $2, 0
+    LWI  $2, 2147503802
+    SW   $1, $2, 0
+    LWI  $2, 2147503837
+    SW   $1, $2, 0
+    LWI  $2, 2147503838
+    SW   $1, $2, 0
+    LWI  $2, 2147503839
+    SW   $1, $2, 0
+    LWI  $2, 2147503840
+    SW   $1, $2, 0
+    LWI  $2, 2147503841
+    SW   $1, $2, 0
+    LWI  $2, 2147503842
+    SW   $1, $2, 0
+    LWI  $2, 2147503896
+    SW   $1, $2, 0
+    LWI  $2, 2147503897
+    SW   $1, $2, 0
+    LWI  $2, 2147503898
+    SW   $1, $2, 0
+    LWI  $2, 2147503933
+    SW   $1, $2, 0
+    LWI  $2, 2147503934
+    SW   $1, $2, 0
+    LWI  $2, 2147503935
+    SW   $1, $2, 0
+    LWI  $2, 2147503936
+    SW   $1, $2, 0
+    LWI  $2, 2147503937
+    SW   $1, $2, 0
+    LWI  $2, 2147503938
+    SW   $1, $2, 0
+    LWI  $2, 2147503992
+    SW   $1, $2, 0
+    LWI  $2, 2147503993
+    SW   $1, $2, 0
+    LWI  $2, 2147503994
+    SW   $1, $2, 0
+    LWI  $2, 2147504029
+    SW   $1, $2, 0
+    LWI  $2, 2147504030
+    SW   $1, $2, 0
+    LWI  $2, 2147504031
+    SW   $1, $2, 0
+    LWI  $2, 2147504032
+    SW   $1, $2, 0
+    LWI  $2, 2147504033
+    SW   $1, $2, 0
+    LWI  $2, 2147504034
+    SW   $1, $2, 0
+    LWI  $2, 2147504088
+    SW   $1, $2, 0
+    LWI  $2, 2147504089
+    SW   $1, $2, 0
+    LWI  $2, 2147504090
+    SW   $1, $2, 0
+    LWI  $2, 2147504125
+    SW   $1, $2, 0
+    LWI  $2, 2147504126
+    SW   $1, $2, 0
+    LWI  $2, 2147504127
+    SW   $1, $2, 0
+    LWI  $2, 2147504128
+    SW   $1, $2, 0
+    LWI  $2, 2147504129
+    SW   $1, $2, 0
+    LWI  $2, 2147504130
+    SW   $1, $2, 0
+    LWI  $2, 2147504184
+    SW   $1, $2, 0
+    LWI  $2, 2147504185
+    SW   $1, $2, 0
+    LWI  $2, 2147504186
+    SW   $1, $2, 0
+    LWI  $2, 2147504221
+    SW   $1, $2, 0
+    LWI  $2, 2147504222
+    SW   $1, $2, 0
+    LWI  $2, 2147504223
+    SW   $1, $2, 0
+    LWI  $2, 2147504224
+    SW   $1, $2, 0
+    LWI  $2, 2147504225
+    SW   $1, $2, 0
+    LWI  $2, 2147504226
+    SW   $1, $2, 0
+    LWI  $2, 2147504280
+    SW   $1, $2, 0
+    LWI  $2, 2147504281
+    SW   $1, $2, 0
+    LWI  $2, 2147504282
+    SW   $1, $2, 0
+    LWI  $2, 2147504283
+    SW   $1, $2, 0
+    LWI  $2, 2147504284
+    SW   $1, $2, 0
+    LWI  $2, 2147504285
+    SW   $1, $2, 0
+    LWI  $2, 2147504286
+    SW   $1, $2, 0
+    LWI  $2, 2147504287
+    SW   $1, $2, 0
+    LWI  $2, 2147504288
+    SW   $1, $2, 0
+    LWI  $2, 2147504289
+    SW   $1, $2, 0
+    LWI  $2, 2147504290
+    SW   $1, $2, 0
+    LWI  $2, 2147504291
+    SW   $1, $2, 0
+    LWI  $2, 2147504292
+    SW   $1, $2, 0
+    LWI  $2, 2147504293
+    SW   $1, $2, 0
+    LWI  $2, 2147504294
+    SW   $1, $2, 0
+    LWI  $2, 2147504295
+    SW   $1, $2, 0
+    LWI  $2, 2147504296
+    SW   $1, $2, 0
+    LWI  $2, 2147504297
+    SW   $1, $2, 0
+    LWI  $2, 2147504298
+    SW   $1, $2, 0
+    LWI  $2, 2147504299
+    SW   $1, $2, 0
+    LWI  $2, 2147504300
+    SW   $1, $2, 0
+    LWI  $2, 2147504301
+    SW   $1, $2, 0
+    LWI  $2, 2147504302
+    SW   $1, $2, 0
+    LWI  $2, 2147504303
+    SW   $1, $2, 0
+    LWI  $2, 2147504304
+    SW   $1, $2, 0
+    LWI  $2, 2147504305
+    SW   $1, $2, 0
+    LWI  $2, 2147504306
+    SW   $1, $2, 0
+    LWI  $2, 2147504307
+    SW   $1, $2, 0
+    LWI  $2, 2147504308
+    SW   $1, $2, 0
+    LWI  $2, 2147504309
+    SW   $1, $2, 0
+    LWI  $2, 2147504310
+    SW   $1, $2, 0
+    LWI  $2, 2147504311
+    SW   $1, $2, 0
+    LWI  $2, 2147504312
+    SW   $1, $2, 0
+    LWI  $2, 2147504313
+    SW   $1, $2, 0
+    LWI  $2, 2147504314
+    SW   $1, $2, 0
+    LWI  $2, 2147504315
+    SW   $1, $2, 0
+    LWI  $2, 2147504316
+    SW   $1, $2, 0
+    LWI  $2, 2147504317
+    SW   $1, $2, 0
+    LWI  $2, 2147504318
+    SW   $1, $2, 0
+    LWI  $2, 2147504319
+    SW   $1, $2, 0
+    LWI  $2, 2147504320
+    SW   $1, $2, 0
+    LWI  $2, 2147504321
+    SW   $1, $2, 0
+    LWI  $2, 2147504322
+    SW   $1, $2, 0
+    LWI  $2, 2147504376
+    SW   $1, $2, 0
+    LWI  $2, 2147504377
+    SW   $1, $2, 0
+    LWI  $2, 2147504378
+    SW   $1, $2, 0
+    LWI  $2, 2147504379
+    SW   $1, $2, 0
+    LWI  $2, 2147504380
+    SW   $1, $2, 0
+    LWI  $2, 2147504381
+    SW   $1, $2, 0
+    LWI  $2, 2147504382
+    SW   $1, $2, 0
+    LWI  $2, 2147504383
+    SW   $1, $2, 0
+    LWI  $2, 2147504384
+    SW   $1, $2, 0
+    LWI  $2, 2147504385
+    SW   $1, $2, 0
+    LWI  $2, 2147504386
+    SW   $1, $2, 0
+    LWI  $2, 2147504387
+    SW   $1, $2, 0
+    LWI  $2, 2147504388
+    SW   $1, $2, 0
+    LWI  $2, 2147504389
+    SW   $1, $2, 0
+    LWI  $2, 2147504390
+    SW   $1, $2, 0
+    LWI  $2, 2147504391
+    SW   $1, $2, 0
+    LWI  $2, 2147504392
+    SW   $1, $2, 0
+    LWI  $2, 2147504393
+    SW   $1, $2, 0
+    LWI  $2, 2147504394
+    SW   $1, $2, 0
+    LWI  $2, 2147504395
+    SW   $1, $2, 0
+    LWI  $2, 2147504396
+    SW   $1, $2, 0
+    LWI  $2, 2147504397
+    SW   $1, $2, 0
+    LWI  $2, 2147504398
+    SW   $1, $2, 0
+    LWI  $2, 2147504399
+    SW   $1, $2, 0
+    LWI  $2, 2147504400
+    SW   $1, $2, 0
+    LWI  $2, 2147504401
+    SW   $1, $2, 0
+    LWI  $2, 2147504402
+    SW   $1, $2, 0
+    LWI  $2, 2147504403
+    SW   $1, $2, 0
+    LWI  $2, 2147504404
+    SW   $1, $2, 0
+    LWI  $2, 2147504405
+    SW   $1, $2, 0
+    LWI  $2, 2147504406
+    SW   $1, $2, 0
+    LWI  $2, 2147504407
+    SW   $1, $2, 0
+    LWI  $2, 2147504408
+    SW   $1, $2, 0
+    LWI  $2, 2147504409
+    SW   $1, $2, 0
+    LWI  $2, 2147504410
+    SW   $1, $2, 0
+    LWI  $2, 2147504411
+    SW   $1, $2, 0
+    LWI  $2, 2147504412
+    SW   $1, $2, 0
+    LWI  $2, 2147504413
+    SW   $1, $2, 0
+    LWI  $2, 2147504414
+    SW   $1, $2, 0
+    LWI  $2, 2147504415
+    SW   $1, $2, 0
+    LWI  $2, 2147504416
+    SW   $1, $2, 0
+    LWI  $2, 2147504417
+    SW   $1, $2, 0
+    LWI  $2, 2147504418
+    SW   $1, $2, 0
+    LWI  $2, 2147504438
+    SW   $1, $2, 0
+    LWI  $2, 2147504439
+    SW   $1, $2, 0
+    LWI  $2, 2147504440
+    SW   $1, $2, 0
+    LWI  $2, 2147504472
+    SW   $1, $2, 0
+    LWI  $2, 2147504473
+    SW   $1, $2, 0
+    LWI  $2, 2147504474
+    SW   $1, $2, 0
+    LWI  $2, 2147504475
+    SW   $1, $2, 0
+    LWI  $2, 2147504476
+    SW   $1, $2, 0
+    LWI  $2, 2147504477
+    SW   $1, $2, 0
+    LWI  $2, 2147504478
+    SW   $1, $2, 0
+    LWI  $2, 2147504479
+    SW   $1, $2, 0
+    LWI  $2, 2147504480
+    SW   $1, $2, 0
+    LWI  $2, 2147504481
+    SW   $1, $2, 0
+    LWI  $2, 2147504482
+    SW   $1, $2, 0
+    LWI  $2, 2147504483
+    SW   $1, $2, 0
+    LWI  $2, 2147504484
+    SW   $1, $2, 0
+    LWI  $2, 2147504485
+    SW   $1, $2, 0
+    LWI  $2, 2147504486
+    SW   $1, $2, 0
+    LWI  $2, 2147504487
+    SW   $1, $2, 0
+    LWI  $2, 2147504488
+    SW   $1, $2, 0
+    LWI  $2, 2147504489
+    SW   $1, $2, 0
+    LWI  $2, 2147504490
+    SW   $1, $2, 0
+    LWI  $2, 2147504491
+    SW   $1, $2, 0
+    LWI  $2, 2147504492
+    SW   $1, $2, 0
+    LWI  $2, 2147504493
+    SW   $1, $2, 0
+    LWI  $2, 2147504494
+    SW   $1, $2, 0
+    LWI  $2, 2147504495
+    SW   $1, $2, 0
+    LWI  $2, 2147504496
+    SW   $1, $2, 0
+    LWI  $2, 2147504497
+    SW   $1, $2, 0
+    LWI  $2, 2147504498
+    SW   $1, $2, 0
+    LWI  $2, 2147504499
+    SW   $1, $2, 0
+    LWI  $2, 2147504500
+    SW   $1, $2, 0
+    LWI  $2, 2147504501
+    SW   $1, $2, 0
+    LWI  $2, 2147504502
+    SW   $1, $2, 0
+    LWI  $2, 2147504503
+    SW   $1, $2, 0
+    LWI  $2, 2147504504
+    SW   $1, $2, 0
+    LWI  $2, 2147504505
+    SW   $1, $2, 0
+    LWI  $2, 2147504506
+    SW   $1, $2, 0
+    LWI  $2, 2147504507
+    SW   $1, $2, 0
+    LWI  $2, 2147504508
+    SW   $1, $2, 0
+    LWI  $2, 2147504509
+    SW   $1, $2, 0
+    LWI  $2, 2147504510
+    SW   $1, $2, 0
+    LWI  $2, 2147504511
+    SW   $1, $2, 0
+    LWI  $2, 2147504512
+    SW   $1, $2, 0
+    LWI  $2, 2147504513
+    SW   $1, $2, 0
+    LWI  $2, 2147504514
+    SW   $1, $2, 0
+    LWI  $2, 2147504534
+    SW   $1, $2, 0
+    LWI  $2, 2147504535
+    SW   $1, $2, 0
+    LWI  $2, 2147504536
+    SW   $1, $2, 0
+    LWI  $2, 2147504605
+    SW   $1, $2, 0
+    LWI  $2, 2147504606
+    SW   $1, $2, 0
+    LWI  $2, 2147504607
+    SW   $1, $2, 0
+    LWI  $2, 2147504608
+    SW   $1, $2, 0
+    LWI  $2, 2147504609
+    SW   $1, $2, 0
+    LWI  $2, 2147504610
+    SW   $1, $2, 0
+    LWI  $2, 2147504630
+    SW   $1, $2, 0
+    LWI  $2, 2147504631
+    SW   $1, $2, 0
+    LWI  $2, 2147504632
+    SW   $1, $2, 0
+    LWI  $2, 2147504701
+    SW   $1, $2, 0
+    LWI  $2, 2147504702
+    SW   $1, $2, 0
+    LWI  $2, 2147504703
+    SW   $1, $2, 0
+    LWI  $2, 2147504704
+    SW   $1, $2, 0
+    LWI  $2, 2147504705
+    SW   $1, $2, 0
+    LWI  $2, 2147504706
+    SW   $1, $2, 0
+    LWI  $2, 2147504726
+    SW   $1, $2, 0
+    LWI  $2, 2147504727
+    SW   $1, $2, 0
+    LWI  $2, 2147504728
+    SW   $1, $2, 0
+    LWI  $2, 2147504797
+    SW   $1, $2, 0
+    LWI  $2, 2147504798
+    SW   $1, $2, 0
+    LWI  $2, 2147504799
+    SW   $1, $2, 0
+    LWI  $2, 2147504800
+    SW   $1, $2, 0
+    LWI  $2, 2147504801
+    SW   $1, $2, 0
+    LWI  $2, 2147504802
+    SW   $1, $2, 0
+    LWI  $2, 2147504822
+    SW   $1, $2, 0
+    LWI  $2, 2147504823
+    SW   $1, $2, 0
+    LWI  $2, 2147504824
+    SW   $1, $2, 0
+    LWI  $2, 2147504893
+    SW   $1, $2, 0
+    LWI  $2, 2147504894
+    SW   $1, $2, 0
+    LWI  $2, 2147504895
+    SW   $1, $2, 0
+    LWI  $2, 2147504896
+    SW   $1, $2, 0
+    LWI  $2, 2147504897
+    SW   $1, $2, 0
+    LWI  $2, 2147504898
+    SW   $1, $2, 0
+    LWI  $2, 2147504918
+    SW   $1, $2, 0
+    LWI  $2, 2147504919
+    SW   $1, $2, 0
+    LWI  $2, 2147504920
+    SW   $1, $2, 0
+    LWI  $2, 2147504989
+    SW   $1, $2, 0
+    LWI  $2, 2147504990
+    SW   $1, $2, 0
+    LWI  $2, 2147504991
+    SW   $1, $2, 0
+    LWI  $2, 2147504992
+    SW   $1, $2, 0
+    LWI  $2, 2147504993
+    SW   $1, $2, 0
+    LWI  $2, 2147504994
+    SW   $1, $2, 0
+    LWI  $2, 2147505014
+    SW   $1, $2, 0
+    LWI  $2, 2147505015
+    SW   $1, $2, 0
+    LWI  $2, 2147505016
+    SW   $1, $2, 0
+    LWI  $2, 2147505085
+    SW   $1, $2, 0
+    LWI  $2, 2147505086
+    SW   $1, $2, 0
+    LWI  $2, 2147505087
+    SW   $1, $2, 0
+    LWI  $2, 2147505088
+    SW   $1, $2, 0
+    LWI  $2, 2147505089
+    SW   $1, $2, 0
+    LWI  $2, 2147505090
+    SW   $1, $2, 0
+    LWI  $2, 2147505110
+    SW   $1, $2, 0
+    LWI  $2, 2147505111
+    SW   $1, $2, 0
+    LWI  $2, 2147505112
+    SW   $1, $2, 0
+    LWI  $2, 2147505181
+    SW   $1, $2, 0
+    LWI  $2, 2147505182
+    SW   $1, $2, 0
+    LWI  $2, 2147505183
+    SW   $1, $2, 0
+    LWI  $2, 2147505184
+    SW   $1, $2, 0
+    LWI  $2, 2147505185
+    SW   $1, $2, 0
+    LWI  $2, 2147505186
+    SW   $1, $2, 0
+    LWI  $2, 2147505206
+    SW   $1, $2, 0
+    LWI  $2, 2147505207
+    SW   $1, $2, 0
+    LWI  $2, 2147505208
+    SW   $1, $2, 0
+    LWI  $2, 2147505209
+    SW   $1, $2, 0
+    LWI  $2, 2147505210
+    SW   $1, $2, 0
+    LWI  $2, 2147505211
+    SW   $1, $2, 0
+    LWI  $2, 2147505212
+    SW   $1, $2, 0
+    LWI  $2, 2147505213
+    SW   $1, $2, 0
+    LWI  $2, 2147505214
+    SW   $1, $2, 0
+    LWI  $2, 2147505215
+    SW   $1, $2, 0
+    LWI  $2, 2147505216
+    SW   $1, $2, 0
+    LWI  $2, 2147505217
+    SW   $1, $2, 0
+    LWI  $2, 2147505218
+    SW   $1, $2, 0
+    LWI  $2, 2147505219
+    SW   $1, $2, 0
+    LWI  $2, 2147505220
+    SW   $1, $2, 0
+    LWI  $2, 2147505221
+    SW   $1, $2, 0
+    LWI  $2, 2147505222
+    SW   $1, $2, 0
+    LWI  $2, 2147505223
+    SW   $1, $2, 0
+    LWI  $2, 2147505224
+    SW   $1, $2, 0
+    LWI  $2, 2147505225
+    SW   $1, $2, 0
+    LWI  $2, 2147505277
+    SW   $1, $2, 0
+    LWI  $2, 2147505278
+    SW   $1, $2, 0
+    LWI  $2, 2147505279
+    SW   $1, $2, 0
+    LWI  $2, 2147505280
+    SW   $1, $2, 0
+    LWI  $2, 2147505281
+    SW   $1, $2, 0
+    LWI  $2, 2147505282
+    SW   $1, $2, 0
+    LWI  $2, 2147505302
+    SW   $1, $2, 0
+    LWI  $2, 2147505303
+    SW   $1, $2, 0
+    LWI  $2, 2147505304
+    SW   $1, $2, 0
+    LWI  $2, 2147505305
+    SW   $1, $2, 0
+    LWI  $2, 2147505306
+    SW   $1, $2, 0
+    LWI  $2, 2147505307
+    SW   $1, $2, 0
+    LWI  $2, 2147505308
+    SW   $1, $2, 0
+    LWI  $2, 2147505309
+    SW   $1, $2, 0
+    LWI  $2, 2147505310
+    SW   $1, $2, 0
+    LWI  $2, 2147505311
+    SW   $1, $2, 0
+    LWI  $2, 2147505312
+    SW   $1, $2, 0
+    LWI  $2, 2147505313
+    SW   $1, $2, 0
+    LWI  $2, 2147505314
+    SW   $1, $2, 0
+    LWI  $2, 2147505315
+    SW   $1, $2, 0
+    LWI  $2, 2147505316
+    SW   $1, $2, 0
+    LWI  $2, 2147505317
+    SW   $1, $2, 0
+    LWI  $2, 2147505318
+    SW   $1, $2, 0
+    LWI  $2, 2147505319
+    SW   $1, $2, 0
+    LWI  $2, 2147505320
+    SW   $1, $2, 0
+    LWI  $2, 2147505321
+    SW   $1, $2, 0
+    LWI  $2, 2147505373
+    SW   $1, $2, 0
+    LWI  $2, 2147505374
+    SW   $1, $2, 0
+    LWI  $2, 2147505375
+    SW   $1, $2, 0
+    LWI  $2, 2147505376
+    SW   $1, $2, 0
+    LWI  $2, 2147505377
+    SW   $1, $2, 0
+    LWI  $2, 2147505378
+    SW   $1, $2, 0
+    LWI  $2, 2147505398
+    SW   $1, $2, 0
+    LWI  $2, 2147505399
+    SW   $1, $2, 0
+    LWI  $2, 2147505400
+    SW   $1, $2, 0
+    LWI  $2, 2147505401
+    SW   $1, $2, 0
+    LWI  $2, 2147505402
+    SW   $1, $2, 0
+    LWI  $2, 2147505403
+    SW   $1, $2, 0
+    LWI  $2, 2147505404
+    SW   $1, $2, 0
+    LWI  $2, 2147505405
+    SW   $1, $2, 0
+    LWI  $2, 2147505406
+    SW   $1, $2, 0
+    LWI  $2, 2147505407
+    SW   $1, $2, 0
+    LWI  $2, 2147505408
+    SW   $1, $2, 0
+    LWI  $2, 2147505409
+    SW   $1, $2, 0
+    LWI  $2, 2147505410
+    SW   $1, $2, 0
+    LWI  $2, 2147505411
+    SW   $1, $2, 0
+    LWI  $2, 2147505412
+    SW   $1, $2, 0
+    LWI  $2, 2147505413
+    SW   $1, $2, 0
+    LWI  $2, 2147505414
+    SW   $1, $2, 0
+    LWI  $2, 2147505415
+    SW   $1, $2, 0
+    LWI  $2, 2147505416
+    SW   $1, $2, 0
+    LWI  $2, 2147505417
+    SW   $1, $2, 0
+    LWI  $2, 2147505469
+    SW   $1, $2, 0
+    LWI  $2, 2147505470
+    SW   $1, $2, 0
+    LWI  $2, 2147505471
+    SW   $1, $2, 0
+    LWI  $2, 2147505472
+    SW   $1, $2, 0
+    LWI  $2, 2147505473
+    SW   $1, $2, 0
+    LWI  $2, 2147505474
+    SW   $1, $2, 0
+    LWI  $2, 2147505494
+    SW   $1, $2, 0
+    LWI  $2, 2147505495
+    SW   $1, $2, 0
+    LWI  $2, 2147505496
+    SW   $1, $2, 0
+    LWI  $2, 2147505565
+    SW   $1, $2, 0
+    LWI  $2, 2147505566
+    SW   $1, $2, 0
+    LWI  $2, 2147505567
+    SW   $1, $2, 0
+    LWI  $2, 2147505568
+    SW   $1, $2, 0
+    LWI  $2, 2147505569
+    SW   $1, $2, 0
+    LWI  $2, 2147505570
+    SW   $1, $2, 0
+    LWI  $2, 2147505590
+    SW   $1, $2, 0
+    LWI  $2, 2147505591
+    SW   $1, $2, 0
+    LWI  $2, 2147505592
+    SW   $1, $2, 0
+    LWI  $2, 2147505661
+    SW   $1, $2, 0
+    LWI  $2, 2147505662
+    SW   $1, $2, 0
+    LWI  $2, 2147505663
+    SW   $1, $2, 0
+    LWI  $2, 2147505664
+    SW   $1, $2, 0
+    LWI  $2, 2147505665
+    SW   $1, $2, 0
+    LWI  $2, 2147505666
+    SW   $1, $2, 0
+    LWI  $2, 2147505686
+    SW   $1, $2, 0
+    LWI  $2, 2147505687
+    SW   $1, $2, 0
+    LWI  $2, 2147505688
+    SW   $1, $2, 0
+    LWI  $2, 2147505757
+    SW   $1, $2, 0
+    LWI  $2, 2147505758
+    SW   $1, $2, 0
+    LWI  $2, 2147505759
+    SW   $1, $2, 0
+    LWI  $2, 2147505760
+    SW   $1, $2, 0
+    LWI  $2, 2147505761
+    SW   $1, $2, 0
+    LWI  $2, 2147505762
+    SW   $1, $2, 0
+    LWI  $2, 2147505782
+    SW   $1, $2, 0
+    LWI  $2, 2147505783
+    SW   $1, $2, 0
+    LWI  $2, 2147505784
+    SW   $1, $2, 0
+    LWI  $2, 2147505847
+    SW   $1, $2, 0
+    LWI  $2, 2147505848
+    SW   $1, $2, 0
+    LWI  $2, 2147505849
+    SW   $1, $2, 0
+    LWI  $2, 2147505853
+    SW   $1, $2, 0
+    LWI  $2, 2147505854
+    SW   $1, $2, 0
+    LWI  $2, 2147505855
+    SW   $1, $2, 0
+    LWI  $2, 2147505856
+    SW   $1, $2, 0
+    LWI  $2, 2147505857
+    SW   $1, $2, 0
+    LWI  $2, 2147505858
+    SW   $1, $2, 0
+    LWI  $2, 2147505859
+    SW   $1, $2, 0
+    LWI  $2, 2147505860
+    SW   $1, $2, 0
+    LWI  $2, 2147505861
+    SW   $1, $2, 0
+    LWI  $2, 2147505862
+    SW   $1, $2, 0
+    LWI  $2, 2147505863
+    SW   $1, $2, 0
+    LWI  $2, 2147505864
+    SW   $1, $2, 0
+    LWI  $2, 2147505865
+    SW   $1, $2, 0
+    LWI  $2, 2147505876
+    SW   $1, $2, 0
+    LWI  $2, 2147505877
+    SW   $1, $2, 0
+    LWI  $2, 2147505878
+    SW   $1, $2, 0
+    LWI  $2, 2147505879
+    SW   $1, $2, 0
+    LWI  $2, 2147505880
+    SW   $1, $2, 0
+    LWI  $2, 2147505881
+    SW   $1, $2, 0
+    LWI  $2, 2147505882
+    SW   $1, $2, 0
+    LWI  $2, 2147505883
+    SW   $1, $2, 0
+    LWI  $2, 2147505884
+    SW   $1, $2, 0
+    LWI  $2, 2147505885
+    SW   $1, $2, 0
+    LWI  $2, 2147505886
+    SW   $1, $2, 0
+    LWI  $2, 2147505887
+    SW   $1, $2, 0
+    LWI  $2, 2147505888
+    SW   $1, $2, 0
+    LWI  $2, 2147505889
+    SW   $1, $2, 0
+    LWI  $2, 2147505890
+    SW   $1, $2, 0
+    LWI  $2, 2147505891
+    SW   $1, $2, 0
+    LWI  $2, 2147505892
+    SW   $1, $2, 0
+    LWI  $2, 2147505893
+    SW   $1, $2, 0
+    LWI  $2, 2147505894
+    SW   $1, $2, 0
+    LWI  $2, 2147505895
+    SW   $1, $2, 0
+    LWI  $2, 2147505896
+    SW   $1, $2, 0
+    LWI  $2, 2147505897
+    SW   $1, $2, 0
+    LWI  $2, 2147505898
+    SW   $1, $2, 0
+    LWI  $2, 2147505899
+    SW   $1, $2, 0
+    LWI  $2, 2147505900
+    SW   $1, $2, 0
+    LWI  $2, 2147505901
+    SW   $1, $2, 0
+    LWI  $2, 2147505902
+    SW   $1, $2, 0
+    LWI  $2, 2147505903
+    SW   $1, $2, 0
+    LWI  $2, 2147505904
+    SW   $1, $2, 0
+    LWI  $2, 2147505905
+    SW   $1, $2, 0
+    LWI  $2, 2147505906
+    SW   $1, $2, 0
+    LWI  $2, 2147505907
+    SW   $1, $2, 0
+    LWI  $2, 2147505908
+    SW   $1, $2, 0
+    LWI  $2, 2147505909
+    SW   $1, $2, 0
+    LWI  $2, 2147505910
+    SW   $1, $2, 0
+    LWI  $2, 2147505911
+    SW   $1, $2, 0
+    LWI  $2, 2147505912
+    SW   $1, $2, 0
+    LWI  $2, 2147505913
+    SW   $1, $2, 0
+    LWI  $2, 2147505914
+    SW   $1, $2, 0
+    LWI  $2, 2147505915
+    SW   $1, $2, 0
+    LWI  $2, 2147505916
+    SW   $1, $2, 0
+    LWI  $2, 2147505917
+    SW   $1, $2, 0
+    LWI  $2, 2147505921
+    SW   $1, $2, 0
+    LWI  $2, 2147505922
+    SW   $1, $2, 0
+    LWI  $2, 2147505923
+    SW   $1, $2, 0
+    LWI  $2, 2147505924
+    SW   $1, $2, 0
+    LWI  $2, 2147505925
+    SW   $1, $2, 0
+    LWI  $2, 2147505926
+    SW   $1, $2, 0
+    LWI  $2, 2147505927
+    SW   $1, $2, 0
+    LWI  $2, 2147505928
+    SW   $1, $2, 0
+    LWI  $2, 2147505929
+    SW   $1, $2, 0
+    LWI  $2, 2147505930
+    SW   $1, $2, 0
+    LWI  $2, 2147505931
+    SW   $1, $2, 0
+    LWI  $2, 2147505932
+    SW   $1, $2, 0
+    LWI  $2, 2147505933
+    SW   $1, $2, 0
+    LWI  $2, 2147505934
+    SW   $1, $2, 0
+    LWI  $2, 2147505935
+    SW   $1, $2, 0
+    LWI  $2, 2147505936
+    SW   $1, $2, 0
+    LWI  $2, 2147505943
+    SW   $1, $2, 0
+    LWI  $2, 2147505944
+    SW   $1, $2, 0
+    LWI  $2, 2147505945
+    SW   $1, $2, 0
+    LWI  $2, 2147505949
+    SW   $1, $2, 0
+    LWI  $2, 2147505950
+    SW   $1, $2, 0
+    LWI  $2, 2147505951
+    SW   $1, $2, 0
+    LWI  $2, 2147505952
+    SW   $1, $2, 0
+    LWI  $2, 2147505953
+    SW   $1, $2, 0
+    LWI  $2, 2147505954
+    SW   $1, $2, 0
+    LWI  $2, 2147505955
+    SW   $1, $2, 0
+    LWI  $2, 2147505956
+    SW   $1, $2, 0
+    LWI  $2, 2147505957
+    SW   $1, $2, 0
+    LWI  $2, 2147505958
+    SW   $1, $2, 0
+    LWI  $2, 2147505959
+    SW   $1, $2, 0
+    LWI  $2, 2147505960
+    SW   $1, $2, 0
+    LWI  $2, 2147505961
+    SW   $1, $2, 0
+    LWI  $2, 2147505962
+    SW   $1, $2, 0
+    LWI  $2, 2147505963
+    SW   $1, $2, 0
+    LWI  $2, 2147505964
+    SW   $1, $2, 0
+    LWI  $2, 2147505965
+    SW   $1, $2, 0
+    LWI  $2, 2147505966
+    SW   $1, $2, 0
+    LWI  $2, 2147505967
+    SW   $1, $2, 0
+    LWI  $2, 2147505968
+    SW   $1, $2, 0
+    LWI  $2, 2147505969
+    SW   $1, $2, 0
+    LWI  $2, 2147505970
+    SW   $1, $2, 0
+    LWI  $2, 2147505971
+    SW   $1, $2, 0
+    LWI  $2, 2147505972
+    SW   $1, $2, 0
+    LWI  $2, 2147505973
+    SW   $1, $2, 0
+    LWI  $2, 2147505974
+    SW   $1, $2, 0
+    LWI  $2, 2147505975
+    SW   $1, $2, 0
+    LWI  $2, 2147505976
+    SW   $1, $2, 0
+    LWI  $2, 2147505977
+    SW   $1, $2, 0
+    LWI  $2, 2147505978
+    SW   $1, $2, 0
+    LWI  $2, 2147505979
+    SW   $1, $2, 0
+    LWI  $2, 2147505980
+    SW   $1, $2, 0
+    LWI  $2, 2147505981
+    SW   $1, $2, 0
+    LWI  $2, 2147505982
+    SW   $1, $2, 0
+    LWI  $2, 2147505983
+    SW   $1, $2, 0
+    LWI  $2, 2147505984
+    SW   $1, $2, 0
+    LWI  $2, 2147505985
+    SW   $1, $2, 0
+    LWI  $2, 2147505986
+    SW   $1, $2, 0
+    LWI  $2, 2147505987
+    SW   $1, $2, 0
+    LWI  $2, 2147505988
+    SW   $1, $2, 0
+    LWI  $2, 2147505989
+    SW   $1, $2, 0
+    LWI  $2, 2147505990
+    SW   $1, $2, 0
+    LWI  $2, 2147505991
+    SW   $1, $2, 0
+    LWI  $2, 2147505992
+    SW   $1, $2, 0
+    LWI  $2, 2147505993
+    SW   $1, $2, 0
+    LWI  $2, 2147505994
+    SW   $1, $2, 0
+    LWI  $2, 2147505995
+    SW   $1, $2, 0
+    LWI  $2, 2147505996
+    SW   $1, $2, 0
+    LWI  $2, 2147505997
+    SW   $1, $2, 0
+    LWI  $2, 2147505998
+    SW   $1, $2, 0
+    LWI  $2, 2147505999
+    SW   $1, $2, 0
+    LWI  $2, 2147506000
+    SW   $1, $2, 0
+    LWI  $2, 2147506001
+    SW   $1, $2, 0
+    LWI  $2, 2147506002
+    SW   $1, $2, 0
+    LWI  $2, 2147506003
+    SW   $1, $2, 0
+    LWI  $2, 2147506004
+    SW   $1, $2, 0
+    LWI  $2, 2147506005
+    SW   $1, $2, 0
+    LWI  $2, 2147506006
+    SW   $1, $2, 0
+    LWI  $2, 2147506007
+    SW   $1, $2, 0
+    LWI  $2, 2147506008
+    SW   $1, $2, 0
+    LWI  $2, 2147506009
+    SW   $1, $2, 0
+    LWI  $2, 2147506010
+    SW   $1, $2, 0
+    LWI  $2, 2147506011
+    SW   $1, $2, 0
+    LWI  $2, 2147506012
+    SW   $1, $2, 0
+    LWI  $2, 2147506013
+    SW   $1, $2, 0
+    LWI  $2, 2147506014
+    SW   $1, $2, 0
+    LWI  $2, 2147506017
+    SW   $1, $2, 0
+    LWI  $2, 2147506018
+    SW   $1, $2, 0
+    LWI  $2, 2147506019
+    SW   $1, $2, 0
+    LWI  $2, 2147506020
+    SW   $1, $2, 0
+    LWI  $2, 2147506021
+    SW   $1, $2, 0
+    LWI  $2, 2147506022
+    SW   $1, $2, 0
+    LWI  $2, 2147506023
+    SW   $1, $2, 0
+    LWI  $2, 2147506024
+    SW   $1, $2, 0
+    LWI  $2, 2147506025
+    SW   $1, $2, 0
+    LWI  $2, 2147506026
+    SW   $1, $2, 0
+    LWI  $2, 2147506027
+    SW   $1, $2, 0
+    LWI  $2, 2147506028
+    SW   $1, $2, 0
+    LWI  $2, 2147506029
+    SW   $1, $2, 0
+    LWI  $2, 2147506030
+    SW   $1, $2, 0
+    LWI  $2, 2147506031
+    SW   $1, $2, 0
+    LWI  $2, 2147506032
+    SW   $1, $2, 0
+    LWI  $2, 2147506045
+    SW   $1, $2, 0
+    LWI  $2, 2147506046
+    SW   $1, $2, 0
+    LWI  $2, 2147506047
+    SW   $1, $2, 0
+    LWI  $2, 2147506048
+    SW   $1, $2, 0
+    LWI  $2, 2147506049
+    SW   $1, $2, 0
+    LWI  $2, 2147506050
+    SW   $1, $2, 0
+    LWI  $2, 2147506051
+    SW   $1, $2, 0
+    LWI  $2, 2147506052
+    SW   $1, $2, 0
+    LWI  $2, 2147506053
+    SW   $1, $2, 0
+    LWI  $2, 2147506054
+    SW   $1, $2, 0
+    LWI  $2, 2147506055
+    SW   $1, $2, 0
+    LWI  $2, 2147506056
+    SW   $1, $2, 0
+    LWI  $2, 2147506057
+    SW   $1, $2, 0
+    LWI  $2, 2147506058
+    SW   $1, $2, 0
+    LWI  $2, 2147506059
+    SW   $1, $2, 0
+    LWI  $2, 2147506060
+    SW   $1, $2, 0
+    LWI  $2, 2147506061
+    SW   $1, $2, 0
+    LWI  $2, 2147506062
+    SW   $1, $2, 0
+    LWI  $2, 2147506063
+    SW   $1, $2, 0
+    LWI  $2, 2147506064
+    SW   $1, $2, 0
+    LWI  $2, 2147506065
+    SW   $1, $2, 0
+    LWI  $2, 2147506066
+    SW   $1, $2, 0
+    LWI  $2, 2147506067
+    SW   $1, $2, 0
+    LWI  $2, 2147506068
+    SW   $1, $2, 0
+    LWI  $2, 2147506069
+    SW   $1, $2, 0
+    LWI  $2, 2147506070
+    SW   $1, $2, 0
+    LWI  $2, 2147506071
+    SW   $1, $2, 0
+    LWI  $2, 2147506072
+    SW   $1, $2, 0
+    LWI  $2, 2147506073
+    SW   $1, $2, 0
+    LWI  $2, 2147506074
+    SW   $1, $2, 0
+    LWI  $2, 2147506075
+    SW   $1, $2, 0
+    LWI  $2, 2147506076
+    SW   $1, $2, 0
+    LWI  $2, 2147506077
+    SW   $1, $2, 0
+    LWI  $2, 2147506078
+    SW   $1, $2, 0
+    LWI  $2, 2147506079
+    SW   $1, $2, 0
+    LWI  $2, 2147506080
+    SW   $1, $2, 0
+    LWI  $2, 2147506081
+    SW   $1, $2, 0
+    LWI  $2, 2147506082
+    SW   $1, $2, 0
+    LWI  $2, 2147506083
+    SW   $1, $2, 0
+    LWI  $2, 2147506084
+    SW   $1, $2, 0
+    LWI  $2, 2147506085
+    SW   $1, $2, 0
+    LWI  $2, 2147506086
+    SW   $1, $2, 0
+    LWI  $2, 2147506087
+    SW   $1, $2, 0
+    LWI  $2, 2147506088
+    SW   $1, $2, 0
+    LWI  $2, 2147506089
+    SW   $1, $2, 0
+    LWI  $2, 2147506090
+    SW   $1, $2, 0
+    LWI  $2, 2147506091
+    SW   $1, $2, 0
+    LWI  $2, 2147506092
+    SW   $1, $2, 0
+    LWI  $2, 2147506093
+    SW   $1, $2, 0
+    LWI  $2, 2147506094
+    SW   $1, $2, 0
+    LWI  $2, 2147506095
+    SW   $1, $2, 0
+    LWI  $2, 2147506096
+    SW   $1, $2, 0
+    LWI  $2, 2147506097
+    SW   $1, $2, 0
+    LWI  $2, 2147506098
+    SW   $1, $2, 0
+    LWI  $2, 2147506099
+    SW   $1, $2, 0
+    LWI  $2, 2147506100
+    SW   $1, $2, 0
+    LWI  $2, 2147506101
+    SW   $1, $2, 0
+    LWI  $2, 2147506102
+    SW   $1, $2, 0
+    LWI  $2, 2147506103
+    SW   $1, $2, 0
+    LWI  $2, 2147506104
+    SW   $1, $2, 0
+    LWI  $2, 2147506105
+    SW   $1, $2, 0
+    LWI  $2, 2147506106
+    SW   $1, $2, 0
+    LWI  $2, 2147506107
+    SW   $1, $2, 0
+    LWI  $2, 2147506108
+    SW   $1, $2, 0
+    LWI  $2, 2147506109
+    SW   $1, $2, 0
+    LWI  $2, 2147506110
+    SW   $1, $2, 0
+    LWI  $2, 2147506113
+    SW   $1, $2, 0
+    LWI  $2, 2147506114
+    SW   $1, $2, 0
+    LWI  $2, 2147506115
+    SW   $1, $2, 0
+    LWI  $2, 2147506116
+    SW   $1, $2, 0
+    LWI  $2, 2147506117
+    SW   $1, $2, 0
+    LWI  $2, 2147506118
+    SW   $1, $2, 0
+    LWI  $2, 2147506119
+    SW   $1, $2, 0
+    LWI  $2, 2147506120
+    SW   $1, $2, 0
+    LWI  $2, 2147506121
+    SW   $1, $2, 0
+    LWI  $2, 2147506122
+    SW   $1, $2, 0
+    LWI  $2, 2147506123
+    SW   $1, $2, 0
+    LWI  $2, 2147506124
+    SW   $1, $2, 0
+    LWI  $2, 2147506125
+    SW   $1, $2, 0
+    LWI  $2, 2147506126
+    SW   $1, $2, 0
+    LWI  $2, 2147506127
+    SW   $1, $2, 0
+    LWI  $2, 2147506128
+    SW   $1, $2, 0
+    LWI  $2, 2147506141
+    SW   $1, $2, 0
+    LWI  $2, 2147506142
+    SW   $1, $2, 0
+    LWI  $2, 2147506143
+    SW   $1, $2, 0
+    LLI  $1, 0b1110111010110110
+    LWI  $2, 2147500003
+    SW   $1, $2, 0
+    LWI  $2, 2147500099
+    SW   $1, $2, 0
+    LWI  $2, 2147500195
+    SW   $1, $2, 0
+    LWI  $2, 2147500291
+    SW   $1, $2, 0
+    LWI  $2, 2147500302
+    SW   $1, $2, 0
+    LWI  $2, 2147500303
+    SW   $1, $2, 0
+    LWI  $2, 2147500304
+    SW   $1, $2, 0
+    LWI  $2, 2147500305
+    SW   $1, $2, 0
+    LWI  $2, 2147500306
+    SW   $1, $2, 0
+    LWI  $2, 2147500309
+    SW   $1, $2, 0
+    LWI  $2, 2147500312
+    SW   $1, $2, 0
+    LWI  $2, 2147500313
+    SW   $1, $2, 0
+    LWI  $2, 2147500314
+    SW   $1, $2, 0
+    LWI  $2, 2147500315
+    SW   $1, $2, 0
+    LWI  $2, 2147500316
+    SW   $1, $2, 0
+    LWI  $2, 2147500317
+    SW   $1, $2, 0
+    LWI  $2, 2147500318
+    SW   $1, $2, 0
+    LWI  $2, 2147500319
+    SW   $1, $2, 0
+    LWI  $2, 2147500320
+    SW   $1, $2, 0
+    LWI  $2, 2147500321
+    SW   $1, $2, 0
+    LWI  $2, 2147500322
+    SW   $1, $2, 0
+    LWI  $2, 2147500323
+    SW   $1, $2, 0
+    LWI  $2, 2147500324
+    SW   $1, $2, 0
+    LWI  $2, 2147500325
+    SW   $1, $2, 0
+    LWI  $2, 2147500326
+    SW   $1, $2, 0
+    LWI  $2, 2147500327
+    SW   $1, $2, 0
+    LWI  $2, 2147500328
+    SW   $1, $2, 0
+    LWI  $2, 2147500329
+    SW   $1, $2, 0
+    LWI  $2, 2147500330
+    SW   $1, $2, 0
+    LWI  $2, 2147500331
+    SW   $1, $2, 0
+    LWI  $2, 2147500332
+    SW   $1, $2, 0
+    LWI  $2, 2147500333
+    SW   $1, $2, 0
+    LWI  $2, 2147500334
+    SW   $1, $2, 0
+    LWI  $2, 2147500335
+    SW   $1, $2, 0
+    LWI  $2, 2147500336
+    SW   $1, $2, 0
+    LWI  $2, 2147500337
+    SW   $1, $2, 0
+    LWI  $2, 2147500338
+    SW   $1, $2, 0
+    LWI  $2, 2147500339
+    SW   $1, $2, 0
+    LWI  $2, 2147500340
+    SW   $1, $2, 0
+    LWI  $2, 2147500341
+    SW   $1, $2, 0
+    LWI  $2, 2147500342
+    SW   $1, $2, 0
+    LWI  $2, 2147500343
+    SW   $1, $2, 0
+    LWI  $2, 2147500344
+    SW   $1, $2, 0
+    LWI  $2, 2147500345
+    SW   $1, $2, 0
+    LWI  $2, 2147500346
+    SW   $1, $2, 0
+    LWI  $2, 2147500347
+    SW   $1, $2, 0
+    LWI  $2, 2147500348
+    SW   $1, $2, 0
+    LWI  $2, 2147500349
+    SW   $1, $2, 0
+    LWI  $2, 2147500350
+    SW   $1, $2, 0
+    LWI  $2, 2147500351
+    SW   $1, $2, 0
+    LWI  $2, 2147500352
+    SW   $1, $2, 0
+    LWI  $2, 2147500353
+    SW   $1, $2, 0
+    LWI  $2, 2147500354
+    SW   $1, $2, 0
+    LWI  $2, 2147500355
+    SW   $1, $2, 0
+    LWI  $2, 2147500356
+    SW   $1, $2, 0
+    LWI  $2, 2147500357
+    SW   $1, $2, 0
+    LWI  $2, 2147500358
+    SW   $1, $2, 0
+    LWI  $2, 2147500359
+    SW   $1, $2, 0
+    LWI  $2, 2147500360
+    SW   $1, $2, 0
+    LWI  $2, 2147500361
+    SW   $1, $2, 0
+    LWI  $2, 2147500362
+    SW   $1, $2, 0
+    LWI  $2, 2147500363
+    SW   $1, $2, 0
+    LWI  $2, 2147500367
+    SW   $1, $2, 0
+    LWI  $2, 2147500368
+    SW   $1, $2, 0
+    LWI  $2, 2147500387
+    SW   $1, $2, 0
+    LWI  $2, 2147500398
+    SW   $1, $2, 0
+    LWI  $2, 2147500399
+    SW   $1, $2, 0
+    LWI  $2, 2147500400
+    SW   $1, $2, 0
+    LWI  $2, 2147500401
+    SW   $1, $2, 0
+    LWI  $2, 2147500402
+    SW   $1, $2, 0
+    LWI  $2, 2147500403
+    SW   $1, $2, 0
+    LWI  $2, 2147500404
+    SW   $1, $2, 0
+    LWI  $2, 2147500405
+    SW   $1, $2, 0
+    LWI  $2, 2147500408
+    SW   $1, $2, 0
+    LWI  $2, 2147500409
+    SW   $1, $2, 0
+    LWI  $2, 2147500410
+    SW   $1, $2, 0
+    LWI  $2, 2147500412
+    SW   $1, $2, 0
+    LWI  $2, 2147500413
+    SW   $1, $2, 0
+    LWI  $2, 2147500414
+    SW   $1, $2, 0
+    LWI  $2, 2147500415
+    SW   $1, $2, 0
+    LWI  $2, 2147500416
+    SW   $1, $2, 0
+    LWI  $2, 2147500417
+    SW   $1, $2, 0
+    LWI  $2, 2147500418
+    SW   $1, $2, 0
+    LWI  $2, 2147500419
+    SW   $1, $2, 0
+    LWI  $2, 2147500420
+    SW   $1, $2, 0
+    LWI  $2, 2147500421
+    SW   $1, $2, 0
+    LWI  $2, 2147500422
+    SW   $1, $2, 0
+    LWI  $2, 2147500423
+    SW   $1, $2, 0
+    LWI  $2, 2147500424
+    SW   $1, $2, 0
+    LWI  $2, 2147500425
+    SW   $1, $2, 0
+    LWI  $2, 2147500426
+    SW   $1, $2, 0
+    LWI  $2, 2147500427
+    SW   $1, $2, 0
+    LWI  $2, 2147500428
+    SW   $1, $2, 0
+    LWI  $2, 2147500429
+    SW   $1, $2, 0
+    LWI  $2, 2147500430
+    SW   $1, $2, 0
+    LWI  $2, 2147500431
+    SW   $1, $2, 0
+    LWI  $2, 2147500432
+    SW   $1, $2, 0
+    LWI  $2, 2147500433
+    SW   $1, $2, 0
+    LWI  $2, 2147500434
+    SW   $1, $2, 0
+    LWI  $2, 2147500435
+    SW   $1, $2, 0
+    LWI  $2, 2147500436
+    SW   $1, $2, 0
+    LWI  $2, 2147500437
+    SW   $1, $2, 0
+    LWI  $2, 2147500438
+    SW   $1, $2, 0
+    LWI  $2, 2147500439
+    SW   $1, $2, 0
+    LWI  $2, 2147500440
+    SW   $1, $2, 0
+    LWI  $2, 2147500441
+    SW   $1, $2, 0
+    LWI  $2, 2147500442
+    SW   $1, $2, 0
+    LWI  $2, 2147500443
+    SW   $1, $2, 0
+    LWI  $2, 2147500444
+    SW   $1, $2, 0
+    LWI  $2, 2147500445
+    SW   $1, $2, 0
+    LWI  $2, 2147500446
+    SW   $1, $2, 0
+    LWI  $2, 2147500447
+    SW   $1, $2, 0
+    LWI  $2, 2147500448
+    SW   $1, $2, 0
+    LWI  $2, 2147500449
+    SW   $1, $2, 0
+    LWI  $2, 2147500450
+    SW   $1, $2, 0
+    LWI  $2, 2147500451
+    SW   $1, $2, 0
+    LWI  $2, 2147500452
+    SW   $1, $2, 0
+    LWI  $2, 2147500453
+    SW   $1, $2, 0
+    LWI  $2, 2147500454
+    SW   $1, $2, 0
+    LWI  $2, 2147500455
+    SW   $1, $2, 0
+    LWI  $2, 2147500456
+    SW   $1, $2, 0
+    LWI  $2, 2147500457
+    SW   $1, $2, 0
+    LWI  $2, 2147500458
+    SW   $1, $2, 0
+    LWI  $2, 2147500459
+    SW   $1, $2, 0
+    LWI  $2, 2147500463
+    SW   $1, $2, 0
+    LWI  $2, 2147500469
+    SW   $1, $2, 0
+    LWI  $2, 2147500483
+    SW   $1, $2, 0
+    LWI  $2, 2147500493
+    SW   $1, $2, 0
+    LWI  $2, 2147500494
+    SW   $1, $2, 0
+    LWI  $2, 2147500495
+    SW   $1, $2, 0
+    LWI  $2, 2147500498
+    SW   $1, $2, 0
+    LWI  $2, 2147500499
+    SW   $1, $2, 0
+    LWI  $2, 2147500500
+    SW   $1, $2, 0
+    LWI  $2, 2147500501
+    SW   $1, $2, 0
+    LWI  $2, 2147500505
+    SW   $1, $2, 0
+    LWI  $2, 2147500506
+    SW   $1, $2, 0
+    LWI  $2, 2147500509
+    SW   $1, $2, 0
+    LWI  $2, 2147500510
+    SW   $1, $2, 0
+    LWI  $2, 2147500511
+    SW   $1, $2, 0
+    LWI  $2, 2147500512
+    SW   $1, $2, 0
+    LWI  $2, 2147500513
+    SW   $1, $2, 0
+    LWI  $2, 2147500514
+    SW   $1, $2, 0
+    LWI  $2, 2147500515
+    SW   $1, $2, 0
+    LWI  $2, 2147500516
+    SW   $1, $2, 0
+    LWI  $2, 2147500517
+    SW   $1, $2, 0
+    LWI  $2, 2147500518
+    SW   $1, $2, 0
+    LWI  $2, 2147500519
+    SW   $1, $2, 0
+    LWI  $2, 2147500520
+    SW   $1, $2, 0
+    LWI  $2, 2147500521
+    SW   $1, $2, 0
+    LWI  $2, 2147500522
+    SW   $1, $2, 0
+    LWI  $2, 2147500523
+    SW   $1, $2, 0
+    LWI  $2, 2147500524
+    SW   $1, $2, 0
+    LWI  $2, 2147500525
+    SW   $1, $2, 0
+    LWI  $2, 2147500526
+    SW   $1, $2, 0
+    LWI  $2, 2147500527
+    SW   $1, $2, 0
+    LWI  $2, 2147500528
+    SW   $1, $2, 0
+    LWI  $2, 2147500529
+    SW   $1, $2, 0
+    LWI  $2, 2147500530
+    SW   $1, $2, 0
+    LWI  $2, 2147500531
+    SW   $1, $2, 0
+    LWI  $2, 2147500532
+    SW   $1, $2, 0
+    LWI  $2, 2147500533
+    SW   $1, $2, 0
+    LWI  $2, 2147500534
+    SW   $1, $2, 0
+    LWI  $2, 2147500535
+    SW   $1, $2, 0
+    LWI  $2, 2147500536
+    SW   $1, $2, 0
+    LWI  $2, 2147500537
+    SW   $1, $2, 0
+    LWI  $2, 2147500538
+    SW   $1, $2, 0
+    LWI  $2, 2147500539
+    SW   $1, $2, 0
+    LWI  $2, 2147500540
+    SW   $1, $2, 0
+    LWI  $2, 2147500541
+    SW   $1, $2, 0
+    LWI  $2, 2147500542
+    SW   $1, $2, 0
+    LWI  $2, 2147500543
+    SW   $1, $2, 0
+    LWI  $2, 2147500544
+    SW   $1, $2, 0
+    LWI  $2, 2147500545
+    SW   $1, $2, 0
+    LWI  $2, 2147500546
+    SW   $1, $2, 0
+    LWI  $2, 2147500547
+    SW   $1, $2, 0
+    LWI  $2, 2147500548
+    SW   $1, $2, 0
+    LWI  $2, 2147500549
+    SW   $1, $2, 0
+    LWI  $2, 2147500550
+    SW   $1, $2, 0
+    LWI  $2, 2147500551
+    SW   $1, $2, 0
+    LWI  $2, 2147500552
+    SW   $1, $2, 0
+    LWI  $2, 2147500553
+    SW   $1, $2, 0
+    LWI  $2, 2147500554
+    SW   $1, $2, 0
+    LWI  $2, 2147500555
+    SW   $1, $2, 0
+    LWI  $2, 2147500559
+    SW   $1, $2, 0
+    LWI  $2, 2147500564
+    SW   $1, $2, 0
+    LWI  $2, 2147500579
     SW   $1, $2, 0
     LWI  $2, 2147500589
     SW   $1, $2, 0
     LWI  $2, 2147500590
-    SW   $1, $2, 0
-    LWI  $2, 2147500591
-    SW   $1, $2, 0
-    LWI  $2, 2147500592
-    SW   $1, $2, 0
-    LWI  $2, 2147500593
     SW   $1, $2, 0
     LWI  $2, 2147500594
     SW   $1, $2, 0
@@ -13927,10 +19849,6 @@ DISPMENU:
     LWI  $2, 2147500601
     SW   $1, $2, 0
     LWI  $2, 2147500602
-    SW   $1, $2, 0
-    LWI  $2, 2147500603
-    SW   $1, $2, 0
-    LWI  $2, 2147500604
     SW   $1, $2, 0
     LWI  $2, 2147500605
     SW   $1, $2, 0
@@ -14026,63 +19944,13 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147500651
     SW   $1, $2, 0
-    LWI  $2, 2147500652
-    SW   $1, $2, 0
-    LWI  $2, 2147500653
-    SW   $1, $2, 0
-    LWI  $2, 2147500654
-    SW   $1, $2, 0
     LWI  $2, 2147500655
     SW   $1, $2, 0
-    LWI  $2, 2147500656
-    SW   $1, $2, 0
-    LWI  $2, 2147500657
-    SW   $1, $2, 0
-    LWI  $2, 2147500658
-    SW   $1, $2, 0
-    LWI  $2, 2147500659
-    SW   $1, $2, 0
-    LWI  $2, 2147500660
-    SW   $1, $2, 0
-    LWI  $2, 2147500661
-    SW   $1, $2, 0
-    LWI  $2, 2147500662
-    SW   $1, $2, 0
-    LWI  $2, 2147500663
-    SW   $1, $2, 0
-    LWI  $2, 2147500664
-    SW   $1, $2, 0
-    LWI  $2, 2147500665
-    SW   $1, $2, 0
-    LWI  $2, 2147500666
-    SW   $1, $2, 0
-    LWI  $2, 2147500667
-    SW   $1, $2, 0
-    LWI  $2, 2147500676
-    SW   $1, $2, 0
-    LWI  $2, 2147500677
-    SW   $1, $2, 0
-    LWI  $2, 2147500678
-    SW   $1, $2, 0
-    LWI  $2, 2147500679
-    SW   $1, $2, 0
-    LWI  $2, 2147500680
-    SW   $1, $2, 0
-    LWI  $2, 2147500681
-    SW   $1, $2, 0
-    LWI  $2, 2147500682
-    SW   $1, $2, 0
-    LWI  $2, 2147500683
-    SW   $1, $2, 0
-    LWI  $2, 2147500684
+    LWI  $2, 2147500675
     SW   $1, $2, 0
     LWI  $2, 2147500685
     SW   $1, $2, 0
     LWI  $2, 2147500686
-    SW   $1, $2, 0
-    LWI  $2, 2147500687
-    SW   $1, $2, 0
-    LWI  $2, 2147500688
     SW   $1, $2, 0
     LWI  $2, 2147500689
     SW   $1, $2, 0
@@ -14103,10 +19971,6 @@ DISPMENU:
     LWI  $2, 2147500697
     SW   $1, $2, 0
     LWI  $2, 2147500698
-    SW   $1, $2, 0
-    LWI  $2, 2147500699
-    SW   $1, $2, 0
-    LWI  $2, 2147500700
     SW   $1, $2, 0
     LWI  $2, 2147500701
     SW   $1, $2, 0
@@ -14202,816 +20066,15 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147500747
     SW   $1, $2, 0
-    LWI  $2, 2147500748
-    SW   $1, $2, 0
-    LWI  $2, 2147500749
-    SW   $1, $2, 0
-    LWI  $2, 2147500750
-    SW   $1, $2, 0
     LWI  $2, 2147500751
     SW   $1, $2, 0
-    LWI  $2, 2147500752
-    SW   $1, $2, 0
-    LWI  $2, 2147500753
-    SW   $1, $2, 0
-    LWI  $2, 2147500754
-    SW   $1, $2, 0
     LWI  $2, 2147500755
-    SW   $1, $2, 0
-    LWI  $2, 2147500756
-    SW   $1, $2, 0
-    LWI  $2, 2147500757
-    SW   $1, $2, 0
-    LWI  $2, 2147500758
-    SW   $1, $2, 0
-    LWI  $2, 2147500759
-    SW   $1, $2, 0
-    LWI  $2, 2147500760
-    SW   $1, $2, 0
-    LWI  $2, 2147500761
     SW   $1, $2, 0
     LWI  $2, 2147500762
     SW   $1, $2, 0
     LWI  $2, 2147500763
     SW   $1, $2, 0
-    LWI  $2, 2147500772
-    SW   $1, $2, 0
-    LWI  $2, 2147500773
-    SW   $1, $2, 0
-    LWI  $2, 2147500774
-    SW   $1, $2, 0
-    LWI  $2, 2147500857
-    SW   $1, $2, 0
-    LWI  $2, 2147500858
-    SW   $1, $2, 0
-    LWI  $2, 2147500859
-    SW   $1, $2, 0
-    LWI  $2, 2147500868
-    SW   $1, $2, 0
-    LWI  $2, 2147500869
-    SW   $1, $2, 0
-    LWI  $2, 2147500954
-    SW   $1, $2, 0
-    LWI  $2, 2147500955
-    SW   $1, $2, 0
-    LWI  $2, 2147500964
-    SW   $1, $2, 0
-    LWI  $2, 2147500965
-    SW   $1, $2, 0
-    LWI  $2, 2147501050
-    SW   $1, $2, 0
-    LWI  $2, 2147501051
-    SW   $1, $2, 0
-    LWI  $2, 2147501060
-    SW   $1, $2, 0
-    LWI  $2, 2147501061
-    SW   $1, $2, 0
-    LWI  $2, 2147501146
-    SW   $1, $2, 0
-    LWI  $2, 2147501147
-    SW   $1, $2, 0
-    LWI  $2, 2147501156
-    SW   $1, $2, 0
-    LWI  $2, 2147501157
-    SW   $1, $2, 0
-    LWI  $2, 2147501242
-    SW   $1, $2, 0
-    LWI  $2, 2147501243
-    SW   $1, $2, 0
-    LWI  $2, 2147501252
-    SW   $1, $2, 0
-    LWI  $2, 2147501253
-    SW   $1, $2, 0
-    LWI  $2, 2147501338
-    SW   $1, $2, 0
-    LWI  $2, 2147501339
-    SW   $1, $2, 0
-    LWI  $2, 2147501348
-    SW   $1, $2, 0
-    LWI  $2, 2147501349
-    SW   $1, $2, 0
-    LWI  $2, 2147501434
-    SW   $1, $2, 0
-    LWI  $2, 2147501435
-    SW   $1, $2, 0
-    LWI  $2, 2147501444
-    SW   $1, $2, 0
-    LWI  $2, 2147501445
-    SW   $1, $2, 0
-    LWI  $2, 2147501530
-    SW   $1, $2, 0
-    LWI  $2, 2147501531
-    SW   $1, $2, 0
-    LWI  $2, 2147501540
-    SW   $1, $2, 0
-    LWI  $2, 2147501541
-    SW   $1, $2, 0
-    LWI  $2, 2147501626
-    SW   $1, $2, 0
-    LWI  $2, 2147501627
-    SW   $1, $2, 0
-    LWI  $2, 2147501636
-    SW   $1, $2, 0
-    LWI  $2, 2147501637
-    SW   $1, $2, 0
-    LWI  $2, 2147501722
-    SW   $1, $2, 0
-    LWI  $2, 2147501723
-    SW   $1, $2, 0
-    LWI  $2, 2147501732
-    SW   $1, $2, 0
-    LWI  $2, 2147501733
-    SW   $1, $2, 0
-    LWI  $2, 2147501818
-    SW   $1, $2, 0
-    LWI  $2, 2147501819
-    SW   $1, $2, 0
-    LWI  $2, 2147501828
-    SW   $1, $2, 0
-    LWI  $2, 2147501829
-    SW   $1, $2, 0
-    LWI  $2, 2147501914
-    SW   $1, $2, 0
-    LWI  $2, 2147501915
-    SW   $1, $2, 0
-    LWI  $2, 2147501924
-    SW   $1, $2, 0
-    LWI  $2, 2147501925
-    SW   $1, $2, 0
-    LWI  $2, 2147502010
-    SW   $1, $2, 0
-    LWI  $2, 2147502011
-    SW   $1, $2, 0
-    LWI  $2, 2147502020
-    SW   $1, $2, 0
-    LWI  $2, 2147502021
-    SW   $1, $2, 0
-    LWI  $2, 2147502106
-    SW   $1, $2, 0
-    LWI  $2, 2147502107
-    SW   $1, $2, 0
-    LWI  $2, 2147502116
-    SW   $1, $2, 0
-    LWI  $2, 2147502117
-    SW   $1, $2, 0
-    LWI  $2, 2147502202
-    SW   $1, $2, 0
-    LWI  $2, 2147502203
-    SW   $1, $2, 0
-    LWI  $2, 2147502212
-    SW   $1, $2, 0
-    LWI  $2, 2147502213
-    SW   $1, $2, 0
-    LWI  $2, 2147502298
-    SW   $1, $2, 0
-    LWI  $2, 2147502299
-    SW   $1, $2, 0
-    LWI  $2, 2147502308
-    SW   $1, $2, 0
-    LWI  $2, 2147502309
-    SW   $1, $2, 0
-    LWI  $2, 2147502394
-    SW   $1, $2, 0
-    LWI  $2, 2147502395
-    SW   $1, $2, 0
-    LWI  $2, 2147502404
-    SW   $1, $2, 0
-    LWI  $2, 2147502405
-    SW   $1, $2, 0
-    LWI  $2, 2147502490
-    SW   $1, $2, 0
-    LWI  $2, 2147502491
-    SW   $1, $2, 0
-    LWI  $2, 2147502500
-    SW   $1, $2, 0
-    LWI  $2, 2147502501
-    SW   $1, $2, 0
-    LWI  $2, 2147502586
-    SW   $1, $2, 0
-    LWI  $2, 2147502587
-    SW   $1, $2, 0
-    LWI  $2, 2147502596
-    SW   $1, $2, 0
-    LWI  $2, 2147502597
-    SW   $1, $2, 0
-    LWI  $2, 2147502682
-    SW   $1, $2, 0
-    LWI  $2, 2147502683
-    SW   $1, $2, 0
-    LWI  $2, 2147502692
-    SW   $1, $2, 0
-    LWI  $2, 2147502693
-    SW   $1, $2, 0
-    LWI  $2, 2147502778
-    SW   $1, $2, 0
-    LWI  $2, 2147502779
-    SW   $1, $2, 0
-    LWI  $2, 2147502788
-    SW   $1, $2, 0
-    LWI  $2, 2147502789
-    SW   $1, $2, 0
-    LWI  $2, 2147502874
-    SW   $1, $2, 0
-    LWI  $2, 2147502875
-    SW   $1, $2, 0
-    LWI  $2, 2147502884
-    SW   $1, $2, 0
-    LWI  $2, 2147502885
-    SW   $1, $2, 0
-    LWI  $2, 2147502970
-    SW   $1, $2, 0
-    LWI  $2, 2147502971
-    SW   $1, $2, 0
-    LWI  $2, 2147502980
-    SW   $1, $2, 0
-    LWI  $2, 2147502981
-    SW   $1, $2, 0
-    LWI  $2, 2147503066
-    SW   $1, $2, 0
-    LWI  $2, 2147503067
-    SW   $1, $2, 0
-    LWI  $2, 2147503076
-    SW   $1, $2, 0
-    LWI  $2, 2147503077
-    SW   $1, $2, 0
-    LWI  $2, 2147503162
-    SW   $1, $2, 0
-    LWI  $2, 2147503163
-    SW   $1, $2, 0
-    LWI  $2, 2147503172
-    SW   $1, $2, 0
-    LWI  $2, 2147503173
-    SW   $1, $2, 0
-    LWI  $2, 2147503258
-    SW   $1, $2, 0
-    LWI  $2, 2147503259
-    SW   $1, $2, 0
-    LWI  $2, 2147503268
-    SW   $1, $2, 0
-    LWI  $2, 2147503269
-    SW   $1, $2, 0
-    LWI  $2, 2147503354
-    SW   $1, $2, 0
-    LWI  $2, 2147503355
-    SW   $1, $2, 0
-    LWI  $2, 2147503364
-    SW   $1, $2, 0
-    LWI  $2, 2147503365
-    SW   $1, $2, 0
-    LWI  $2, 2147503450
-    SW   $1, $2, 0
-    LWI  $2, 2147503451
-    SW   $1, $2, 0
-    LWI  $2, 2147503460
-    SW   $1, $2, 0
-    LWI  $2, 2147503461
-    SW   $1, $2, 0
-    LWI  $2, 2147503546
-    SW   $1, $2, 0
-    LWI  $2, 2147503547
-    SW   $1, $2, 0
-    LWI  $2, 2147503556
-    SW   $1, $2, 0
-    LWI  $2, 2147503557
-    SW   $1, $2, 0
-    LWI  $2, 2147503642
-    SW   $1, $2, 0
-    LWI  $2, 2147503643
-    SW   $1, $2, 0
-    LWI  $2, 2147503652
-    SW   $1, $2, 0
-    LWI  $2, 2147503653
-    SW   $1, $2, 0
-    LWI  $2, 2147503738
-    SW   $1, $2, 0
-    LWI  $2, 2147503739
-    SW   $1, $2, 0
-    LWI  $2, 2147503748
-    SW   $1, $2, 0
-    LWI  $2, 2147503749
-    SW   $1, $2, 0
-    LWI  $2, 2147503834
-    SW   $1, $2, 0
-    LWI  $2, 2147503835
-    SW   $1, $2, 0
-    LWI  $2, 2147503844
-    SW   $1, $2, 0
-    LWI  $2, 2147503845
-    SW   $1, $2, 0
-    LWI  $2, 2147503930
-    SW   $1, $2, 0
-    LWI  $2, 2147503931
-    SW   $1, $2, 0
-    LWI  $2, 2147503940
-    SW   $1, $2, 0
-    LWI  $2, 2147503941
-    SW   $1, $2, 0
-    LWI  $2, 2147504026
-    SW   $1, $2, 0
-    LWI  $2, 2147504027
-    SW   $1, $2, 0
-    LWI  $2, 2147504036
-    SW   $1, $2, 0
-    LWI  $2, 2147504037
-    SW   $1, $2, 0
-    LWI  $2, 2147504122
-    SW   $1, $2, 0
-    LWI  $2, 2147504123
-    SW   $1, $2, 0
-    LWI  $2, 2147504132
-    SW   $1, $2, 0
-    LWI  $2, 2147504133
-    SW   $1, $2, 0
-    LWI  $2, 2147504218
-    SW   $1, $2, 0
-    LWI  $2, 2147504219
-    SW   $1, $2, 0
-    LWI  $2, 2147504228
-    SW   $1, $2, 0
-    LWI  $2, 2147504229
-    SW   $1, $2, 0
-    LWI  $2, 2147504314
-    SW   $1, $2, 0
-    LWI  $2, 2147504315
-    SW   $1, $2, 0
-    LWI  $2, 2147504324
-    SW   $1, $2, 0
-    LWI  $2, 2147504325
-    SW   $1, $2, 0
-    LWI  $2, 2147504410
-    SW   $1, $2, 0
-    LWI  $2, 2147504411
-    SW   $1, $2, 0
-    LWI  $2, 2147504420
-    SW   $1, $2, 0
-    LWI  $2, 2147504421
-    SW   $1, $2, 0
-    LWI  $2, 2147504506
-    SW   $1, $2, 0
-    LWI  $2, 2147504507
-    SW   $1, $2, 0
-    LWI  $2, 2147504516
-    SW   $1, $2, 0
-    LWI  $2, 2147504517
-    SW   $1, $2, 0
-    LWI  $2, 2147504602
-    SW   $1, $2, 0
-    LWI  $2, 2147504603
-    SW   $1, $2, 0
-    LWI  $2, 2147504612
-    SW   $1, $2, 0
-    LWI  $2, 2147504613
-    SW   $1, $2, 0
-    LWI  $2, 2147504698
-    SW   $1, $2, 0
-    LWI  $2, 2147504699
-    SW   $1, $2, 0
-    LWI  $2, 2147504708
-    SW   $1, $2, 0
-    LWI  $2, 2147504709
-    SW   $1, $2, 0
-    LWI  $2, 2147504794
-    SW   $1, $2, 0
-    LWI  $2, 2147504795
-    SW   $1, $2, 0
-    LWI  $2, 2147504804
-    SW   $1, $2, 0
-    LWI  $2, 2147504805
-    SW   $1, $2, 0
-    LWI  $2, 2147504890
-    SW   $1, $2, 0
-    LWI  $2, 2147504891
-    SW   $1, $2, 0
-    LWI  $2, 2147504900
-    SW   $1, $2, 0
-    LWI  $2, 2147504901
-    SW   $1, $2, 0
-    LWI  $2, 2147504986
-    SW   $1, $2, 0
-    LWI  $2, 2147504987
-    SW   $1, $2, 0
-    LWI  $2, 2147504996
-    SW   $1, $2, 0
-    LWI  $2, 2147504997
-    SW   $1, $2, 0
-    LWI  $2, 2147505082
-    SW   $1, $2, 0
-    LWI  $2, 2147505083
-    SW   $1, $2, 0
-    LWI  $2, 2147505092
-    SW   $1, $2, 0
-    LWI  $2, 2147505093
-    SW   $1, $2, 0
-    LWI  $2, 2147505178
-    SW   $1, $2, 0
-    LWI  $2, 2147505179
-    SW   $1, $2, 0
-    LWI  $2, 2147505188
-    SW   $1, $2, 0
-    LWI  $2, 2147505189
-    SW   $1, $2, 0
-    LWI  $2, 2147505190
-    SW   $1, $2, 0
-    LWI  $2, 2147505273
-    SW   $1, $2, 0
-    LWI  $2, 2147505274
-    SW   $1, $2, 0
-    LWI  $2, 2147505275
-    SW   $1, $2, 0
-    LWI  $2, 2147505284
-    SW   $1, $2, 0
-    LWI  $2, 2147505285
-    SW   $1, $2, 0
-    LWI  $2, 2147505286
-    SW   $1, $2, 0
-    LWI  $2, 2147505287
-    SW   $1, $2, 0
-    LWI  $2, 2147505288
-    SW   $1, $2, 0
-    LWI  $2, 2147505289
-    SW   $1, $2, 0
-    LWI  $2, 2147505290
-    SW   $1, $2, 0
-    LWI  $2, 2147505291
-    SW   $1, $2, 0
-    LWI  $2, 2147505292
-    SW   $1, $2, 0
-    LWI  $2, 2147505293
-    SW   $1, $2, 0
-    LWI  $2, 2147505294
-    SW   $1, $2, 0
-    LWI  $2, 2147505295
-    SW   $1, $2, 0
-    LWI  $2, 2147505296
-    SW   $1, $2, 0
-    LWI  $2, 2147505297
-    SW   $1, $2, 0
-    LWI  $2, 2147505298
-    SW   $1, $2, 0
-    LWI  $2, 2147505299
-    SW   $1, $2, 0
-    LWI  $2, 2147505300
-    SW   $1, $2, 0
-    LWI  $2, 2147505301
-    SW   $1, $2, 0
-    LWI  $2, 2147505302
-    SW   $1, $2, 0
-    LWI  $2, 2147505303
-    SW   $1, $2, 0
-    LWI  $2, 2147505304
-    SW   $1, $2, 0
-    LWI  $2, 2147505305
-    SW   $1, $2, 0
-    LWI  $2, 2147505306
-    SW   $1, $2, 0
-    LWI  $2, 2147505307
-    SW   $1, $2, 0
-    LWI  $2, 2147505308
-    SW   $1, $2, 0
-    LWI  $2, 2147505309
-    SW   $1, $2, 0
-    LWI  $2, 2147505310
-    SW   $1, $2, 0
-    LWI  $2, 2147505311
-    SW   $1, $2, 0
-    LWI  $2, 2147505312
-    SW   $1, $2, 0
-    LWI  $2, 2147505313
-    SW   $1, $2, 0
-    LWI  $2, 2147505314
-    SW   $1, $2, 0
-    LWI  $2, 2147505315
-    SW   $1, $2, 0
-    LWI  $2, 2147505316
-    SW   $1, $2, 0
-    LWI  $2, 2147505317
-    SW   $1, $2, 0
-    LWI  $2, 2147505318
-    SW   $1, $2, 0
-    LWI  $2, 2147505319
-    SW   $1, $2, 0
-    LWI  $2, 2147505320
-    SW   $1, $2, 0
-    LWI  $2, 2147505321
-    SW   $1, $2, 0
-    LWI  $2, 2147505322
-    SW   $1, $2, 0
-    LWI  $2, 2147505323
-    SW   $1, $2, 0
-    LWI  $2, 2147505324
-    SW   $1, $2, 0
-    LWI  $2, 2147505325
-    SW   $1, $2, 0
-    LWI  $2, 2147505326
-    SW   $1, $2, 0
-    LWI  $2, 2147505327
-    SW   $1, $2, 0
-    LWI  $2, 2147505328
-    SW   $1, $2, 0
-    LWI  $2, 2147505329
-    SW   $1, $2, 0
-    LWI  $2, 2147505330
-    SW   $1, $2, 0
-    LWI  $2, 2147505331
-    SW   $1, $2, 0
-    LWI  $2, 2147505332
-    SW   $1, $2, 0
-    LWI  $2, 2147505333
-    SW   $1, $2, 0
-    LWI  $2, 2147505334
-    SW   $1, $2, 0
-    LWI  $2, 2147505335
-    SW   $1, $2, 0
-    LWI  $2, 2147505336
-    SW   $1, $2, 0
-    LWI  $2, 2147505337
-    SW   $1, $2, 0
-    LWI  $2, 2147505338
-    SW   $1, $2, 0
-    LWI  $2, 2147505339
-    SW   $1, $2, 0
-    LWI  $2, 2147505340
-    SW   $1, $2, 0
-    LWI  $2, 2147505341
-    SW   $1, $2, 0
-    LWI  $2, 2147505342
-    SW   $1, $2, 0
-    LWI  $2, 2147505343
-    SW   $1, $2, 0
-    LWI  $2, 2147505344
-    SW   $1, $2, 0
-    LWI  $2, 2147505345
-    SW   $1, $2, 0
-    LWI  $2, 2147505346
-    SW   $1, $2, 0
-    LWI  $2, 2147505347
-    SW   $1, $2, 0
-    LWI  $2, 2147505348
-    SW   $1, $2, 0
-    LWI  $2, 2147505349
-    SW   $1, $2, 0
-    LWI  $2, 2147505350
-    SW   $1, $2, 0
-    LWI  $2, 2147505351
-    SW   $1, $2, 0
-    LWI  $2, 2147505352
-    SW   $1, $2, 0
-    LWI  $2, 2147505353
-    SW   $1, $2, 0
-    LWI  $2, 2147505354
-    SW   $1, $2, 0
-    LWI  $2, 2147505355
-    SW   $1, $2, 0
-    LWI  $2, 2147505356
-    SW   $1, $2, 0
-    LWI  $2, 2147505357
-    SW   $1, $2, 0
-    LWI  $2, 2147505358
-    SW   $1, $2, 0
-    LWI  $2, 2147505359
-    SW   $1, $2, 0
-    LWI  $2, 2147505360
-    SW   $1, $2, 0
-    LWI  $2, 2147505361
-    SW   $1, $2, 0
-    LWI  $2, 2147505362
-    SW   $1, $2, 0
-    LWI  $2, 2147505363
-    SW   $1, $2, 0
-    LWI  $2, 2147505364
-    SW   $1, $2, 0
-    LWI  $2, 2147505365
-    SW   $1, $2, 0
-    LWI  $2, 2147505366
-    SW   $1, $2, 0
-    LWI  $2, 2147505367
-    SW   $1, $2, 0
-    LWI  $2, 2147505368
-    SW   $1, $2, 0
-    LWI  $2, 2147505369
-    SW   $1, $2, 0
-    LWI  $2, 2147505370
-    SW   $1, $2, 0
-    LWI  $2, 2147505371
-    SW   $1, $2, 0
-    LWI  $2, 2147505380
-    SW   $1, $2, 0
-    LWI  $2, 2147505381
-    SW   $1, $2, 0
-    LWI  $2, 2147505382
-    SW   $1, $2, 0
-    LWI  $2, 2147505383
-    SW   $1, $2, 0
-    LWI  $2, 2147505384
-    SW   $1, $2, 0
-    LWI  $2, 2147505385
-    SW   $1, $2, 0
-    LWI  $2, 2147505386
-    SW   $1, $2, 0
-    LWI  $2, 2147505387
-    SW   $1, $2, 0
-    LWI  $2, 2147505388
-    SW   $1, $2, 0
-    LWI  $2, 2147505389
-    SW   $1, $2, 0
-    LWI  $2, 2147505390
-    SW   $1, $2, 0
-    LWI  $2, 2147505391
-    SW   $1, $2, 0
-    LWI  $2, 2147505392
-    SW   $1, $2, 0
-    LWI  $2, 2147505393
-    SW   $1, $2, 0
-    LWI  $2, 2147505394
-    SW   $1, $2, 0
-    LWI  $2, 2147505395
-    SW   $1, $2, 0
-    LWI  $2, 2147505396
-    SW   $1, $2, 0
-    LWI  $2, 2147505397
-    SW   $1, $2, 0
-    LWI  $2, 2147505398
-    SW   $1, $2, 0
-    LWI  $2, 2147505399
-    SW   $1, $2, 0
-    LWI  $2, 2147505400
-    SW   $1, $2, 0
-    LWI  $2, 2147505401
-    SW   $1, $2, 0
-    LWI  $2, 2147505402
-    SW   $1, $2, 0
-    LWI  $2, 2147505403
-    SW   $1, $2, 0
-    LWI  $2, 2147505404
-    SW   $1, $2, 0
-    LWI  $2, 2147505405
-    SW   $1, $2, 0
-    LWI  $2, 2147505406
-    SW   $1, $2, 0
-    LWI  $2, 2147505407
-    SW   $1, $2, 0
-    LWI  $2, 2147505408
-    SW   $1, $2, 0
-    LWI  $2, 2147505409
-    SW   $1, $2, 0
-    LWI  $2, 2147505410
-    SW   $1, $2, 0
-    LWI  $2, 2147505411
-    SW   $1, $2, 0
-    LWI  $2, 2147505412
-    SW   $1, $2, 0
-    LWI  $2, 2147505413
-    SW   $1, $2, 0
-    LWI  $2, 2147505414
-    SW   $1, $2, 0
-    LWI  $2, 2147505415
-    SW   $1, $2, 0
-    LWI  $2, 2147505416
-    SW   $1, $2, 0
-    LWI  $2, 2147505417
-    SW   $1, $2, 0
-    LWI  $2, 2147505418
-    SW   $1, $2, 0
-    LWI  $2, 2147505419
-    SW   $1, $2, 0
-    LWI  $2, 2147505420
-    SW   $1, $2, 0
-    LWI  $2, 2147505421
-    SW   $1, $2, 0
-    LWI  $2, 2147505422
-    SW   $1, $2, 0
-    LWI  $2, 2147505423
-    SW   $1, $2, 0
-    LWI  $2, 2147505424
-    SW   $1, $2, 0
-    LWI  $2, 2147505425
-    SW   $1, $2, 0
-    LWI  $2, 2147505426
-    SW   $1, $2, 0
-    LWI  $2, 2147505427
-    SW   $1, $2, 0
-    LWI  $2, 2147505428
-    SW   $1, $2, 0
-    LWI  $2, 2147505429
-    SW   $1, $2, 0
-    LWI  $2, 2147505430
-    SW   $1, $2, 0
-    LWI  $2, 2147505431
-    SW   $1, $2, 0
-    LWI  $2, 2147505432
-    SW   $1, $2, 0
-    LWI  $2, 2147505433
-    SW   $1, $2, 0
-    LWI  $2, 2147505434
-    SW   $1, $2, 0
-    LWI  $2, 2147505435
-    SW   $1, $2, 0
-    LWI  $2, 2147505436
-    SW   $1, $2, 0
-    LWI  $2, 2147505437
-    SW   $1, $2, 0
-    LWI  $2, 2147505438
-    SW   $1, $2, 0
-    LWI  $2, 2147505439
-    SW   $1, $2, 0
-    LWI  $2, 2147505440
-    SW   $1, $2, 0
-    LWI  $2, 2147505441
-    SW   $1, $2, 0
-    LWI  $2, 2147505442
-    SW   $1, $2, 0
-    LWI  $2, 2147505443
-    SW   $1, $2, 0
-    LWI  $2, 2147505444
-    SW   $1, $2, 0
-    LWI  $2, 2147505445
-    SW   $1, $2, 0
-    LWI  $2, 2147505446
-    SW   $1, $2, 0
-    LWI  $2, 2147505447
-    SW   $1, $2, 0
-    LWI  $2, 2147505448
-    SW   $1, $2, 0
-    LWI  $2, 2147505449
-    SW   $1, $2, 0
-    LWI  $2, 2147505450
-    SW   $1, $2, 0
-    LWI  $2, 2147505451
-    SW   $1, $2, 0
-    LWI  $2, 2147505452
-    SW   $1, $2, 0
-    LWI  $2, 2147505453
-    SW   $1, $2, 0
-    LWI  $2, 2147505454
-    SW   $1, $2, 0
-    LWI  $2, 2147505455
-    SW   $1, $2, 0
-    LWI  $2, 2147505456
-    SW   $1, $2, 0
-    LWI  $2, 2147505457
-    SW   $1, $2, 0
-    LWI  $2, 2147505458
-    SW   $1, $2, 0
-    LWI  $2, 2147505459
-    SW   $1, $2, 0
-    LWI  $2, 2147505460
-    SW   $1, $2, 0
-    LWI  $2, 2147505461
-    SW   $1, $2, 0
-    LWI  $2, 2147505462
-    SW   $1, $2, 0
-    LWI  $2, 2147505463
-    SW   $1, $2, 0
-    LWI  $2, 2147505464
-    SW   $1, $2, 0
-    LWI  $2, 2147505465
-    SW   $1, $2, 0
-    LWI  $2, 2147505466
-    SW   $1, $2, 0
-    LWI  $2, 2147505467
-    SW   $1, $2, 0
-    LLI  $1, 0b0100101001111010
-    LWI  $2, 2147500775
-    SW   $1, $2, 0
-    LWI  $2, 2147500856
-    SW   $1, $2, 0
-    LWI  $2, 2147500870
-    SW   $1, $2, 0
-    LWI  $2, 2147500953
-    SW   $1, $2, 0
-    LWI  $2, 2147505094
-    SW   $1, $2, 0
-    LWI  $2, 2147505177
-    SW   $1, $2, 0
-    LWI  $2, 2147505191
-    SW   $1, $2, 0
-    LWI  $2, 2147505272
-    SW   $1, $2, 0
-    LLI  $1, 0b0011000110110000
-    LWI  $2, 2147500776
-    SW   $1, $2, 0
-    LWI  $2, 2147500855
-    SW   $1, $2, 0
-    LWI  $2, 2147500966
-    SW   $1, $2, 0
-    LWI  $2, 2147501049
-    SW   $1, $2, 0
-    LWI  $2, 2147504998
-    SW   $1, $2, 0
-    LWI  $2, 2147505081
-    SW   $1, $2, 0
-    LWI  $2, 2147505192
-    SW   $1, $2, 0
-    LWI  $2, 2147505271
-    SW   $1, $2, 0
-    LLI  $1, 0b0010100101101101
-    LWI  $2, 2147500777
-    SW   $1, $2, 0
-    LWI  $2, 2147500778
-    SW   $1, $2, 0
-    LWI  $2, 2147500779
-    SW   $1, $2, 0
-    LWI  $2, 2147500780
+    LWI  $2, 2147500771
     SW   $1, $2, 0
     LWI  $2, 2147500781
     SW   $1, $2, 0
@@ -15139,203 +20202,15 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147500843
     SW   $1, $2, 0
-    LWI  $2, 2147500844
-    SW   $1, $2, 0
-    LWI  $2, 2147500845
-    SW   $1, $2, 0
-    LWI  $2, 2147500846
-    SW   $1, $2, 0
     LWI  $2, 2147500847
     SW   $1, $2, 0
     LWI  $2, 2147500848
-    SW   $1, $2, 0
-    LWI  $2, 2147500849
-    SW   $1, $2, 0
-    LWI  $2, 2147500850
     SW   $1, $2, 0
     LWI  $2, 2147500851
     SW   $1, $2, 0
     LWI  $2, 2147500852
     SW   $1, $2, 0
-    LWI  $2, 2147500853
-    SW   $1, $2, 0
-    LWI  $2, 2147500854
-    SW   $1, $2, 0
-    LWI  $2, 2147505193
-    SW   $1, $2, 0
-    LWI  $2, 2147505194
-    SW   $1, $2, 0
-    LWI  $2, 2147505195
-    SW   $1, $2, 0
-    LWI  $2, 2147505196
-    SW   $1, $2, 0
-    LWI  $2, 2147505197
-    SW   $1, $2, 0
-    LWI  $2, 2147505198
-    SW   $1, $2, 0
-    LWI  $2, 2147505199
-    SW   $1, $2, 0
-    LWI  $2, 2147505200
-    SW   $1, $2, 0
-    LWI  $2, 2147505201
-    SW   $1, $2, 0
-    LWI  $2, 2147505202
-    SW   $1, $2, 0
-    LWI  $2, 2147505203
-    SW   $1, $2, 0
-    LWI  $2, 2147505204
-    SW   $1, $2, 0
-    LWI  $2, 2147505205
-    SW   $1, $2, 0
-    LWI  $2, 2147505206
-    SW   $1, $2, 0
-    LWI  $2, 2147505207
-    SW   $1, $2, 0
-    LWI  $2, 2147505208
-    SW   $1, $2, 0
-    LWI  $2, 2147505209
-    SW   $1, $2, 0
-    LWI  $2, 2147505210
-    SW   $1, $2, 0
-    LWI  $2, 2147505211
-    SW   $1, $2, 0
-    LWI  $2, 2147505212
-    SW   $1, $2, 0
-    LWI  $2, 2147505213
-    SW   $1, $2, 0
-    LWI  $2, 2147505214
-    SW   $1, $2, 0
-    LWI  $2, 2147505215
-    SW   $1, $2, 0
-    LWI  $2, 2147505216
-    SW   $1, $2, 0
-    LWI  $2, 2147505217
-    SW   $1, $2, 0
-    LWI  $2, 2147505218
-    SW   $1, $2, 0
-    LWI  $2, 2147505219
-    SW   $1, $2, 0
-    LWI  $2, 2147505220
-    SW   $1, $2, 0
-    LWI  $2, 2147505221
-    SW   $1, $2, 0
-    LWI  $2, 2147505222
-    SW   $1, $2, 0
-    LWI  $2, 2147505223
-    SW   $1, $2, 0
-    LWI  $2, 2147505224
-    SW   $1, $2, 0
-    LWI  $2, 2147505225
-    SW   $1, $2, 0
-    LWI  $2, 2147505226
-    SW   $1, $2, 0
-    LWI  $2, 2147505227
-    SW   $1, $2, 0
-    LWI  $2, 2147505228
-    SW   $1, $2, 0
-    LWI  $2, 2147505229
-    SW   $1, $2, 0
-    LWI  $2, 2147505230
-    SW   $1, $2, 0
-    LWI  $2, 2147505231
-    SW   $1, $2, 0
-    LWI  $2, 2147505232
-    SW   $1, $2, 0
-    LWI  $2, 2147505233
-    SW   $1, $2, 0
-    LWI  $2, 2147505234
-    SW   $1, $2, 0
-    LWI  $2, 2147505235
-    SW   $1, $2, 0
-    LWI  $2, 2147505236
-    SW   $1, $2, 0
-    LWI  $2, 2147505237
-    SW   $1, $2, 0
-    LWI  $2, 2147505238
-    SW   $1, $2, 0
-    LWI  $2, 2147505239
-    SW   $1, $2, 0
-    LWI  $2, 2147505240
-    SW   $1, $2, 0
-    LWI  $2, 2147505241
-    SW   $1, $2, 0
-    LWI  $2, 2147505242
-    SW   $1, $2, 0
-    LWI  $2, 2147505243
-    SW   $1, $2, 0
-    LWI  $2, 2147505244
-    SW   $1, $2, 0
-    LWI  $2, 2147505245
-    SW   $1, $2, 0
-    LWI  $2, 2147505246
-    SW   $1, $2, 0
-    LWI  $2, 2147505247
-    SW   $1, $2, 0
-    LWI  $2, 2147505248
-    SW   $1, $2, 0
-    LWI  $2, 2147505249
-    SW   $1, $2, 0
-    LWI  $2, 2147505250
-    SW   $1, $2, 0
-    LWI  $2, 2147505251
-    SW   $1, $2, 0
-    LWI  $2, 2147505252
-    SW   $1, $2, 0
-    LWI  $2, 2147505253
-    SW   $1, $2, 0
-    LWI  $2, 2147505254
-    SW   $1, $2, 0
-    LWI  $2, 2147505255
-    SW   $1, $2, 0
-    LWI  $2, 2147505256
-    SW   $1, $2, 0
-    LWI  $2, 2147505257
-    SW   $1, $2, 0
-    LWI  $2, 2147505258
-    SW   $1, $2, 0
-    LWI  $2, 2147505259
-    SW   $1, $2, 0
-    LWI  $2, 2147505260
-    SW   $1, $2, 0
-    LWI  $2, 2147505261
-    SW   $1, $2, 0
-    LWI  $2, 2147505262
-    SW   $1, $2, 0
-    LWI  $2, 2147505263
-    SW   $1, $2, 0
-    LWI  $2, 2147505264
-    SW   $1, $2, 0
-    LWI  $2, 2147505265
-    SW   $1, $2, 0
-    LWI  $2, 2147505266
-    SW   $1, $2, 0
-    LWI  $2, 2147505267
-    SW   $1, $2, 0
-    LWI  $2, 2147505268
-    SW   $1, $2, 0
-    LWI  $2, 2147505269
-    SW   $1, $2, 0
-    LWI  $2, 2147505270
-    SW   $1, $2, 0
-    LLI  $1, 0b0010000100000110
-    LWI  $2, 2147500871
-    SW   $1, $2, 0
-    LWI  $2, 2147500952
-    SW   $1, $2, 0
-    LWI  $2, 2147505095
-    SW   $1, $2, 0
-    LWI  $2, 2147505176
-    SW   $1, $2, 0
-    LLI  $1, 0b0001100011000011
-    LWI  $2, 2147500872
-    SW   $1, $2, 0
-    LWI  $2, 2147500873
-    SW   $1, $2, 0
-    LWI  $2, 2147500874
-    SW   $1, $2, 0
-    LWI  $2, 2147500875
-    SW   $1, $2, 0
-    LWI  $2, 2147500876
+    LWI  $2, 2147500867
     SW   $1, $2, 0
     LWI  $2, 2147500877
     SW   $1, $2, 0
@@ -15463,41 +20338,11 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147500939
     SW   $1, $2, 0
-    LWI  $2, 2147500940
-    SW   $1, $2, 0
-    LWI  $2, 2147500941
-    SW   $1, $2, 0
-    LWI  $2, 2147500942
-    SW   $1, $2, 0
     LWI  $2, 2147500943
     SW   $1, $2, 0
     LWI  $2, 2147500944
     SW   $1, $2, 0
-    LWI  $2, 2147500945
-    SW   $1, $2, 0
-    LWI  $2, 2147500946
-    SW   $1, $2, 0
-    LWI  $2, 2147500947
-    SW   $1, $2, 0
-    LWI  $2, 2147500948
-    SW   $1, $2, 0
-    LWI  $2, 2147500949
-    SW   $1, $2, 0
-    LWI  $2, 2147500950
-    SW   $1, $2, 0
-    LWI  $2, 2147500951
-    SW   $1, $2, 0
-    LWI  $2, 2147500967
-    SW   $1, $2, 0
-    LWI  $2, 2147500968
-    SW   $1, $2, 0
-    LWI  $2, 2147500969
-    SW   $1, $2, 0
-    LWI  $2, 2147500970
-    SW   $1, $2, 0
-    LWI  $2, 2147500971
-    SW   $1, $2, 0
-    LWI  $2, 2147500972
+    LWI  $2, 2147500963
     SW   $1, $2, 0
     LWI  $2, 2147500973
     SW   $1, $2, 0
@@ -15625,31 +20470,17 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147501035
     SW   $1, $2, 0
-    LWI  $2, 2147501036
-    SW   $1, $2, 0
-    LWI  $2, 2147501037
-    SW   $1, $2, 0
-    LWI  $2, 2147501038
-    SW   $1, $2, 0
     LWI  $2, 2147501039
     SW   $1, $2, 0
-    LWI  $2, 2147501040
+    LWI  $2, 2147501049
     SW   $1, $2, 0
-    LWI  $2, 2147501041
+    LWI  $2, 2147501059
     SW   $1, $2, 0
-    LWI  $2, 2147501042
+    LWI  $2, 2147501060
     SW   $1, $2, 0
-    LWI  $2, 2147501043
+    LWI  $2, 2147501061
     SW   $1, $2, 0
-    LWI  $2, 2147501044
-    SW   $1, $2, 0
-    LWI  $2, 2147501045
-    SW   $1, $2, 0
-    LWI  $2, 2147501046
-    SW   $1, $2, 0
-    LWI  $2, 2147501047
-    SW   $1, $2, 0
-    LWI  $2, 2147501048
+    LWI  $2, 2147501062
     SW   $1, $2, 0
     LWI  $2, 2147501063
     SW   $1, $2, 0
@@ -15789,31 +20620,17 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147501131
     SW   $1, $2, 0
-    LWI  $2, 2147501132
-    SW   $1, $2, 0
-    LWI  $2, 2147501133
-    SW   $1, $2, 0
-    LWI  $2, 2147501134
-    SW   $1, $2, 0
     LWI  $2, 2147501135
-    SW   $1, $2, 0
-    LWI  $2, 2147501136
-    SW   $1, $2, 0
-    LWI  $2, 2147501137
-    SW   $1, $2, 0
-    LWI  $2, 2147501138
-    SW   $1, $2, 0
-    LWI  $2, 2147501139
-    SW   $1, $2, 0
-    LWI  $2, 2147501140
     SW   $1, $2, 0
     LWI  $2, 2147501141
     SW   $1, $2, 0
-    LWI  $2, 2147501142
+    LWI  $2, 2147501155
     SW   $1, $2, 0
-    LWI  $2, 2147501143
+    LWI  $2, 2147501156
     SW   $1, $2, 0
-    LWI  $2, 2147501144
+    LWI  $2, 2147501157
+    SW   $1, $2, 0
+    LWI  $2, 2147501158
     SW   $1, $2, 0
     LWI  $2, 2147501159
     SW   $1, $2, 0
@@ -15953,12 +20770,6 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147501227
     SW   $1, $2, 0
-    LWI  $2, 2147501228
-    SW   $1, $2, 0
-    LWI  $2, 2147501229
-    SW   $1, $2, 0
-    LWI  $2, 2147501230
-    SW   $1, $2, 0
     LWI  $2, 2147501231
     SW   $1, $2, 0
     LWI  $2, 2147501232
@@ -15967,17 +20778,15 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147501234
     SW   $1, $2, 0
-    LWI  $2, 2147501235
-    SW   $1, $2, 0
-    LWI  $2, 2147501236
-    SW   $1, $2, 0
-    LWI  $2, 2147501237
-    SW   $1, $2, 0
-    LWI  $2, 2147501238
-    SW   $1, $2, 0
     LWI  $2, 2147501239
     SW   $1, $2, 0
-    LWI  $2, 2147501240
+    LWI  $2, 2147501251
+    SW   $1, $2, 0
+    LWI  $2, 2147501252
+    SW   $1, $2, 0
+    LWI  $2, 2147501253
+    SW   $1, $2, 0
+    LWI  $2, 2147501254
     SW   $1, $2, 0
     LWI  $2, 2147501255
     SW   $1, $2, 0
@@ -16117,31 +20926,19 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147501323
     SW   $1, $2, 0
-    LWI  $2, 2147501324
-    SW   $1, $2, 0
-    LWI  $2, 2147501325
-    SW   $1, $2, 0
-    LWI  $2, 2147501326
-    SW   $1, $2, 0
     LWI  $2, 2147501327
-    SW   $1, $2, 0
-    LWI  $2, 2147501328
-    SW   $1, $2, 0
-    LWI  $2, 2147501329
     SW   $1, $2, 0
     LWI  $2, 2147501330
     SW   $1, $2, 0
     LWI  $2, 2147501331
     SW   $1, $2, 0
-    LWI  $2, 2147501332
+    LWI  $2, 2147501347
     SW   $1, $2, 0
-    LWI  $2, 2147501333
+    LWI  $2, 2147501348
     SW   $1, $2, 0
-    LWI  $2, 2147501334
+    LWI  $2, 2147501349
     SW   $1, $2, 0
-    LWI  $2, 2147501335
-    SW   $1, $2, 0
-    LWI  $2, 2147501336
+    LWI  $2, 2147501350
     SW   $1, $2, 0
     LWI  $2, 2147501351
     SW   $1, $2, 0
@@ -16281,31 +21078,21 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147501419
     SW   $1, $2, 0
-    LWI  $2, 2147501420
-    SW   $1, $2, 0
-    LWI  $2, 2147501421
-    SW   $1, $2, 0
-    LWI  $2, 2147501422
-    SW   $1, $2, 0
     LWI  $2, 2147501423
     SW   $1, $2, 0
-    LWI  $2, 2147501424
+    LWI  $2, 2147501434
     SW   $1, $2, 0
-    LWI  $2, 2147501425
+    LWI  $2, 2147501435
     SW   $1, $2, 0
-    LWI  $2, 2147501426
+    LWI  $2, 2147501436
     SW   $1, $2, 0
-    LWI  $2, 2147501427
+    LWI  $2, 2147501443
     SW   $1, $2, 0
-    LWI  $2, 2147501428
+    LWI  $2, 2147501444
     SW   $1, $2, 0
-    LWI  $2, 2147501429
+    LWI  $2, 2147501445
     SW   $1, $2, 0
-    LWI  $2, 2147501430
-    SW   $1, $2, 0
-    LWI  $2, 2147501431
-    SW   $1, $2, 0
-    LWI  $2, 2147501432
+    LWI  $2, 2147501446
     SW   $1, $2, 0
     LWI  $2, 2147501447
     SW   $1, $2, 0
@@ -16445,21 +21232,9 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147501515
     SW   $1, $2, 0
-    LWI  $2, 2147501516
-    SW   $1, $2, 0
-    LWI  $2, 2147501517
-    SW   $1, $2, 0
-    LWI  $2, 2147501518
-    SW   $1, $2, 0
     LWI  $2, 2147501519
     SW   $1, $2, 0
     LWI  $2, 2147501520
-    SW   $1, $2, 0
-    LWI  $2, 2147501521
-    SW   $1, $2, 0
-    LWI  $2, 2147501522
-    SW   $1, $2, 0
-    LWI  $2, 2147501523
     SW   $1, $2, 0
     LWI  $2, 2147501524
     SW   $1, $2, 0
@@ -16469,7 +21244,17 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147501527
     SW   $1, $2, 0
-    LWI  $2, 2147501528
+    LWI  $2, 2147501530
+    SW   $1, $2, 0
+    LWI  $2, 2147501531
+    SW   $1, $2, 0
+    LWI  $2, 2147501539
+    SW   $1, $2, 0
+    LWI  $2, 2147501540
+    SW   $1, $2, 0
+    LWI  $2, 2147501541
+    SW   $1, $2, 0
+    LWI  $2, 2147501542
     SW   $1, $2, 0
     LWI  $2, 2147501543
     SW   $1, $2, 0
@@ -16609,12 +21394,6 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147501611
     SW   $1, $2, 0
-    LWI  $2, 2147501612
-    SW   $1, $2, 0
-    LWI  $2, 2147501613
-    SW   $1, $2, 0
-    LWI  $2, 2147501614
-    SW   $1, $2, 0
     LWI  $2, 2147501615
     SW   $1, $2, 0
     LWI  $2, 2147501616
@@ -16635,6 +21414,22 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147501624
     SW   $1, $2, 0
+    LWI  $2, 2147501625
+    SW   $1, $2, 0
+    LWI  $2, 2147501626
+    SW   $1, $2, 0
+    LWI  $2, 2147501627
+    SW   $1, $2, 0
+    LWI  $2, 2147501628
+    SW   $1, $2, 0
+    LWI  $2, 2147501635
+    SW   $1, $2, 0
+    LWI  $2, 2147501636
+    SW   $1, $2, 0
+    LWI  $2, 2147501637
+    SW   $1, $2, 0
+    LWI  $2, 2147501638
+    SW   $1, $2, 0
     LWI  $2, 2147501639
     SW   $1, $2, 0
     LWI  $2, 2147501640
@@ -16648,88 +21443,6 @@ DISPMENU:
     LWI  $2, 2147501644
     SW   $1, $2, 0
     LWI  $2, 2147501645
-    SW   $1, $2, 0
-    LWI  $2, 2147501649
-    SW   $1, $2, 0
-    LWI  $2, 2147501650
-    SW   $1, $2, 0
-    LWI  $2, 2147501651
-    SW   $1, $2, 0
-    LWI  $2, 2147501652
-    SW   $1, $2, 0
-    LWI  $2, 2147501653
-    SW   $1, $2, 0
-    LWI  $2, 2147501654
-    SW   $1, $2, 0
-    LWI  $2, 2147501655
-    SW   $1, $2, 0
-    LWI  $2, 2147501656
-    SW   $1, $2, 0
-    LWI  $2, 2147501657
-    SW   $1, $2, 0
-    LWI  $2, 2147501658
-    SW   $1, $2, 0
-    LWI  $2, 2147501659
-    SW   $1, $2, 0
-    LWI  $2, 2147501660
-    SW   $1, $2, 0
-    LWI  $2, 2147501661
-    SW   $1, $2, 0
-    LWI  $2, 2147501662
-    SW   $1, $2, 0
-    LWI  $2, 2147501663
-    SW   $1, $2, 0
-    LWI  $2, 2147501664
-    SW   $1, $2, 0
-    LWI  $2, 2147501665
-    SW   $1, $2, 0
-    LWI  $2, 2147501666
-    SW   $1, $2, 0
-    LWI  $2, 2147501667
-    SW   $1, $2, 0
-    LWI  $2, 2147501668
-    SW   $1, $2, 0
-    LWI  $2, 2147501669
-    SW   $1, $2, 0
-    LWI  $2, 2147501670
-    SW   $1, $2, 0
-    LWI  $2, 2147501671
-    SW   $1, $2, 0
-    LWI  $2, 2147501672
-    SW   $1, $2, 0
-    LWI  $2, 2147501673
-    SW   $1, $2, 0
-    LWI  $2, 2147501674
-    SW   $1, $2, 0
-    LWI  $2, 2147501675
-    SW   $1, $2, 0
-    LWI  $2, 2147501676
-    SW   $1, $2, 0
-    LWI  $2, 2147501677
-    SW   $1, $2, 0
-    LWI  $2, 2147501678
-    SW   $1, $2, 0
-    LWI  $2, 2147501679
-    SW   $1, $2, 0
-    LWI  $2, 2147501680
-    SW   $1, $2, 0
-    LWI  $2, 2147501681
-    SW   $1, $2, 0
-    LWI  $2, 2147501682
-    SW   $1, $2, 0
-    LWI  $2, 2147501683
-    SW   $1, $2, 0
-    LWI  $2, 2147501684
-    SW   $1, $2, 0
-    LWI  $2, 2147501685
-    SW   $1, $2, 0
-    LWI  $2, 2147501686
-    SW   $1, $2, 0
-    LWI  $2, 2147501687
-    SW   $1, $2, 0
-    LWI  $2, 2147501688
-    SW   $1, $2, 0
-    LWI  $2, 2147501689
     SW   $1, $2, 0
     LWI  $2, 2147501690
     SW   $1, $2, 0
@@ -16767,13 +21480,13 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147501707
     SW   $1, $2, 0
-    LWI  $2, 2147501708
-    SW   $1, $2, 0
-    LWI  $2, 2147501709
-    SW   $1, $2, 0
-    LWI  $2, 2147501710
-    SW   $1, $2, 0
     LWI  $2, 2147501711
+    SW   $1, $2, 0
+    LWI  $2, 2147501712
+    SW   $1, $2, 0
+    LWI  $2, 2147501713
+    SW   $1, $2, 0
+    LWI  $2, 2147501714
     SW   $1, $2, 0
     LWI  $2, 2147501715
     SW   $1, $2, 0
@@ -16786,6 +21499,22 @@ DISPMENU:
     LWI  $2, 2147501719
     SW   $1, $2, 0
     LWI  $2, 2147501720
+    SW   $1, $2, 0
+    LWI  $2, 2147501721
+    SW   $1, $2, 0
+    LWI  $2, 2147501722
+    SW   $1, $2, 0
+    LWI  $2, 2147501723
+    SW   $1, $2, 0
+    LWI  $2, 2147501724
+    SW   $1, $2, 0
+    LWI  $2, 2147501731
+    SW   $1, $2, 0
+    LWI  $2, 2147501732
+    SW   $1, $2, 0
+    LWI  $2, 2147501733
+    SW   $1, $2, 0
+    LWI  $2, 2147501734
     SW   $1, $2, 0
     LWI  $2, 2147501735
     SW   $1, $2, 0
@@ -16800,88 +21529,6 @@ DISPMENU:
     LWI  $2, 2147501740
     SW   $1, $2, 0
     LWI  $2, 2147501741
-    SW   $1, $2, 0
-    LWI  $2, 2147501745
-    SW   $1, $2, 0
-    LWI  $2, 2147501746
-    SW   $1, $2, 0
-    LWI  $2, 2147501747
-    SW   $1, $2, 0
-    LWI  $2, 2147501748
-    SW   $1, $2, 0
-    LWI  $2, 2147501749
-    SW   $1, $2, 0
-    LWI  $2, 2147501750
-    SW   $1, $2, 0
-    LWI  $2, 2147501751
-    SW   $1, $2, 0
-    LWI  $2, 2147501752
-    SW   $1, $2, 0
-    LWI  $2, 2147501753
-    SW   $1, $2, 0
-    LWI  $2, 2147501754
-    SW   $1, $2, 0
-    LWI  $2, 2147501755
-    SW   $1, $2, 0
-    LWI  $2, 2147501756
-    SW   $1, $2, 0
-    LWI  $2, 2147501757
-    SW   $1, $2, 0
-    LWI  $2, 2147501758
-    SW   $1, $2, 0
-    LWI  $2, 2147501759
-    SW   $1, $2, 0
-    LWI  $2, 2147501760
-    SW   $1, $2, 0
-    LWI  $2, 2147501761
-    SW   $1, $2, 0
-    LWI  $2, 2147501762
-    SW   $1, $2, 0
-    LWI  $2, 2147501763
-    SW   $1, $2, 0
-    LWI  $2, 2147501764
-    SW   $1, $2, 0
-    LWI  $2, 2147501765
-    SW   $1, $2, 0
-    LWI  $2, 2147501766
-    SW   $1, $2, 0
-    LWI  $2, 2147501767
-    SW   $1, $2, 0
-    LWI  $2, 2147501768
-    SW   $1, $2, 0
-    LWI  $2, 2147501769
-    SW   $1, $2, 0
-    LWI  $2, 2147501770
-    SW   $1, $2, 0
-    LWI  $2, 2147501771
-    SW   $1, $2, 0
-    LWI  $2, 2147501772
-    SW   $1, $2, 0
-    LWI  $2, 2147501773
-    SW   $1, $2, 0
-    LWI  $2, 2147501774
-    SW   $1, $2, 0
-    LWI  $2, 2147501775
-    SW   $1, $2, 0
-    LWI  $2, 2147501776
-    SW   $1, $2, 0
-    LWI  $2, 2147501777
-    SW   $1, $2, 0
-    LWI  $2, 2147501778
-    SW   $1, $2, 0
-    LWI  $2, 2147501779
-    SW   $1, $2, 0
-    LWI  $2, 2147501780
-    SW   $1, $2, 0
-    LWI  $2, 2147501781
-    SW   $1, $2, 0
-    LWI  $2, 2147501782
-    SW   $1, $2, 0
-    LWI  $2, 2147501783
-    SW   $1, $2, 0
-    LWI  $2, 2147501784
-    SW   $1, $2, 0
-    LWI  $2, 2147501785
     SW   $1, $2, 0
     LWI  $2, 2147501786
     SW   $1, $2, 0
@@ -16919,13 +21566,13 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147501803
     SW   $1, $2, 0
-    LWI  $2, 2147501804
-    SW   $1, $2, 0
-    LWI  $2, 2147501805
-    SW   $1, $2, 0
-    LWI  $2, 2147501806
-    SW   $1, $2, 0
     LWI  $2, 2147501807
+    SW   $1, $2, 0
+    LWI  $2, 2147501808
+    SW   $1, $2, 0
+    LWI  $2, 2147501809
+    SW   $1, $2, 0
+    LWI  $2, 2147501810
     SW   $1, $2, 0
     LWI  $2, 2147501811
     SW   $1, $2, 0
@@ -16938,6 +21585,22 @@ DISPMENU:
     LWI  $2, 2147501815
     SW   $1, $2, 0
     LWI  $2, 2147501816
+    SW   $1, $2, 0
+    LWI  $2, 2147501817
+    SW   $1, $2, 0
+    LWI  $2, 2147501818
+    SW   $1, $2, 0
+    LWI  $2, 2147501819
+    SW   $1, $2, 0
+    LWI  $2, 2147501820
+    SW   $1, $2, 0
+    LWI  $2, 2147501827
+    SW   $1, $2, 0
+    LWI  $2, 2147501828
+    SW   $1, $2, 0
+    LWI  $2, 2147501829
+    SW   $1, $2, 0
+    LWI  $2, 2147501830
     SW   $1, $2, 0
     LWI  $2, 2147501831
     SW   $1, $2, 0
@@ -16952,82 +21615,6 @@ DISPMENU:
     LWI  $2, 2147501836
     SW   $1, $2, 0
     LWI  $2, 2147501837
-    SW   $1, $2, 0
-    LWI  $2, 2147501838
-    SW   $1, $2, 0
-    LWI  $2, 2147501841
-    SW   $1, $2, 0
-    LWI  $2, 2147501842
-    SW   $1, $2, 0
-    LWI  $2, 2147501843
-    SW   $1, $2, 0
-    LWI  $2, 2147501844
-    SW   $1, $2, 0
-    LWI  $2, 2147501847
-    SW   $1, $2, 0
-    LWI  $2, 2147501848
-    SW   $1, $2, 0
-    LWI  $2, 2147501849
-    SW   $1, $2, 0
-    LWI  $2, 2147501850
-    SW   $1, $2, 0
-    LWI  $2, 2147501851
-    SW   $1, $2, 0
-    LWI  $2, 2147501852
-    SW   $1, $2, 0
-    LWI  $2, 2147501853
-    SW   $1, $2, 0
-    LWI  $2, 2147501854
-    SW   $1, $2, 0
-    LWI  $2, 2147501855
-    SW   $1, $2, 0
-    LWI  $2, 2147501856
-    SW   $1, $2, 0
-    LWI  $2, 2147501857
-    SW   $1, $2, 0
-    LWI  $2, 2147501858
-    SW   $1, $2, 0
-    LWI  $2, 2147501859
-    SW   $1, $2, 0
-    LWI  $2, 2147501862
-    SW   $1, $2, 0
-    LWI  $2, 2147501863
-    SW   $1, $2, 0
-    LWI  $2, 2147501864
-    SW   $1, $2, 0
-    LWI  $2, 2147501865
-    SW   $1, $2, 0
-    LWI  $2, 2147501866
-    SW   $1, $2, 0
-    LWI  $2, 2147501867
-    SW   $1, $2, 0
-    LWI  $2, 2147501868
-    SW   $1, $2, 0
-    LWI  $2, 2147501869
-    SW   $1, $2, 0
-    LWI  $2, 2147501870
-    SW   $1, $2, 0
-    LWI  $2, 2147501871
-    SW   $1, $2, 0
-    LWI  $2, 2147501872
-    SW   $1, $2, 0
-    LWI  $2, 2147501873
-    SW   $1, $2, 0
-    LWI  $2, 2147501874
-    SW   $1, $2, 0
-    LWI  $2, 2147501875
-    SW   $1, $2, 0
-    LWI  $2, 2147501876
-    SW   $1, $2, 0
-    LWI  $2, 2147501877
-    SW   $1, $2, 0
-    LWI  $2, 2147501878
-    SW   $1, $2, 0
-    LWI  $2, 2147501879
-    SW   $1, $2, 0
-    LWI  $2, 2147501880
-    SW   $1, $2, 0
-    LWI  $2, 2147501881
     SW   $1, $2, 0
     LWI  $2, 2147501882
     SW   $1, $2, 0
@@ -17045,6 +21632,10 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147501889
     SW   $1, $2, 0
+    LWI  $2, 2147501890
+    SW   $1, $2, 0
+    LWI  $2, 2147501891
+    SW   $1, $2, 0
     LWI  $2, 2147501892
     SW   $1, $2, 0
     LWI  $2, 2147501893
@@ -17061,15 +21652,13 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147501899
     SW   $1, $2, 0
-    LWI  $2, 2147501900
-    SW   $1, $2, 0
-    LWI  $2, 2147501901
-    SW   $1, $2, 0
-    LWI  $2, 2147501902
-    SW   $1, $2, 0
     LWI  $2, 2147501903
     SW   $1, $2, 0
     LWI  $2, 2147501904
+    SW   $1, $2, 0
+    LWI  $2, 2147501905
+    SW   $1, $2, 0
+    LWI  $2, 2147501906
     SW   $1, $2, 0
     LWI  $2, 2147501907
     SW   $1, $2, 0
@@ -17082,6 +21671,22 @@ DISPMENU:
     LWI  $2, 2147501911
     SW   $1, $2, 0
     LWI  $2, 2147501912
+    SW   $1, $2, 0
+    LWI  $2, 2147501913
+    SW   $1, $2, 0
+    LWI  $2, 2147501914
+    SW   $1, $2, 0
+    LWI  $2, 2147501915
+    SW   $1, $2, 0
+    LWI  $2, 2147501916
+    SW   $1, $2, 0
+    LWI  $2, 2147501923
+    SW   $1, $2, 0
+    LWI  $2, 2147501924
+    SW   $1, $2, 0
+    LWI  $2, 2147501925
+    SW   $1, $2, 0
+    LWI  $2, 2147501926
     SW   $1, $2, 0
     LWI  $2, 2147501927
     SW   $1, $2, 0
@@ -17097,11 +21702,29 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147501933
     SW   $1, $2, 0
-    LWI  $2, 2147501934
+    LWI  $2, 2147501937
+    SW   $1, $2, 0
+    LWI  $2, 2147501938
     SW   $1, $2, 0
     LWI  $2, 2147501939
     SW   $1, $2, 0
+    LWI  $2, 2147501940
+    SW   $1, $2, 0
+    LWI  $2, 2147501941
+    SW   $1, $2, 0
+    LWI  $2, 2147501942
+    SW   $1, $2, 0
+    LWI  $2, 2147501943
+    SW   $1, $2, 0
     LWI  $2, 2147501944
+    SW   $1, $2, 0
+    LWI  $2, 2147501945
+    SW   $1, $2, 0
+    LWI  $2, 2147501946
+    SW   $1, $2, 0
+    LWI  $2, 2147501947
+    SW   $1, $2, 0
+    LWI  $2, 2147501948
     SW   $1, $2, 0
     LWI  $2, 2147501949
     SW   $1, $2, 0
@@ -17115,41 +21738,73 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147501954
     SW   $1, $2, 0
+    LWI  $2, 2147501955
+    SW   $1, $2, 0
+    LWI  $2, 2147501956
+    SW   $1, $2, 0
+    LWI  $2, 2147501957
+    SW   $1, $2, 0
+    LWI  $2, 2147501958
+    SW   $1, $2, 0
     LWI  $2, 2147501959
     SW   $1, $2, 0
     LWI  $2, 2147501960
     SW   $1, $2, 0
-    LWI  $2, 2147501964
+    LWI  $2, 2147501961
     SW   $1, $2, 0
-    LWI  $2, 2147501965
+    LWI  $2, 2147501962
     SW   $1, $2, 0
-    LWI  $2, 2147501966
-    SW   $1, $2, 0
-    LWI  $2, 2147501967
-    SW   $1, $2, 0
-    LWI  $2, 2147501968
-    SW   $1, $2, 0
-    LWI  $2, 2147501969
-    SW   $1, $2, 0
-    LWI  $2, 2147501970
+    LWI  $2, 2147501973
     SW   $1, $2, 0
     LWI  $2, 2147501974
     SW   $1, $2, 0
     LWI  $2, 2147501975
     SW   $1, $2, 0
+    LWI  $2, 2147501977
+    SW   $1, $2, 0
+    LWI  $2, 2147501978
+    SW   $1, $2, 0
     LWI  $2, 2147501979
+    SW   $1, $2, 0
+    LWI  $2, 2147501980
+    SW   $1, $2, 0
+    LWI  $2, 2147501981
+    SW   $1, $2, 0
+    LWI  $2, 2147501982
+    SW   $1, $2, 0
+    LWI  $2, 2147501983
     SW   $1, $2, 0
     LWI  $2, 2147501984
     SW   $1, $2, 0
+    LWI  $2, 2147501985
+    SW   $1, $2, 0
+    LWI  $2, 2147501986
+    SW   $1, $2, 0
+    LWI  $2, 2147501987
+    SW   $1, $2, 0
+    LWI  $2, 2147501988
+    SW   $1, $2, 0
     LWI  $2, 2147501989
     SW   $1, $2, 0
+    LWI  $2, 2147501990
+    SW   $1, $2, 0
+    LWI  $2, 2147501991
+    SW   $1, $2, 0
     LWI  $2, 2147501992
+    SW   $1, $2, 0
+    LWI  $2, 2147501993
+    SW   $1, $2, 0
+    LWI  $2, 2147501994
     SW   $1, $2, 0
     LWI  $2, 2147501995
     SW   $1, $2, 0
     LWI  $2, 2147501999
     SW   $1, $2, 0
     LWI  $2, 2147502000
+    SW   $1, $2, 0
+    LWI  $2, 2147502001
+    SW   $1, $2, 0
+    LWI  $2, 2147502002
     SW   $1, $2, 0
     LWI  $2, 2147502003
     SW   $1, $2, 0
@@ -17162,6 +21817,22 @@ DISPMENU:
     LWI  $2, 2147502007
     SW   $1, $2, 0
     LWI  $2, 2147502008
+    SW   $1, $2, 0
+    LWI  $2, 2147502009
+    SW   $1, $2, 0
+    LWI  $2, 2147502010
+    SW   $1, $2, 0
+    LWI  $2, 2147502011
+    SW   $1, $2, 0
+    LWI  $2, 2147502012
+    SW   $1, $2, 0
+    LWI  $2, 2147502019
+    SW   $1, $2, 0
+    LWI  $2, 2147502020
+    SW   $1, $2, 0
+    LWI  $2, 2147502021
+    SW   $1, $2, 0
+    LWI  $2, 2147502022
     SW   $1, $2, 0
     LWI  $2, 2147502023
     SW   $1, $2, 0
@@ -17177,7 +21848,31 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502029
     SW   $1, $2, 0
-    LWI  $2, 2147502030
+    LWI  $2, 2147502033
+    SW   $1, $2, 0
+    LWI  $2, 2147502034
+    SW   $1, $2, 0
+    LWI  $2, 2147502035
+    SW   $1, $2, 0
+    LWI  $2, 2147502036
+    SW   $1, $2, 0
+    LWI  $2, 2147502037
+    SW   $1, $2, 0
+    LWI  $2, 2147502038
+    SW   $1, $2, 0
+    LWI  $2, 2147502039
+    SW   $1, $2, 0
+    LWI  $2, 2147502040
+    SW   $1, $2, 0
+    LWI  $2, 2147502041
+    SW   $1, $2, 0
+    LWI  $2, 2147502042
+    SW   $1, $2, 0
+    LWI  $2, 2147502043
+    SW   $1, $2, 0
+    LWI  $2, 2147502044
+    SW   $1, $2, 0
+    LWI  $2, 2147502045
     SW   $1, $2, 0
     LWI  $2, 2147502046
     SW   $1, $2, 0
@@ -17189,19 +21884,73 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502050
     SW   $1, $2, 0
+    LWI  $2, 2147502051
+    SW   $1, $2, 0
+    LWI  $2, 2147502052
+    SW   $1, $2, 0
+    LWI  $2, 2147502053
+    SW   $1, $2, 0
+    LWI  $2, 2147502054
+    SW   $1, $2, 0
     LWI  $2, 2147502055
     SW   $1, $2, 0
-    LWI  $2, 2147502061
+    LWI  $2, 2147502056
+    SW   $1, $2, 0
+    LWI  $2, 2147502057
+    SW   $1, $2, 0
+    LWI  $2, 2147502058
     SW   $1, $2, 0
     LWI  $2, 2147502062
     SW   $1, $2, 0
     LWI  $2, 2147502063
     SW   $1, $2, 0
-    LWI  $2, 2147502064
+    LWI  $2, 2147502070
     SW   $1, $2, 0
-    LWI  $2, 2147502065
+    LWI  $2, 2147502071
+    SW   $1, $2, 0
+    LWI  $2, 2147502074
+    SW   $1, $2, 0
+    LWI  $2, 2147502075
+    SW   $1, $2, 0
+    LWI  $2, 2147502076
+    SW   $1, $2, 0
+    LWI  $2, 2147502077
+    SW   $1, $2, 0
+    LWI  $2, 2147502078
+    SW   $1, $2, 0
+    LWI  $2, 2147502079
+    SW   $1, $2, 0
+    LWI  $2, 2147502080
+    SW   $1, $2, 0
+    LWI  $2, 2147502081
+    SW   $1, $2, 0
+    LWI  $2, 2147502082
+    SW   $1, $2, 0
+    LWI  $2, 2147502083
+    SW   $1, $2, 0
+    LWI  $2, 2147502084
+    SW   $1, $2, 0
+    LWI  $2, 2147502085
+    SW   $1, $2, 0
+    LWI  $2, 2147502086
+    SW   $1, $2, 0
+    LWI  $2, 2147502087
+    SW   $1, $2, 0
+    LWI  $2, 2147502088
+    SW   $1, $2, 0
+    LWI  $2, 2147502089
+    SW   $1, $2, 0
+    LWI  $2, 2147502090
+    SW   $1, $2, 0
+    LWI  $2, 2147502091
+    SW   $1, $2, 0
+    LWI  $2, 2147502095
     SW   $1, $2, 0
     LWI  $2, 2147502096
+    SW   $1, $2, 0
+    LWI  $2, 2147502097
+    SW   $1, $2, 0
+    LWI  $2, 2147502098
     SW   $1, $2, 0
     LWI  $2, 2147502099
     SW   $1, $2, 0
@@ -17214,6 +21963,22 @@ DISPMENU:
     LWI  $2, 2147502103
     SW   $1, $2, 0
     LWI  $2, 2147502104
+    SW   $1, $2, 0
+    LWI  $2, 2147502105
+    SW   $1, $2, 0
+    LWI  $2, 2147502106
+    SW   $1, $2, 0
+    LWI  $2, 2147502107
+    SW   $1, $2, 0
+    LWI  $2, 2147502108
+    SW   $1, $2, 0
+    LWI  $2, 2147502115
+    SW   $1, $2, 0
+    LWI  $2, 2147502116
+    SW   $1, $2, 0
+    LWI  $2, 2147502117
+    SW   $1, $2, 0
+    LWI  $2, 2147502118
     SW   $1, $2, 0
     LWI  $2, 2147502119
     SW   $1, $2, 0
@@ -17229,17 +21994,31 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502125
     SW   $1, $2, 0
-    LWI  $2, 2147502126
-    SW   $1, $2, 0
     LWI  $2, 2147502129
     SW   $1, $2, 0
+    LWI  $2, 2147502130
+    SW   $1, $2, 0
+    LWI  $2, 2147502131
+    SW   $1, $2, 0
     LWI  $2, 2147502132
+    SW   $1, $2, 0
+    LWI  $2, 2147502133
+    SW   $1, $2, 0
+    LWI  $2, 2147502134
     SW   $1, $2, 0
     LWI  $2, 2147502135
     SW   $1, $2, 0
     LWI  $2, 2147502136
     SW   $1, $2, 0
+    LWI  $2, 2147502137
+    SW   $1, $2, 0
+    LWI  $2, 2147502138
+    SW   $1, $2, 0
     LWI  $2, 2147502139
+    SW   $1, $2, 0
+    LWI  $2, 2147502140
+    SW   $1, $2, 0
+    LWI  $2, 2147502141
     SW   $1, $2, 0
     LWI  $2, 2147502142
     SW   $1, $2, 0
@@ -17253,11 +22032,23 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502147
     SW   $1, $2, 0
+    LWI  $2, 2147502148
+    SW   $1, $2, 0
+    LWI  $2, 2147502149
+    SW   $1, $2, 0
     LWI  $2, 2147502150
+    SW   $1, $2, 0
+    LWI  $2, 2147502151
+    SW   $1, $2, 0
+    LWI  $2, 2147502152
     SW   $1, $2, 0
     LWI  $2, 2147502153
     SW   $1, $2, 0
     LWI  $2, 2147502154
+    SW   $1, $2, 0
+    LWI  $2, 2147502155
+    SW   $1, $2, 0
+    LWI  $2, 2147502156
     SW   $1, $2, 0
     LWI  $2, 2147502157
     SW   $1, $2, 0
@@ -17269,27 +22060,53 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502161
     SW   $1, $2, 0
-    LWI  $2, 2147502164
+    LWI  $2, 2147502162
     SW   $1, $2, 0
-    LWI  $2, 2147502168
+    LWI  $2, 2147502163
     SW   $1, $2, 0
-    LWI  $2, 2147502169
+    LWI  $2, 2147502170
+    SW   $1, $2, 0
+    LWI  $2, 2147502171
+    SW   $1, $2, 0
+    LWI  $2, 2147502172
+    SW   $1, $2, 0
+    LWI  $2, 2147502173
     SW   $1, $2, 0
     LWI  $2, 2147502174
     SW   $1, $2, 0
+    LWI  $2, 2147502175
+    SW   $1, $2, 0
+    LWI  $2, 2147502176
+    SW   $1, $2, 0
     LWI  $2, 2147502177
+    SW   $1, $2, 0
+    LWI  $2, 2147502178
+    SW   $1, $2, 0
+    LWI  $2, 2147502179
     SW   $1, $2, 0
     LWI  $2, 2147502180
     SW   $1, $2, 0
     LWI  $2, 2147502181
     SW   $1, $2, 0
+    LWI  $2, 2147502182
+    SW   $1, $2, 0
+    LWI  $2, 2147502183
+    SW   $1, $2, 0
+    LWI  $2, 2147502184
+    SW   $1, $2, 0
     LWI  $2, 2147502185
     SW   $1, $2, 0
-    LWI  $2, 2147502188
+    LWI  $2, 2147502186
     SW   $1, $2, 0
-    LWI  $2, 2147502189
+    LWI  $2, 2147502187
+    SW   $1, $2, 0
+    LWI  $2, 2147502191
     SW   $1, $2, 0
     LWI  $2, 2147502192
+    SW   $1, $2, 0
+    LWI  $2, 2147502193
+    SW   $1, $2, 0
+    LWI  $2, 2147502194
     SW   $1, $2, 0
     LWI  $2, 2147502195
     SW   $1, $2, 0
@@ -17302,6 +22119,22 @@ DISPMENU:
     LWI  $2, 2147502199
     SW   $1, $2, 0
     LWI  $2, 2147502200
+    SW   $1, $2, 0
+    LWI  $2, 2147502201
+    SW   $1, $2, 0
+    LWI  $2, 2147502202
+    SW   $1, $2, 0
+    LWI  $2, 2147502203
+    SW   $1, $2, 0
+    LWI  $2, 2147502204
+    SW   $1, $2, 0
+    LWI  $2, 2147502211
+    SW   $1, $2, 0
+    LWI  $2, 2147502212
+    SW   $1, $2, 0
+    LWI  $2, 2147502213
+    SW   $1, $2, 0
+    LWI  $2, 2147502214
     SW   $1, $2, 0
     LWI  $2, 2147502215
     SW   $1, $2, 0
@@ -17317,17 +22150,31 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502221
     SW   $1, $2, 0
-    LWI  $2, 2147502222
-    SW   $1, $2, 0
     LWI  $2, 2147502225
     SW   $1, $2, 0
+    LWI  $2, 2147502226
+    SW   $1, $2, 0
+    LWI  $2, 2147502227
+    SW   $1, $2, 0
     LWI  $2, 2147502228
+    SW   $1, $2, 0
+    LWI  $2, 2147502229
+    SW   $1, $2, 0
+    LWI  $2, 2147502230
     SW   $1, $2, 0
     LWI  $2, 2147502231
     SW   $1, $2, 0
     LWI  $2, 2147502232
     SW   $1, $2, 0
+    LWI  $2, 2147502233
+    SW   $1, $2, 0
+    LWI  $2, 2147502234
+    SW   $1, $2, 0
     LWI  $2, 2147502235
+    SW   $1, $2, 0
+    LWI  $2, 2147502236
+    SW   $1, $2, 0
+    LWI  $2, 2147502237
     SW   $1, $2, 0
     LWI  $2, 2147502238
     SW   $1, $2, 0
@@ -17341,11 +22188,23 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502243
     SW   $1, $2, 0
+    LWI  $2, 2147502244
+    SW   $1, $2, 0
+    LWI  $2, 2147502245
+    SW   $1, $2, 0
     LWI  $2, 2147502246
+    SW   $1, $2, 0
+    LWI  $2, 2147502247
+    SW   $1, $2, 0
+    LWI  $2, 2147502248
     SW   $1, $2, 0
     LWI  $2, 2147502249
     SW   $1, $2, 0
     LWI  $2, 2147502250
+    SW   $1, $2, 0
+    LWI  $2, 2147502251
+    SW   $1, $2, 0
+    LWI  $2, 2147502252
     SW   $1, $2, 0
     LWI  $2, 2147502253
     SW   $1, $2, 0
@@ -17355,33 +22214,55 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502256
     SW   $1, $2, 0
+    LWI  $2, 2147502257
+    SW   $1, $2, 0
+    LWI  $2, 2147502258
+    SW   $1, $2, 0
     LWI  $2, 2147502259
     SW   $1, $2, 0
-    LWI  $2, 2147502260
+    LWI  $2, 2147502266
     SW   $1, $2, 0
-    LWI  $2, 2147502261
+    LWI  $2, 2147502267
     SW   $1, $2, 0
-    LWI  $2, 2147502264
+    LWI  $2, 2147502268
     SW   $1, $2, 0
-    LWI  $2, 2147502265
+    LWI  $2, 2147502269
     SW   $1, $2, 0
     LWI  $2, 2147502270
     SW   $1, $2, 0
+    LWI  $2, 2147502271
+    SW   $1, $2, 0
+    LWI  $2, 2147502272
+    SW   $1, $2, 0
     LWI  $2, 2147502273
+    SW   $1, $2, 0
+    LWI  $2, 2147502274
+    SW   $1, $2, 0
+    LWI  $2, 2147502275
     SW   $1, $2, 0
     LWI  $2, 2147502276
     SW   $1, $2, 0
     LWI  $2, 2147502277
     SW   $1, $2, 0
+    LWI  $2, 2147502278
+    SW   $1, $2, 0
+    LWI  $2, 2147502279
+    SW   $1, $2, 0
     LWI  $2, 2147502280
     SW   $1, $2, 0
     LWI  $2, 2147502281
     SW   $1, $2, 0
-    LWI  $2, 2147502284
+    LWI  $2, 2147502282
     SW   $1, $2, 0
-    LWI  $2, 2147502285
+    LWI  $2, 2147502283
+    SW   $1, $2, 0
+    LWI  $2, 2147502287
     SW   $1, $2, 0
     LWI  $2, 2147502288
+    SW   $1, $2, 0
+    LWI  $2, 2147502289
+    SW   $1, $2, 0
+    LWI  $2, 2147502290
     SW   $1, $2, 0
     LWI  $2, 2147502291
     SW   $1, $2, 0
@@ -17394,6 +22275,22 @@ DISPMENU:
     LWI  $2, 2147502295
     SW   $1, $2, 0
     LWI  $2, 2147502296
+    SW   $1, $2, 0
+    LWI  $2, 2147502297
+    SW   $1, $2, 0
+    LWI  $2, 2147502298
+    SW   $1, $2, 0
+    LWI  $2, 2147502299
+    SW   $1, $2, 0
+    LWI  $2, 2147502300
+    SW   $1, $2, 0
+    LWI  $2, 2147502307
+    SW   $1, $2, 0
+    LWI  $2, 2147502308
+    SW   $1, $2, 0
+    LWI  $2, 2147502309
+    SW   $1, $2, 0
+    LWI  $2, 2147502310
     SW   $1, $2, 0
     LWI  $2, 2147502311
     SW   $1, $2, 0
@@ -17409,17 +22306,31 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502317
     SW   $1, $2, 0
-    LWI  $2, 2147502318
-    SW   $1, $2, 0
     LWI  $2, 2147502321
     SW   $1, $2, 0
+    LWI  $2, 2147502322
+    SW   $1, $2, 0
+    LWI  $2, 2147502323
+    SW   $1, $2, 0
     LWI  $2, 2147502324
+    SW   $1, $2, 0
+    LWI  $2, 2147502325
+    SW   $1, $2, 0
+    LWI  $2, 2147502326
     SW   $1, $2, 0
     LWI  $2, 2147502327
     SW   $1, $2, 0
     LWI  $2, 2147502328
     SW   $1, $2, 0
+    LWI  $2, 2147502329
+    SW   $1, $2, 0
+    LWI  $2, 2147502330
+    SW   $1, $2, 0
     LWI  $2, 2147502331
+    SW   $1, $2, 0
+    LWI  $2, 2147502332
+    SW   $1, $2, 0
+    LWI  $2, 2147502333
     SW   $1, $2, 0
     LWI  $2, 2147502334
     SW   $1, $2, 0
@@ -17433,11 +22344,23 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502339
     SW   $1, $2, 0
+    LWI  $2, 2147502340
+    SW   $1, $2, 0
+    LWI  $2, 2147502341
+    SW   $1, $2, 0
     LWI  $2, 2147502342
+    SW   $1, $2, 0
+    LWI  $2, 2147502343
+    SW   $1, $2, 0
+    LWI  $2, 2147502344
     SW   $1, $2, 0
     LWI  $2, 2147502345
     SW   $1, $2, 0
     LWI  $2, 2147502346
+    SW   $1, $2, 0
+    LWI  $2, 2147502347
+    SW   $1, $2, 0
+    LWI  $2, 2147502348
     SW   $1, $2, 0
     LWI  $2, 2147502349
     SW   $1, $2, 0
@@ -17447,33 +22370,57 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502352
     SW   $1, $2, 0
+    LWI  $2, 2147502353
+    SW   $1, $2, 0
+    LWI  $2, 2147502354
+    SW   $1, $2, 0
     LWI  $2, 2147502355
     SW   $1, $2, 0
-    LWI  $2, 2147502356
+    LWI  $2, 2147502358
     SW   $1, $2, 0
-    LWI  $2, 2147502357
+    LWI  $2, 2147502362
     SW   $1, $2, 0
-    LWI  $2, 2147502360
+    LWI  $2, 2147502363
     SW   $1, $2, 0
-    LWI  $2, 2147502361
+    LWI  $2, 2147502364
+    SW   $1, $2, 0
+    LWI  $2, 2147502365
     SW   $1, $2, 0
     LWI  $2, 2147502366
     SW   $1, $2, 0
+    LWI  $2, 2147502367
+    SW   $1, $2, 0
+    LWI  $2, 2147502368
+    SW   $1, $2, 0
     LWI  $2, 2147502369
+    SW   $1, $2, 0
+    LWI  $2, 2147502370
+    SW   $1, $2, 0
+    LWI  $2, 2147502371
     SW   $1, $2, 0
     LWI  $2, 2147502372
     SW   $1, $2, 0
     LWI  $2, 2147502373
     SW   $1, $2, 0
+    LWI  $2, 2147502374
+    SW   $1, $2, 0
+    LWI  $2, 2147502375
+    SW   $1, $2, 0
     LWI  $2, 2147502376
     SW   $1, $2, 0
     LWI  $2, 2147502377
     SW   $1, $2, 0
-    LWI  $2, 2147502380
+    LWI  $2, 2147502378
     SW   $1, $2, 0
-    LWI  $2, 2147502381
+    LWI  $2, 2147502379
+    SW   $1, $2, 0
+    LWI  $2, 2147502383
     SW   $1, $2, 0
     LWI  $2, 2147502384
+    SW   $1, $2, 0
+    LWI  $2, 2147502385
+    SW   $1, $2, 0
+    LWI  $2, 2147502386
     SW   $1, $2, 0
     LWI  $2, 2147502387
     SW   $1, $2, 0
@@ -17486,6 +22433,22 @@ DISPMENU:
     LWI  $2, 2147502391
     SW   $1, $2, 0
     LWI  $2, 2147502392
+    SW   $1, $2, 0
+    LWI  $2, 2147502393
+    SW   $1, $2, 0
+    LWI  $2, 2147502394
+    SW   $1, $2, 0
+    LWI  $2, 2147502395
+    SW   $1, $2, 0
+    LWI  $2, 2147502396
+    SW   $1, $2, 0
+    LWI  $2, 2147502403
+    SW   $1, $2, 0
+    LWI  $2, 2147502404
+    SW   $1, $2, 0
+    LWI  $2, 2147502405
+    SW   $1, $2, 0
+    LWI  $2, 2147502406
     SW   $1, $2, 0
     LWI  $2, 2147502407
     SW   $1, $2, 0
@@ -17501,15 +22464,31 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502413
     SW   $1, $2, 0
-    LWI  $2, 2147502414
-    SW   $1, $2, 0
     LWI  $2, 2147502417
+    SW   $1, $2, 0
+    LWI  $2, 2147502418
+    SW   $1, $2, 0
+    LWI  $2, 2147502419
     SW   $1, $2, 0
     LWI  $2, 2147502420
     SW   $1, $2, 0
+    LWI  $2, 2147502421
+    SW   $1, $2, 0
+    LWI  $2, 2147502422
+    SW   $1, $2, 0
     LWI  $2, 2147502423
     SW   $1, $2, 0
+    LWI  $2, 2147502424
+    SW   $1, $2, 0
+    LWI  $2, 2147502425
+    SW   $1, $2, 0
+    LWI  $2, 2147502426
+    SW   $1, $2, 0
     LWI  $2, 2147502427
+    SW   $1, $2, 0
+    LWI  $2, 2147502428
+    SW   $1, $2, 0
+    LWI  $2, 2147502429
     SW   $1, $2, 0
     LWI  $2, 2147502430
     SW   $1, $2, 0
@@ -17523,11 +22502,23 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502435
     SW   $1, $2, 0
+    LWI  $2, 2147502436
+    SW   $1, $2, 0
+    LWI  $2, 2147502437
+    SW   $1, $2, 0
     LWI  $2, 2147502438
+    SW   $1, $2, 0
+    LWI  $2, 2147502439
+    SW   $1, $2, 0
+    LWI  $2, 2147502440
     SW   $1, $2, 0
     LWI  $2, 2147502441
     SW   $1, $2, 0
     LWI  $2, 2147502442
+    SW   $1, $2, 0
+    LWI  $2, 2147502443
+    SW   $1, $2, 0
+    LWI  $2, 2147502444
     SW   $1, $2, 0
     LWI  $2, 2147502445
     SW   $1, $2, 0
@@ -17537,29 +22528,55 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502448
     SW   $1, $2, 0
+    LWI  $2, 2147502449
+    SW   $1, $2, 0
+    LWI  $2, 2147502450
+    SW   $1, $2, 0
+    LWI  $2, 2147502451
+    SW   $1, $2, 0
     LWI  $2, 2147502452
     SW   $1, $2, 0
     LWI  $2, 2147502453
+    SW   $1, $2, 0
+    LWI  $2, 2147502454
+    SW   $1, $2, 0
+    LWI  $2, 2147502455
     SW   $1, $2, 0
     LWI  $2, 2147502456
     SW   $1, $2, 0
     LWI  $2, 2147502457
     SW   $1, $2, 0
+    LWI  $2, 2147502458
+    SW   $1, $2, 0
+    LWI  $2, 2147502459
+    SW   $1, $2, 0
+    LWI  $2, 2147502460
+    SW   $1, $2, 0
+    LWI  $2, 2147502461
+    SW   $1, $2, 0
     LWI  $2, 2147502462
+    SW   $1, $2, 0
+    LWI  $2, 2147502463
+    SW   $1, $2, 0
+    LWI  $2, 2147502464
     SW   $1, $2, 0
     LWI  $2, 2147502465
     SW   $1, $2, 0
+    LWI  $2, 2147502466
+    SW   $1, $2, 0
+    LWI  $2, 2147502467
+    SW   $1, $2, 0
     LWI  $2, 2147502468
     SW   $1, $2, 0
-    LWI  $2, 2147502472
+    LWI  $2, 2147502469
     SW   $1, $2, 0
-    LWI  $2, 2147502473
-    SW   $1, $2, 0
-    LWI  $2, 2147502476
-    SW   $1, $2, 0
-    LWI  $2, 2147502477
+    LWI  $2, 2147502479
     SW   $1, $2, 0
     LWI  $2, 2147502480
+    SW   $1, $2, 0
+    LWI  $2, 2147502481
+    SW   $1, $2, 0
+    LWI  $2, 2147502482
     SW   $1, $2, 0
     LWI  $2, 2147502483
     SW   $1, $2, 0
@@ -17572,6 +22589,22 @@ DISPMENU:
     LWI  $2, 2147502487
     SW   $1, $2, 0
     LWI  $2, 2147502488
+    SW   $1, $2, 0
+    LWI  $2, 2147502489
+    SW   $1, $2, 0
+    LWI  $2, 2147502490
+    SW   $1, $2, 0
+    LWI  $2, 2147502491
+    SW   $1, $2, 0
+    LWI  $2, 2147502492
+    SW   $1, $2, 0
+    LWI  $2, 2147502499
+    SW   $1, $2, 0
+    LWI  $2, 2147502500
+    SW   $1, $2, 0
+    LWI  $2, 2147502501
+    SW   $1, $2, 0
+    LWI  $2, 2147502502
     SW   $1, $2, 0
     LWI  $2, 2147502503
     SW   $1, $2, 0
@@ -17587,11 +22620,31 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502509
     SW   $1, $2, 0
-    LWI  $2, 2147502510
+    LWI  $2, 2147502513
+    SW   $1, $2, 0
+    LWI  $2, 2147502514
+    SW   $1, $2, 0
+    LWI  $2, 2147502515
     SW   $1, $2, 0
     LWI  $2, 2147502516
     SW   $1, $2, 0
+    LWI  $2, 2147502517
+    SW   $1, $2, 0
+    LWI  $2, 2147502518
+    SW   $1, $2, 0
+    LWI  $2, 2147502519
+    SW   $1, $2, 0
+    LWI  $2, 2147502520
+    SW   $1, $2, 0
+    LWI  $2, 2147502521
+    SW   $1, $2, 0
+    LWI  $2, 2147502522
+    SW   $1, $2, 0
     LWI  $2, 2147502523
+    SW   $1, $2, 0
+    LWI  $2, 2147502524
+    SW   $1, $2, 0
+    LWI  $2, 2147502525
     SW   $1, $2, 0
     LWI  $2, 2147502526
     SW   $1, $2, 0
@@ -17605,6 +22658,24 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502531
     SW   $1, $2, 0
+    LWI  $2, 2147502532
+    SW   $1, $2, 0
+    LWI  $2, 2147502533
+    SW   $1, $2, 0
+    LWI  $2, 2147502534
+    SW   $1, $2, 0
+    LWI  $2, 2147502535
+    SW   $1, $2, 0
+    LWI  $2, 2147502536
+    SW   $1, $2, 0
+    LWI  $2, 2147502537
+    SW   $1, $2, 0
+    LWI  $2, 2147502538
+    SW   $1, $2, 0
+    LWI  $2, 2147502539
+    SW   $1, $2, 0
+    LWI  $2, 2147502540
+    SW   $1, $2, 0
     LWI  $2, 2147502541
     SW   $1, $2, 0
     LWI  $2, 2147502542
@@ -17615,11 +22686,57 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502545
     SW   $1, $2, 0
+    LWI  $2, 2147502546
+    SW   $1, $2, 0
+    LWI  $2, 2147502547
+    SW   $1, $2, 0
+    LWI  $2, 2147502548
+    SW   $1, $2, 0
+    LWI  $2, 2147502549
+    SW   $1, $2, 0
+    LWI  $2, 2147502550
+    SW   $1, $2, 0
+    LWI  $2, 2147502551
+    SW   $1, $2, 0
+    LWI  $2, 2147502552
+    SW   $1, $2, 0
+    LWI  $2, 2147502553
+    SW   $1, $2, 0
+    LWI  $2, 2147502554
+    SW   $1, $2, 0
+    LWI  $2, 2147502555
+    SW   $1, $2, 0
+    LWI  $2, 2147502556
+    SW   $1, $2, 0
+    LWI  $2, 2147502557
+    SW   $1, $2, 0
     LWI  $2, 2147502558
+    SW   $1, $2, 0
+    LWI  $2, 2147502559
+    SW   $1, $2, 0
+    LWI  $2, 2147502560
     SW   $1, $2, 0
     LWI  $2, 2147502561
     SW   $1, $2, 0
-    LWI  $2, 2147502570
+    LWI  $2, 2147502562
+    SW   $1, $2, 0
+    LWI  $2, 2147502563
+    SW   $1, $2, 0
+    LWI  $2, 2147502564
+    SW   $1, $2, 0
+    LWI  $2, 2147502565
+    SW   $1, $2, 0
+    LWI  $2, 2147502575
+    SW   $1, $2, 0
+    LWI  $2, 2147502576
+    SW   $1, $2, 0
+    LWI  $2, 2147502577
+    SW   $1, $2, 0
+    LWI  $2, 2147502578
+    SW   $1, $2, 0
+    LWI  $2, 2147502579
+    SW   $1, $2, 0
+    LWI  $2, 2147502580
     SW   $1, $2, 0
     LWI  $2, 2147502581
     SW   $1, $2, 0
@@ -17628,6 +22745,22 @@ DISPMENU:
     LWI  $2, 2147502583
     SW   $1, $2, 0
     LWI  $2, 2147502584
+    SW   $1, $2, 0
+    LWI  $2, 2147502585
+    SW   $1, $2, 0
+    LWI  $2, 2147502586
+    SW   $1, $2, 0
+    LWI  $2, 2147502587
+    SW   $1, $2, 0
+    LWI  $2, 2147502588
+    SW   $1, $2, 0
+    LWI  $2, 2147502595
+    SW   $1, $2, 0
+    LWI  $2, 2147502596
+    SW   $1, $2, 0
+    LWI  $2, 2147502597
+    SW   $1, $2, 0
+    LWI  $2, 2147502598
     SW   $1, $2, 0
     LWI  $2, 2147502599
     SW   $1, $2, 0
@@ -17643,9 +22776,7 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502605
     SW   $1, $2, 0
-    LWI  $2, 2147502606
-    SW   $1, $2, 0
-    LWI  $2, 2147502607
+    LWI  $2, 2147502609
     SW   $1, $2, 0
     LWI  $2, 2147502610
     SW   $1, $2, 0
@@ -17655,7 +22786,21 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502613
     SW   $1, $2, 0
+    LWI  $2, 2147502614
+    SW   $1, $2, 0
+    LWI  $2, 2147502615
+    SW   $1, $2, 0
+    LWI  $2, 2147502616
+    SW   $1, $2, 0
+    LWI  $2, 2147502617
+    SW   $1, $2, 0
+    LWI  $2, 2147502618
+    SW   $1, $2, 0
     LWI  $2, 2147502619
+    SW   $1, $2, 0
+    LWI  $2, 2147502620
+    SW   $1, $2, 0
+    LWI  $2, 2147502621
     SW   $1, $2, 0
     LWI  $2, 2147502622
     SW   $1, $2, 0
@@ -17671,9 +22816,17 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502628
     SW   $1, $2, 0
+    LWI  $2, 2147502629
+    SW   $1, $2, 0
+    LWI  $2, 2147502630
+    SW   $1, $2, 0
     LWI  $2, 2147502631
     SW   $1, $2, 0
     LWI  $2, 2147502632
+    SW   $1, $2, 0
+    LWI  $2, 2147502633
+    SW   $1, $2, 0
+    LWI  $2, 2147502634
     SW   $1, $2, 0
     LWI  $2, 2147502635
     SW   $1, $2, 0
@@ -17691,27 +22844,53 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502642
     SW   $1, $2, 0
+    LWI  $2, 2147502643
+    SW   $1, $2, 0
+    LWI  $2, 2147502644
+    SW   $1, $2, 0
+    LWI  $2, 2147502645
+    SW   $1, $2, 0
     LWI  $2, 2147502646
     SW   $1, $2, 0
     LWI  $2, 2147502647
     SW   $1, $2, 0
+    LWI  $2, 2147502648
+    SW   $1, $2, 0
+    LWI  $2, 2147502649
+    SW   $1, $2, 0
     LWI  $2, 2147502650
     SW   $1, $2, 0
+    LWI  $2, 2147502651
+    SW   $1, $2, 0
+    LWI  $2, 2147502652
+    SW   $1, $2, 0
+    LWI  $2, 2147502653
+    SW   $1, $2, 0
     LWI  $2, 2147502654
+    SW   $1, $2, 0
+    LWI  $2, 2147502655
+    SW   $1, $2, 0
+    LWI  $2, 2147502656
     SW   $1, $2, 0
     LWI  $2, 2147502657
     SW   $1, $2, 0
     LWI  $2, 2147502658
     SW   $1, $2, 0
-    LWI  $2, 2147502665
+    LWI  $2, 2147502659
     SW   $1, $2, 0
-    LWI  $2, 2147502666
+    LWI  $2, 2147502660
     SW   $1, $2, 0
-    LWI  $2, 2147502667
-    SW   $1, $2, 0
-    LWI  $2, 2147502670
+    LWI  $2, 2147502661
     SW   $1, $2, 0
     LWI  $2, 2147502671
+    SW   $1, $2, 0
+    LWI  $2, 2147502672
+    SW   $1, $2, 0
+    LWI  $2, 2147502673
+    SW   $1, $2, 0
+    LWI  $2, 2147502674
+    SW   $1, $2, 0
+    LWI  $2, 2147502675
     SW   $1, $2, 0
     LWI  $2, 2147502676
     SW   $1, $2, 0
@@ -17722,6 +22901,22 @@ DISPMENU:
     LWI  $2, 2147502679
     SW   $1, $2, 0
     LWI  $2, 2147502680
+    SW   $1, $2, 0
+    LWI  $2, 2147502681
+    SW   $1, $2, 0
+    LWI  $2, 2147502682
+    SW   $1, $2, 0
+    LWI  $2, 2147502683
+    SW   $1, $2, 0
+    LWI  $2, 2147502684
+    SW   $1, $2, 0
+    LWI  $2, 2147502691
+    SW   $1, $2, 0
+    LWI  $2, 2147502692
+    SW   $1, $2, 0
+    LWI  $2, 2147502693
+    SW   $1, $2, 0
+    LWI  $2, 2147502694
     SW   $1, $2, 0
     LWI  $2, 2147502695
     SW   $1, $2, 0
@@ -17736,12 +22931,6 @@ DISPMENU:
     LWI  $2, 2147502700
     SW   $1, $2, 0
     LWI  $2, 2147502701
-    SW   $1, $2, 0
-    LWI  $2, 2147502702
-    SW   $1, $2, 0
-    LWI  $2, 2147502703
-    SW   $1, $2, 0
-    LWI  $2, 2147502704
     SW   $1, $2, 0
     LWI  $2, 2147502705
     SW   $1, $2, 0
@@ -17887,6 +23076,22 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502776
     SW   $1, $2, 0
+    LWI  $2, 2147502777
+    SW   $1, $2, 0
+    LWI  $2, 2147502778
+    SW   $1, $2, 0
+    LWI  $2, 2147502779
+    SW   $1, $2, 0
+    LWI  $2, 2147502780
+    SW   $1, $2, 0
+    LWI  $2, 2147502787
+    SW   $1, $2, 0
+    LWI  $2, 2147502788
+    SW   $1, $2, 0
+    LWI  $2, 2147502789
+    SW   $1, $2, 0
+    LWI  $2, 2147502790
+    SW   $1, $2, 0
     LWI  $2, 2147502791
     SW   $1, $2, 0
     LWI  $2, 2147502792
@@ -17900,12 +23105,6 @@ DISPMENU:
     LWI  $2, 2147502796
     SW   $1, $2, 0
     LWI  $2, 2147502797
-    SW   $1, $2, 0
-    LWI  $2, 2147502798
-    SW   $1, $2, 0
-    LWI  $2, 2147502799
-    SW   $1, $2, 0
-    LWI  $2, 2147502800
     SW   $1, $2, 0
     LWI  $2, 2147502801
     SW   $1, $2, 0
@@ -18051,25 +23250,13 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502872
     SW   $1, $2, 0
-    LWI  $2, 2147502887
+    LWI  $2, 2147502873
     SW   $1, $2, 0
-    LWI  $2, 2147502888
+    LWI  $2, 2147502874
     SW   $1, $2, 0
-    LWI  $2, 2147502889
+    LWI  $2, 2147502875
     SW   $1, $2, 0
-    LWI  $2, 2147502890
-    SW   $1, $2, 0
-    LWI  $2, 2147502891
-    SW   $1, $2, 0
-    LWI  $2, 2147502892
-    SW   $1, $2, 0
-    LWI  $2, 2147502893
-    SW   $1, $2, 0
-    LWI  $2, 2147502894
-    SW   $1, $2, 0
-    LWI  $2, 2147502895
-    SW   $1, $2, 0
-    LWI  $2, 2147502896
+    LWI  $2, 2147502876
     SW   $1, $2, 0
     LWI  $2, 2147502897
     SW   $1, $2, 0
@@ -18215,25 +23402,13 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147502968
     SW   $1, $2, 0
-    LWI  $2, 2147502983
+    LWI  $2, 2147502969
     SW   $1, $2, 0
-    LWI  $2, 2147502984
+    LWI  $2, 2147502970
     SW   $1, $2, 0
-    LWI  $2, 2147502985
+    LWI  $2, 2147502971
     SW   $1, $2, 0
-    LWI  $2, 2147502986
-    SW   $1, $2, 0
-    LWI  $2, 2147502987
-    SW   $1, $2, 0
-    LWI  $2, 2147502988
-    SW   $1, $2, 0
-    LWI  $2, 2147502989
-    SW   $1, $2, 0
-    LWI  $2, 2147502990
-    SW   $1, $2, 0
-    LWI  $2, 2147502991
-    SW   $1, $2, 0
-    LWI  $2, 2147502992
+    LWI  $2, 2147502972
     SW   $1, $2, 0
     LWI  $2, 2147502993
     SW   $1, $2, 0
@@ -18379,25 +23554,13 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503064
     SW   $1, $2, 0
-    LWI  $2, 2147503079
+    LWI  $2, 2147503065
     SW   $1, $2, 0
-    LWI  $2, 2147503080
+    LWI  $2, 2147503066
     SW   $1, $2, 0
-    LWI  $2, 2147503081
+    LWI  $2, 2147503067
     SW   $1, $2, 0
-    LWI  $2, 2147503082
-    SW   $1, $2, 0
-    LWI  $2, 2147503083
-    SW   $1, $2, 0
-    LWI  $2, 2147503084
-    SW   $1, $2, 0
-    LWI  $2, 2147503085
-    SW   $1, $2, 0
-    LWI  $2, 2147503086
-    SW   $1, $2, 0
-    LWI  $2, 2147503087
-    SW   $1, $2, 0
-    LWI  $2, 2147503088
+    LWI  $2, 2147503068
     SW   $1, $2, 0
     LWI  $2, 2147503089
     SW   $1, $2, 0
@@ -18542,6 +23705,22 @@ DISPMENU:
     LWI  $2, 2147503159
     SW   $1, $2, 0
     LWI  $2, 2147503160
+    SW   $1, $2, 0
+    LWI  $2, 2147503161
+    SW   $1, $2, 0
+    LWI  $2, 2147503162
+    SW   $1, $2, 0
+    LWI  $2, 2147503163
+    SW   $1, $2, 0
+    LWI  $2, 2147503164
+    SW   $1, $2, 0
+    LWI  $2, 2147503171
+    SW   $1, $2, 0
+    LWI  $2, 2147503172
+    SW   $1, $2, 0
+    LWI  $2, 2147503173
+    SW   $1, $2, 0
+    LWI  $2, 2147503174
     SW   $1, $2, 0
     LWI  $2, 2147503175
     SW   $1, $2, 0
@@ -18707,6 +23886,22 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503256
     SW   $1, $2, 0
+    LWI  $2, 2147503257
+    SW   $1, $2, 0
+    LWI  $2, 2147503258
+    SW   $1, $2, 0
+    LWI  $2, 2147503259
+    SW   $1, $2, 0
+    LWI  $2, 2147503260
+    SW   $1, $2, 0
+    LWI  $2, 2147503267
+    SW   $1, $2, 0
+    LWI  $2, 2147503268
+    SW   $1, $2, 0
+    LWI  $2, 2147503269
+    SW   $1, $2, 0
+    LWI  $2, 2147503270
+    SW   $1, $2, 0
     LWI  $2, 2147503271
     SW   $1, $2, 0
     LWI  $2, 2147503272
@@ -18722,6 +23917,12 @@ DISPMENU:
     LWI  $2, 2147503277
     SW   $1, $2, 0
     LWI  $2, 2147503278
+    SW   $1, $2, 0
+    LWI  $2, 2147503279
+    SW   $1, $2, 0
+    LWI  $2, 2147503280
+    SW   $1, $2, 0
+    LWI  $2, 2147503281
     SW   $1, $2, 0
     LWI  $2, 2147503282
     SW   $1, $2, 0
@@ -18847,6 +24048,12 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503343
     SW   $1, $2, 0
+    LWI  $2, 2147503344
+    SW   $1, $2, 0
+    LWI  $2, 2147503345
+    SW   $1, $2, 0
+    LWI  $2, 2147503346
+    SW   $1, $2, 0
     LWI  $2, 2147503347
     SW   $1, $2, 0
     LWI  $2, 2147503348
@@ -18858,6 +24065,22 @@ DISPMENU:
     LWI  $2, 2147503351
     SW   $1, $2, 0
     LWI  $2, 2147503352
+    SW   $1, $2, 0
+    LWI  $2, 2147503353
+    SW   $1, $2, 0
+    LWI  $2, 2147503354
+    SW   $1, $2, 0
+    LWI  $2, 2147503355
+    SW   $1, $2, 0
+    LWI  $2, 2147503356
+    SW   $1, $2, 0
+    LWI  $2, 2147503363
+    SW   $1, $2, 0
+    LWI  $2, 2147503364
+    SW   $1, $2, 0
+    LWI  $2, 2147503365
+    SW   $1, $2, 0
+    LWI  $2, 2147503366
     SW   $1, $2, 0
     LWI  $2, 2147503367
     SW   $1, $2, 0
@@ -18874,6 +24097,12 @@ DISPMENU:
     LWI  $2, 2147503373
     SW   $1, $2, 0
     LWI  $2, 2147503374
+    SW   $1, $2, 0
+    LWI  $2, 2147503375
+    SW   $1, $2, 0
+    LWI  $2, 2147503376
+    SW   $1, $2, 0
+    LWI  $2, 2147503377
     SW   $1, $2, 0
     LWI  $2, 2147503378
     SW   $1, $2, 0
@@ -18905,53 +24134,13 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503392
     SW   $1, $2, 0
+    LWI  $2, 2147503393
+    SW   $1, $2, 0
     LWI  $2, 2147503394
     SW   $1, $2, 0
     LWI  $2, 2147503395
     SW   $1, $2, 0
     LWI  $2, 2147503396
-    SW   $1, $2, 0
-    LWI  $2, 2147503397
-    SW   $1, $2, 0
-    LWI  $2, 2147503398
-    SW   $1, $2, 0
-    LWI  $2, 2147503399
-    SW   $1, $2, 0
-    LWI  $2, 2147503400
-    SW   $1, $2, 0
-    LWI  $2, 2147503401
-    SW   $1, $2, 0
-    LWI  $2, 2147503402
-    SW   $1, $2, 0
-    LWI  $2, 2147503404
-    SW   $1, $2, 0
-    LWI  $2, 2147503405
-    SW   $1, $2, 0
-    LWI  $2, 2147503406
-    SW   $1, $2, 0
-    LWI  $2, 2147503407
-    SW   $1, $2, 0
-    LWI  $2, 2147503408
-    SW   $1, $2, 0
-    LWI  $2, 2147503409
-    SW   $1, $2, 0
-    LWI  $2, 2147503410
-    SW   $1, $2, 0
-    LWI  $2, 2147503411
-    SW   $1, $2, 0
-    LWI  $2, 2147503412
-    SW   $1, $2, 0
-    LWI  $2, 2147503413
-    SW   $1, $2, 0
-    LWI  $2, 2147503414
-    SW   $1, $2, 0
-    LWI  $2, 2147503415
-    SW   $1, $2, 0
-    LWI  $2, 2147503416
-    SW   $1, $2, 0
-    LWI  $2, 2147503417
-    SW   $1, $2, 0
-    LWI  $2, 2147503418
     SW   $1, $2, 0
     LWI  $2, 2147503419
     SW   $1, $2, 0
@@ -18961,6 +24150,8 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503422
     SW   $1, $2, 0
+    LWI  $2, 2147503423
+    SW   $1, $2, 0
     LWI  $2, 2147503424
     SW   $1, $2, 0
     LWI  $2, 2147503425
@@ -18968,6 +24159,8 @@ DISPMENU:
     LWI  $2, 2147503426
     SW   $1, $2, 0
     LWI  $2, 2147503427
+    SW   $1, $2, 0
+    LWI  $2, 2147503428
     SW   $1, $2, 0
     LWI  $2, 2147503429
     SW   $1, $2, 0
@@ -18991,6 +24184,12 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503439
     SW   $1, $2, 0
+    LWI  $2, 2147503440
+    SW   $1, $2, 0
+    LWI  $2, 2147503441
+    SW   $1, $2, 0
+    LWI  $2, 2147503442
+    SW   $1, $2, 0
     LWI  $2, 2147503443
     SW   $1, $2, 0
     LWI  $2, 2147503444
@@ -19002,6 +24201,22 @@ DISPMENU:
     LWI  $2, 2147503447
     SW   $1, $2, 0
     LWI  $2, 2147503448
+    SW   $1, $2, 0
+    LWI  $2, 2147503449
+    SW   $1, $2, 0
+    LWI  $2, 2147503450
+    SW   $1, $2, 0
+    LWI  $2, 2147503451
+    SW   $1, $2, 0
+    LWI  $2, 2147503452
+    SW   $1, $2, 0
+    LWI  $2, 2147503459
+    SW   $1, $2, 0
+    LWI  $2, 2147503460
+    SW   $1, $2, 0
+    LWI  $2, 2147503461
+    SW   $1, $2, 0
+    LWI  $2, 2147503462
     SW   $1, $2, 0
     LWI  $2, 2147503463
     SW   $1, $2, 0
@@ -19020,6 +24235,10 @@ DISPMENU:
     LWI  $2, 2147503470
     SW   $1, $2, 0
     LWI  $2, 2147503471
+    SW   $1, $2, 0
+    LWI  $2, 2147503472
+    SW   $1, $2, 0
+    LWI  $2, 2147503473
     SW   $1, $2, 0
     LWI  $2, 2147503474
     SW   $1, $2, 0
@@ -19049,51 +24268,15 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503487
     SW   $1, $2, 0
+    LWI  $2, 2147503488
+    SW   $1, $2, 0
+    LWI  $2, 2147503489
+    SW   $1, $2, 0
     LWI  $2, 2147503490
     SW   $1, $2, 0
     LWI  $2, 2147503491
     SW   $1, $2, 0
     LWI  $2, 2147503492
-    SW   $1, $2, 0
-    LWI  $2, 2147503493
-    SW   $1, $2, 0
-    LWI  $2, 2147503494
-    SW   $1, $2, 0
-    LWI  $2, 2147503495
-    SW   $1, $2, 0
-    LWI  $2, 2147503496
-    SW   $1, $2, 0
-    LWI  $2, 2147503497
-    SW   $1, $2, 0
-    LWI  $2, 2147503500
-    SW   $1, $2, 0
-    LWI  $2, 2147503501
-    SW   $1, $2, 0
-    LWI  $2, 2147503502
-    SW   $1, $2, 0
-    LWI  $2, 2147503503
-    SW   $1, $2, 0
-    LWI  $2, 2147503504
-    SW   $1, $2, 0
-    LWI  $2, 2147503505
-    SW   $1, $2, 0
-    LWI  $2, 2147503506
-    SW   $1, $2, 0
-    LWI  $2, 2147503507
-    SW   $1, $2, 0
-    LWI  $2, 2147503508
-    SW   $1, $2, 0
-    LWI  $2, 2147503509
-    SW   $1, $2, 0
-    LWI  $2, 2147503510
-    SW   $1, $2, 0
-    LWI  $2, 2147503511
-    SW   $1, $2, 0
-    LWI  $2, 2147503512
-    SW   $1, $2, 0
-    LWI  $2, 2147503513
-    SW   $1, $2, 0
-    LWI  $2, 2147503514
     SW   $1, $2, 0
     LWI  $2, 2147503515
     SW   $1, $2, 0
@@ -19101,11 +24284,19 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503517
     SW   $1, $2, 0
+    LWI  $2, 2147503518
+    SW   $1, $2, 0
+    LWI  $2, 2147503519
+    SW   $1, $2, 0
     LWI  $2, 2147503520
     SW   $1, $2, 0
     LWI  $2, 2147503521
     SW   $1, $2, 0
     LWI  $2, 2147503522
+    SW   $1, $2, 0
+    LWI  $2, 2147503523
+    SW   $1, $2, 0
+    LWI  $2, 2147503524
     SW   $1, $2, 0
     LWI  $2, 2147503525
     SW   $1, $2, 0
@@ -19131,6 +24322,10 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503536
     SW   $1, $2, 0
+    LWI  $2, 2147503537
+    SW   $1, $2, 0
+    LWI  $2, 2147503538
+    SW   $1, $2, 0
     LWI  $2, 2147503539
     SW   $1, $2, 0
     LWI  $2, 2147503540
@@ -19143,6 +24338,22 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503544
     SW   $1, $2, 0
+    LWI  $2, 2147503545
+    SW   $1, $2, 0
+    LWI  $2, 2147503546
+    SW   $1, $2, 0
+    LWI  $2, 2147503547
+    SW   $1, $2, 0
+    LWI  $2, 2147503548
+    SW   $1, $2, 0
+    LWI  $2, 2147503555
+    SW   $1, $2, 0
+    LWI  $2, 2147503556
+    SW   $1, $2, 0
+    LWI  $2, 2147503557
+    SW   $1, $2, 0
+    LWI  $2, 2147503558
+    SW   $1, $2, 0
     LWI  $2, 2147503559
     SW   $1, $2, 0
     LWI  $2, 2147503560
@@ -19153,51 +24364,87 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503563
     SW   $1, $2, 0
+    LWI  $2, 2147503564
+    SW   $1, $2, 0
+    LWI  $2, 2147503565
+    SW   $1, $2, 0
+    LWI  $2, 2147503566
+    SW   $1, $2, 0
+    LWI  $2, 2147503567
+    SW   $1, $2, 0
+    LWI  $2, 2147503568
+    SW   $1, $2, 0
+    LWI  $2, 2147503569
+    SW   $1, $2, 0
+    LWI  $2, 2147503570
+    SW   $1, $2, 0
+    LWI  $2, 2147503571
+    SW   $1, $2, 0
     LWI  $2, 2147503572
     SW   $1, $2, 0
     LWI  $2, 2147503573
     SW   $1, $2, 0
+    LWI  $2, 2147503574
+    SW   $1, $2, 0
+    LWI  $2, 2147503575
+    SW   $1, $2, 0
+    LWI  $2, 2147503576
+    SW   $1, $2, 0
     LWI  $2, 2147503577
     SW   $1, $2, 0
+    LWI  $2, 2147503578
+    SW   $1, $2, 0
+    LWI  $2, 2147503579
+    SW   $1, $2, 0
     LWI  $2, 2147503580
+    SW   $1, $2, 0
+    LWI  $2, 2147503581
+    SW   $1, $2, 0
+    LWI  $2, 2147503582
+    SW   $1, $2, 0
+    LWI  $2, 2147503583
+    SW   $1, $2, 0
+    LWI  $2, 2147503584
+    SW   $1, $2, 0
+    LWI  $2, 2147503585
+    SW   $1, $2, 0
+    LWI  $2, 2147503586
     SW   $1, $2, 0
     LWI  $2, 2147503587
     SW   $1, $2, 0
     LWI  $2, 2147503588
     SW   $1, $2, 0
-    LWI  $2, 2147503589
-    SW   $1, $2, 0
-    LWI  $2, 2147503590
-    SW   $1, $2, 0
-    LWI  $2, 2147503591
-    SW   $1, $2, 0
-    LWI  $2, 2147503592
-    SW   $1, $2, 0
-    LWI  $2, 2147503597
-    SW   $1, $2, 0
-    LWI  $2, 2147503598
-    SW   $1, $2, 0
-    LWI  $2, 2147503602
-    SW   $1, $2, 0
-    LWI  $2, 2147503603
-    SW   $1, $2, 0
-    LWI  $2, 2147503604
-    SW   $1, $2, 0
-    LWI  $2, 2147503605
-    SW   $1, $2, 0
-    LWI  $2, 2147503606
-    SW   $1, $2, 0
-    LWI  $2, 2147503607
-    SW   $1, $2, 0
-    LWI  $2, 2147503608
+    LWI  $2, 2147503611
     SW   $1, $2, 0
     LWI  $2, 2147503612
     SW   $1, $2, 0
+    LWI  $2, 2147503613
+    SW   $1, $2, 0
+    LWI  $2, 2147503614
+    SW   $1, $2, 0
+    LWI  $2, 2147503615
+    SW   $1, $2, 0
+    LWI  $2, 2147503616
+    SW   $1, $2, 0
     LWI  $2, 2147503617
+    SW   $1, $2, 0
+    LWI  $2, 2147503618
+    SW   $1, $2, 0
+    LWI  $2, 2147503619
+    SW   $1, $2, 0
+    LWI  $2, 2147503620
+    SW   $1, $2, 0
+    LWI  $2, 2147503621
     SW   $1, $2, 0
     LWI  $2, 2147503622
     SW   $1, $2, 0
     LWI  $2, 2147503623
+    SW   $1, $2, 0
+    LWI  $2, 2147503624
+    SW   $1, $2, 0
+    LWI  $2, 2147503625
+    SW   $1, $2, 0
+    LWI  $2, 2147503626
     SW   $1, $2, 0
     LWI  $2, 2147503627
     SW   $1, $2, 0
@@ -19205,15 +24452,43 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503629
     SW   $1, $2, 0
+    LWI  $2, 2147503630
+    SW   $1, $2, 0
+    LWI  $2, 2147503631
+    SW   $1, $2, 0
     LWI  $2, 2147503632
     SW   $1, $2, 0
+    LWI  $2, 2147503633
+    SW   $1, $2, 0
+    LWI  $2, 2147503634
+    SW   $1, $2, 0
     LWI  $2, 2147503635
+    SW   $1, $2, 0
+    LWI  $2, 2147503636
+    SW   $1, $2, 0
+    LWI  $2, 2147503637
     SW   $1, $2, 0
     LWI  $2, 2147503638
     SW   $1, $2, 0
     LWI  $2, 2147503639
     SW   $1, $2, 0
     LWI  $2, 2147503640
+    SW   $1, $2, 0
+    LWI  $2, 2147503641
+    SW   $1, $2, 0
+    LWI  $2, 2147503642
+    SW   $1, $2, 0
+    LWI  $2, 2147503643
+    SW   $1, $2, 0
+    LWI  $2, 2147503644
+    SW   $1, $2, 0
+    LWI  $2, 2147503651
+    SW   $1, $2, 0
+    LWI  $2, 2147503652
+    SW   $1, $2, 0
+    LWI  $2, 2147503653
+    SW   $1, $2, 0
+    LWI  $2, 2147503654
     SW   $1, $2, 0
     LWI  $2, 2147503655
     SW   $1, $2, 0
@@ -19223,7 +24498,55 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503658
     SW   $1, $2, 0
+    LWI  $2, 2147503659
+    SW   $1, $2, 0
+    LWI  $2, 2147503660
+    SW   $1, $2, 0
+    LWI  $2, 2147503661
+    SW   $1, $2, 0
+    LWI  $2, 2147503662
+    SW   $1, $2, 0
+    LWI  $2, 2147503663
+    SW   $1, $2, 0
+    LWI  $2, 2147503664
+    SW   $1, $2, 0
+    LWI  $2, 2147503665
+    SW   $1, $2, 0
+    LWI  $2, 2147503666
+    SW   $1, $2, 0
+    LWI  $2, 2147503667
+    SW   $1, $2, 0
+    LWI  $2, 2147503668
+    SW   $1, $2, 0
+    LWI  $2, 2147503669
+    SW   $1, $2, 0
+    LWI  $2, 2147503670
+    SW   $1, $2, 0
+    LWI  $2, 2147503671
+    SW   $1, $2, 0
+    LWI  $2, 2147503672
+    SW   $1, $2, 0
+    LWI  $2, 2147503673
+    SW   $1, $2, 0
+    LWI  $2, 2147503674
+    SW   $1, $2, 0
+    LWI  $2, 2147503675
+    SW   $1, $2, 0
     LWI  $2, 2147503676
+    SW   $1, $2, 0
+    LWI  $2, 2147503677
+    SW   $1, $2, 0
+    LWI  $2, 2147503678
+    SW   $1, $2, 0
+    LWI  $2, 2147503679
+    SW   $1, $2, 0
+    LWI  $2, 2147503680
+    SW   $1, $2, 0
+    LWI  $2, 2147503681
+    SW   $1, $2, 0
+    LWI  $2, 2147503682
+    SW   $1, $2, 0
+    LWI  $2, 2147503683
     SW   $1, $2, 0
     LWI  $2, 2147503684
     SW   $1, $2, 0
@@ -19235,6 +24558,26 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503688
     SW   $1, $2, 0
+    LWI  $2, 2147503689
+    SW   $1, $2, 0
+    LWI  $2, 2147503690
+    SW   $1, $2, 0
+    LWI  $2, 2147503691
+    SW   $1, $2, 0
+    LWI  $2, 2147503692
+    SW   $1, $2, 0
+    LWI  $2, 2147503693
+    SW   $1, $2, 0
+    LWI  $2, 2147503694
+    SW   $1, $2, 0
+    LWI  $2, 2147503695
+    SW   $1, $2, 0
+    LWI  $2, 2147503696
+    SW   $1, $2, 0
+    LWI  $2, 2147503697
+    SW   $1, $2, 0
+    LWI  $2, 2147503698
+    SW   $1, $2, 0
     LWI  $2, 2147503699
     SW   $1, $2, 0
     LWI  $2, 2147503700
@@ -19245,11 +24588,81 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503703
     SW   $1, $2, 0
+    LWI  $2, 2147503707
+    SW   $1, $2, 0
+    LWI  $2, 2147503708
+    SW   $1, $2, 0
+    LWI  $2, 2147503709
+    SW   $1, $2, 0
+    LWI  $2, 2147503710
+    SW   $1, $2, 0
+    LWI  $2, 2147503711
+    SW   $1, $2, 0
+    LWI  $2, 2147503712
+    SW   $1, $2, 0
+    LWI  $2, 2147503713
+    SW   $1, $2, 0
+    LWI  $2, 2147503714
+    SW   $1, $2, 0
+    LWI  $2, 2147503715
+    SW   $1, $2, 0
+    LWI  $2, 2147503716
+    SW   $1, $2, 0
+    LWI  $2, 2147503717
+    SW   $1, $2, 0
+    LWI  $2, 2147503718
+    SW   $1, $2, 0
+    LWI  $2, 2147503719
+    SW   $1, $2, 0
+    LWI  $2, 2147503720
+    SW   $1, $2, 0
+    LWI  $2, 2147503721
+    SW   $1, $2, 0
+    LWI  $2, 2147503722
+    SW   $1, $2, 0
+    LWI  $2, 2147503723
+    SW   $1, $2, 0
+    LWI  $2, 2147503724
+    SW   $1, $2, 0
+    LWI  $2, 2147503725
+    SW   $1, $2, 0
+    LWI  $2, 2147503726
+    SW   $1, $2, 0
+    LWI  $2, 2147503727
+    SW   $1, $2, 0
+    LWI  $2, 2147503728
+    SW   $1, $2, 0
+    LWI  $2, 2147503729
+    SW   $1, $2, 0
+    LWI  $2, 2147503730
+    SW   $1, $2, 0
+    LWI  $2, 2147503731
+    SW   $1, $2, 0
+    LWI  $2, 2147503732
+    SW   $1, $2, 0
+    LWI  $2, 2147503733
+    SW   $1, $2, 0
     LWI  $2, 2147503734
     SW   $1, $2, 0
     LWI  $2, 2147503735
     SW   $1, $2, 0
     LWI  $2, 2147503736
+    SW   $1, $2, 0
+    LWI  $2, 2147503737
+    SW   $1, $2, 0
+    LWI  $2, 2147503738
+    SW   $1, $2, 0
+    LWI  $2, 2147503739
+    SW   $1, $2, 0
+    LWI  $2, 2147503740
+    SW   $1, $2, 0
+    LWI  $2, 2147503747
+    SW   $1, $2, 0
+    LWI  $2, 2147503748
+    SW   $1, $2, 0
+    LWI  $2, 2147503749
+    SW   $1, $2, 0
+    LWI  $2, 2147503750
     SW   $1, $2, 0
     LWI  $2, 2147503751
     SW   $1, $2, 0
@@ -19259,17 +24672,51 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503754
     SW   $1, $2, 0
+    LWI  $2, 2147503755
+    SW   $1, $2, 0
+    LWI  $2, 2147503756
+    SW   $1, $2, 0
     LWI  $2, 2147503757
     SW   $1, $2, 0
     LWI  $2, 2147503758
     SW   $1, $2, 0
+    LWI  $2, 2147503759
+    SW   $1, $2, 0
+    LWI  $2, 2147503760
+    SW   $1, $2, 0
+    LWI  $2, 2147503761
+    SW   $1, $2, 0
     LWI  $2, 2147503762
+    SW   $1, $2, 0
+    LWI  $2, 2147503763
+    SW   $1, $2, 0
+    LWI  $2, 2147503764
+    SW   $1, $2, 0
+    LWI  $2, 2147503765
+    SW   $1, $2, 0
+    LWI  $2, 2147503766
     SW   $1, $2, 0
     LWI  $2, 2147503767
     SW   $1, $2, 0
+    LWI  $2, 2147503768
+    SW   $1, $2, 0
+    LWI  $2, 2147503769
+    SW   $1, $2, 0
+    LWI  $2, 2147503770
+    SW   $1, $2, 0
+    LWI  $2, 2147503771
+    SW   $1, $2, 0
     LWI  $2, 2147503772
     SW   $1, $2, 0
+    LWI  $2, 2147503773
+    SW   $1, $2, 0
+    LWI  $2, 2147503774
+    SW   $1, $2, 0
     LWI  $2, 2147503775
+    SW   $1, $2, 0
+    LWI  $2, 2147503776
+    SW   $1, $2, 0
+    LWI  $2, 2147503777
     SW   $1, $2, 0
     LWI  $2, 2147503778
     SW   $1, $2, 0
@@ -19287,11 +24734,23 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503785
     SW   $1, $2, 0
+    LWI  $2, 2147503786
+    SW   $1, $2, 0
+    LWI  $2, 2147503787
+    SW   $1, $2, 0
     LWI  $2, 2147503788
     SW   $1, $2, 0
     LWI  $2, 2147503789
     SW   $1, $2, 0
+    LWI  $2, 2147503790
+    SW   $1, $2, 0
+    LWI  $2, 2147503791
+    SW   $1, $2, 0
     LWI  $2, 2147503792
+    SW   $1, $2, 0
+    LWI  $2, 2147503793
+    SW   $1, $2, 0
+    LWI  $2, 2147503794
     SW   $1, $2, 0
     LWI  $2, 2147503795
     SW   $1, $2, 0
@@ -19303,9 +24762,15 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503799
     SW   $1, $2, 0
-    LWI  $2, 2147503802
+    LWI  $2, 2147503803
+    SW   $1, $2, 0
+    LWI  $2, 2147503804
     SW   $1, $2, 0
     LWI  $2, 2147503805
+    SW   $1, $2, 0
+    LWI  $2, 2147503806
+    SW   $1, $2, 0
+    LWI  $2, 2147503807
     SW   $1, $2, 0
     LWI  $2, 2147503808
     SW   $1, $2, 0
@@ -19313,13 +24778,41 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503810
     SW   $1, $2, 0
+    LWI  $2, 2147503811
+    SW   $1, $2, 0
+    LWI  $2, 2147503812
+    SW   $1, $2, 0
     LWI  $2, 2147503813
     SW   $1, $2, 0
     LWI  $2, 2147503814
     SW   $1, $2, 0
+    LWI  $2, 2147503815
+    SW   $1, $2, 0
+    LWI  $2, 2147503816
+    SW   $1, $2, 0
     LWI  $2, 2147503817
     SW   $1, $2, 0
+    LWI  $2, 2147503818
+    SW   $1, $2, 0
+    LWI  $2, 2147503819
+    SW   $1, $2, 0
+    LWI  $2, 2147503820
+    SW   $1, $2, 0
+    LWI  $2, 2147503821
+    SW   $1, $2, 0
     LWI  $2, 2147503822
+    SW   $1, $2, 0
+    LWI  $2, 2147503823
+    SW   $1, $2, 0
+    LWI  $2, 2147503824
+    SW   $1, $2, 0
+    LWI  $2, 2147503825
+    SW   $1, $2, 0
+    LWI  $2, 2147503826
+    SW   $1, $2, 0
+    LWI  $2, 2147503827
+    SW   $1, $2, 0
+    LWI  $2, 2147503828
     SW   $1, $2, 0
     LWI  $2, 2147503829
     SW   $1, $2, 0
@@ -19329,6 +24822,22 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503832
     SW   $1, $2, 0
+    LWI  $2, 2147503833
+    SW   $1, $2, 0
+    LWI  $2, 2147503834
+    SW   $1, $2, 0
+    LWI  $2, 2147503835
+    SW   $1, $2, 0
+    LWI  $2, 2147503836
+    SW   $1, $2, 0
+    LWI  $2, 2147503843
+    SW   $1, $2, 0
+    LWI  $2, 2147503844
+    SW   $1, $2, 0
+    LWI  $2, 2147503845
+    SW   $1, $2, 0
+    LWI  $2, 2147503846
+    SW   $1, $2, 0
     LWI  $2, 2147503847
     SW   $1, $2, 0
     LWI  $2, 2147503848
@@ -19337,9 +24846,27 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503850
     SW   $1, $2, 0
+    LWI  $2, 2147503851
+    SW   $1, $2, 0
+    LWI  $2, 2147503852
+    SW   $1, $2, 0
+    LWI  $2, 2147503853
+    SW   $1, $2, 0
+    LWI  $2, 2147503854
+    SW   $1, $2, 0
     LWI  $2, 2147503855
     SW   $1, $2, 0
+    LWI  $2, 2147503856
+    SW   $1, $2, 0
+    LWI  $2, 2147503857
+    SW   $1, $2, 0
     LWI  $2, 2147503858
+    SW   $1, $2, 0
+    LWI  $2, 2147503859
+    SW   $1, $2, 0
+    LWI  $2, 2147503860
+    SW   $1, $2, 0
+    LWI  $2, 2147503861
     SW   $1, $2, 0
     LWI  $2, 2147503862
     SW   $1, $2, 0
@@ -19347,9 +24874,23 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503864
     SW   $1, $2, 0
+    LWI  $2, 2147503865
+    SW   $1, $2, 0
+    LWI  $2, 2147503866
+    SW   $1, $2, 0
+    LWI  $2, 2147503867
+    SW   $1, $2, 0
     LWI  $2, 2147503868
     SW   $1, $2, 0
+    LWI  $2, 2147503869
+    SW   $1, $2, 0
+    LWI  $2, 2147503870
+    SW   $1, $2, 0
     LWI  $2, 2147503871
+    SW   $1, $2, 0
+    LWI  $2, 2147503872
+    SW   $1, $2, 0
+    LWI  $2, 2147503873
     SW   $1, $2, 0
     LWI  $2, 2147503874
     SW   $1, $2, 0
@@ -19367,13 +24908,25 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503881
     SW   $1, $2, 0
+    LWI  $2, 2147503882
+    SW   $1, $2, 0
+    LWI  $2, 2147503883
+    SW   $1, $2, 0
     LWI  $2, 2147503884
+    SW   $1, $2, 0
+    LWI  $2, 2147503885
+    SW   $1, $2, 0
+    LWI  $2, 2147503886
     SW   $1, $2, 0
     LWI  $2, 2147503887
     SW   $1, $2, 0
     LWI  $2, 2147503888
     SW   $1, $2, 0
     LWI  $2, 2147503889
+    SW   $1, $2, 0
+    LWI  $2, 2147503890
+    SW   $1, $2, 0
+    LWI  $2, 2147503891
     SW   $1, $2, 0
     LWI  $2, 2147503892
     SW   $1, $2, 0
@@ -19383,7 +24936,15 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503895
     SW   $1, $2, 0
+    LWI  $2, 2147503899
+    SW   $1, $2, 0
+    LWI  $2, 2147503900
+    SW   $1, $2, 0
     LWI  $2, 2147503901
+    SW   $1, $2, 0
+    LWI  $2, 2147503902
+    SW   $1, $2, 0
+    LWI  $2, 2147503903
     SW   $1, $2, 0
     LWI  $2, 2147503904
     SW   $1, $2, 0
@@ -19391,15 +24952,41 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503906
     SW   $1, $2, 0
+    LWI  $2, 2147503907
+    SW   $1, $2, 0
+    LWI  $2, 2147503908
+    SW   $1, $2, 0
     LWI  $2, 2147503909
     SW   $1, $2, 0
     LWI  $2, 2147503910
+    SW   $1, $2, 0
+    LWI  $2, 2147503911
+    SW   $1, $2, 0
+    LWI  $2, 2147503912
+    SW   $1, $2, 0
+    LWI  $2, 2147503913
+    SW   $1, $2, 0
+    LWI  $2, 2147503914
+    SW   $1, $2, 0
+    LWI  $2, 2147503915
+    SW   $1, $2, 0
+    LWI  $2, 2147503916
+    SW   $1, $2, 0
+    LWI  $2, 2147503917
     SW   $1, $2, 0
     LWI  $2, 2147503918
     SW   $1, $2, 0
     LWI  $2, 2147503919
     SW   $1, $2, 0
     LWI  $2, 2147503920
+    SW   $1, $2, 0
+    LWI  $2, 2147503921
+    SW   $1, $2, 0
+    LWI  $2, 2147503922
+    SW   $1, $2, 0
+    LWI  $2, 2147503923
+    SW   $1, $2, 0
+    LWI  $2, 2147503924
     SW   $1, $2, 0
     LWI  $2, 2147503925
     SW   $1, $2, 0
@@ -19408,6 +24995,22 @@ DISPMENU:
     LWI  $2, 2147503927
     SW   $1, $2, 0
     LWI  $2, 2147503928
+    SW   $1, $2, 0
+    LWI  $2, 2147503929
+    SW   $1, $2, 0
+    LWI  $2, 2147503930
+    SW   $1, $2, 0
+    LWI  $2, 2147503931
+    SW   $1, $2, 0
+    LWI  $2, 2147503932
+    SW   $1, $2, 0
+    LWI  $2, 2147503939
+    SW   $1, $2, 0
+    LWI  $2, 2147503940
+    SW   $1, $2, 0
+    LWI  $2, 2147503941
+    SW   $1, $2, 0
+    LWI  $2, 2147503942
     SW   $1, $2, 0
     LWI  $2, 2147503943
     SW   $1, $2, 0
@@ -19421,7 +25024,23 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503948
     SW   $1, $2, 0
+    LWI  $2, 2147503949
+    SW   $1, $2, 0
+    LWI  $2, 2147503950
+    SW   $1, $2, 0
+    LWI  $2, 2147503951
+    SW   $1, $2, 0
+    LWI  $2, 2147503952
+    SW   $1, $2, 0
+    LWI  $2, 2147503953
+    SW   $1, $2, 0
     LWI  $2, 2147503954
+    SW   $1, $2, 0
+    LWI  $2, 2147503955
+    SW   $1, $2, 0
+    LWI  $2, 2147503956
+    SW   $1, $2, 0
+    LWI  $2, 2147503957
     SW   $1, $2, 0
     LWI  $2, 2147503958
     SW   $1, $2, 0
@@ -19429,9 +25048,23 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503960
     SW   $1, $2, 0
+    LWI  $2, 2147503961
+    SW   $1, $2, 0
+    LWI  $2, 2147503962
+    SW   $1, $2, 0
+    LWI  $2, 2147503963
+    SW   $1, $2, 0
     LWI  $2, 2147503964
     SW   $1, $2, 0
+    LWI  $2, 2147503965
+    SW   $1, $2, 0
+    LWI  $2, 2147503966
+    SW   $1, $2, 0
     LWI  $2, 2147503967
+    SW   $1, $2, 0
+    LWI  $2, 2147503968
+    SW   $1, $2, 0
+    LWI  $2, 2147503969
     SW   $1, $2, 0
     LWI  $2, 2147503970
     SW   $1, $2, 0
@@ -19449,13 +25082,25 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503977
     SW   $1, $2, 0
+    LWI  $2, 2147503978
+    SW   $1, $2, 0
+    LWI  $2, 2147503979
+    SW   $1, $2, 0
     LWI  $2, 2147503980
+    SW   $1, $2, 0
+    LWI  $2, 2147503981
+    SW   $1, $2, 0
+    LWI  $2, 2147503982
     SW   $1, $2, 0
     LWI  $2, 2147503983
     SW   $1, $2, 0
     LWI  $2, 2147503984
     SW   $1, $2, 0
     LWI  $2, 2147503985
+    SW   $1, $2, 0
+    LWI  $2, 2147503986
+    SW   $1, $2, 0
+    LWI  $2, 2147503987
     SW   $1, $2, 0
     LWI  $2, 2147503988
     SW   $1, $2, 0
@@ -19465,9 +25110,15 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147503991
     SW   $1, $2, 0
-    LWI  $2, 2147503994
+    LWI  $2, 2147503995
+    SW   $1, $2, 0
+    LWI  $2, 2147503996
     SW   $1, $2, 0
     LWI  $2, 2147503997
+    SW   $1, $2, 0
+    LWI  $2, 2147503998
+    SW   $1, $2, 0
+    LWI  $2, 2147503999
     SW   $1, $2, 0
     LWI  $2, 2147504000
     SW   $1, $2, 0
@@ -19475,17 +25126,41 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147504002
     SW   $1, $2, 0
+    LWI  $2, 2147504003
+    SW   $1, $2, 0
+    LWI  $2, 2147504004
+    SW   $1, $2, 0
     LWI  $2, 2147504005
     SW   $1, $2, 0
     LWI  $2, 2147504006
     SW   $1, $2, 0
+    LWI  $2, 2147504007
+    SW   $1, $2, 0
+    LWI  $2, 2147504008
+    SW   $1, $2, 0
     LWI  $2, 2147504009
+    SW   $1, $2, 0
+    LWI  $2, 2147504010
+    SW   $1, $2, 0
+    LWI  $2, 2147504011
+    SW   $1, $2, 0
+    LWI  $2, 2147504012
+    SW   $1, $2, 0
+    LWI  $2, 2147504013
     SW   $1, $2, 0
     LWI  $2, 2147504014
     SW   $1, $2, 0
     LWI  $2, 2147504015
     SW   $1, $2, 0
     LWI  $2, 2147504016
+    SW   $1, $2, 0
+    LWI  $2, 2147504017
+    SW   $1, $2, 0
+    LWI  $2, 2147504018
+    SW   $1, $2, 0
+    LWI  $2, 2147504019
+    SW   $1, $2, 0
+    LWI  $2, 2147504020
     SW   $1, $2, 0
     LWI  $2, 2147504021
     SW   $1, $2, 0
@@ -19495,6 +25170,22 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147504024
     SW   $1, $2, 0
+    LWI  $2, 2147504025
+    SW   $1, $2, 0
+    LWI  $2, 2147504026
+    SW   $1, $2, 0
+    LWI  $2, 2147504027
+    SW   $1, $2, 0
+    LWI  $2, 2147504028
+    SW   $1, $2, 0
+    LWI  $2, 2147504035
+    SW   $1, $2, 0
+    LWI  $2, 2147504036
+    SW   $1, $2, 0
+    LWI  $2, 2147504037
+    SW   $1, $2, 0
+    LWI  $2, 2147504038
+    SW   $1, $2, 0
     LWI  $2, 2147504039
     SW   $1, $2, 0
     LWI  $2, 2147504040
@@ -19503,19 +25194,55 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147504042
     SW   $1, $2, 0
+    LWI  $2, 2147504043
+    SW   $1, $2, 0
+    LWI  $2, 2147504044
+    SW   $1, $2, 0
     LWI  $2, 2147504045
     SW   $1, $2, 0
     LWI  $2, 2147504046
     SW   $1, $2, 0
+    LWI  $2, 2147504047
+    SW   $1, $2, 0
+    LWI  $2, 2147504048
+    SW   $1, $2, 0
+    LWI  $2, 2147504049
+    SW   $1, $2, 0
     LWI  $2, 2147504050
+    SW   $1, $2, 0
+    LWI  $2, 2147504051
+    SW   $1, $2, 0
+    LWI  $2, 2147504052
+    SW   $1, $2, 0
+    LWI  $2, 2147504053
+    SW   $1, $2, 0
+    LWI  $2, 2147504054
     SW   $1, $2, 0
     LWI  $2, 2147504055
     SW   $1, $2, 0
+    LWI  $2, 2147504056
+    SW   $1, $2, 0
+    LWI  $2, 2147504057
+    SW   $1, $2, 0
+    LWI  $2, 2147504058
+    SW   $1, $2, 0
+    LWI  $2, 2147504059
+    SW   $1, $2, 0
     LWI  $2, 2147504060
+    SW   $1, $2, 0
+    LWI  $2, 2147504061
+    SW   $1, $2, 0
+    LWI  $2, 2147504062
     SW   $1, $2, 0
     LWI  $2, 2147504063
     SW   $1, $2, 0
+    LWI  $2, 2147504064
+    SW   $1, $2, 0
+    LWI  $2, 2147504065
+    SW   $1, $2, 0
     LWI  $2, 2147504066
+    SW   $1, $2, 0
+    LWI  $2, 2147504067
     SW   $1, $2, 0
     LWI  $2, 2147504068
     SW   $1, $2, 0
@@ -19529,9 +25256,25 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147504073
     SW   $1, $2, 0
+    LWI  $2, 2147504074
+    SW   $1, $2, 0
+    LWI  $2, 2147504075
+    SW   $1, $2, 0
     LWI  $2, 2147504076
     SW   $1, $2, 0
+    LWI  $2, 2147504077
+    SW   $1, $2, 0
+    LWI  $2, 2147504078
+    SW   $1, $2, 0
+    LWI  $2, 2147504079
+    SW   $1, $2, 0
     LWI  $2, 2147504080
+    SW   $1, $2, 0
+    LWI  $2, 2147504081
+    SW   $1, $2, 0
+    LWI  $2, 2147504082
+    SW   $1, $2, 0
+    LWI  $2, 2147504083
     SW   $1, $2, 0
     LWI  $2, 2147504084
     SW   $1, $2, 0
@@ -19539,31 +25282,83 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147504086
     SW   $1, $2, 0
-    LWI  $2, 2147504089
+    LWI  $2, 2147504087
     SW   $1, $2, 0
-    LWI  $2, 2147504090
+    LWI  $2, 2147504091
+    SW   $1, $2, 0
+    LWI  $2, 2147504092
+    SW   $1, $2, 0
+    LWI  $2, 2147504093
+    SW   $1, $2, 0
+    LWI  $2, 2147504094
+    SW   $1, $2, 0
+    LWI  $2, 2147504095
     SW   $1, $2, 0
     LWI  $2, 2147504096
     SW   $1, $2, 0
+    LWI  $2, 2147504097
+    SW   $1, $2, 0
     LWI  $2, 2147504098
     SW   $1, $2, 0
+    LWI  $2, 2147504099
+    SW   $1, $2, 0
+    LWI  $2, 2147504100
+    SW   $1, $2, 0
     LWI  $2, 2147504101
+    SW   $1, $2, 0
+    LWI  $2, 2147504102
+    SW   $1, $2, 0
+    LWI  $2, 2147504103
     SW   $1, $2, 0
     LWI  $2, 2147504104
     SW   $1, $2, 0
     LWI  $2, 2147504105
     SW   $1, $2, 0
+    LWI  $2, 2147504106
+    SW   $1, $2, 0
+    LWI  $2, 2147504107
+    SW   $1, $2, 0
+    LWI  $2, 2147504108
+    SW   $1, $2, 0
+    LWI  $2, 2147504109
+    SW   $1, $2, 0
     LWI  $2, 2147504110
     SW   $1, $2, 0
     LWI  $2, 2147504111
     SW   $1, $2, 0
+    LWI  $2, 2147504112
+    SW   $1, $2, 0
+    LWI  $2, 2147504113
+    SW   $1, $2, 0
+    LWI  $2, 2147504114
+    SW   $1, $2, 0
     LWI  $2, 2147504115
+    SW   $1, $2, 0
+    LWI  $2, 2147504116
+    SW   $1, $2, 0
+    LWI  $2, 2147504117
     SW   $1, $2, 0
     LWI  $2, 2147504118
     SW   $1, $2, 0
     LWI  $2, 2147504119
     SW   $1, $2, 0
     LWI  $2, 2147504120
+    SW   $1, $2, 0
+    LWI  $2, 2147504121
+    SW   $1, $2, 0
+    LWI  $2, 2147504122
+    SW   $1, $2, 0
+    LWI  $2, 2147504123
+    SW   $1, $2, 0
+    LWI  $2, 2147504124
+    SW   $1, $2, 0
+    LWI  $2, 2147504131
+    SW   $1, $2, 0
+    LWI  $2, 2147504132
+    SW   $1, $2, 0
+    LWI  $2, 2147504133
+    SW   $1, $2, 0
+    LWI  $2, 2147504134
     SW   $1, $2, 0
     LWI  $2, 2147504135
     SW   $1, $2, 0
@@ -19573,7 +25368,55 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147504138
     SW   $1, $2, 0
+    LWI  $2, 2147504139
+    SW   $1, $2, 0
+    LWI  $2, 2147504140
+    SW   $1, $2, 0
+    LWI  $2, 2147504141
+    SW   $1, $2, 0
+    LWI  $2, 2147504142
+    SW   $1, $2, 0
+    LWI  $2, 2147504143
+    SW   $1, $2, 0
+    LWI  $2, 2147504144
+    SW   $1, $2, 0
+    LWI  $2, 2147504145
+    SW   $1, $2, 0
     LWI  $2, 2147504146
+    SW   $1, $2, 0
+    LWI  $2, 2147504147
+    SW   $1, $2, 0
+    LWI  $2, 2147504148
+    SW   $1, $2, 0
+    LWI  $2, 2147504149
+    SW   $1, $2, 0
+    LWI  $2, 2147504150
+    SW   $1, $2, 0
+    LWI  $2, 2147504151
+    SW   $1, $2, 0
+    LWI  $2, 2147504152
+    SW   $1, $2, 0
+    LWI  $2, 2147504153
+    SW   $1, $2, 0
+    LWI  $2, 2147504154
+    SW   $1, $2, 0
+    LWI  $2, 2147504155
+    SW   $1, $2, 0
+    LWI  $2, 2147504156
+    SW   $1, $2, 0
+    LWI  $2, 2147504157
+    SW   $1, $2, 0
+    LWI  $2, 2147504158
+    SW   $1, $2, 0
+    LWI  $2, 2147504159
+    SW   $1, $2, 0
+    LWI  $2, 2147504160
+    SW   $1, $2, 0
+    LWI  $2, 2147504161
+    SW   $1, $2, 0
+    LWI  $2, 2147504162
+    SW   $1, $2, 0
+    LWI  $2, 2147504163
     SW   $1, $2, 0
     LWI  $2, 2147504164
     SW   $1, $2, 0
@@ -19587,6 +25430,24 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147504169
     SW   $1, $2, 0
+    LWI  $2, 2147504170
+    SW   $1, $2, 0
+    LWI  $2, 2147504171
+    SW   $1, $2, 0
+    LWI  $2, 2147504172
+    SW   $1, $2, 0
+    LWI  $2, 2147504173
+    SW   $1, $2, 0
+    LWI  $2, 2147504174
+    SW   $1, $2, 0
+    LWI  $2, 2147504175
+    SW   $1, $2, 0
+    LWI  $2, 2147504176
+    SW   $1, $2, 0
+    LWI  $2, 2147504177
+    SW   $1, $2, 0
+    LWI  $2, 2147504178
+    SW   $1, $2, 0
     LWI  $2, 2147504179
     SW   $1, $2, 0
     LWI  $2, 2147504180
@@ -19597,13 +25458,81 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147504183
     SW   $1, $2, 0
+    LWI  $2, 2147504187
+    SW   $1, $2, 0
+    LWI  $2, 2147504188
+    SW   $1, $2, 0
+    LWI  $2, 2147504189
+    SW   $1, $2, 0
+    LWI  $2, 2147504190
+    SW   $1, $2, 0
+    LWI  $2, 2147504191
+    SW   $1, $2, 0
+    LWI  $2, 2147504192
+    SW   $1, $2, 0
+    LWI  $2, 2147504193
+    SW   $1, $2, 0
     LWI  $2, 2147504194
     SW   $1, $2, 0
+    LWI  $2, 2147504195
+    SW   $1, $2, 0
+    LWI  $2, 2147504196
+    SW   $1, $2, 0
+    LWI  $2, 2147504197
+    SW   $1, $2, 0
+    LWI  $2, 2147504198
+    SW   $1, $2, 0
+    LWI  $2, 2147504199
+    SW   $1, $2, 0
+    LWI  $2, 2147504200
+    SW   $1, $2, 0
+    LWI  $2, 2147504201
+    SW   $1, $2, 0
+    LWI  $2, 2147504202
+    SW   $1, $2, 0
+    LWI  $2, 2147504203
+    SW   $1, $2, 0
+    LWI  $2, 2147504204
+    SW   $1, $2, 0
+    LWI  $2, 2147504205
+    SW   $1, $2, 0
+    LWI  $2, 2147504206
+    SW   $1, $2, 0
+    LWI  $2, 2147504207
+    SW   $1, $2, 0
+    LWI  $2, 2147504208
+    SW   $1, $2, 0
+    LWI  $2, 2147504209
+    SW   $1, $2, 0
+    LWI  $2, 2147504210
+    SW   $1, $2, 0
     LWI  $2, 2147504211
+    SW   $1, $2, 0
+    LWI  $2, 2147504212
+    SW   $1, $2, 0
+    LWI  $2, 2147504213
+    SW   $1, $2, 0
+    LWI  $2, 2147504214
     SW   $1, $2, 0
     LWI  $2, 2147504215
     SW   $1, $2, 0
     LWI  $2, 2147504216
+    SW   $1, $2, 0
+    LWI  $2, 2147504217
+    SW   $1, $2, 0
+    LWI  $2, 2147504218
+    SW   $1, $2, 0
+    LWI  $2, 2147504219
+    SW   $1, $2, 0
+    LWI  $2, 2147504220
+    SW   $1, $2, 0
+    LWI  $2, 2147504227
+    SW   $1, $2, 0
+    LWI  $2, 2147504228
+    SW   $1, $2, 0
+    LWI  $2, 2147504229
+    SW   $1, $2, 0
+    LWI  $2, 2147504230
     SW   $1, $2, 0
     LWI  $2, 2147504231
     SW   $1, $2, 0
@@ -19613,17 +25542,41 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147504234
     SW   $1, $2, 0
+    LWI  $2, 2147504235
+    SW   $1, $2, 0
     LWI  $2, 2147504236
+    SW   $1, $2, 0
+    LWI  $2, 2147504237
+    SW   $1, $2, 0
+    LWI  $2, 2147504238
     SW   $1, $2, 0
     LWI  $2, 2147504239
     SW   $1, $2, 0
+    LWI  $2, 2147504240
+    SW   $1, $2, 0
+    LWI  $2, 2147504241
+    SW   $1, $2, 0
     LWI  $2, 2147504242
     SW   $1, $2, 0
+    LWI  $2, 2147504243
+    SW   $1, $2, 0
+    LWI  $2, 2147504244
+    SW   $1, $2, 0
     LWI  $2, 2147504245
+    SW   $1, $2, 0
+    LWI  $2, 2147504246
+    SW   $1, $2, 0
+    LWI  $2, 2147504247
+    SW   $1, $2, 0
+    LWI  $2, 2147504248
     SW   $1, $2, 0
     LWI  $2, 2147504249
     SW   $1, $2, 0
     LWI  $2, 2147504250
+    SW   $1, $2, 0
+    LWI  $2, 2147504251
+    SW   $1, $2, 0
+    LWI  $2, 2147504252
     SW   $1, $2, 0
     LWI  $2, 2147504253
     SW   $1, $2, 0
@@ -19632,6 +25585,10 @@ DISPMENU:
     LWI  $2, 2147504255
     SW   $1, $2, 0
     LWI  $2, 2147504256
+    SW   $1, $2, 0
+    LWI  $2, 2147504257
+    SW   $1, $2, 0
+    LWI  $2, 2147504258
     SW   $1, $2, 0
     LWI  $2, 2147504259
     SW   $1, $2, 0
@@ -19649,9 +25606,19 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147504266
     SW   $1, $2, 0
+    LWI  $2, 2147504267
+    SW   $1, $2, 0
+    LWI  $2, 2147504268
+    SW   $1, $2, 0
     LWI  $2, 2147504269
     SW   $1, $2, 0
     LWI  $2, 2147504270
+    SW   $1, $2, 0
+    LWI  $2, 2147504271
+    SW   $1, $2, 0
+    LWI  $2, 2147504272
+    SW   $1, $2, 0
+    LWI  $2, 2147504273
     SW   $1, $2, 0
     LWI  $2, 2147504274
     SW   $1, $2, 0
@@ -19665,37 +25632,13 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147504279
     SW   $1, $2, 0
-    LWI  $2, 2147504280
+    LWI  $2, 2147504323
     SW   $1, $2, 0
-    LWI  $2, 2147504283
+    LWI  $2, 2147504324
     SW   $1, $2, 0
-    LWI  $2, 2147504285
+    LWI  $2, 2147504325
     SW   $1, $2, 0
-    LWI  $2, 2147504286
-    SW   $1, $2, 0
-    LWI  $2, 2147504289
-    SW   $1, $2, 0
-    LWI  $2, 2147504290
-    SW   $1, $2, 0
-    LWI  $2, 2147504291
-    SW   $1, $2, 0
-    LWI  $2, 2147504294
-    SW   $1, $2, 0
-    LWI  $2, 2147504295
-    SW   $1, $2, 0
-    LWI  $2, 2147504298
-    SW   $1, $2, 0
-    LWI  $2, 2147504300
-    SW   $1, $2, 0
-    LWI  $2, 2147504304
-    SW   $1, $2, 0
-    LWI  $2, 2147504307
-    SW   $1, $2, 0
-    LWI  $2, 2147504310
-    SW   $1, $2, 0
-    LWI  $2, 2147504311
-    SW   $1, $2, 0
-    LWI  $2, 2147504312
+    LWI  $2, 2147504326
     SW   $1, $2, 0
     LWI  $2, 2147504327
     SW   $1, $2, 0
@@ -19795,71 +25738,13 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147504375
     SW   $1, $2, 0
-    LWI  $2, 2147504376
+    LWI  $2, 2147504419
     SW   $1, $2, 0
-    LWI  $2, 2147504377
+    LWI  $2, 2147504420
     SW   $1, $2, 0
-    LWI  $2, 2147504378
+    LWI  $2, 2147504421
     SW   $1, $2, 0
-    LWI  $2, 2147504379
-    SW   $1, $2, 0
-    LWI  $2, 2147504380
-    SW   $1, $2, 0
-    LWI  $2, 2147504381
-    SW   $1, $2, 0
-    LWI  $2, 2147504382
-    SW   $1, $2, 0
-    LWI  $2, 2147504383
-    SW   $1, $2, 0
-    LWI  $2, 2147504384
-    SW   $1, $2, 0
-    LWI  $2, 2147504385
-    SW   $1, $2, 0
-    LWI  $2, 2147504386
-    SW   $1, $2, 0
-    LWI  $2, 2147504387
-    SW   $1, $2, 0
-    LWI  $2, 2147504388
-    SW   $1, $2, 0
-    LWI  $2, 2147504389
-    SW   $1, $2, 0
-    LWI  $2, 2147504390
-    SW   $1, $2, 0
-    LWI  $2, 2147504391
-    SW   $1, $2, 0
-    LWI  $2, 2147504392
-    SW   $1, $2, 0
-    LWI  $2, 2147504393
-    SW   $1, $2, 0
-    LWI  $2, 2147504394
-    SW   $1, $2, 0
-    LWI  $2, 2147504395
-    SW   $1, $2, 0
-    LWI  $2, 2147504396
-    SW   $1, $2, 0
-    LWI  $2, 2147504397
-    SW   $1, $2, 0
-    LWI  $2, 2147504398
-    SW   $1, $2, 0
-    LWI  $2, 2147504399
-    SW   $1, $2, 0
-    LWI  $2, 2147504400
-    SW   $1, $2, 0
-    LWI  $2, 2147504401
-    SW   $1, $2, 0
-    LWI  $2, 2147504402
-    SW   $1, $2, 0
-    LWI  $2, 2147504403
-    SW   $1, $2, 0
-    LWI  $2, 2147504404
-    SW   $1, $2, 0
-    LWI  $2, 2147504405
-    SW   $1, $2, 0
-    LWI  $2, 2147504406
-    SW   $1, $2, 0
-    LWI  $2, 2147504407
-    SW   $1, $2, 0
-    LWI  $2, 2147504408
+    LWI  $2, 2147504422
     SW   $1, $2, 0
     LWI  $2, 2147504423
     SW   $1, $2, 0
@@ -19890,12 +25775,6 @@ DISPMENU:
     LWI  $2, 2147504436
     SW   $1, $2, 0
     LWI  $2, 2147504437
-    SW   $1, $2, 0
-    LWI  $2, 2147504438
-    SW   $1, $2, 0
-    LWI  $2, 2147504439
-    SW   $1, $2, 0
-    LWI  $2, 2147504440
     SW   $1, $2, 0
     LWI  $2, 2147504441
     SW   $1, $2, 0
@@ -19959,71 +25838,13 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147504471
     SW   $1, $2, 0
-    LWI  $2, 2147504472
+    LWI  $2, 2147504515
     SW   $1, $2, 0
-    LWI  $2, 2147504473
+    LWI  $2, 2147504516
     SW   $1, $2, 0
-    LWI  $2, 2147504474
+    LWI  $2, 2147504517
     SW   $1, $2, 0
-    LWI  $2, 2147504475
-    SW   $1, $2, 0
-    LWI  $2, 2147504476
-    SW   $1, $2, 0
-    LWI  $2, 2147504477
-    SW   $1, $2, 0
-    LWI  $2, 2147504478
-    SW   $1, $2, 0
-    LWI  $2, 2147504479
-    SW   $1, $2, 0
-    LWI  $2, 2147504480
-    SW   $1, $2, 0
-    LWI  $2, 2147504481
-    SW   $1, $2, 0
-    LWI  $2, 2147504482
-    SW   $1, $2, 0
-    LWI  $2, 2147504483
-    SW   $1, $2, 0
-    LWI  $2, 2147504484
-    SW   $1, $2, 0
-    LWI  $2, 2147504485
-    SW   $1, $2, 0
-    LWI  $2, 2147504486
-    SW   $1, $2, 0
-    LWI  $2, 2147504487
-    SW   $1, $2, 0
-    LWI  $2, 2147504488
-    SW   $1, $2, 0
-    LWI  $2, 2147504489
-    SW   $1, $2, 0
-    LWI  $2, 2147504490
-    SW   $1, $2, 0
-    LWI  $2, 2147504491
-    SW   $1, $2, 0
-    LWI  $2, 2147504492
-    SW   $1, $2, 0
-    LWI  $2, 2147504493
-    SW   $1, $2, 0
-    LWI  $2, 2147504494
-    SW   $1, $2, 0
-    LWI  $2, 2147504495
-    SW   $1, $2, 0
-    LWI  $2, 2147504496
-    SW   $1, $2, 0
-    LWI  $2, 2147504497
-    SW   $1, $2, 0
-    LWI  $2, 2147504498
-    SW   $1, $2, 0
-    LWI  $2, 2147504499
-    SW   $1, $2, 0
-    LWI  $2, 2147504500
-    SW   $1, $2, 0
-    LWI  $2, 2147504501
-    SW   $1, $2, 0
-    LWI  $2, 2147504502
-    SW   $1, $2, 0
-    LWI  $2, 2147504503
-    SW   $1, $2, 0
-    LWI  $2, 2147504504
+    LWI  $2, 2147504518
     SW   $1, $2, 0
     LWI  $2, 2147504519
     SW   $1, $2, 0
@@ -20054,12 +25875,6 @@ DISPMENU:
     LWI  $2, 2147504532
     SW   $1, $2, 0
     LWI  $2, 2147504533
-    SW   $1, $2, 0
-    LWI  $2, 2147504534
-    SW   $1, $2, 0
-    LWI  $2, 2147504535
-    SW   $1, $2, 0
-    LWI  $2, 2147504536
     SW   $1, $2, 0
     LWI  $2, 2147504537
     SW   $1, $2, 0
@@ -20189,6 +26004,22 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147504600
     SW   $1, $2, 0
+    LWI  $2, 2147504601
+    SW   $1, $2, 0
+    LWI  $2, 2147504602
+    SW   $1, $2, 0
+    LWI  $2, 2147504603
+    SW   $1, $2, 0
+    LWI  $2, 2147504604
+    SW   $1, $2, 0
+    LWI  $2, 2147504611
+    SW   $1, $2, 0
+    LWI  $2, 2147504612
+    SW   $1, $2, 0
+    LWI  $2, 2147504613
+    SW   $1, $2, 0
+    LWI  $2, 2147504614
+    SW   $1, $2, 0
     LWI  $2, 2147504615
     SW   $1, $2, 0
     LWI  $2, 2147504616
@@ -20218,12 +26049,6 @@ DISPMENU:
     LWI  $2, 2147504628
     SW   $1, $2, 0
     LWI  $2, 2147504629
-    SW   $1, $2, 0
-    LWI  $2, 2147504630
-    SW   $1, $2, 0
-    LWI  $2, 2147504631
-    SW   $1, $2, 0
-    LWI  $2, 2147504632
     SW   $1, $2, 0
     LWI  $2, 2147504633
     SW   $1, $2, 0
@@ -20353,6 +26178,22 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147504696
     SW   $1, $2, 0
+    LWI  $2, 2147504697
+    SW   $1, $2, 0
+    LWI  $2, 2147504698
+    SW   $1, $2, 0
+    LWI  $2, 2147504699
+    SW   $1, $2, 0
+    LWI  $2, 2147504700
+    SW   $1, $2, 0
+    LWI  $2, 2147504707
+    SW   $1, $2, 0
+    LWI  $2, 2147504708
+    SW   $1, $2, 0
+    LWI  $2, 2147504709
+    SW   $1, $2, 0
+    LWI  $2, 2147504710
+    SW   $1, $2, 0
     LWI  $2, 2147504711
     SW   $1, $2, 0
     LWI  $2, 2147504712
@@ -20382,12 +26223,6 @@ DISPMENU:
     LWI  $2, 2147504724
     SW   $1, $2, 0
     LWI  $2, 2147504725
-    SW   $1, $2, 0
-    LWI  $2, 2147504726
-    SW   $1, $2, 0
-    LWI  $2, 2147504727
-    SW   $1, $2, 0
-    LWI  $2, 2147504728
     SW   $1, $2, 0
     LWI  $2, 2147504729
     SW   $1, $2, 0
@@ -20517,6 +26352,22 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147504792
     SW   $1, $2, 0
+    LWI  $2, 2147504793
+    SW   $1, $2, 0
+    LWI  $2, 2147504794
+    SW   $1, $2, 0
+    LWI  $2, 2147504795
+    SW   $1, $2, 0
+    LWI  $2, 2147504796
+    SW   $1, $2, 0
+    LWI  $2, 2147504803
+    SW   $1, $2, 0
+    LWI  $2, 2147504804
+    SW   $1, $2, 0
+    LWI  $2, 2147504805
+    SW   $1, $2, 0
+    LWI  $2, 2147504806
+    SW   $1, $2, 0
     LWI  $2, 2147504807
     SW   $1, $2, 0
     LWI  $2, 2147504808
@@ -20546,12 +26397,6 @@ DISPMENU:
     LWI  $2, 2147504820
     SW   $1, $2, 0
     LWI  $2, 2147504821
-    SW   $1, $2, 0
-    LWI  $2, 2147504822
-    SW   $1, $2, 0
-    LWI  $2, 2147504823
-    SW   $1, $2, 0
-    LWI  $2, 2147504824
     SW   $1, $2, 0
     LWI  $2, 2147504825
     SW   $1, $2, 0
@@ -20681,6 +26526,22 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147504888
     SW   $1, $2, 0
+    LWI  $2, 2147504889
+    SW   $1, $2, 0
+    LWI  $2, 2147504890
+    SW   $1, $2, 0
+    LWI  $2, 2147504891
+    SW   $1, $2, 0
+    LWI  $2, 2147504892
+    SW   $1, $2, 0
+    LWI  $2, 2147504899
+    SW   $1, $2, 0
+    LWI  $2, 2147504900
+    SW   $1, $2, 0
+    LWI  $2, 2147504901
+    SW   $1, $2, 0
+    LWI  $2, 2147504902
+    SW   $1, $2, 0
     LWI  $2, 2147504903
     SW   $1, $2, 0
     LWI  $2, 2147504904
@@ -20710,12 +26571,6 @@ DISPMENU:
     LWI  $2, 2147504916
     SW   $1, $2, 0
     LWI  $2, 2147504917
-    SW   $1, $2, 0
-    LWI  $2, 2147504918
-    SW   $1, $2, 0
-    LWI  $2, 2147504919
-    SW   $1, $2, 0
-    LWI  $2, 2147504920
     SW   $1, $2, 0
     LWI  $2, 2147504921
     SW   $1, $2, 0
@@ -20831,19 +26686,15 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147504977
     SW   $1, $2, 0
-    LWI  $2, 2147504978
+    LWI  $2, 2147504988
     SW   $1, $2, 0
-    LWI  $2, 2147504979
+    LWI  $2, 2147504995
     SW   $1, $2, 0
-    LWI  $2, 2147504980
+    LWI  $2, 2147504996
     SW   $1, $2, 0
-    LWI  $2, 2147504981
+    LWI  $2, 2147504997
     SW   $1, $2, 0
-    LWI  $2, 2147504982
-    SW   $1, $2, 0
-    LWI  $2, 2147504983
-    SW   $1, $2, 0
-    LWI  $2, 2147504984
+    LWI  $2, 2147504998
     SW   $1, $2, 0
     LWI  $2, 2147504999
     SW   $1, $2, 0
@@ -20874,12 +26725,6 @@ DISPMENU:
     LWI  $2, 2147505012
     SW   $1, $2, 0
     LWI  $2, 2147505013
-    SW   $1, $2, 0
-    LWI  $2, 2147505014
-    SW   $1, $2, 0
-    LWI  $2, 2147505015
-    SW   $1, $2, 0
-    LWI  $2, 2147505016
     SW   $1, $2, 0
     LWI  $2, 2147505017
     SW   $1, $2, 0
@@ -20995,33 +26840,17 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147505073
     SW   $1, $2, 0
-    LWI  $2, 2147505074
+    LWI  $2, 2147505084
     SW   $1, $2, 0
-    LWI  $2, 2147505075
+    LWI  $2, 2147505091
     SW   $1, $2, 0
-    LWI  $2, 2147505076
+    LWI  $2, 2147505092
     SW   $1, $2, 0
-    LWI  $2, 2147505077
+    LWI  $2, 2147505093
     SW   $1, $2, 0
-    LWI  $2, 2147505078
+    LWI  $2, 2147505094
     SW   $1, $2, 0
-    LWI  $2, 2147505079
-    SW   $1, $2, 0
-    LWI  $2, 2147505080
-    SW   $1, $2, 0
-    LWI  $2, 2147505096
-    SW   $1, $2, 0
-    LWI  $2, 2147505097
-    SW   $1, $2, 0
-    LWI  $2, 2147505098
-    SW   $1, $2, 0
-    LWI  $2, 2147505099
-    SW   $1, $2, 0
-    LWI  $2, 2147505100
-    SW   $1, $2, 0
-    LWI  $2, 2147505101
-    SW   $1, $2, 0
-    LWI  $2, 2147505102
+    LWI  $2, 2147505095
     SW   $1, $2, 0
     LWI  $2, 2147505103
     SW   $1, $2, 0
@@ -21036,12 +26865,6 @@ DISPMENU:
     LWI  $2, 2147505108
     SW   $1, $2, 0
     LWI  $2, 2147505109
-    SW   $1, $2, 0
-    LWI  $2, 2147505110
-    SW   $1, $2, 0
-    LWI  $2, 2147505111
-    SW   $1, $2, 0
-    LWI  $2, 2147505112
     SW   $1, $2, 0
     LWI  $2, 2147505113
     SW   $1, $2, 0
@@ -21157,5353 +26980,2242 @@ DISPMENU:
     SW   $1, $2, 0
     LWI  $2, 2147505169
     SW   $1, $2, 0
-    LWI  $2, 2147505170
+    LWI  $2, 2147505180
     SW   $1, $2, 0
-    LWI  $2, 2147505171
+    LWI  $2, 2147505187
     SW   $1, $2, 0
-    LWI  $2, 2147505172
+    LWI  $2, 2147505188
     SW   $1, $2, 0
-    LWI  $2, 2147505173
+    LWI  $2, 2147505189
     SW   $1, $2, 0
-    LWI  $2, 2147505174
+    LWI  $2, 2147505190
     SW   $1, $2, 0
-    LWI  $2, 2147505175
+    LWI  $2, 2147505200
     SW   $1, $2, 0
-    LLI  $1, 0b0010100101101100
-    LWI  $2, 2147501062
+    LWI  $2, 2147505201
     SW   $1, $2, 0
-    LWI  $2, 2147501145
+    LWI  $2, 2147505202
     SW   $1, $2, 0
-    LWI  $2, 2147501158
+    LWI  $2, 2147505203
     SW   $1, $2, 0
-    LWI  $2, 2147501241
+    LWI  $2, 2147505204
     SW   $1, $2, 0
-    LWI  $2, 2147501254
+    LWI  $2, 2147505205
+    SW   $1, $2, 0
+    LWI  $2, 2147505226
+    SW   $1, $2, 0
+    LWI  $2, 2147505227
+    SW   $1, $2, 0
+    LWI  $2, 2147505228
+    SW   $1, $2, 0
+    LWI  $2, 2147505229
+    SW   $1, $2, 0
+    LWI  $2, 2147505230
+    SW   $1, $2, 0
+    LWI  $2, 2147505231
+    SW   $1, $2, 0
+    LWI  $2, 2147505232
+    SW   $1, $2, 0
+    LWI  $2, 2147505233
+    SW   $1, $2, 0
+    LWI  $2, 2147505234
+    SW   $1, $2, 0
+    LWI  $2, 2147505235
+    SW   $1, $2, 0
+    LWI  $2, 2147505236
+    SW   $1, $2, 0
+    LWI  $2, 2147505237
+    SW   $1, $2, 0
+    LWI  $2, 2147505238
+    SW   $1, $2, 0
+    LWI  $2, 2147505239
+    SW   $1, $2, 0
+    LWI  $2, 2147505240
+    SW   $1, $2, 0
+    LWI  $2, 2147505241
+    SW   $1, $2, 0
+    LWI  $2, 2147505242
+    SW   $1, $2, 0
+    LWI  $2, 2147505243
+    SW   $1, $2, 0
+    LWI  $2, 2147505244
+    SW   $1, $2, 0
+    LWI  $2, 2147505245
+    SW   $1, $2, 0
+    LWI  $2, 2147505246
+    SW   $1, $2, 0
+    LWI  $2, 2147505247
+    SW   $1, $2, 0
+    LWI  $2, 2147505248
+    SW   $1, $2, 0
+    LWI  $2, 2147505249
+    SW   $1, $2, 0
+    LWI  $2, 2147505250
+    SW   $1, $2, 0
+    LWI  $2, 2147505251
+    SW   $1, $2, 0
+    LWI  $2, 2147505252
+    SW   $1, $2, 0
+    LWI  $2, 2147505253
+    SW   $1, $2, 0
+    LWI  $2, 2147505254
+    SW   $1, $2, 0
+    LWI  $2, 2147505255
+    SW   $1, $2, 0
+    LWI  $2, 2147505256
+    SW   $1, $2, 0
+    LWI  $2, 2147505257
+    SW   $1, $2, 0
+    LWI  $2, 2147505258
+    SW   $1, $2, 0
+    LWI  $2, 2147505259
+    SW   $1, $2, 0
+    LWI  $2, 2147505260
+    SW   $1, $2, 0
+    LWI  $2, 2147505261
+    SW   $1, $2, 0
+    LWI  $2, 2147505262
+    SW   $1, $2, 0
+    LWI  $2, 2147505263
+    SW   $1, $2, 0
+    LWI  $2, 2147505264
+    SW   $1, $2, 0
+    LWI  $2, 2147505265
+    SW   $1, $2, 0
+    LWI  $2, 2147505276
+    SW   $1, $2, 0
+    LWI  $2, 2147505283
+    SW   $1, $2, 0
+    LWI  $2, 2147505284
+    SW   $1, $2, 0
+    LWI  $2, 2147505285
+    SW   $1, $2, 0
+    LWI  $2, 2147505286
+    SW   $1, $2, 0
+    LWI  $2, 2147505296
+    SW   $1, $2, 0
+    LWI  $2, 2147505297
+    SW   $1, $2, 0
+    LWI  $2, 2147505298
+    SW   $1, $2, 0
+    LWI  $2, 2147505299
+    SW   $1, $2, 0
+    LWI  $2, 2147505300
+    SW   $1, $2, 0
+    LWI  $2, 2147505301
+    SW   $1, $2, 0
+    LWI  $2, 2147505322
+    SW   $1, $2, 0
+    LWI  $2, 2147505323
+    SW   $1, $2, 0
+    LWI  $2, 2147505324
+    SW   $1, $2, 0
+    LWI  $2, 2147505325
+    SW   $1, $2, 0
+    LWI  $2, 2147505326
+    SW   $1, $2, 0
+    LWI  $2, 2147505327
+    SW   $1, $2, 0
+    LWI  $2, 2147505328
+    SW   $1, $2, 0
+    LWI  $2, 2147505329
+    SW   $1, $2, 0
+    LWI  $2, 2147505330
+    SW   $1, $2, 0
+    LWI  $2, 2147505331
+    SW   $1, $2, 0
+    LWI  $2, 2147505332
+    SW   $1, $2, 0
+    LWI  $2, 2147505333
+    SW   $1, $2, 0
+    LWI  $2, 2147505334
+    SW   $1, $2, 0
+    LWI  $2, 2147505335
+    SW   $1, $2, 0
+    LWI  $2, 2147505336
+    SW   $1, $2, 0
+    LWI  $2, 2147505337
+    SW   $1, $2, 0
+    LWI  $2, 2147505338
+    SW   $1, $2, 0
+    LWI  $2, 2147505339
+    SW   $1, $2, 0
+    LWI  $2, 2147505340
+    SW   $1, $2, 0
+    LWI  $2, 2147505341
+    SW   $1, $2, 0
+    LWI  $2, 2147505342
+    SW   $1, $2, 0
+    LWI  $2, 2147505343
+    SW   $1, $2, 0
+    LWI  $2, 2147505344
+    SW   $1, $2, 0
+    LWI  $2, 2147505345
+    SW   $1, $2, 0
+    LWI  $2, 2147505346
+    SW   $1, $2, 0
+    LWI  $2, 2147505347
+    SW   $1, $2, 0
+    LWI  $2, 2147505348
+    SW   $1, $2, 0
+    LWI  $2, 2147505349
+    SW   $1, $2, 0
+    LWI  $2, 2147505350
+    SW   $1, $2, 0
+    LWI  $2, 2147505351
+    SW   $1, $2, 0
+    LWI  $2, 2147505352
+    SW   $1, $2, 0
+    LWI  $2, 2147505353
+    SW   $1, $2, 0
+    LWI  $2, 2147505354
+    SW   $1, $2, 0
+    LWI  $2, 2147505355
+    SW   $1, $2, 0
+    LWI  $2, 2147505356
+    SW   $1, $2, 0
+    LWI  $2, 2147505357
+    SW   $1, $2, 0
+    LWI  $2, 2147505358
+    SW   $1, $2, 0
+    LWI  $2, 2147505359
+    SW   $1, $2, 0
+    LWI  $2, 2147505360
+    SW   $1, $2, 0
+    LWI  $2, 2147505361
+    SW   $1, $2, 0
+    LWI  $2, 2147505372
+    SW   $1, $2, 0
+    LWI  $2, 2147505379
+    SW   $1, $2, 0
+    LWI  $2, 2147505380
+    SW   $1, $2, 0
+    LWI  $2, 2147505381
+    SW   $1, $2, 0
+    LWI  $2, 2147505382
+    SW   $1, $2, 0
+    LWI  $2, 2147505392
+    SW   $1, $2, 0
+    LWI  $2, 2147505393
+    SW   $1, $2, 0
+    LWI  $2, 2147505394
+    SW   $1, $2, 0
+    LWI  $2, 2147505395
+    SW   $1, $2, 0
+    LWI  $2, 2147505396
+    SW   $1, $2, 0
+    LWI  $2, 2147505397
+    SW   $1, $2, 0
+    LWI  $2, 2147505418
+    SW   $1, $2, 0
+    LWI  $2, 2147505419
+    SW   $1, $2, 0
+    LWI  $2, 2147505420
+    SW   $1, $2, 0
+    LWI  $2, 2147505421
+    SW   $1, $2, 0
+    LWI  $2, 2147505422
+    SW   $1, $2, 0
+    LWI  $2, 2147505423
+    SW   $1, $2, 0
+    LWI  $2, 2147505424
+    SW   $1, $2, 0
+    LWI  $2, 2147505425
+    SW   $1, $2, 0
+    LWI  $2, 2147505426
+    SW   $1, $2, 0
+    LWI  $2, 2147505427
+    SW   $1, $2, 0
+    LWI  $2, 2147505428
+    SW   $1, $2, 0
+    LWI  $2, 2147505429
+    SW   $1, $2, 0
+    LWI  $2, 2147505430
+    SW   $1, $2, 0
+    LWI  $2, 2147505431
+    SW   $1, $2, 0
+    LWI  $2, 2147505432
+    SW   $1, $2, 0
+    LWI  $2, 2147505433
+    SW   $1, $2, 0
+    LWI  $2, 2147505434
+    SW   $1, $2, 0
+    LWI  $2, 2147505435
+    SW   $1, $2, 0
+    LWI  $2, 2147505436
+    SW   $1, $2, 0
+    LWI  $2, 2147505437
+    SW   $1, $2, 0
+    LWI  $2, 2147505438
+    SW   $1, $2, 0
+    LWI  $2, 2147505439
+    SW   $1, $2, 0
+    LWI  $2, 2147505440
+    SW   $1, $2, 0
+    LWI  $2, 2147505441
+    SW   $1, $2, 0
+    LWI  $2, 2147505442
+    SW   $1, $2, 0
+    LWI  $2, 2147505443
+    SW   $1, $2, 0
+    LWI  $2, 2147505444
+    SW   $1, $2, 0
+    LWI  $2, 2147505445
+    SW   $1, $2, 0
+    LWI  $2, 2147505446
+    SW   $1, $2, 0
+    LWI  $2, 2147505447
+    SW   $1, $2, 0
+    LWI  $2, 2147505448
+    SW   $1, $2, 0
+    LWI  $2, 2147505449
+    SW   $1, $2, 0
+    LWI  $2, 2147505450
+    SW   $1, $2, 0
+    LWI  $2, 2147505451
+    SW   $1, $2, 0
+    LWI  $2, 2147505452
+    SW   $1, $2, 0
+    LWI  $2, 2147505453
+    SW   $1, $2, 0
+    LWI  $2, 2147505454
+    SW   $1, $2, 0
+    LWI  $2, 2147505455
+    SW   $1, $2, 0
+    LWI  $2, 2147505456
+    SW   $1, $2, 0
+    LWI  $2, 2147505457
+    SW   $1, $2, 0
+    LWI  $2, 2147505468
+    SW   $1, $2, 0
+    LWI  $2, 2147505475
+    SW   $1, $2, 0
+    LWI  $2, 2147505476
+    SW   $1, $2, 0
+    LWI  $2, 2147505477
+    SW   $1, $2, 0
+    LWI  $2, 2147505478
+    SW   $1, $2, 0
+    LWI  $2, 2147505488
+    SW   $1, $2, 0
+    LWI  $2, 2147505489
+    SW   $1, $2, 0
+    LWI  $2, 2147505490
+    SW   $1, $2, 0
+    LWI  $2, 2147505491
+    SW   $1, $2, 0
+    LWI  $2, 2147505492
+    SW   $1, $2, 0
+    LWI  $2, 2147505493
+    SW   $1, $2, 0
+    LWI  $2, 2147505497
+    SW   $1, $2, 0
+    LWI  $2, 2147505498
+    SW   $1, $2, 0
+    LWI  $2, 2147505499
+    SW   $1, $2, 0
+    LWI  $2, 2147505500
+    SW   $1, $2, 0
+    LWI  $2, 2147505501
+    SW   $1, $2, 0
+    LWI  $2, 2147505502
+    SW   $1, $2, 0
+    LWI  $2, 2147505503
+    SW   $1, $2, 0
+    LWI  $2, 2147505504
+    SW   $1, $2, 0
+    LWI  $2, 2147505505
+    SW   $1, $2, 0
+    LWI  $2, 2147505506
+    SW   $1, $2, 0
+    LWI  $2, 2147505507
+    SW   $1, $2, 0
+    LWI  $2, 2147505508
+    SW   $1, $2, 0
+    LWI  $2, 2147505509
+    SW   $1, $2, 0
+    LWI  $2, 2147505510
+    SW   $1, $2, 0
+    LWI  $2, 2147505511
+    SW   $1, $2, 0
+    LWI  $2, 2147505512
+    SW   $1, $2, 0
+    LWI  $2, 2147505513
+    SW   $1, $2, 0
+    LWI  $2, 2147505514
+    SW   $1, $2, 0
+    LWI  $2, 2147505515
+    SW   $1, $2, 0
+    LWI  $2, 2147505516
+    SW   $1, $2, 0
+    LWI  $2, 2147505517
+    SW   $1, $2, 0
+    LWI  $2, 2147505518
+    SW   $1, $2, 0
+    LWI  $2, 2147505519
+    SW   $1, $2, 0
+    LWI  $2, 2147505520
+    SW   $1, $2, 0
+    LWI  $2, 2147505521
+    SW   $1, $2, 0
+    LWI  $2, 2147505522
+    SW   $1, $2, 0
+    LWI  $2, 2147505523
+    SW   $1, $2, 0
+    LWI  $2, 2147505524
+    SW   $1, $2, 0
+    LWI  $2, 2147505525
+    SW   $1, $2, 0
+    LWI  $2, 2147505526
+    SW   $1, $2, 0
+    LWI  $2, 2147505527
+    SW   $1, $2, 0
+    LWI  $2, 2147505528
+    SW   $1, $2, 0
+    LWI  $2, 2147505529
+    SW   $1, $2, 0
+    LWI  $2, 2147505530
+    SW   $1, $2, 0
+    LWI  $2, 2147505531
+    SW   $1, $2, 0
+    LWI  $2, 2147505532
+    SW   $1, $2, 0
+    LWI  $2, 2147505533
+    SW   $1, $2, 0
+    LWI  $2, 2147505534
+    SW   $1, $2, 0
+    LWI  $2, 2147505535
+    SW   $1, $2, 0
+    LWI  $2, 2147505536
+    SW   $1, $2, 0
+    LWI  $2, 2147505537
+    SW   $1, $2, 0
+    LWI  $2, 2147505538
+    SW   $1, $2, 0
+    LWI  $2, 2147505539
+    SW   $1, $2, 0
+    LWI  $2, 2147505540
+    SW   $1, $2, 0
+    LWI  $2, 2147505541
+    SW   $1, $2, 0
+    LWI  $2, 2147505542
+    SW   $1, $2, 0
+    LWI  $2, 2147505543
+    SW   $1, $2, 0
+    LWI  $2, 2147505544
+    SW   $1, $2, 0
+    LWI  $2, 2147505545
+    SW   $1, $2, 0
+    LWI  $2, 2147505546
+    SW   $1, $2, 0
+    LWI  $2, 2147505547
+    SW   $1, $2, 0
+    LWI  $2, 2147505548
+    SW   $1, $2, 0
+    LWI  $2, 2147505549
+    SW   $1, $2, 0
+    LWI  $2, 2147505550
+    SW   $1, $2, 0
+    LWI  $2, 2147505551
+    SW   $1, $2, 0
+    LWI  $2, 2147505552
+    SW   $1, $2, 0
+    LWI  $2, 2147505553
+    SW   $1, $2, 0
+    LWI  $2, 2147505564
+    SW   $1, $2, 0
+    LWI  $2, 2147505571
+    SW   $1, $2, 0
+    LWI  $2, 2147505572
+    SW   $1, $2, 0
+    LWI  $2, 2147505573
+    SW   $1, $2, 0
+    LWI  $2, 2147505574
+    SW   $1, $2, 0
+    LWI  $2, 2147505584
+    SW   $1, $2, 0
+    LWI  $2, 2147505585
+    SW   $1, $2, 0
+    LWI  $2, 2147505586
+    SW   $1, $2, 0
+    LWI  $2, 2147505587
+    SW   $1, $2, 0
+    LWI  $2, 2147505588
+    SW   $1, $2, 0
+    LWI  $2, 2147505589
+    SW   $1, $2, 0
+    LWI  $2, 2147505593
+    SW   $1, $2, 0
+    LWI  $2, 2147505594
+    SW   $1, $2, 0
+    LWI  $2, 2147505595
+    SW   $1, $2, 0
+    LWI  $2, 2147505596
+    SW   $1, $2, 0
+    LWI  $2, 2147505597
+    SW   $1, $2, 0
+    LWI  $2, 2147505598
+    SW   $1, $2, 0
+    LWI  $2, 2147505599
+    SW   $1, $2, 0
+    LWI  $2, 2147505600
+    SW   $1, $2, 0
+    LWI  $2, 2147505601
+    SW   $1, $2, 0
+    LWI  $2, 2147505602
+    SW   $1, $2, 0
+    LWI  $2, 2147505603
+    SW   $1, $2, 0
+    LWI  $2, 2147505604
+    SW   $1, $2, 0
+    LWI  $2, 2147505605
+    SW   $1, $2, 0
+    LWI  $2, 2147505606
+    SW   $1, $2, 0
+    LWI  $2, 2147505607
+    SW   $1, $2, 0
+    LWI  $2, 2147505608
+    SW   $1, $2, 0
+    LWI  $2, 2147505609
+    SW   $1, $2, 0
+    LWI  $2, 2147505610
+    SW   $1, $2, 0
+    LWI  $2, 2147505611
+    SW   $1, $2, 0
+    LWI  $2, 2147505612
+    SW   $1, $2, 0
+    LWI  $2, 2147505613
+    SW   $1, $2, 0
+    LWI  $2, 2147505614
+    SW   $1, $2, 0
+    LWI  $2, 2147505615
+    SW   $1, $2, 0
+    LWI  $2, 2147505616
+    SW   $1, $2, 0
+    LWI  $2, 2147505617
+    SW   $1, $2, 0
+    LWI  $2, 2147505618
+    SW   $1, $2, 0
+    LWI  $2, 2147505619
+    SW   $1, $2, 0
+    LWI  $2, 2147505620
+    SW   $1, $2, 0
+    LWI  $2, 2147505621
+    SW   $1, $2, 0
+    LWI  $2, 2147505622
+    SW   $1, $2, 0
+    LWI  $2, 2147505623
+    SW   $1, $2, 0
+    LWI  $2, 2147505624
+    SW   $1, $2, 0
+    LWI  $2, 2147505625
+    SW   $1, $2, 0
+    LWI  $2, 2147505626
+    SW   $1, $2, 0
+    LWI  $2, 2147505627
+    SW   $1, $2, 0
+    LWI  $2, 2147505628
+    SW   $1, $2, 0
+    LWI  $2, 2147505629
+    SW   $1, $2, 0
+    LWI  $2, 2147505630
+    SW   $1, $2, 0
+    LWI  $2, 2147505631
+    SW   $1, $2, 0
+    LWI  $2, 2147505632
+    SW   $1, $2, 0
+    LWI  $2, 2147505633
+    SW   $1, $2, 0
+    LWI  $2, 2147505634
+    SW   $1, $2, 0
+    LWI  $2, 2147505635
+    SW   $1, $2, 0
+    LWI  $2, 2147505636
+    SW   $1, $2, 0
+    LWI  $2, 2147505637
+    SW   $1, $2, 0
+    LWI  $2, 2147505638
+    SW   $1, $2, 0
+    LWI  $2, 2147505639
+    SW   $1, $2, 0
+    LWI  $2, 2147505640
+    SW   $1, $2, 0
+    LWI  $2, 2147505641
+    SW   $1, $2, 0
+    LWI  $2, 2147505642
+    SW   $1, $2, 0
+    LWI  $2, 2147505643
+    SW   $1, $2, 0
+    LWI  $2, 2147505644
+    SW   $1, $2, 0
+    LWI  $2, 2147505645
+    SW   $1, $2, 0
+    LWI  $2, 2147505646
+    SW   $1, $2, 0
+    LWI  $2, 2147505647
+    SW   $1, $2, 0
+    LWI  $2, 2147505648
+    SW   $1, $2, 0
+    LWI  $2, 2147505649
+    SW   $1, $2, 0
+    LWI  $2, 2147505660
+    SW   $1, $2, 0
+    LWI  $2, 2147505667
+    SW   $1, $2, 0
+    LWI  $2, 2147505668
+    SW   $1, $2, 0
+    LWI  $2, 2147505669
+    SW   $1, $2, 0
+    LWI  $2, 2147505670
+    SW   $1, $2, 0
+    LWI  $2, 2147505683
+    SW   $1, $2, 0
+    LWI  $2, 2147505684
+    SW   $1, $2, 0
+    LWI  $2, 2147505685
+    SW   $1, $2, 0
+    LWI  $2, 2147505689
+    SW   $1, $2, 0
+    LWI  $2, 2147505690
+    SW   $1, $2, 0
+    LWI  $2, 2147505691
+    SW   $1, $2, 0
+    LWI  $2, 2147505692
+    SW   $1, $2, 0
+    LWI  $2, 2147505693
+    SW   $1, $2, 0
+    LWI  $2, 2147505694
+    SW   $1, $2, 0
+    LWI  $2, 2147505695
+    SW   $1, $2, 0
+    LWI  $2, 2147505696
+    SW   $1, $2, 0
+    LWI  $2, 2147505697
+    SW   $1, $2, 0
+    LWI  $2, 2147505698
+    SW   $1, $2, 0
+    LWI  $2, 2147505699
+    SW   $1, $2, 0
+    LWI  $2, 2147505700
+    SW   $1, $2, 0
+    LWI  $2, 2147505701
+    SW   $1, $2, 0
+    LWI  $2, 2147505702
+    SW   $1, $2, 0
+    LWI  $2, 2147505703
+    SW   $1, $2, 0
+    LWI  $2, 2147505704
+    SW   $1, $2, 0
+    LWI  $2, 2147505705
+    SW   $1, $2, 0
+    LWI  $2, 2147505706
+    SW   $1, $2, 0
+    LWI  $2, 2147505707
+    SW   $1, $2, 0
+    LWI  $2, 2147505708
+    SW   $1, $2, 0
+    LWI  $2, 2147505709
+    SW   $1, $2, 0
+    LWI  $2, 2147505710
+    SW   $1, $2, 0
+    LWI  $2, 2147505711
+    SW   $1, $2, 0
+    LWI  $2, 2147505712
+    SW   $1, $2, 0
+    LWI  $2, 2147505713
+    SW   $1, $2, 0
+    LWI  $2, 2147505714
+    SW   $1, $2, 0
+    LWI  $2, 2147505715
+    SW   $1, $2, 0
+    LWI  $2, 2147505716
+    SW   $1, $2, 0
+    LWI  $2, 2147505717
+    SW   $1, $2, 0
+    LWI  $2, 2147505718
+    SW   $1, $2, 0
+    LWI  $2, 2147505719
+    SW   $1, $2, 0
+    LWI  $2, 2147505720
+    SW   $1, $2, 0
+    LWI  $2, 2147505721
+    SW   $1, $2, 0
+    LWI  $2, 2147505722
+    SW   $1, $2, 0
+    LWI  $2, 2147505723
+    SW   $1, $2, 0
+    LWI  $2, 2147505724
+    SW   $1, $2, 0
+    LWI  $2, 2147505725
+    SW   $1, $2, 0
+    LWI  $2, 2147505726
+    SW   $1, $2, 0
+    LWI  $2, 2147505727
+    SW   $1, $2, 0
+    LWI  $2, 2147505728
+    SW   $1, $2, 0
+    LWI  $2, 2147505729
+    SW   $1, $2, 0
+    LWI  $2, 2147505730
+    SW   $1, $2, 0
+    LWI  $2, 2147505731
+    SW   $1, $2, 0
+    LWI  $2, 2147505732
+    SW   $1, $2, 0
+    LWI  $2, 2147505733
+    SW   $1, $2, 0
+    LWI  $2, 2147505734
+    SW   $1, $2, 0
+    LWI  $2, 2147505735
+    SW   $1, $2, 0
+    LWI  $2, 2147505736
+    SW   $1, $2, 0
+    LWI  $2, 2147505737
+    SW   $1, $2, 0
+    LWI  $2, 2147505738
+    SW   $1, $2, 0
+    LWI  $2, 2147505739
+    SW   $1, $2, 0
+    LWI  $2, 2147505740
+    SW   $1, $2, 0
+    LWI  $2, 2147505741
+    SW   $1, $2, 0
+    LWI  $2, 2147505742
+    SW   $1, $2, 0
+    LWI  $2, 2147505743
+    SW   $1, $2, 0
+    LWI  $2, 2147505744
+    SW   $1, $2, 0
+    LWI  $2, 2147505745
+    SW   $1, $2, 0
+    LWI  $2, 2147505756
+    SW   $1, $2, 0
+    LWI  $2, 2147505763
+    SW   $1, $2, 0
+    LWI  $2, 2147505764
+    SW   $1, $2, 0
+    LWI  $2, 2147505765
+    SW   $1, $2, 0
+    LWI  $2, 2147505766
+    SW   $1, $2, 0
+    LWI  $2, 2147505767
+    SW   $1, $2, 0
+    LWI  $2, 2147505780
+    SW   $1, $2, 0
+    LWI  $2, 2147505781
+    SW   $1, $2, 0
+    LWI  $2, 2147505785
+    SW   $1, $2, 0
+    LWI  $2, 2147505786
+    SW   $1, $2, 0
+    LWI  $2, 2147505787
+    SW   $1, $2, 0
+    LWI  $2, 2147505788
+    SW   $1, $2, 0
+    LWI  $2, 2147505789
+    SW   $1, $2, 0
+    LWI  $2, 2147505790
+    SW   $1, $2, 0
+    LWI  $2, 2147505791
+    SW   $1, $2, 0
+    LWI  $2, 2147505792
+    SW   $1, $2, 0
+    LWI  $2, 2147505793
+    SW   $1, $2, 0
+    LWI  $2, 2147505794
+    SW   $1, $2, 0
+    LWI  $2, 2147505795
+    SW   $1, $2, 0
+    LWI  $2, 2147505796
+    SW   $1, $2, 0
+    LWI  $2, 2147505797
+    SW   $1, $2, 0
+    LWI  $2, 2147505798
+    SW   $1, $2, 0
+    LWI  $2, 2147505799
+    SW   $1, $2, 0
+    LWI  $2, 2147505800
+    SW   $1, $2, 0
+    LWI  $2, 2147505801
+    SW   $1, $2, 0
+    LWI  $2, 2147505802
+    SW   $1, $2, 0
+    LWI  $2, 2147505803
+    SW   $1, $2, 0
+    LWI  $2, 2147505804
+    SW   $1, $2, 0
+    LWI  $2, 2147505805
+    SW   $1, $2, 0
+    LWI  $2, 2147505806
+    SW   $1, $2, 0
+    LWI  $2, 2147505807
+    SW   $1, $2, 0
+    LWI  $2, 2147505808
+    SW   $1, $2, 0
+    LWI  $2, 2147505809
+    SW   $1, $2, 0
+    LWI  $2, 2147505810
+    SW   $1, $2, 0
+    LWI  $2, 2147505811
+    SW   $1, $2, 0
+    LWI  $2, 2147505812
+    SW   $1, $2, 0
+    LWI  $2, 2147505813
+    SW   $1, $2, 0
+    LWI  $2, 2147505814
+    SW   $1, $2, 0
+    LWI  $2, 2147505815
+    SW   $1, $2, 0
+    LWI  $2, 2147505816
+    SW   $1, $2, 0
+    LWI  $2, 2147505817
+    SW   $1, $2, 0
+    LWI  $2, 2147505818
+    SW   $1, $2, 0
+    LWI  $2, 2147505819
+    SW   $1, $2, 0
+    LWI  $2, 2147505820
+    SW   $1, $2, 0
+    LWI  $2, 2147505821
+    SW   $1, $2, 0
+    LWI  $2, 2147505822
+    SW   $1, $2, 0
+    LWI  $2, 2147505823
+    SW   $1, $2, 0
+    LWI  $2, 2147505824
+    SW   $1, $2, 0
+    LWI  $2, 2147505825
+    SW   $1, $2, 0
+    LWI  $2, 2147505826
+    SW   $1, $2, 0
+    LWI  $2, 2147505827
+    SW   $1, $2, 0
+    LWI  $2, 2147505828
+    SW   $1, $2, 0
+    LWI  $2, 2147505829
+    SW   $1, $2, 0
+    LWI  $2, 2147505830
+    SW   $1, $2, 0
+    LWI  $2, 2147505831
+    SW   $1, $2, 0
+    LWI  $2, 2147505832
+    SW   $1, $2, 0
+    LWI  $2, 2147505833
+    SW   $1, $2, 0
+    LWI  $2, 2147505834
+    SW   $1, $2, 0
+    LWI  $2, 2147505835
+    SW   $1, $2, 0
+    LWI  $2, 2147505836
+    SW   $1, $2, 0
+    LWI  $2, 2147505837
+    SW   $1, $2, 0
+    LWI  $2, 2147505838
+    SW   $1, $2, 0
+    LWI  $2, 2147505839
+    SW   $1, $2, 0
+    LWI  $2, 2147505840
+    SW   $1, $2, 0
+    LWI  $2, 2147505841
+    SW   $1, $2, 0
+    LWI  $2, 2147505852
+    SW   $1, $2, 0
+    LWI  $2, 2147505937
+    SW   $1, $2, 0
+    LWI  $2, 2147505948
+    SW   $1, $2, 0
+    LWI  $2, 2147506033
+    SW   $1, $2, 0
+    LWI  $2, 2147506044
+    SW   $1, $2, 0
+    LWI  $2, 2147506129
+    SW   $1, $2, 0
+    LWI  $2, 2147506140
+    SW   $1, $2, 0
+    LLI  $1, 0b1100101110100110
+    LWI  $2, 2147500004
+    SW   $1, $2, 0
+    LWI  $2, 2147500012
+    SW   $1, $2, 0
+    LWI  $2, 2147500204
+    SW   $1, $2, 0
+    LWI  $2, 2147500300
+    SW   $1, $2, 0
+    LWI  $2, 2147500396
+    SW   $1, $2, 0
+    LWI  $2, 2147500484
+    SW   $1, $2, 0
+    LWI  $2, 2147500580
+    SW   $1, $2, 0
+    LWI  $2, 2147500676
+    SW   $1, $2, 0
+    LWI  $2, 2147500684
+    SW   $1, $2, 0
+    LWI  $2, 2147500772
+    SW   $1, $2, 0
+    LWI  $2, 2147500780
+    SW   $1, $2, 0
+    LWI  $2, 2147500868
+    SW   $1, $2, 0
+    LWI  $2, 2147500876
+    SW   $1, $2, 0
+    LWI  $2, 2147505362
+    SW   $1, $2, 0
+    LLI  $1, 0b1100101101000100
+    LWI  $2, 2147500005
+    SW   $1, $2, 0
+    LWI  $2, 2147500006
+    SW   $1, $2, 0
+    LWI  $2, 2147500007
+    SW   $1, $2, 0
+    LWI  $2, 2147500008
+    SW   $1, $2, 0
+    LWI  $2, 2147500009
+    SW   $1, $2, 0
+    LWI  $2, 2147500010
+    SW   $1, $2, 0
+    LWI  $2, 2147500011
+    SW   $1, $2, 0
+    LWI  $2, 2147500292
+    SW   $1, $2, 0
+    LWI  $2, 2147500966
+    SW   $1, $2, 0
+    LWI  $2, 2147500967
+    SW   $1, $2, 0
+    LWI  $2, 2147500968
+    SW   $1, $2, 0
+    LWI  $2, 2147500969
+    SW   $1, $2, 0
+    LWI  $2, 2147500970
+    SW   $1, $2, 0
+    LWI  $2, 2147500971
+    SW   $1, $2, 0
+    LWI  $2, 2147504980
+    SW   $1, $2, 0
+    LWI  $2, 2147505074
+    SW   $1, $2, 0
+    LWI  $2, 2147505458
+    SW   $1, $2, 0
+    LLI  $1, 0b1010010111110000
+    LWI  $2, 2147500013
+    SW   $1, $2, 0
+    LLI  $1, 0b0011110100101001
+    LWI  $2, 2147500014
+    SW   $1, $2, 0
+    LLI  $1, 0b0011110010101001
+    LWI  $2, 2147500015
+    SW   $1, $2, 0
+    LLI  $1, 0b0100010010001010
+    LWI  $2, 2147500016
+    SW   $1, $2, 0
+    LLI  $1, 0b0110001101101111
+    LWI  $2, 2147500017
+    SW   $1, $2, 0
+    LWI  $2, 2147500023
+    SW   $1, $2, 0
+    LWI  $2, 2147500115
+    SW   $1, $2, 0
+    LWI  $2, 2147501685
+    SW   $1, $2, 0
+    LWI  $2, 2147501687
+    SW   $1, $2, 0
+    LWI  $2, 2147501770
+    SW   $1, $2, 0
+    LWI  $2, 2147501781
+    SW   $1, $2, 0
+    LWI  $2, 2147501874
+    SW   $1, $2, 0
+    LLI  $1, 0b0101001110101100
+    LWI  $2, 2147500018
+    SW   $1, $2, 0
+    LLI  $1, 0b0011010000100111
+    LWI  $2, 2147500019
+    SW   $1, $2, 0
+    LLI  $1, 0b0110001110001111
+    LWI  $2, 2147500020
+    SW   $1, $2, 0
+    LLI  $1, 0b0100101110101100
+    LWI  $2, 2147500022
+    SW   $1, $2, 0
+    LWI  $2, 2147500110
+    SW   $1, $2, 0
+    LLI  $1, 0b0100010101001001
+    LWI  $2, 2147500026
+    SW   $1, $2, 0
+    LLI  $1, 0b0101010001101100
+    LWI  $2, 2147500027
+    SW   $1, $2, 0
+    LLI  $1, 0b0101010001001101
+    LWI  $2, 2147500028
+    SW   $1, $2, 0
+    LLI  $1, 0b1100101110000110
+    LWI  $2, 2147500100
+    SW   $1, $2, 0
+    LLI  $1, 0b1101101110100101
+    LWI  $2, 2147500101
+    SW   $1, $2, 0
+    LWI  $2, 2147500486
+    SW   $1, $2, 0
+    LWI  $2, 2147500487
+    SW   $1, $2, 0
+    LWI  $2, 2147500682
+    SW   $1, $2, 0
+    LWI  $2, 2147500869
+    SW   $1, $2, 0
+    LWI  $2, 2147505076
+    SW   $1, $2, 0
+    LWI  $2, 2147505939
+    SW   $1, $2, 0
+    LLI  $1, 0b1101101111000101
+    LWI  $2, 2147500102
+    SW   $1, $2, 0
+    LWI  $2, 2147500103
+    SW   $1, $2, 0
+    LWI  $2, 2147500201
+    SW   $1, $2, 0
+    LWI  $2, 2147500202
+    SW   $1, $2, 0
+    LWI  $2, 2147500203
+    SW   $1, $2, 0
+    LWI  $2, 2147500297
+    SW   $1, $2, 0
+    LWI  $2, 2147500298
+    SW   $1, $2, 0
+    LWI  $2, 2147500299
+    SW   $1, $2, 0
+    LWI  $2, 2147500393
+    SW   $1, $2, 0
+    LWI  $2, 2147500488
+    SW   $1, $2, 0
+    LWI  $2, 2147500489
+    SW   $1, $2, 0
+    LWI  $2, 2147500582
+    SW   $1, $2, 0
+    LWI  $2, 2147500583
+    SW   $1, $2, 0
+    LWI  $2, 2147500584
+    SW   $1, $2, 0
+    LWI  $2, 2147500678
+    SW   $1, $2, 0
+    LWI  $2, 2147500679
+    SW   $1, $2, 0
+    LWI  $2, 2147500680
+    SW   $1, $2, 0
+    LWI  $2, 2147500681
+    SW   $1, $2, 0
+    LWI  $2, 2147500774
+    SW   $1, $2, 0
+    LWI  $2, 2147500775
+    SW   $1, $2, 0
+    LWI  $2, 2147500776
+    SW   $1, $2, 0
+    LWI  $2, 2147500777
+    SW   $1, $2, 0
+    LWI  $2, 2147500778
+    SW   $1, $2, 0
+    LWI  $2, 2147500779
+    SW   $1, $2, 0
+    LWI  $2, 2147505556
+    SW   $1, $2, 0
+    LWI  $2, 2147505652
+    SW   $1, $2, 0
+    LWI  $2, 2147505747
+    SW   $1, $2, 0
+    LLI  $1, 0b1101101111000110
+    LWI  $2, 2147500104
+    SW   $1, $2, 0
+    LWI  $2, 2147500105
+    SW   $1, $2, 0
+    LWI  $2, 2147500106
+    SW   $1, $2, 0
+    LWI  $2, 2147500585
+    SW   $1, $2, 0
+    LWI  $2, 2147500871
+    SW   $1, $2, 0
+    LWI  $2, 2147500872
+    SW   $1, $2, 0
+    LWI  $2, 2147500873
+    SW   $1, $2, 0
+    LWI  $2, 2147500874
+    SW   $1, $2, 0
+    LWI  $2, 2147505651
+    SW   $1, $2, 0
+    LLI  $1, 0b1110001111000110
+    LWI  $2, 2147500107
+    SW   $1, $2, 0
+    LWI  $2, 2147500870
+    SW   $1, $2, 0
+    LWI  $2, 2147500875
+    SW   $1, $2, 0
+    LWI  $2, 2147505748
+    SW   $1, $2, 0
+    LLI  $1, 0b1100101110000101
+    LWI  $2, 2147500108
+    SW   $1, $2, 0
+    LLI  $1, 0b0110110100001011
+    LWI  $2, 2147500109
+    SW   $1, $2, 0
+    LLI  $1, 0b0101110000101101
+    LWI  $2, 2147500111
+    SW   $1, $2, 0
+    LLI  $1, 0b0011110110001000
+    LWI  $2, 2147500112
+    SW   $1, $2, 0
+    LLI  $1, 0b0110101101101111
+    LWI  $2, 2147500113
+    SW   $1, $2, 0
+    LWI  $2, 2147501677
+    SW   $1, $2, 0
+    LWI  $2, 2147501783
+    SW   $1, $2, 0
+    LWI  $2, 2147501870
+    SW   $1, $2, 0
+    LLI  $1, 0b0110101101001111
+    LWI  $2, 2147500114
+    SW   $1, $2, 0
+    LWI  $2, 2147505846
+    SW   $1, $2, 0
+    LLI  $1, 0b0101010000101101
+    LWI  $2, 2147500117
+    SW   $1, $2, 0
+    LWI  $2, 2147500209
+    SW   $1, $2, 0
+    LLI  $1, 0b0101101111101110
+    LWI  $2, 2147500118
+    SW   $1, $2, 0
+    LWI  $2, 2147500213
+    SW   $1, $2, 0
+    LLI  $1, 0b0110001110101111
+    LWI  $2, 2147500121
+    SW   $1, $2, 0
+    LLI  $1, 0b0011110101001001
+    LWI  $2, 2147500122
+    SW   $1, $2, 0
+    LLI  $1, 0b0110101101110000
+    LWI  $2, 2147500123
+    SW   $1, $2, 0
+    LWI  $2, 2147501689
+    SW   $1, $2, 0
+    LWI  $2, 2147501869
+    SW   $1, $2, 0
+    LWI  $2, 2147501872
+    SW   $1, $2, 0
+    LLI  $1, 0b1100101101100100
+    LWI  $2, 2147500196
+    SW   $1, $2, 0
+    LWI  $2, 2147500388
+    SW   $1, $2, 0
+    LLI  $1, 0b1101110000001000
+    LWI  $2, 2147500197
+    SW   $1, $2, 0
+    LLI  $1, 0b1111011101111011
+    LWI  $2, 2147500198
+    SW   $1, $2, 0
+    LWI  $2, 2147500372
+    SW   $1, $2, 0
+    LWI  $2, 2147500373
+    SW   $1, $2, 0
+    LWI  $2, 2147500464
+    SW   $1, $2, 0
+    LWI  $2, 2147500471
+    SW   $1, $2, 0
+    LWI  $2, 2147500660
+    SW   $1, $2, 0
+    LWI  $2, 2147500666
+    SW   $1, $2, 0
+    LWI  $2, 2147500857
+    SW   $1, $2, 0
+    LWI  $2, 2147501050
+    SW   $1, $2, 0
+    LWI  $2, 2147501139
+    SW   $1, $2, 0
+    LWI  $2, 2147501144
+    SW   $1, $2, 0
+    LWI  $2, 2147501238
+    SW   $1, $2, 0
+    LWI  $2, 2147501242
     SW   $1, $2, 0
     LWI  $2, 2147501337
     SW   $1, $2, 0
-    LWI  $2, 2147501350
+    LWI  $2, 2147501523
     SW   $1, $2, 0
-    LWI  $2, 2147501433
+    LLI  $1, 0b1110010010001010
+    LWI  $2, 2147500199
     SW   $1, $2, 0
-    LWI  $2, 2147501446
+    LLI  $1, 0b1101101110000100
+    LWI  $2, 2147500200
     SW   $1, $2, 0
-    LWI  $2, 2147501529
+    LWI  $2, 2147500296
     SW   $1, $2, 0
-    LWI  $2, 2147501542
+    LWI  $2, 2147500392
     SW   $1, $2, 0
-    LWI  $2, 2147501625
+    LLI  $1, 0b1010010111010000
+    LWI  $2, 2147500205
     SW   $1, $2, 0
-    LWI  $2, 2147501638
+    LWI  $2, 2147500593
     SW   $1, $2, 0
-    LWI  $2, 2147501721
+    LWI  $2, 2147500688
     SW   $1, $2, 0
-    LWI  $2, 2147501734
+    LLI  $1, 0b0101101101101110
+    LWI  $2, 2147500206
     SW   $1, $2, 0
-    LWI  $2, 2147501817
+    LLI  $1, 0b0100110011001011
+    LWI  $2, 2147500208
     SW   $1, $2, 0
-    LWI  $2, 2147501830
+    LWI  $2, 2147500218
     SW   $1, $2, 0
-    LWI  $2, 2147501913
+    LLI  $1, 0b0100001110101010
+    LWI  $2, 2147500211
     SW   $1, $2, 0
-    LWI  $2, 2147501926
+    LWI  $2, 2147500212
     SW   $1, $2, 0
-    LWI  $2, 2147502009
+    LLI  $1, 0b0110001110101110
+    LWI  $2, 2147500214
     SW   $1, $2, 0
-    LWI  $2, 2147502022
+    LWI  $2, 2147501674
     SW   $1, $2, 0
-    LWI  $2, 2147502105
+    LWI  $2, 2147501773
     SW   $1, $2, 0
-    LWI  $2, 2147502118
+    LLI  $1, 0b0101010001001100
+    LWI  $2, 2147500217
     SW   $1, $2, 0
-    LWI  $2, 2147502201
+    LWI  $2, 2147501772
     SW   $1, $2, 0
-    LWI  $2, 2147502214
+    LWI  $2, 2147501867
     SW   $1, $2, 0
-    LWI  $2, 2147502297
+    LLI  $1, 0b1101110000101000
+    LWI  $2, 2147500293
     SW   $1, $2, 0
-    LWI  $2, 2147502310
+    LWI  $2, 2147505459
     SW   $1, $2, 0
-    LWI  $2, 2147502393
+    LLI  $1, 0b1111111111111111
+    LWI  $2, 2147500294
     SW   $1, $2, 0
-    LWI  $2, 2147502406
+    LWI  $2, 2147500955
     SW   $1, $2, 0
-    LWI  $2, 2147502489
+    LWI  $2, 2147501333
     SW   $1, $2, 0
-    LWI  $2, 2147502502
+    LLI  $1, 0b1110010011001100
+    LWI  $2, 2147500295
     SW   $1, $2, 0
-    LWI  $2, 2147502585
+    LWI  $2, 2147500391
     SW   $1, $2, 0
-    LWI  $2, 2147502598
+    LLI  $1, 0b1100111010010100
+    LWI  $2, 2147500301
     SW   $1, $2, 0
-    LWI  $2, 2147502681
+    LLI  $1, 0b1100011000110010
+    LWI  $2, 2147500307
     SW   $1, $2, 0
-    LWI  $2, 2147502694
+    LLI  $1, 0b0100110010101001
+    LWI  $2, 2147500308
     SW   $1, $2, 0
-    LWI  $2, 2147502777
+    LLI  $1, 0b0111111000001101
+    LWI  $2, 2147500310
     SW   $1, $2, 0
-    LWI  $2, 2147502790
-    SW   $1, $2, 0
-    LWI  $2, 2147502873
-    SW   $1, $2, 0
-    LWI  $2, 2147502886
-    SW   $1, $2, 0
-    LWI  $2, 2147502969
-    SW   $1, $2, 0
-    LWI  $2, 2147502982
-    SW   $1, $2, 0
-    LWI  $2, 2147503065
-    SW   $1, $2, 0
-    LWI  $2, 2147503078
-    SW   $1, $2, 0
-    LWI  $2, 2147503161
-    SW   $1, $2, 0
-    LWI  $2, 2147503174
-    SW   $1, $2, 0
-    LWI  $2, 2147503257
-    SW   $1, $2, 0
-    LWI  $2, 2147503270
-    SW   $1, $2, 0
-    LWI  $2, 2147503353
-    SW   $1, $2, 0
-    LWI  $2, 2147503366
-    SW   $1, $2, 0
-    LWI  $2, 2147503449
-    SW   $1, $2, 0
-    LWI  $2, 2147503462
-    SW   $1, $2, 0
-    LWI  $2, 2147503545
-    SW   $1, $2, 0
-    LWI  $2, 2147503558
-    SW   $1, $2, 0
-    LWI  $2, 2147503641
-    SW   $1, $2, 0
-    LWI  $2, 2147503654
-    SW   $1, $2, 0
-    LWI  $2, 2147503737
-    SW   $1, $2, 0
-    LWI  $2, 2147503750
-    SW   $1, $2, 0
-    LWI  $2, 2147503833
-    SW   $1, $2, 0
-    LWI  $2, 2147503846
-    SW   $1, $2, 0
-    LWI  $2, 2147503929
-    SW   $1, $2, 0
-    LWI  $2, 2147503942
-    SW   $1, $2, 0
-    LWI  $2, 2147504025
-    SW   $1, $2, 0
-    LWI  $2, 2147504038
-    SW   $1, $2, 0
-    LWI  $2, 2147504121
-    SW   $1, $2, 0
-    LWI  $2, 2147504134
-    SW   $1, $2, 0
-    LWI  $2, 2147504217
-    SW   $1, $2, 0
-    LWI  $2, 2147504230
-    SW   $1, $2, 0
-    LWI  $2, 2147504313
-    SW   $1, $2, 0
-    LWI  $2, 2147504326
-    SW   $1, $2, 0
-    LWI  $2, 2147504409
-    SW   $1, $2, 0
-    LWI  $2, 2147504422
-    SW   $1, $2, 0
-    LWI  $2, 2147504505
-    SW   $1, $2, 0
-    LWI  $2, 2147504518
-    SW   $1, $2, 0
-    LWI  $2, 2147504601
-    SW   $1, $2, 0
-    LWI  $2, 2147504614
-    SW   $1, $2, 0
-    LWI  $2, 2147504697
-    SW   $1, $2, 0
-    LWI  $2, 2147504710
-    SW   $1, $2, 0
-    LWI  $2, 2147504793
-    SW   $1, $2, 0
-    LWI  $2, 2147504806
-    SW   $1, $2, 0
-    LWI  $2, 2147504889
-    SW   $1, $2, 0
-    LWI  $2, 2147504902
-    SW   $1, $2, 0
-    LWI  $2, 2147504985
-    SW   $1, $2, 0
-    LLI  $1, 0b0111001110001110
-    LWI  $2, 2147501646
-    SW   $1, $2, 0
-    LWI  $2, 2147501712
-    SW   $1, $2, 0
-    LWI  $2, 2147501742
-    SW   $1, $2, 0
-    LWI  $2, 2147501808
-    SW   $1, $2, 0
-    LWI  $2, 2147502035
-    SW   $1, $2, 0
-    LWI  $2, 2147502045
-    SW   $1, $2, 0
-    LWI  $2, 2147502080
-    SW   $1, $2, 0
-    LWI  $2, 2147502138
-    SW   $1, $2, 0
-    LWI  $2, 2147502173
-    SW   $1, $2, 0
-    LWI  $2, 2147502520
-    SW   $1, $2, 0
-    LWI  $2, 2147502535
-    SW   $1, $2, 0
-    LWI  $2, 2147502565
-    SW   $1, $2, 0
-    LWI  $2, 2147502576
-    SW   $1, $2, 0
-    LWI  $2, 2147503281
-    SW   $1, $2, 0
-    LWI  $2, 2147503346
-    SW   $1, $2, 0
-    LWI  $2, 2147503578
-    SW   $1, $2, 0
-    LWI  $2, 2147503708
-    SW   $1, $2, 0
-    LWI  $2, 2147503723
-    SW   $1, $2, 0
-    LWI  $2, 2147503766
-    SW   $1, $2, 0
-    LWI  $2, 2147503791
-    SW   $1, $2, 0
-    LWI  $2, 2147504054
-    SW   $1, $2, 0
-    LWI  $2, 2147504079
-    SW   $1, $2, 0
-    LWI  $2, 2147504154
-    SW   $1, $2, 0
-    LLI  $1, 0b1010110101110101
-    LWI  $2, 2147501647
-    SW   $1, $2, 0
-    LWI  $2, 2147501714
-    SW   $1, $2, 0
-    LWI  $2, 2147502089
-    SW   $1, $2, 0
-    LWI  $2, 2147502141
-    SW   $1, $2, 0
-    LWI  $2, 2147502176
-    SW   $1, $2, 0
-    LWI  $2, 2147503704
-    SW   $1, $2, 0
-    LWI  $2, 2147503705
-    SW   $1, $2, 0
-    LWI  $2, 2147503719
-    SW   $1, $2, 0
-    LWI  $2, 2147503720
-    SW   $1, $2, 0
-    LWI  $2, 2147503897
-    SW   $1, $2, 0
-    LWI  $2, 2147503912
-    SW   $1, $2, 0
-    LWI  $2, 2147503951
-    SW   $1, $2, 0
-    LWI  $2, 2147504067
-    SW   $1, $2, 0
-    LWI  $2, 2147504077
-    SW   $1, $2, 0
-    LWI  $2, 2147504097
-    SW   $1, $2, 0
-    LWI  $2, 2147504112
-    SW   $1, $2, 0
-    LWI  $2, 2147504142
-    SW   $1, $2, 0
-    LWI  $2, 2147504212
-    SW   $1, $2, 0
-    LLI  $1, 0b0011000110100110
-    LWI  $2, 2147501648
-    SW   $1, $2, 0
-    LWI  $2, 2147501938
-    SW   $1, $2, 0
-    LWI  $2, 2147501946
-    SW   $1, $2, 0
-    LWI  $2, 2147501963
-    SW   $1, $2, 0
-    LWI  $2, 2147501971
-    SW   $1, $2, 0
-    LWI  $2, 2147501973
-    SW   $1, $2, 0
-    LWI  $2, 2147501978
-    SW   $1, $2, 0
-    LWI  $2, 2147501981
-    SW   $1, $2, 0
-    LWI  $2, 2147501998
-    SW   $1, $2, 0
-    LWI  $2, 2147502151
-    SW   $1, $2, 0
-    LWI  $2, 2147502449
-    SW   $1, $2, 0
-    LWI  $2, 2147502474
-    SW   $1, $2, 0
-    LWI  $2, 2147502608
-    SW   $1, $2, 0
-    LWI  $2, 2147502616
-    SW   $1, $2, 0
-    LWI  $2, 2147502645
-    SW   $1, $2, 0
-    LWI  $2, 2147502651
-    SW   $1, $2, 0
-    LWI  $2, 2147502661
-    SW   $1, $2, 0
-    LWI  $2, 2147502672
-    SW   $1, $2, 0
-    LWI  $2, 2147503393
-    SW   $1, $2, 0
-    LWI  $2, 2147503403
-    SW   $1, $2, 0
-    LWI  $2, 2147503423
-    SW   $1, $2, 0
-    LWI  $2, 2147503428
-    SW   $1, $2, 0
-    LWI  $2, 2147503564
-    SW   $1, $2, 0
-    LWI  $2, 2147503567
-    SW   $1, $2, 0
-    LWI  $2, 2147503574
-    SW   $1, $2, 0
-    LWI  $2, 2147503599
-    SW   $1, $2, 0
-    LWI  $2, 2147503768
-    SW   $1, $2, 0
-    LWI  $2, 2147503793
-    SW   $1, $2, 0
-    LWI  $2, 2147504044
-    SW   $1, $2, 0
-    LWI  $2, 2147504056
-    SW   $1, $2, 0
-    LWI  $2, 2147504081
-    SW   $1, $2, 0
-    LWI  $2, 2147504083
-    SW   $1, $2, 0
-    LWI  $2, 2147504235
-    SW   $1, $2, 0
-    LWI  $2, 2147504246
-    SW   $1, $2, 0
-    LWI  $2, 2147504248
-    SW   $1, $2, 0
-    LWI  $2, 2147504257
-    SW   $1, $2, 0
-    LWI  $2, 2147504267
-    SW   $1, $2, 0
-    LWI  $2, 2147504271
-    SW   $1, $2, 0
-    LWI  $2, 2147504273
-    SW   $1, $2, 0
-    LWI  $2, 2147504287
-    SW   $1, $2, 0
-    LWI  $2, 2147504292
-    SW   $1, $2, 0
-    LWI  $2, 2147504301
-    SW   $1, $2, 0
-    LLI  $1, 0b1010010100010100
-    LWI  $2, 2147501713
-    SW   $1, $2, 0
-    LWI  $2, 2147501809
-    SW   $1, $2, 0
-    LWI  $2, 2147501845
-    SW   $1, $2, 0
-    LWI  $2, 2147501846
-    SW   $1, $2, 0
-    LWI  $2, 2147501860
-    SW   $1, $2, 0
-    LWI  $2, 2147501861
-    SW   $1, $2, 0
-    LWI  $2, 2147501890
-    SW   $1, $2, 0
-    LWI  $2, 2147501891
-    SW   $1, $2, 0
-    LWI  $2, 2147501942
-    SW   $1, $2, 0
-    LWI  $2, 2147501957
-    SW   $1, $2, 0
-    LWI  $2, 2147501987
-    SW   $1, $2, 0
-    LWI  $2, 2147502036
-    SW   $1, $2, 0
-    LWI  $2, 2147502039
-    SW   $1, $2, 0
-    LWI  $2, 2147502043
-    SW   $1, $2, 0
-    LWI  $2, 2147502051
-    SW   $1, $2, 0
-    LWI  $2, 2147502054
-    SW   $1, $2, 0
-    LWI  $2, 2147502058
-    SW   $1, $2, 0
-    LWI  $2, 2147502068
-    SW   $1, $2, 0
-    LWI  $2, 2147502073
-    SW   $1, $2, 0
-    LWI  $2, 2147502078
-    SW   $1, $2, 0
-    LWI  $2, 2147502081
-    SW   $1, $2, 0
-    LWI  $2, 2147502084
-    SW   $1, $2, 0
-    LWI  $2, 2147502086
-    SW   $1, $2, 0
-    LWI  $2, 2147502088
-    SW   $1, $2, 0
-    LWI  $2, 2147502093
-    SW   $1, $2, 0
-    LWI  $2, 2147502134
-    SW   $1, $2, 0
-    LWI  $2, 2147502140
-    SW   $1, $2, 0
-    LWI  $2, 2147502149
-    SW   $1, $2, 0
-    LWI  $2, 2147502166
-    SW   $1, $2, 0
-    LWI  $2, 2147502175
-    SW   $1, $2, 0
-    LWI  $2, 2147502179
-    SW   $1, $2, 0
-    LWI  $2, 2147502186
-    SW   $1, $2, 0
-    LWI  $2, 2147502230
-    SW   $1, $2, 0
-    LWI  $2, 2147502236
-    SW   $1, $2, 0
-    LWI  $2, 2147502245
-    SW   $1, $2, 0
-    LWI  $2, 2147502271
-    SW   $1, $2, 0
-    LWI  $2, 2147502275
-    SW   $1, $2, 0
-    LWI  $2, 2147502326
-    SW   $1, $2, 0
-    LWI  $2, 2147502332
-    SW   $1, $2, 0
-    LWI  $2, 2147502341
-    SW   $1, $2, 0
-    LWI  $2, 2147502367
-    SW   $1, $2, 0
-    LWI  $2, 2147502371
-    SW   $1, $2, 0
-    LWI  $2, 2147502422
-    SW   $1, $2, 0
-    LWI  $2, 2147502424
-    SW   $1, $2, 0
-    LWI  $2, 2147502428
-    SW   $1, $2, 0
-    LWI  $2, 2147502437
-    SW   $1, $2, 0
-    LWI  $2, 2147502439
-    SW   $1, $2, 0
-    LWI  $2, 2147502454
-    SW   $1, $2, 0
-    LWI  $2, 2147502463
-    SW   $1, $2, 0
-    LWI  $2, 2147502467
-    SW   $1, $2, 0
-    LWI  $2, 2147502469
-    SW   $1, $2, 0
-    LWI  $2, 2147502513
-    SW   $1, $2, 0
-    LWI  $2, 2147502517
-    SW   $1, $2, 0
-    LWI  $2, 2147502522
-    SW   $1, $2, 0
-    LWI  $2, 2147502532
-    SW   $1, $2, 0
-    LWI  $2, 2147502538
-    SW   $1, $2, 0
-    LWI  $2, 2147502548
-    SW   $1, $2, 0
-    LWI  $2, 2147502553
-    SW   $1, $2, 0
-    LWI  $2, 2147502557
-    SW   $1, $2, 0
-    LWI  $2, 2147502562
-    SW   $1, $2, 0
-    LWI  $2, 2147502566
-    SW   $1, $2, 0
-    LWI  $2, 2147502568
-    SW   $1, $2, 0
-    LWI  $2, 2147502573
-    SW   $1, $2, 0
-    LWI  $2, 2147502577
-    SW   $1, $2, 0
-    LWI  $2, 2147502579
-    SW   $1, $2, 0
-    LWI  $2, 2147503280
-    SW   $1, $2, 0
-    LWI  $2, 2147503345
-    SW   $1, $2, 0
-    LWI  $2, 2147503377
-    SW   $1, $2, 0
-    LWI  $2, 2147503442
-    SW   $1, $2, 0
-    LWI  $2, 2147503473
-    SW   $1, $2, 0
-    LWI  $2, 2147503538
-    SW   $1, $2, 0
-    LWI  $2, 2147503569
-    SW   $1, $2, 0
-    LWI  $2, 2147503634
-    SW   $1, $2, 0
-    LWI  $2, 2147503661
-    SW   $1, $2, 0
-    LWI  $2, 2147503668
-    SW   $1, $2, 0
-    LWI  $2, 2147503671
-    SW   $1, $2, 0
-    LWI  $2, 2147503673
-    SW   $1, $2, 0
-    LWI  $2, 2147503675
-    SW   $1, $2, 0
-    LWI  $2, 2147503677
-    SW   $1, $2, 0
-    LWI  $2, 2147503682
-    SW   $1, $2, 0
-    LWI  $2, 2147503692
-    SW   $1, $2, 0
-    LWI  $2, 2147503696
-    SW   $1, $2, 0
-    LWI  $2, 2147503706
-    SW   $1, $2, 0
-    LWI  $2, 2147503712
-    SW   $1, $2, 0
-    LWI  $2, 2147503717
-    SW   $1, $2, 0
-    LWI  $2, 2147503721
-    SW   $1, $2, 0
-    LWI  $2, 2147503726
-    SW   $1, $2, 0
-    LWI  $2, 2147503728
-    SW   $1, $2, 0
-    LWI  $2, 2147503730
-    SW   $1, $2, 0
-    LWI  $2, 2147503733
-    SW   $1, $2, 0
-    LWI  $2, 2147503755
-    SW   $1, $2, 0
-    LWI  $2, 2147503756
-    SW   $1, $2, 0
-    LWI  $2, 2147503761
-    SW   $1, $2, 0
-    LWI  $2, 2147503771
-    SW   $1, $2, 0
-    LWI  $2, 2147503776
-    SW   $1, $2, 0
-    LWI  $2, 2147503786
-    SW   $1, $2, 0
-    LWI  $2, 2147503803
-    SW   $1, $2, 0
-    LWI  $2, 2147503806
-    SW   $1, $2, 0
-    LWI  $2, 2147503811
-    SW   $1, $2, 0
-    LWI  $2, 2147503818
-    SW   $1, $2, 0
-    LWI  $2, 2147503821
-    SW   $1, $2, 0
-    LWI  $2, 2147503826
-    SW   $1, $2, 0
-    LWI  $2, 2147503827
-    SW   $1, $2, 0
-    LWI  $2, 2147503828
-    SW   $1, $2, 0
-    LWI  $2, 2147503857
-    SW   $1, $2, 0
-    LWI  $2, 2147503867
-    SW   $1, $2, 0
-    LWI  $2, 2147503872
-    SW   $1, $2, 0
-    LWI  $2, 2147503882
-    SW   $1, $2, 0
-    LWI  $2, 2147503902
-    SW   $1, $2, 0
-    LWI  $2, 2147503907
-    SW   $1, $2, 0
-    LWI  $2, 2147503949
-    SW   $1, $2, 0
-    LWI  $2, 2147503953
-    SW   $1, $2, 0
-    LWI  $2, 2147503963
-    SW   $1, $2, 0
-    LWI  $2, 2147503968
-    SW   $1, $2, 0
-    LWI  $2, 2147503978
-    SW   $1, $2, 0
-    LWI  $2, 2147503995
-    SW   $1, $2, 0
-    LWI  $2, 2147503998
-    SW   $1, $2, 0
-    LWI  $2, 2147504003
-    SW   $1, $2, 0
-    LWI  $2, 2147504010
-    SW   $1, $2, 0
-    LWI  $2, 2147504019
-    SW   $1, $2, 0
-    LWI  $2, 2147504049
-    SW   $1, $2, 0
-    LWI  $2, 2147504059
-    SW   $1, $2, 0
-    LWI  $2, 2147504061
-    SW   $1, $2, 0
-    LWI  $2, 2147504064
-    SW   $1, $2, 0
-    LWI  $2, 2147504074
-    SW   $1, $2, 0
-    LWI  $2, 2147504091
-    SW   $1, $2, 0
-    LWI  $2, 2147504094
-    SW   $1, $2, 0
-    LWI  $2, 2147504099
-    SW   $1, $2, 0
-    LWI  $2, 2147504106
-    SW   $1, $2, 0
-    LWI  $2, 2147504114
-    SW   $1, $2, 0
-    LWI  $2, 2147504141
-    SW   $1, $2, 0
-    LWI  $2, 2147504143
-    SW   $1, $2, 0
-    LWI  $2, 2147504147
-    SW   $1, $2, 0
-    LWI  $2, 2147504151
-    SW   $1, $2, 0
-    LWI  $2, 2147504163
-    SW   $1, $2, 0
-    LWI  $2, 2147504173
-    SW   $1, $2, 0
-    LWI  $2, 2147504176
-    SW   $1, $2, 0
-    LWI  $2, 2147504186
-    SW   $1, $2, 0
-    LWI  $2, 2147504189
-    SW   $1, $2, 0
-    LWI  $2, 2147504193
-    SW   $1, $2, 0
-    LWI  $2, 2147504198
-    SW   $1, $2, 0
-    LWI  $2, 2147504201
-    SW   $1, $2, 0
-    LWI  $2, 2147504204
-    SW   $1, $2, 0
-    LWI  $2, 2147504206
-    SW   $1, $2, 0
-    LLI  $1, 0b1111011110111110
-    LWI  $2, 2147501743
-    SW   $1, $2, 0
-    LWI  $2, 2147501810
-    SW   $1, $2, 0
-    LWI  $2, 2147501839
-    SW   $1, $2, 0
-    LWI  $2, 2147501906
-    SW   $1, $2, 0
-    LWI  $2, 2147501935
-    SW   $1, $2, 0
-    LWI  $2, 2147502002
-    SW   $1, $2, 0
-    LWI  $2, 2147502031
-    SW   $1, $2, 0
-    LWI  $2, 2147502041
-    SW   $1, $2, 0
-    LWI  $2, 2147502076
-    SW   $1, $2, 0
-    LWI  $2, 2147502087
-    SW   $1, $2, 0
-    LWI  $2, 2147502090
-    SW   $1, $2, 0
-    LWI  $2, 2147502098
-    SW   $1, $2, 0
-    LWI  $2, 2147502127
-    SW   $1, $2, 0
-    LWI  $2, 2147502137
-    SW   $1, $2, 0
-    LWI  $2, 2147502172
-    SW   $1, $2, 0
-    LWI  $2, 2147502183
-    SW   $1, $2, 0
-    LWI  $2, 2147502194
-    SW   $1, $2, 0
-    LWI  $2, 2147502223
-    SW   $1, $2, 0
-    LWI  $2, 2147502227
-    SW   $1, $2, 0
-    LWI  $2, 2147502233
-    SW   $1, $2, 0
-    LWI  $2, 2147502252
-    SW   $1, $2, 0
-    LWI  $2, 2147502258
-    SW   $1, $2, 0
-    LWI  $2, 2147502267
-    SW   $1, $2, 0
-    LWI  $2, 2147502268
-    SW   $1, $2, 0
-    LWI  $2, 2147502279
-    SW   $1, $2, 0
-    LWI  $2, 2147502287
-    SW   $1, $2, 0
-    LWI  $2, 2147502290
-    SW   $1, $2, 0
-    LWI  $2, 2147502319
-    SW   $1, $2, 0
-    LWI  $2, 2147502323
-    SW   $1, $2, 0
-    LWI  $2, 2147502329
-    SW   $1, $2, 0
-    LWI  $2, 2147502348
-    SW   $1, $2, 0
-    LWI  $2, 2147502354
-    SW   $1, $2, 0
-    LWI  $2, 2147502363
-    SW   $1, $2, 0
-    LWI  $2, 2147502364
-    SW   $1, $2, 0
-    LWI  $2, 2147502375
-    SW   $1, $2, 0
-    LWI  $2, 2147502383
-    SW   $1, $2, 0
-    LWI  $2, 2147502386
-    SW   $1, $2, 0
-    LWI  $2, 2147502415
-    SW   $1, $2, 0
-    LWI  $2, 2147502425
-    SW   $1, $2, 0
-    LWI  $2, 2147502450
-    SW   $1, $2, 0
-    LWI  $2, 2147502460
-    SW   $1, $2, 0
-    LWI  $2, 2147502471
-    SW   $1, $2, 0
-    LWI  $2, 2147502482
-    SW   $1, $2, 0
-    LWI  $2, 2147502521
-    SW   $1, $2, 0
-    LWI  $2, 2147502556
-    SW   $1, $2, 0
-    LWI  $2, 2147502567
-    SW   $1, $2, 0
-    LWI  $2, 2147502578
-    SW   $1, $2, 0
-    LWI  $2, 2147503732
-    SW   $1, $2, 0
-    LWI  $2, 2147503860
-    SW   $1, $2, 0
-    LWI  $2, 2147503861
-    SW   $1, $2, 0
-    LWI  $2, 2147503865
-    SW   $1, $2, 0
-    LWI  $2, 2147503886
-    SW   $1, $2, 0
-    LWI  $2, 2147503890
-    SW   $1, $2, 0
-    LWI  $2, 2147503916
-    SW   $1, $2, 0
-    LWI  $2, 2147503923
-    SW   $1, $2, 0
-    LWI  $2, 2147503956
-    SW   $1, $2, 0
-    LWI  $2, 2147503961
-    SW   $1, $2, 0
-    LWI  $2, 2147503986
-    SW   $1, $2, 0
-    LWI  $2, 2147504012
-    SW   $1, $2, 0
-    LWI  $2, 2147504052
-    SW   $1, $2, 0
-    LWI  $2, 2147504057
-    SW   $1, $2, 0
-    LWI  $2, 2147504082
-    SW   $1, $2, 0
-    LWI  $2, 2147504088
-    SW   $1, $2, 0
-    LWI  $2, 2147504103
-    SW   $1, $2, 0
-    LWI  $2, 2147504148
-    SW   $1, $2, 0
-    LLI  $1, 0b0110001100001100
-    LWI  $2, 2147501744
-    SW   $1, $2, 0
-    LWI  $2, 2147501840
-    SW   $1, $2, 0
-    LWI  $2, 2147501905
-    SW   $1, $2, 0
-    LWI  $2, 2147501936
-    SW   $1, $2, 0
-    LWI  $2, 2147501937
-    SW   $1, $2, 0
-    LWI  $2, 2147501940
-    SW   $1, $2, 0
-    LWI  $2, 2147501943
-    SW   $1, $2, 0
-    LWI  $2, 2147501947
-    SW   $1, $2, 0
-    LWI  $2, 2147501955
-    SW   $1, $2, 0
-    LWI  $2, 2147501958
-    SW   $1, $2, 0
-    LWI  $2, 2147501962
-    SW   $1, $2, 0
-    LWI  $2, 2147501972
-    SW   $1, $2, 0
-    LWI  $2, 2147501977
-    SW   $1, $2, 0
-    LWI  $2, 2147501982
-    SW   $1, $2, 0
-    LWI  $2, 2147501985
-    SW   $1, $2, 0
-    LWI  $2, 2147501988
-    SW   $1, $2, 0
-    LWI  $2, 2147501990
-    SW   $1, $2, 0
-    LWI  $2, 2147501993
-    SW   $1, $2, 0
-    LWI  $2, 2147501997
-    SW   $1, $2, 0
-    LWI  $2, 2147502001
-    SW   $1, $2, 0
-    LWI  $2, 2147502070
-    SW   $1, $2, 0
-    LWI  $2, 2147502097
-    SW   $1, $2, 0
-    LWI  $2, 2147502163
-    SW   $1, $2, 0
-    LWI  $2, 2147502182
-    SW   $1, $2, 0
-    LWI  $2, 2147502193
-    SW   $1, $2, 0
-    LWI  $2, 2147502224
-    SW   $1, $2, 0
-    LWI  $2, 2147502226
-    SW   $1, $2, 0
-    LWI  $2, 2147502234
-    SW   $1, $2, 0
-    LWI  $2, 2147502251
-    SW   $1, $2, 0
-    LWI  $2, 2147502257
-    SW   $1, $2, 0
-    LWI  $2, 2147502266
-    SW   $1, $2, 0
-    LWI  $2, 2147502269
-    SW   $1, $2, 0
-    LWI  $2, 2147502278
-    SW   $1, $2, 0
-    LWI  $2, 2147502286
-    SW   $1, $2, 0
-    LWI  $2, 2147502289
-    SW   $1, $2, 0
-    LWI  $2, 2147502320
-    SW   $1, $2, 0
-    LWI  $2, 2147502322
-    SW   $1, $2, 0
-    LWI  $2, 2147502330
-    SW   $1, $2, 0
-    LWI  $2, 2147502347
-    SW   $1, $2, 0
-    LWI  $2, 2147502353
-    SW   $1, $2, 0
-    LWI  $2, 2147502362
-    SW   $1, $2, 0
-    LWI  $2, 2147502365
-    SW   $1, $2, 0
-    LWI  $2, 2147502374
-    SW   $1, $2, 0
-    LWI  $2, 2147502382
-    SW   $1, $2, 0
-    LWI  $2, 2147502385
-    SW   $1, $2, 0
-    LWI  $2, 2147502416
-    SW   $1, $2, 0
-    LWI  $2, 2147502426
-    SW   $1, $2, 0
-    LWI  $2, 2147502461
-    SW   $1, $2, 0
-    LWI  $2, 2147502470
-    SW   $1, $2, 0
-    LWI  $2, 2147502481
-    SW   $1, $2, 0
-    LWI  $2, 2147502609
-    SW   $1, $2, 0
-    LWI  $2, 2147502617
-    SW   $1, $2, 0
-    LWI  $2, 2147502620
-    SW   $1, $2, 0
-    LWI  $2, 2147502621
-    SW   $1, $2, 0
-    LWI  $2, 2147502634
-    SW   $1, $2, 0
-    LWI  $2, 2147502644
-    SW   $1, $2, 0
-    LWI  $2, 2147502649
-    SW   $1, $2, 0
-    LWI  $2, 2147502652
-    SW   $1, $2, 0
-    LWI  $2, 2147502655
-    SW   $1, $2, 0
-    LWI  $2, 2147502656
-    SW   $1, $2, 0
-    LWI  $2, 2147502662
-    SW   $1, $2, 0
-    LWI  $2, 2147502663
-    SW   $1, $2, 0
-    LWI  $2, 2147502664
-    SW   $1, $2, 0
-    LWI  $2, 2147502669
-    SW   $1, $2, 0
-    LWI  $2, 2147502673
-    SW   $1, $2, 0
-    LWI  $2, 2147502674
-    SW   $1, $2, 0
-    LWI  $2, 2147502675
-    SW   $1, $2, 0
-    LWI  $2, 2147503488
-    SW   $1, $2, 0
-    LWI  $2, 2147503498
-    SW   $1, $2, 0
-    LWI  $2, 2147503518
-    SW   $1, $2, 0
-    LWI  $2, 2147503523
-    SW   $1, $2, 0
-    LWI  $2, 2147503565
-    SW   $1, $2, 0
-    LWI  $2, 2147503570
-    SW   $1, $2, 0
-    LWI  $2, 2147503571
-    SW   $1, $2, 0
-    LWI  $2, 2147503575
-    SW   $1, $2, 0
-    LWI  $2, 2147503582
-    SW   $1, $2, 0
-    LWI  $2, 2147503586
-    SW   $1, $2, 0
-    LWI  $2, 2147503596
-    SW   $1, $2, 0
-    LWI  $2, 2147503600
-    SW   $1, $2, 0
-    LWI  $2, 2147503610
-    SW   $1, $2, 0
-    LWI  $2, 2147503616
-    SW   $1, $2, 0
-    LWI  $2, 2147503621
-    SW   $1, $2, 0
-    LWI  $2, 2147503625
-    SW   $1, $2, 0
-    LWI  $2, 2147503630
-    SW   $1, $2, 0
-    LWI  $2, 2147503636
-    SW   $1, $2, 0
-    LWI  $2, 2147503637
-    SW   $1, $2, 0
-    LWI  $2, 2147503763
-    SW   $1, $2, 0
-    LWI  $2, 2147503773
-    SW   $1, $2, 0
-    LWI  $2, 2147503801
-    SW   $1, $2, 0
-    LWI  $2, 2147503816
-    SW   $1, $2, 0
-    LWI  $2, 2147503859
-    SW   $1, $2, 0
-    LWI  $2, 2147503869
-    SW   $1, $2, 0
-    LWI  $2, 2147503891
-    SW   $1, $2, 0
-    LWI  $2, 2147503917
-    SW   $1, $2, 0
-    LWI  $2, 2147503955
-    SW   $1, $2, 0
-    LWI  $2, 2147503965
-    SW   $1, $2, 0
-    LWI  $2, 2147503987
-    SW   $1, $2, 0
-    LWI  $2, 2147504013
-    SW   $1, $2, 0
-    LWI  $2, 2147504051
-    SW   $1, $2, 0
-    LWI  $2, 2147504087
-    SW   $1, $2, 0
-    LWI  $2, 2147504093
-    SW   $1, $2, 0
-    LWI  $2, 2147504160
-    SW   $1, $2, 0
-    LWI  $2, 2147504170
-    SW   $1, $2, 0
-    LWI  $2, 2147504190
-    SW   $1, $2, 0
-    LWI  $2, 2147504195
-    SW   $1, $2, 0
-    LWI  $2, 2147504237
-    SW   $1, $2, 0
-    LWI  $2, 2147504240
-    SW   $1, $2, 0
-    LWI  $2, 2147504241
-    SW   $1, $2, 0
-    LWI  $2, 2147504244
-    SW   $1, $2, 0
-    LWI  $2, 2147504247
-    SW   $1, $2, 0
-    LWI  $2, 2147504252
-    SW   $1, $2, 0
-    LWI  $2, 2147504258
-    SW   $1, $2, 0
-    LWI  $2, 2147504268
-    SW   $1, $2, 0
-    LWI  $2, 2147504272
-    SW   $1, $2, 0
-    LWI  $2, 2147504281
-    SW   $1, $2, 0
-    LWI  $2, 2147504284
-    SW   $1, $2, 0
-    LWI  $2, 2147504288
-    SW   $1, $2, 0
-    LWI  $2, 2147504293
-    SW   $1, $2, 0
-    LWI  $2, 2147504296
-    SW   $1, $2, 0
-    LWI  $2, 2147504299
-    SW   $1, $2, 0
-    LWI  $2, 2147504302
-    SW   $1, $2, 0
-    LWI  $2, 2147504305
-    SW   $1, $2, 0
-    LWI  $2, 2147504306
-    SW   $1, $2, 0
-    LWI  $2, 2147504309
-    SW   $1, $2, 0
-    LLI  $1, 0b1101111011111011
-    LWI  $2, 2147501941
-    SW   $1, $2, 0
-    LWI  $2, 2147501956
-    SW   $1, $2, 0
-    LWI  $2, 2147501986
-    SW   $1, $2, 0
-    LWI  $2, 2147502034
-    SW   $1, $2, 0
-    LWI  $2, 2147502037
-    SW   $1, $2, 0
-    LWI  $2, 2147502052
-    SW   $1, $2, 0
-    LWI  $2, 2147502059
-    SW   $1, $2, 0
-    LWI  $2, 2147502074
-    SW   $1, $2, 0
-    LWI  $2, 2147502082
-    SW   $1, $2, 0
-    LWI  $2, 2147502094
-    SW   $1, $2, 0
-    LWI  $2, 2147502131
-    SW   $1, $2, 0
-    LWI  $2, 2147502444
-    SW   $1, $2, 0
-    LWI  $2, 2147502459
-    SW   $1, $2, 0
-    LWI  $2, 2147502479
-    SW   $1, $2, 0
-    LWI  $2, 2147502511
-    SW   $1, $2, 0
-    LWI  $2, 2147502518
-    SW   $1, $2, 0
-    LWI  $2, 2147502525
-    SW   $1, $2, 0
-    LWI  $2, 2147502533
-    SW   $1, $2, 0
-    LWI  $2, 2147502547
-    SW   $1, $2, 0
-    LWI  $2, 2147502560
-    SW   $1, $2, 0
-    LWI  $2, 2147502563
-    SW   $1, $2, 0
-    LWI  $2, 2147503376
-    SW   $1, $2, 0
-    LWI  $2, 2147503441
-    SW   $1, $2, 0
-    LWI  $2, 2147503665
-    SW   $1, $2, 0
-    LWI  $2, 2147503674
-    SW   $1, $2, 0
-    LWI  $2, 2147503681
-    SW   $1, $2, 0
-    LWI  $2, 2147503691
-    SW   $1, $2, 0
-    LWI  $2, 2147503711
-    SW   $1, $2, 0
-    LWI  $2, 2147503716
-    SW   $1, $2, 0
-    LWI  $2, 2147503764
-    SW   $1, $2, 0
-    LWI  $2, 2147503765
-    SW   $1, $2, 0
-    LWI  $2, 2147503769
-    SW   $1, $2, 0
-    LWI  $2, 2147503790
-    SW   $1, $2, 0
-    LWI  $2, 2147503794
-    SW   $1, $2, 0
-    LWI  $2, 2147503950
-    SW   $1, $2, 0
-    LWI  $2, 2147504053
-    SW   $1, $2, 0
-    LWI  $2, 2147504078
-    SW   $1, $2, 0
-    LWI  $2, 2147504144
-    SW   $1, $2, 0
-    LWI  $2, 2147504205
-    SW   $1, $2, 0
-    LWI  $2, 2147504209
-    SW   $1, $2, 0
-    LLI  $1, 0b1000010000010000
-    LWI  $2, 2147501945
-    SW   $1, $2, 0
-    LWI  $2, 2147501980
-    SW   $1, $2, 0
-    LWI  $2, 2147502056
-    SW   $1, $2, 0
-    LWI  $2, 2147502066
-    SW   $1, $2, 0
-    LWI  $2, 2147502071
-    SW   $1, $2, 0
-    LWI  $2, 2147502091
-    SW   $1, $2, 0
-    LWI  $2, 2147502128
-    SW   $1, $2, 0
-    LWI  $2, 2147502155
-    SW   $1, $2, 0
-    LWI  $2, 2147502170
-    SW   $1, $2, 0
-    LWI  $2, 2147502190
-    SW   $1, $2, 0
-    LWI  $2, 2147502443
-    SW   $1, $2, 0
-    LWI  $2, 2147502458
-    SW   $1, $2, 0
-    LWI  $2, 2147502478
-    SW   $1, $2, 0
-    LWI  $2, 2147502536
-    SW   $1, $2, 0
-    LWI  $2, 2147502546
-    SW   $1, $2, 0
-    LWI  $2, 2147502551
-    SW   $1, $2, 0
-    LWI  $2, 2147502571
-    SW   $1, $2, 0
-    LWI  $2, 2147503698
-    SW   $1, $2, 0
-    LWI  $2, 2147503854
-    SW   $1, $2, 0
-    LWI  $2, 2147504117
-    SW   $1, $2, 0
-    LWI  $2, 2147504153
-    SW   $1, $2, 0
-    LWI  $2, 2147504159
-    SW   $1, $2, 0
-    LWI  $2, 2147504178
-    SW   $1, $2, 0
-    LWI  $2, 2147504208
-    SW   $1, $2, 0
-    LLI  $1, 0b0100101001101001
-    LWI  $2, 2147501948
-    SW   $1, $2, 0
-    LWI  $2, 2147501961
-    SW   $1, $2, 0
-    LWI  $2, 2147501976
-    SW   $1, $2, 0
-    LWI  $2, 2147501983
-    SW   $1, $2, 0
-    LWI  $2, 2147501994
-    SW   $1, $2, 0
-    LWI  $2, 2147501996
-    SW   $1, $2, 0
-    LWI  $2, 2147502040
-    SW   $1, $2, 0
-    LWI  $2, 2147502060
-    SW   $1, $2, 0
-    LWI  $2, 2147502075
-    SW   $1, $2, 0
-    LWI  $2, 2147502085
-    SW   $1, $2, 0
-    LWI  $2, 2147502095
-    SW   $1, $2, 0
-    LWI  $2, 2147502451
-    SW   $1, $2, 0
-    LWI  $2, 2147502515
-    SW   $1, $2, 0
-    LWI  $2, 2147502540
-    SW   $1, $2, 0
-    LWI  $2, 2147502550
-    SW   $1, $2, 0
-    LWI  $2, 2147502569
-    SW   $1, $2, 0
-    LWI  $2, 2147502575
-    SW   $1, $2, 0
-    LWI  $2, 2147502580
-    SW   $1, $2, 0
-    LWI  $2, 2147502614
-    SW   $1, $2, 0
-    LWI  $2, 2147502615
-    SW   $1, $2, 0
-    LWI  $2, 2147502618
-    SW   $1, $2, 0
-    LWI  $2, 2147502629
-    SW   $1, $2, 0
-    LWI  $2, 2147502630
-    SW   $1, $2, 0
-    LWI  $2, 2147502633
-    SW   $1, $2, 0
-    LWI  $2, 2147502643
-    SW   $1, $2, 0
-    LWI  $2, 2147502648
-    SW   $1, $2, 0
-    LWI  $2, 2147502653
-    SW   $1, $2, 0
-    LWI  $2, 2147502659
-    SW   $1, $2, 0
-    LWI  $2, 2147502660
-    SW   $1, $2, 0
-    LWI  $2, 2147502668
-    SW   $1, $2, 0
-    LWI  $2, 2147503279
-    SW   $1, $2, 0
-    LWI  $2, 2147503344
-    SW   $1, $2, 0
-    LWI  $2, 2147503375
-    SW   $1, $2, 0
-    LWI  $2, 2147503440
-    SW   $1, $2, 0
-    LWI  $2, 2147503566
-    SW   $1, $2, 0
-    LWI  $2, 2147503576
-    SW   $1, $2, 0
-    LWI  $2, 2147503579
-    SW   $1, $2, 0
-    LWI  $2, 2147503581
-    SW   $1, $2, 0
-    LWI  $2, 2147503583
-    SW   $1, $2, 0
-    LWI  $2, 2147503593
-    SW   $1, $2, 0
-    LWI  $2, 2147503601
-    SW   $1, $2, 0
-    LWI  $2, 2147503609
-    SW   $1, $2, 0
-    LWI  $2, 2147503611
-    SW   $1, $2, 0
-    LWI  $2, 2147503613
-    SW   $1, $2, 0
-    LWI  $2, 2147503618
-    SW   $1, $2, 0
-    LWI  $2, 2147503624
-    SW   $1, $2, 0
-    LWI  $2, 2147503626
-    SW   $1, $2, 0
-    LWI  $2, 2147503631
-    SW   $1, $2, 0
-    LWI  $2, 2147503659
-    SW   $1, $2, 0
-    LWI  $2, 2147503669
-    SW   $1, $2, 0
-    LWI  $2, 2147503683
-    SW   $1, $2, 0
-    LWI  $2, 2147503693
-    SW   $1, $2, 0
-    LWI  $2, 2147503694
-    SW   $1, $2, 0
-    LWI  $2, 2147503713
-    SW   $1, $2, 0
-    LWI  $2, 2147503718
-    SW   $1, $2, 0
-    LWI  $2, 2147503724
-    SW   $1, $2, 0
-    LWI  $2, 2147503731
-    SW   $1, $2, 0
-    LWI  $2, 2147503851
-    SW   $1, $2, 0
-    LWI  $2, 2147503885
-    SW   $1, $2, 0
-    LWI  $2, 2147503896
-    SW   $1, $2, 0
-    LWI  $2, 2147503911
-    SW   $1, $2, 0
-    LWI  $2, 2147503924
-    SW   $1, $2, 0
-    LWI  $2, 2147503981
-    SW   $1, $2, 0
-    LWI  $2, 2147504149
-    SW   $1, $2, 0
-    LWI  $2, 2147504174
-    SW   $1, $2, 0
-    LWI  $2, 2147504214
-    SW   $1, $2, 0
-    LWI  $2, 2147504238
-    SW   $1, $2, 0
-    LWI  $2, 2147504243
-    SW   $1, $2, 0
-    LWI  $2, 2147504251
-    SW   $1, $2, 0
-    LWI  $2, 2147504282
-    SW   $1, $2, 0
-    LWI  $2, 2147504297
-    SW   $1, $2, 0
-    LWI  $2, 2147504303
-    SW   $1, $2, 0
-    LWI  $2, 2147504308
-    SW   $1, $2, 0
-    LLI  $1, 0b1001010010010010
-    LWI  $2, 2147501991
-    SW   $1, $2, 0
-    LWI  $2, 2147502130
-    SW   $1, $2, 0
-    LWI  $2, 2147502184
-    SW   $1, $2, 0
-    LWI  $2, 2147502247
-    SW   $1, $2, 0
-    LWI  $2, 2147502262
-    SW   $1, $2, 0
-    LWI  $2, 2147502282
-    SW   $1, $2, 0
-    LWI  $2, 2147502343
-    SW   $1, $2, 0
-    LWI  $2, 2147502358
-    SW   $1, $2, 0
-    LWI  $2, 2147502378
-    SW   $1, $2, 0
-    LWI  $2, 2147502418
-    SW   $1, $2, 0
-    LWI  $2, 2147502555
-    SW   $1, $2, 0
-    LWI  $2, 2147503679
-    SW   $1, $2, 0
-    LWI  $2, 2147503689
-    SW   $1, $2, 0
-    LWI  $2, 2147503709
-    SW   $1, $2, 0
-    LWI  $2, 2147503714
-    SW   $1, $2, 0
-    LWI  $2, 2147503823
-    SW   $1, $2, 0
-    LWI  $2, 2147503993
-    SW   $1, $2, 0
-    LWI  $2, 2147504008
-    SW   $1, $2, 0
-    LWI  $2, 2147504109
-    SW   $1, $2, 0
-    LLI  $1, 0b1101011010011010
-    LWI  $2, 2147502032
-    SW   $1, $2, 0
-    LWI  $2, 2147502042
-    SW   $1, $2, 0
-    LWI  $2, 2147502069
-    SW   $1, $2, 0
-    LWI  $2, 2147502077
-    SW   $1, $2, 0
-    LWI  $2, 2147502248
-    SW   $1, $2, 0
-    LWI  $2, 2147502263
-    SW   $1, $2, 0
-    LWI  $2, 2147502283
-    SW   $1, $2, 0
-    LWI  $2, 2147502419
-    SW   $1, $2, 0
-    LWI  $2, 2147502514
-    SW   $1, $2, 0
-    LWI  $2, 2147502539
-    SW   $1, $2, 0
-    LWI  $2, 2147502554
-    SW   $1, $2, 0
-    LWI  $2, 2147502574
-    SW   $1, $2, 0
-    LWI  $2, 2147503667
-    SW   $1, $2, 0
-    LWI  $2, 2147503670
-    SW   $1, $2, 0
-    LWI  $2, 2147503672
-    SW   $1, $2, 0
-    LWI  $2, 2147503695
-    SW   $1, $2, 0
-    LWI  $2, 2147503697
-    SW   $1, $2, 0
-    LWI  $2, 2147503707
-    SW   $1, $2, 0
-    LWI  $2, 2147503722
-    SW   $1, $2, 0
-    LWI  $2, 2147503725
-    SW   $1, $2, 0
-    LWI  $2, 2147503853
-    SW   $1, $2, 0
-    LWI  $2, 2147503866
-    SW   $1, $2, 0
-    LWI  $2, 2147503898
-    SW   $1, $2, 0
-    LWI  $2, 2147503899
-    SW   $1, $2, 0
-    LWI  $2, 2147503913
-    SW   $1, $2, 0
-    LWI  $2, 2147503914
-    SW   $1, $2, 0
-    LWI  $2, 2147503962
-    SW   $1, $2, 0
-    LWI  $2, 2147504058
-    SW   $1, $2, 0
-    LWI  $2, 2147504102
-    SW   $1, $2, 0
-    LWI  $2, 2147504140
-    SW   $1, $2, 0
-    LWI  $2, 2147504184
-    SW   $1, $2, 0
-    LWI  $2, 2147504187
-    SW   $1, $2, 0
-    LWI  $2, 2147504199
-    SW   $1, $2, 0
-    LWI  $2, 2147504202
-    SW   $1, $2, 0
-    LLI  $1, 0b1011110111010111
-    LWI  $2, 2147502033
-    SW   $1, $2, 0
-    LWI  $2, 2147502038
-    SW   $1, $2, 0
-    LWI  $2, 2147502053
-    SW   $1, $2, 0
-    LWI  $2, 2147502083
-    SW   $1, $2, 0
-    LWI  $2, 2147502165
-    SW   $1, $2, 0
-    LWI  $2, 2147502537
-    SW   $1, $2, 0
-    LWI  $2, 2147502552
-    SW   $1, $2, 0
-    LWI  $2, 2147502572
-    SW   $1, $2, 0
-    LWI  $2, 2147503584
-    SW   $1, $2, 0
-    LWI  $2, 2147503594
-    SW   $1, $2, 0
-    LWI  $2, 2147503614
-    SW   $1, $2, 0
-    LWI  $2, 2147503619
-    SW   $1, $2, 0
-    LWI  $2, 2147503660
-    SW   $1, $2, 0
-    LWI  $2, 2147503662
-    SW   $1, $2, 0
-    LWI  $2, 2147503666
-    SW   $1, $2, 0
-    LWI  $2, 2147503680
-    SW   $1, $2, 0
-    LWI  $2, 2147503690
-    SW   $1, $2, 0
-    LWI  $2, 2147503710
-    SW   $1, $2, 0
-    LWI  $2, 2147503715
-    SW   $1, $2, 0
-    LWI  $2, 2147503727
-    SW   $1, $2, 0
-    LWI  $2, 2147503759
-    SW   $1, $2, 0
-    LWI  $2, 2147503824
-    SW   $1, $2, 0
-    LWI  $2, 2147504043
-    SW   $1, $2, 0
-    LWI  $2, 2147504185
-    SW   $1, $2, 0
-    LWI  $2, 2147504200
-    SW   $1, $2, 0
-    LWI  $2, 2147504207
-    SW   $1, $2, 0
-    LLI  $1, 0b1110111101011101
-    LWI  $2, 2147502044
-    SW   $1, $2, 0
-    LWI  $2, 2147502079
-    SW   $1, $2, 0
-    LWI  $2, 2147502152
-    SW   $1, $2, 0
-    LWI  $2, 2147502162
-    SW   $1, $2, 0
-    LWI  $2, 2147502167
-    SW   $1, $2, 0
-    LWI  $2, 2147502187
-    SW   $1, $2, 0
-    LWI  $2, 2147502440
-    SW   $1, $2, 0
-    LWI  $2, 2147502455
-    SW   $1, $2, 0
-    LWI  $2, 2147502475
-    SW   $1, $2, 0
-    LWI  $2, 2147503852
-    SW   $1, $2, 0
-    LWI  $2, 2147503957
-    SW   $1, $2, 0
-    LWI  $2, 2147503982
-    SW   $1, $2, 0
-    LWI  $2, 2147503992
-    SW   $1, $2, 0
-    LWI  $2, 2147504007
-    SW   $1, $2, 0
-    LWI  $2, 2147504047
-    SW   $1, $2, 0
-    LWI  $2, 2147504116
-    SW   $1, $2, 0
-    LWI  $2, 2147504155
-    SW   $1, $2, 0
-    LWI  $2, 2147504158
-    SW   $1, $2, 0
-    LWI  $2, 2147504161
-    SW   $1, $2, 0
-    LWI  $2, 2147504171
-    SW   $1, $2, 0
-    LWI  $2, 2147504188
-    SW   $1, $2, 0
-    LWI  $2, 2147504191
-    SW   $1, $2, 0
-    LWI  $2, 2147504196
-    SW   $1, $2, 0
-    LWI  $2, 2147504203
-    SW   $1, $2, 0
-    LWI  $2, 2147504213
-    SW   $1, $2, 0
-    LLI  $1, 0b1100011000111000
-    LWI  $2, 2147502057
+    LLI  $1, 0b1101011010010100
+    LWI  $2, 2147500311
     SW   $1, $2, 0
     LWI  $2, 2147502067
     SW   $1, $2, 0
+    LWI  $2, 2147502361
+    SW   $1, $2, 0
+    LLI  $1, 0b1110111011010111
+    LWI  $2, 2147500369
+    SW   $1, $2, 0
+    LWI  $2, 2147500468
+    SW   $1, $2, 0
+    LWI  $2, 2147500567
+    SW   $1, $2, 0
+    LWI  $2, 2147500568
+    SW   $1, $2, 0
+    LWI  $2, 2147500656
+    SW   $1, $2, 0
+    LWI  $2, 2147500663
+    SW   $1, $2, 0
+    LWI  $2, 2147500752
+    SW   $1, $2, 0
+    LWI  $2, 2147500756
+    SW   $1, $2, 0
+    LWI  $2, 2147500945
+    SW   $1, $2, 0
+    LWI  $2, 2147501136
+    SW   $1, $2, 0
+    LWI  $2, 2147501137
+    SW   $1, $2, 0
+    LWI  $2, 2147501140
+    SW   $1, $2, 0
+    LWI  $2, 2147501147
+    SW   $1, $2, 0
+    LWI  $2, 2147501340
+    SW   $1, $2, 0
+    LWI  $2, 2147505096
+    SW   $1, $2, 0
+    LWI  $2, 2147505102
+    SW   $1, $2, 0
+    LLI  $1, 0b1111011100111010
+    LWI  $2, 2147500370
+    SW   $1, $2, 0
+    LWI  $2, 2147500379
+    SW   $1, $2, 0
+    LWI  $2, 2147500380
+    SW   $1, $2, 0
+    LWI  $2, 2147500570
+    SW   $1, $2, 0
+    LWI  $2, 2147500759
+    SW   $1, $2, 0
+    LWI  $2, 2147500760
+    SW   $1, $2, 0
+    LWI  $2, 2147500761
+    SW   $1, $2, 0
+    LWI  $2, 2147500859
+    SW   $1, $2, 0
+    LWI  $2, 2147500956
+    SW   $1, $2, 0
+    LWI  $2, 2147501235
+    SW   $1, $2, 0
+    LWI  $2, 2147501237
+    SW   $1, $2, 0
+    LWI  $2, 2147501431
+    SW   $1, $2, 0
+    LWI  $2, 2147501528
+    SW   $1, $2, 0
+    LWI  $2, 2147501529
+    SW   $1, $2, 0
+    LLI  $1, 0b1111011101011011
+    LWI  $2, 2147500371
+    SW   $1, $2, 0
+    LWI  $2, 2147500375
+    SW   $1, $2, 0
+    LWI  $2, 2147500466
+    SW   $1, $2, 0
+    LWI  $2, 2147500657
+    SW   $1, $2, 0
+    LWI  $2, 2147500662
+    SW   $1, $2, 0
+    LWI  $2, 2147500764
+    SW   $1, $2, 0
+    LWI  $2, 2147500854
+    SW   $1, $2, 0
+    LWI  $2, 2147500948
+    SW   $1, $2, 0
+    LWI  $2, 2147501040
+    SW   $1, $2, 0
+    LWI  $2, 2147501051
+    SW   $1, $2, 0
+    LWI  $2, 2147501328
+    SW   $1, $2, 0
+    LWI  $2, 2147501334
+    SW   $1, $2, 0
+    LWI  $2, 2147501428
+    SW   $1, $2, 0
+    LLI  $1, 0b1111011100111001
+    LWI  $2, 2147500374
+    SW   $1, $2, 0
+    LWI  $2, 2147500470
+    SW   $1, $2, 0
+    LWI  $2, 2147500563
+    SW   $1, $2, 0
+    LWI  $2, 2147500953
+    SW   $1, $2, 0
+    LWI  $2, 2147501335
+    SW   $1, $2, 0
+    LWI  $2, 2147501430
+    SW   $1, $2, 0
+    LWI  $2, 2147501521
+    SW   $1, $2, 0
+    LWI  $2, 2147501532
+    SW   $1, $2, 0
+    LLI  $1, 0b1111111111011110
+    LWI  $2, 2147500376
+    SW   $1, $2, 0
+    LWI  $2, 2147500473
+    SW   $1, $2, 0
+    LWI  $2, 2147500946
+    SW   $1, $2, 0
+    LWI  $2, 2147501042
+    SW   $1, $2, 0
+    LWI  $2, 2147501047
+    SW   $1, $2, 0
+    LWI  $2, 2147501241
+    SW   $1, $2, 0
+    LLI  $1, 0b1111011101011010
+    LWI  $2, 2147500377
+    SW   $1, $2, 0
+    LWI  $2, 2147500378
+    SW   $1, $2, 0
+    LWI  $2, 2147500658
+    SW   $1, $2, 0
+    LWI  $2, 2147500659
+    SW   $1, $2, 0
+    LWI  $2, 2147500849
+    SW   $1, $2, 0
+    LWI  $2, 2147501043
+    SW   $1, $2, 0
+    LWI  $2, 2147501052
+    SW   $1, $2, 0
+    LWI  $2, 2147501138
+    SW   $1, $2, 0
+    LWI  $2, 2147501142
+    SW   $1, $2, 0
+    LWI  $2, 2147501145
+    SW   $1, $2, 0
+    LWI  $2, 2147501146
+    SW   $1, $2, 0
+    LWI  $2, 2147501243
+    SW   $1, $2, 0
+    LWI  $2, 2147501338
+    SW   $1, $2, 0
+    LWI  $2, 2147501424
+    SW   $1, $2, 0
+    LWI  $2, 2147501427
+    SW   $1, $2, 0
+    LLI  $1, 0b1101101111100111
+    LWI  $2, 2147500389
+    SW   $1, $2, 0
+    LLI  $1, 0b1111011101111100
+    LWI  $2, 2147500390
+    SW   $1, $2, 0
+    LWI  $2, 2147500472
+    SW   $1, $2, 0
+    LLI  $1, 0b1110001110100100
+    LWI  $2, 2147500394
+    SW   $1, $2, 0
+    LWI  $2, 2147505173
+    SW   $1, $2, 0
+    LWI  $2, 2147505460
+    SW   $1, $2, 0
+    LWI  $2, 2147505749
+    SW   $1, $2, 0
+    LLI  $1, 0b1110001111000101
+    LWI  $2, 2147500395
+    SW   $1, $2, 0
+    LWI  $2, 2147500683
+    SW   $1, $2, 0
+    LWI  $2, 2147505077
+    SW   $1, $2, 0
+    LWI  $2, 2147505557
+    SW   $1, $2, 0
+    LWI  $2, 2147505653
+    SW   $1, $2, 0
+    LLI  $1, 0b0110111000001100
+    LWI  $2, 2147500397
+    SW   $1, $2, 0
+    LLI  $1, 0b1001111001010000
+    LWI  $2, 2147500406
+    SW   $1, $2, 0
+    LLI  $1, 0b1000011000001110
+    LWI  $2, 2147500407
+    SW   $1, $2, 0
+    LLI  $1, 0b1011010111110001
+    LWI  $2, 2147500411
+    SW   $1, $2, 0
+    LLI  $1, 0b1111111110111101
+    LWI  $2, 2147500465
+    SW   $1, $2, 0
+    LWI  $2, 2147500665
+    SW   $1, $2, 0
+    LWI  $2, 2147500850
+    SW   $1, $2, 0
+    LWI  $2, 2147500950
+    SW   $1, $2, 0
+    LWI  $2, 2147501143
+    SW   $1, $2, 0
+    LWI  $2, 2147501148
+    SW   $1, $2, 0
+    LWI  $2, 2147501244
+    SW   $1, $2, 0
+    LLI  $1, 0b1111011011111000
+    LWI  $2, 2147500467
+    SW   $1, $2, 0
+    LWI  $2, 2147500565
+    SW   $1, $2, 0
+    LWI  $2, 2147500571
+    SW   $1, $2, 0
+    LWI  $2, 2147501045
+    SW   $1, $2, 0
+    LWI  $2, 2147501048
+    SW   $1, $2, 0
+    LWI  $2, 2147501426
+    SW   $1, $2, 0
+    LLI  $1, 0b1111011100011001
+    LWI  $2, 2147500474
+    SW   $1, $2, 0
+    LWI  $2, 2147500475
+    SW   $1, $2, 0
+    LWI  $2, 2147500853
+    SW   $1, $2, 0
+    LWI  $2, 2147500855
+    SW   $1, $2, 0
+    LWI  $2, 2147500858
+    SW   $1, $2, 0
+    LWI  $2, 2147500947
+    SW   $1, $2, 0
+    LWI  $2, 2147501044
+    SW   $1, $2, 0
+    LWI  $2, 2147501240
+    SW   $1, $2, 0
+    LWI  $2, 2147501329
+    SW   $1, $2, 0
+    LWI  $2, 2147501336
+    SW   $1, $2, 0
+    LWI  $2, 2147501339
+    SW   $1, $2, 0
+    LWI  $2, 2147501429
+    SW   $1, $2, 0
+    LLI  $1, 0b1111111110111110
+    LWI  $2, 2147500476
+    SW   $1, $2, 0
+    LWI  $2, 2147500661
+    SW   $1, $2, 0
+    LLI  $1, 0b1101101110000101
+    LWI  $2, 2147500485
+    SW   $1, $2, 0
+    LWI  $2, 2147500581
+    SW   $1, $2, 0
+    LWI  $2, 2147500677
+    SW   $1, $2, 0
+    LWI  $2, 2147500773
+    SW   $1, $2, 0
+    LLI  $1, 0b1100010001001100
+    LWI  $2, 2147500490
+    SW   $1, $2, 0
+    LLI  $1, 0b1100101111101000
+    LWI  $2, 2147500491
+    SW   $1, $2, 0
+    LLI  $1, 0b1100101110100101
+    LWI  $2, 2147500492
+    SW   $1, $2, 0
+    LWI  $2, 2147500588
+    SW   $1, $2, 0
+    LLI  $1, 0b1100011000110011
+    LWI  $2, 2147500496
+    SW   $1, $2, 0
+    LLI  $1, 0b0101110011001010
+    LWI  $2, 2147500497
+    SW   $1, $2, 0
+    LLI  $1, 0b1110011010110110
+    LWI  $2, 2147500502
+    SW   $1, $2, 0
+    LWI  $2, 2147501967
+    SW   $1, $2, 0
+    LWI  $2, 2147502059
+    SW   $1, $2, 0
+    LWI  $2, 2147502066
+    SW   $1, $2, 0
+    LWI  $2, 2147502262
+    SW   $1, $2, 0
+    LLI  $1, 0b0101010111001010
+    LWI  $2, 2147500503
+    SW   $1, $2, 0
+    LLI  $1, 0b1101111010010101
+    LWI  $2, 2147500504
+    SW   $1, $2, 0
+    LWI  $2, 2147500699
+    SW   $1, $2, 0
+    LWI  $2, 2147501970
+    SW   $1, $2, 0
+    LWI  $2, 2147501976
+    SW   $1, $2, 0
+    LWI  $2, 2147502069
+    SW   $1, $2, 0
+    LWI  $2, 2147502167
+    SW   $1, $2, 0
+    LWI  $2, 2147502357
+    SW   $1, $2, 0
+    LLI  $1, 0b0101010011001001
+    LWI  $2, 2147500507
+    SW   $1, $2, 0
+    LWI  $2, 2147500592
+    SW   $1, $2, 0
+    LLI  $1, 0b1101111001110101
+    LWI  $2, 2147500508
+    SW   $1, $2, 0
+    LLI  $1, 0b1111011100011000
+    LWI  $2, 2147500560
+    SW   $1, $2, 0
+    LWI  $2, 2147500664
+    SW   $1, $2, 0
+    LLI  $1, 0b1111111110011101
+    LWI  $2, 2147500561
+    SW   $1, $2, 0
+    LWI  $2, 2147500569
+    SW   $1, $2, 0
+    LWI  $2, 2147500758
+    SW   $1, $2, 0
+    LLI  $1, 0b1111111110011100
+    LWI  $2, 2147500562
+    SW   $1, $2, 0
+    LWI  $2, 2147500566
+    SW   $1, $2, 0
+    LWI  $2, 2147500572
+    SW   $1, $2, 0
+    LWI  $2, 2147500667
+    SW   $1, $2, 0
+    LWI  $2, 2147500753
+    SW   $1, $2, 0
+    LWI  $2, 2147500757
+    SW   $1, $2, 0
+    LWI  $2, 2147500860
+    SW   $1, $2, 0
+    LWI  $2, 2147500949
+    SW   $1, $2, 0
+    LWI  $2, 2147500951
+    SW   $1, $2, 0
+    LWI  $2, 2147500952
+    SW   $1, $2, 0
+    LWI  $2, 2147500954
+    SW   $1, $2, 0
+    LWI  $2, 2147501041
+    SW   $1, $2, 0
+    LWI  $2, 2147501332
+    SW   $1, $2, 0
+    LWI  $2, 2147501522
+    SW   $1, $2, 0
+    LLI  $1, 0b1010010001101111
+    LWI  $2, 2147500586
+    SW   $1, $2, 0
+    LLI  $1, 0b1101001111000111
+    LWI  $2, 2147500587
+    SW   $1, $2, 0
+    LWI  $2, 2147505269
+    SW   $1, $2, 0
+    LLI  $1, 0b1100111001010011
+    LWI  $2, 2147500591
+    SW   $1, $2, 0
+    LLI  $1, 0b0111110101001101
+    LWI  $2, 2147500603
+    SW   $1, $2, 0
+    LWI  $2, 2147500604
+    SW   $1, $2, 0
+    LLI  $1, 0b1111111101111100
+    LWI  $2, 2147500668
+    SW   $1, $2, 0
+    LWI  $2, 2147500754
+    SW   $1, $2, 0
+    LWI  $2, 2147500856
+    SW   $1, $2, 0
+    LWI  $2, 2147501046
+    SW   $1, $2, 0
+    LWI  $2, 2147501236
+    SW   $1, $2, 0
+    LWI  $2, 2147501425
+    SW   $1, $2, 0
+    LWI  $2, 2147501432
+    SW   $1, $2, 0
+    LWI  $2, 2147501433
+    SW   $1, $2, 0
+    LLI  $1, 0b1011111000010010
+    LWI  $2, 2147500687
+    SW   $1, $2, 0
+    LLI  $1, 0b1001110110110000
+    LWI  $2, 2147500700
+    SW   $1, $2, 0
+    LLI  $1, 0b1100101101100101
+    LWI  $2, 2147500964
+    SW   $1, $2, 0
+    LWI  $2, 2147500972
+    SW   $1, $2, 0
+    LLI  $1, 0b1100101101000011
+    LWI  $2, 2147500965
+    SW   $1, $2, 0
+    LWI  $2, 2147504981
+    SW   $1, $2, 0
+    LWI  $2, 2147505938
+    SW   $1, $2, 0
+    LLI  $1, 0b0101101111001110
+    LWI  $2, 2147501675
+    SW   $1, $2, 0
+    LWI  $2, 2147501680
+    SW   $1, $2, 0
+    LWI  $2, 2147501684
+    SW   $1, $2, 0
+    LWI  $2, 2147501778
+    SW   $1, $2, 0
+    LWI  $2, 2147501877
+    SW   $1, $2, 0
+    LWI  $2, 2147501881
+    SW   $1, $2, 0
+    LLI  $1, 0b0101110000101100
+    LWI  $2, 2147501676
+    SW   $1, $2, 0
+    LLI  $1, 0b0110001111001110
+    LWI  $2, 2147501681
+    SW   $1, $2, 0
+    LLI  $1, 0b0101101111101101
+    LWI  $2, 2147501682
+    SW   $1, $2, 0
+    LWI  $2, 2147501688
+    SW   $1, $2, 0
+    LWI  $2, 2147501779
+    SW   $1, $2, 0
+    LWI  $2, 2147501784
+    SW   $1, $2, 0
+    LWI  $2, 2147501875
+    SW   $1, $2, 0
+    LLI  $1, 0b0100110010001010
+    LWI  $2, 2147501771
+    SW   $1, $2, 0
+    LWI  $2, 2147501876
+    SW   $1, $2, 0
+    LLI  $1, 0b0101010000101100
+    LWI  $2, 2147501780
+    SW   $1, $2, 0
+    LWI  $2, 2147501868
+    SW   $1, $2, 0
+    LLI  $1, 0b0101110000001101
+    LWI  $2, 2147501785
+    SW   $1, $2, 0
+    LWI  $2, 2147501873
+    SW   $1, $2, 0
+    LLI  $1, 0b1110011010110101
+    LWI  $2, 2147501963
+    SW   $1, $2, 0
+    LWI  $2, 2147502265
+    SW   $1, $2, 0
+    LLI  $1, 0b1010111001010001
+    LWI  $2, 2147501964
+    SW   $1, $2, 0
+    LLI  $1, 0b1001011000001110
+    LWI  $2, 2147501965
+    SW   $1, $2, 0
+    LLI  $1, 0b1100011001110011
+    LWI  $2, 2147501966
+    SW   $1, $2, 0
+    LWI  $2, 2147501971
+    SW   $1, $2, 0
+    LWI  $2, 2147502164
+    SW   $1, $2, 0
+    LLI  $1, 0b1011111001010010
+    LWI  $2, 2147501968
+    SW   $1, $2, 0
+    LWI  $2, 2147502168
+    SW   $1, $2, 0
+    LWI  $2, 2147502169
+    SW   $1, $2, 0
+    LLI  $1, 0b1001111000101111
+    LWI  $2, 2147501969
+    SW   $1, $2, 0
+    LWI  $2, 2147501972
+    SW   $1, $2, 0
+    LLI  $1, 0b1010111000110000
+    LWI  $2, 2147502060
+    SW   $1, $2, 0
+    LWI  $2, 2147502065
+    SW   $1, $2, 0
+    LLI  $1, 0b1100111001110011
+    LWI  $2, 2147502061
+    SW   $1, $2, 0
+    LWI  $2, 2147502260
+    SW   $1, $2, 0
+    LLI  $1, 0b1000111000001110
+    LWI  $2, 2147502064
+    SW   $1, $2, 0
+    LWI  $2, 2147502165
+    SW   $1, $2, 0
+    LLI  $1, 0b1000010111101101
+    LWI  $2, 2147502068
+    SW   $1, $2, 0
+    LWI  $2, 2147502264
+    SW   $1, $2, 0
+    LLI  $1, 0b1011011001010001
     LWI  $2, 2147502072
     SW   $1, $2, 0
-    LWI  $2, 2147502092
+    LWI  $2, 2147502356
     SW   $1, $2, 0
-    LWI  $2, 2147502133
+    LLI  $1, 0b1100011001110010
+    LWI  $2, 2147502073
     SW   $1, $2, 0
-    LWI  $2, 2147502148
+    LWI  $2, 2147502166
     SW   $1, $2, 0
-    LWI  $2, 2147502156
+    LWI  $2, 2147502263
     SW   $1, $2, 0
-    LWI  $2, 2147502171
+    LLI  $1, 0b1001111000001111
+    LWI  $2, 2147502261
     SW   $1, $2, 0
-    LWI  $2, 2147502178
+    LWI  $2, 2147502360
     SW   $1, $2, 0
-    LWI  $2, 2147502191
-    SW   $1, $2, 0
-    LWI  $2, 2147502229
-    SW   $1, $2, 0
-    LWI  $2, 2147502237
-    SW   $1, $2, 0
-    LWI  $2, 2147502244
-    SW   $1, $2, 0
-    LWI  $2, 2147502272
-    SW   $1, $2, 0
-    LWI  $2, 2147502274
-    SW   $1, $2, 0
-    LWI  $2, 2147502325
-    SW   $1, $2, 0
-    LWI  $2, 2147502333
-    SW   $1, $2, 0
-    LWI  $2, 2147502340
-    SW   $1, $2, 0
-    LWI  $2, 2147502344
-    SW   $1, $2, 0
+    LLI  $1, 0b1101111010010100
     LWI  $2, 2147502359
     SW   $1, $2, 0
-    LWI  $2, 2147502368
+    LLI  $1, 0b1100001011100010
+    LWI  $2, 2147504978
     SW   $1, $2, 0
-    LWI  $2, 2147502370
+    LLI  $1, 0b1100101100100011
+    LWI  $2, 2147504979
     SW   $1, $2, 0
-    LWI  $2, 2147502379
+    LWI  $2, 2147504982
     SW   $1, $2, 0
-    LWI  $2, 2147502421
+    LWI  $2, 2147504983
     SW   $1, $2, 0
-    LWI  $2, 2147502429
+    LWI  $2, 2147504984
     SW   $1, $2, 0
-    LWI  $2, 2147502436
+    LWI  $2, 2147504985
     SW   $1, $2, 0
-    LWI  $2, 2147502464
+    LWI  $2, 2147504986
     SW   $1, $2, 0
-    LWI  $2, 2147502466
+    LWI  $2, 2147505554
     SW   $1, $2, 0
-    LWI  $2, 2147502512
+    LWI  $2, 2147505650
     SW   $1, $2, 0
-    LWI  $2, 2147502519
+    LWI  $2, 2147505746
     SW   $1, $2, 0
-    LWI  $2, 2147502524
+    LWI  $2, 2147505842
     SW   $1, $2, 0
-    LWI  $2, 2147502534
+    LLI  $1, 0b1100001100100011
+    LWI  $2, 2147504987
     SW   $1, $2, 0
-    LWI  $2, 2147502549
+    LWI  $2, 2147506130
     SW   $1, $2, 0
-    LWI  $2, 2147502559
+    LLI  $1, 0b1110010000000111
+    LWI  $2, 2147505075
     SW   $1, $2, 0
-    LWI  $2, 2147502564
+    LLI  $1, 0b0111110110011010
+    LWI  $2, 2147505078
     SW   $1, $2, 0
-    LWI  $2, 2147503472
+    LLI  $1, 0b0110010111111110
+    LWI  $2, 2147505079
     SW   $1, $2, 0
-    LWI  $2, 2147503489
+    LLI  $1, 0b0110010111111101
+    LWI  $2, 2147505080
     SW   $1, $2, 0
-    LWI  $2, 2147503499
+    LWI  $2, 2147505081
     SW   $1, $2, 0
-    LWI  $2, 2147503519
+    LLI  $1, 0b0110011000011110
+    LWI  $2, 2147505082
     SW   $1, $2, 0
-    LWI  $2, 2147503524
+    LLI  $1, 0b1011101110000110
+    LWI  $2, 2147505083
     SW   $1, $2, 0
-    LWI  $2, 2147503537
+    LWI  $2, 2147505371
     SW   $1, $2, 0
-    LWI  $2, 2147503568
+    LLI  $1, 0b1110011011111010
+    LWI  $2, 2147505097
     SW   $1, $2, 0
-    LWI  $2, 2147503585
+    LWI  $2, 2147505101
     SW   $1, $2, 0
-    LWI  $2, 2147503595
+    LWI  $2, 2147505575
     SW   $1, $2, 0
-    LWI  $2, 2147503615
+    LLI  $1, 0b1110011011111011
+    LWI  $2, 2147505098
     SW   $1, $2, 0
-    LWI  $2, 2147503620
+    LWI  $2, 2147505100
     SW   $1, $2, 0
-    LWI  $2, 2147503633
+    LWI  $2, 2147505287
     SW   $1, $2, 0
-    LWI  $2, 2147503663
+    LWI  $2, 2147505295
     SW   $1, $2, 0
-    LWI  $2, 2147503664
+    LWI  $2, 2147505479
     SW   $1, $2, 0
-    LWI  $2, 2147503678
+    LWI  $2, 2147505487
     SW   $1, $2, 0
-    LWI  $2, 2147503729
+    LLI  $1, 0b1101111011111011
+    LWI  $2, 2147505099
     SW   $1, $2, 0
-    LWI  $2, 2147503760
+    LWI  $2, 2147505192
     SW   $1, $2, 0
-    LWI  $2, 2147503770
+    LWI  $2, 2147505193
     SW   $1, $2, 0
-    LWI  $2, 2147503774
+    LWI  $2, 2147505194
     SW   $1, $2, 0
-    LWI  $2, 2147503777
+    LWI  $2, 2147505195
     SW   $1, $2, 0
-    LWI  $2, 2147503787
+    LWI  $2, 2147505196
     SW   $1, $2, 0
-    LWI  $2, 2147503800
+    LWI  $2, 2147505197
     SW   $1, $2, 0
-    LWI  $2, 2147503804
+    LWI  $2, 2147505198
     SW   $1, $2, 0
-    LWI  $2, 2147503807
+    LWI  $2, 2147505288
     SW   $1, $2, 0
-    LWI  $2, 2147503812
+    LWI  $2, 2147505289
     SW   $1, $2, 0
-    LWI  $2, 2147503815
+    LWI  $2, 2147505290
     SW   $1, $2, 0
-    LWI  $2, 2147503819
+    LWI  $2, 2147505291
     SW   $1, $2, 0
-    LWI  $2, 2147503820
+    LWI  $2, 2147505292
     SW   $1, $2, 0
-    LWI  $2, 2147503825
+    LWI  $2, 2147505293
     SW   $1, $2, 0
-    LWI  $2, 2147503856
+    LWI  $2, 2147505294
     SW   $1, $2, 0
-    LWI  $2, 2147503870
+    LWI  $2, 2147505383
     SW   $1, $2, 0
-    LWI  $2, 2147503873
+    LWI  $2, 2147505386
     SW   $1, $2, 0
-    LWI  $2, 2147503883
+    LWI  $2, 2147505389
     SW   $1, $2, 0
-    LWI  $2, 2147503900
+    LWI  $2, 2147505390
     SW   $1, $2, 0
-    LWI  $2, 2147503903
+    LWI  $2, 2147505391
     SW   $1, $2, 0
-    LWI  $2, 2147503908
+    LWI  $2, 2147505482
     SW   $1, $2, 0
-    LWI  $2, 2147503915
+    LWI  $2, 2147505485
     SW   $1, $2, 0
-    LWI  $2, 2147503921
+    LWI  $2, 2147505486
     SW   $1, $2, 0
-    LWI  $2, 2147503922
+    LWI  $2, 2147505576
     SW   $1, $2, 0
-    LWI  $2, 2147503952
+    LWI  $2, 2147505577
     SW   $1, $2, 0
-    LWI  $2, 2147503966
+    LWI  $2, 2147505578
     SW   $1, $2, 0
-    LWI  $2, 2147503969
+    LWI  $2, 2147505579
     SW   $1, $2, 0
-    LWI  $2, 2147503979
+    LWI  $2, 2147505580
     SW   $1, $2, 0
-    LWI  $2, 2147503996
+    LWI  $2, 2147505581
     SW   $1, $2, 0
-    LWI  $2, 2147503999
+    LWI  $2, 2147505582
     SW   $1, $2, 0
-    LWI  $2, 2147504004
+    LWI  $2, 2147505673
     SW   $1, $2, 0
-    LWI  $2, 2147504011
+    LWI  $2, 2147505675
     SW   $1, $2, 0
-    LWI  $2, 2147504017
+    LWI  $2, 2147505769
     SW   $1, $2, 0
-    LWI  $2, 2147504018
+    LLI  $1, 0b1100101111000111
+    LWI  $2, 2147505170
     SW   $1, $2, 0
-    LWI  $2, 2147504020
+    LWI  $2, 2147505266
     SW   $1, $2, 0
-    LWI  $2, 2147504048
+    LLI  $1, 0b1110110110110001
+    LWI  $2, 2147505171
     SW   $1, $2, 0
-    LWI  $2, 2147504062
+    LLI  $1, 0b1101101101000011
+    LWI  $2, 2147505172
     SW   $1, $2, 0
-    LWI  $2, 2147504065
+    LLI  $1, 0b0111110101111000
+    LWI  $2, 2147505174
     SW   $1, $2, 0
-    LWI  $2, 2147504075
+    LLI  $1, 0b0110110110111100
+    LWI  $2, 2147505175
     SW   $1, $2, 0
-    LWI  $2, 2147504092
+    LWI  $2, 2147505271
     SW   $1, $2, 0
-    LWI  $2, 2147504095
+    LLI  $1, 0b0110110110111011
+    LWI  $2, 2147505176
     SW   $1, $2, 0
-    LWI  $2, 2147504100
+    LWI  $2, 2147505177
     SW   $1, $2, 0
-    LWI  $2, 2147504107
+    LWI  $2, 2147505272
     SW   $1, $2, 0
-    LWI  $2, 2147504113
+    LWI  $2, 2147505273
     SW   $1, $2, 0
-    LWI  $2, 2147504139
+    LLI  $1, 0b0110110111011100
+    LWI  $2, 2147505178
     SW   $1, $2, 0
-    LWI  $2, 2147504145
+    LWI  $2, 2147505274
     SW   $1, $2, 0
-    LWI  $2, 2147504150
+    LLI  $1, 0b1011101101100110
+    LWI  $2, 2147505179
     SW   $1, $2, 0
-    LWI  $2, 2147504152
+    LWI  $2, 2147505275
     SW   $1, $2, 0
-    LWI  $2, 2147504156
+    LWI  $2, 2147505563
     SW   $1, $2, 0
-    LWI  $2, 2147504157
+    LLI  $1, 0b1110111011011000
+    LWI  $2, 2147505191
     SW   $1, $2, 0
-    LWI  $2, 2147504162
+    LWI  $2, 2147505199
     SW   $1, $2, 0
-    LWI  $2, 2147504172
+    LLI  $1, 0b1110110111010010
+    LWI  $2, 2147505267
     SW   $1, $2, 0
-    LWI  $2, 2147504175
+    LLI  $1, 0b1101101101000010
+    LWI  $2, 2147505268
     SW   $1, $2, 0
-    LWI  $2, 2147504177
+    LLI  $1, 0b0111110101111001
+    LWI  $2, 2147505270
     SW   $1, $2, 0
-    LWI  $2, 2147504192
+    LLI  $1, 0b1110010110010000
+    LWI  $2, 2147505363
     SW   $1, $2, 0
-    LWI  $2, 2147504197
+    LLI  $1, 0b1110001101100011
+    LWI  $2, 2147505364
     SW   $1, $2, 0
-    LWI  $2, 2147504210
+    LLI  $1, 0b1101001110100110
+    LWI  $2, 2147505365
     SW   $1, $2, 0
-    LLI  $1, 0b1111111111111111
-    LWI  $2, 2147504108
+    LLI  $1, 0b0111110110111010
+    LWI  $2, 2147505366
+    SW   $1, $2, 0
+    LLI  $1, 0b0111010111111101
+    LWI  $2, 2147505367
+    SW   $1, $2, 0
+    LWI  $2, 2147505368
+    SW   $1, $2, 0
+    LWI  $2, 2147505369
+    SW   $1, $2, 0
+    LLI  $1, 0b0110111000011110
+    LWI  $2, 2147505370
+    SW   $1, $2, 0
+    LLI  $1, 0b0100101001101001
+    LWI  $2, 2147505384
+    SW   $1, $2, 0
+    LWI  $2, 2147505385
+    SW   $1, $2, 0
+    LWI  $2, 2147505387
+    SW   $1, $2, 0
+    LWI  $2, 2147505388
+    SW   $1, $2, 0
+    LWI  $2, 2147505480
+    SW   $1, $2, 0
+    LWI  $2, 2147505481
+    SW   $1, $2, 0
+    LWI  $2, 2147505483
+    SW   $1, $2, 0
+    LWI  $2, 2147505484
+    SW   $1, $2, 0
+    LWI  $2, 2147505672
+    SW   $1, $2, 0
+    LWI  $2, 2147505674
+    SW   $1, $2, 0
+    LWI  $2, 2147505676
+    SW   $1, $2, 0
+    LWI  $2, 2147505768
+    SW   $1, $2, 0
+    LWI  $2, 2147505770
+    SW   $1, $2, 0
+    LLI  $1, 0b1110101110100011
+    LWI  $2, 2147505461
+    SW   $1, $2, 0
+    LLI  $1, 0b0111010000010001
+    LWI  $2, 2147505462
+    SW   $1, $2, 0
+    LLI  $1, 0b0101101111110010
+    LWI  $2, 2147505463
+    SW   $1, $2, 0
+    LWI  $2, 2147505466
+    SW   $1, $2, 0
+    LLI  $1, 0b0101110000010010
+    LWI  $2, 2147505464
+    SW   $1, $2, 0
+    LWI  $2, 2147505465
+    SW   $1, $2, 0
+    LWI  $2, 2147505657
+    SW   $1, $2, 0
+    LLI  $1, 0b1011101100100101
+    LWI  $2, 2147505467
+    SW   $1, $2, 0
+    LWI  $2, 2147505851
+    SW   $1, $2, 0
+    LWI  $2, 2147505947
+    SW   $1, $2, 0
+    LWI  $2, 2147506043
+    SW   $1, $2, 0
+    LLI  $1, 0b1101101110100100
+    LWI  $2, 2147505555
+    SW   $1, $2, 0
+    LWI  $2, 2147505844
+    SW   $1, $2, 0
+    LLI  $1, 0b0110001010001000
+    LWI  $2, 2147505558
+    SW   $1, $2, 0
+    LLI  $1, 0b0101101110110001
+    LWI  $2, 2147505559
+    SW   $1, $2, 0
+    LLI  $1, 0b0101001011101100
+    LWI  $2, 2147505560
+    SW   $1, $2, 0
+    LLI  $1, 0b0101001100101101
+    LWI  $2, 2147505561
+    SW   $1, $2, 0
+    LLI  $1, 0b0101001110010000
+    LWI  $2, 2147505562
+    SW   $1, $2, 0
+    LLI  $1, 0b1110011011011001
+    LWI  $2, 2147505583
+    SW   $1, $2, 0
+    LLI  $1, 0b0110001011101010
+    LWI  $2, 2147505654
+    SW   $1, $2, 0
+    LLI  $1, 0b0110010011111000
+    LWI  $2, 2147505655
+    SW   $1, $2, 0
+    LLI  $1, 0b0101101111010001
+    LWI  $2, 2147505656
+    SW   $1, $2, 0
+    LLI  $1, 0b0110010011010110
+    LWI  $2, 2147505658
+    SW   $1, $2, 0
+    LLI  $1, 0b1011101110100111
+    LWI  $2, 2147505659
+    SW   $1, $2, 0
+    LLI  $1, 0b1110111010110111
+    LWI  $2, 2147505671
+    SW   $1, $2, 0
+    LLI  $1, 0b1101011010011001
+    LWI  $2, 2147505677
+    SW   $1, $2, 0
+    LLI  $1, 0b1011010101010011
+    LWI  $2, 2147505678
+    SW   $1, $2, 0
+    LLI  $1, 0b1000001111001101
+    LWI  $2, 2147505679
+    SW   $1, $2, 0
+    LLI  $1, 0b0111001101101100
+    LWI  $2, 2147505680
+    SW   $1, $2, 0
+    LLI  $1, 0b1010010011010000
+    LWI  $2, 2147505681
+    SW   $1, $2, 0
+    LLI  $1, 0b1101111001010101
+    LWI  $2, 2147505682
+    SW   $1, $2, 0
+    LLI  $1, 0b0110001011101011
+    LWI  $2, 2147505750
+    SW   $1, $2, 0
+    LLI  $1, 0b0110010010010110
+    LWI  $2, 2147505751
+    SW   $1, $2, 0
+    LLI  $1, 0b0101101110110000
+    LWI  $2, 2147505752
+    SW   $1, $2, 0
+    LLI  $1, 0b0110001111110010
+    LWI  $2, 2147505753
+    SW   $1, $2, 0
+    LLI  $1, 0b0110010001110101
+    LWI  $2, 2147505754
+    SW   $1, $2, 0
+    LLI  $1, 0b1011101110000111
+    LWI  $2, 2147505755
+    SW   $1, $2, 0
+    LLI  $1, 0b1001010010010010
+    LWI  $2, 2147505771
+    SW   $1, $2, 0
+    LLI  $1, 0b0100001000101000
+    LWI  $2, 2147505772
+    SW   $1, $2, 0
+    LWI  $2, 2147506016
+    SW   $1, $2, 0
+    LLI  $1, 0b0110001100101100
+    LWI  $2, 2147505773
+    SW   $1, $2, 0
+    LLI  $1, 0b1010010011010001
+    LWI  $2, 2147505774
+    SW   $1, $2, 0
+    LLI  $1, 0b1100110111110100
+    LWI  $2, 2147505775
+    SW   $1, $2, 0
+    LLI  $1, 0b1100010110010011
+    LWI  $2, 2147505776
+    SW   $1, $2, 0
+    LLI  $1, 0b1001010001001111
+    LWI  $2, 2147505777
+    SW   $1, $2, 0
+    LLI  $1, 0b0111001101001100
+    LWI  $2, 2147505778
+    SW   $1, $2, 0
+    LLI  $1, 0b1010010010110000
+    LWI  $2, 2147505779
+    SW   $1, $2, 0
+    LLI  $1, 0b1110001111100110
+    LWI  $2, 2147505843
+    SW   $1, $2, 0
+    LLI  $1, 0b1001101011000101
+    LWI  $2, 2147505845
+    SW   $1, $2, 0
+    LLI  $1, 0b0110001101010000
+    LWI  $2, 2147505850
+    SW   $1, $2, 0
+    LWI  $2, 2147505946
+    SW   $1, $2, 0
+    LWI  $2, 2147506038
+    SW   $1, $2, 0
+    LLI  $1, 0b0101001010101100
+    LWI  $2, 2147505866
+    SW   $1, $2, 0
+    LWI  $2, 2147505872
+    SW   $1, $2, 0
+    LWI  $2, 2147506111
+    SW   $1, $2, 0
+    LLI  $1, 0b0100101001101010
+    LWI  $2, 2147505867
+    SW   $1, $2, 0
+    LWI  $2, 2147505868
+    SW   $1, $2, 0
+    LWI  $2, 2147505869
+    SW   $1, $2, 0
+    LWI  $2, 2147505870
+    SW   $1, $2, 0
+    LWI  $2, 2147506112
+    SW   $1, $2, 0
+    LLI  $1, 0b0101001010001011
+    LWI  $2, 2147505871
+    SW   $1, $2, 0
+    LLI  $1, 0b0101101011001101
+    LWI  $2, 2147505873
+    SW   $1, $2, 0
+    LLI  $1, 0b0101101011101101
+    LWI  $2, 2147505874
+    SW   $1, $2, 0
+    LWI  $2, 2147506015
+    SW   $1, $2, 0
+    LLI  $1, 0b0110001100101111
+    LWI  $2, 2147505875
+    SW   $1, $2, 0
+    LWI  $2, 2147505941
+    SW   $1, $2, 0
+    LLI  $1, 0b0110001101001111
+    LWI  $2, 2147505918
+    SW   $1, $2, 0
+    LLI  $1, 0b0100001000001000
+    LWI  $2, 2147505919
+    SW   $1, $2, 0
+    LWI  $2, 2147505920
+    SW   $1, $2, 0
+    LLI  $1, 0b1001101011100110
+    LWI  $2, 2147505940
+    SW   $1, $2, 0
+    LLI  $1, 0b0110001101110000
+    LWI  $2, 2147505942
+    SW   $1, $2, 0
+    LWI  $2, 2147506039
+    SW   $1, $2, 0
+    LWI  $2, 2147506040
+    SW   $1, $2, 0
+    LWI  $2, 2147506041
+    SW   $1, $2, 0
+    LLI  $1, 0b1100001100000011
+    LWI  $2, 2147506034
+    SW   $1, $2, 0
+    LLI  $1, 0b1010101010100010
+    LWI  $2, 2147506035
+    SW   $1, $2, 0
+    LLI  $1, 0b0111001011101010
+    LWI  $2, 2147506036
+    SW   $1, $2, 0
+    LLI  $1, 0b0101101101110010
+    LWI  $2, 2147506037
+    SW   $1, $2, 0
+    LLI  $1, 0b0110001101110001
+    LWI  $2, 2147506042
+    SW   $1, $2, 0
+    LLI  $1, 0b1011101011100011
+    LWI  $2, 2147506131
+    SW   $1, $2, 0
+    LLI  $1, 0b1011101100000100
+    LWI  $2, 2147506132
+    SW   $1, $2, 0
+    LLI  $1, 0b1011001100100101
+    LWI  $2, 2147506133
+    SW   $1, $2, 0
+    LWI  $2, 2147506134
+    SW   $1, $2, 0
+    LWI  $2, 2147506135
+    SW   $1, $2, 0
+    LWI  $2, 2147506136
+    SW   $1, $2, 0
+    LWI  $2, 2147506137
+    SW   $1, $2, 0
+    LWI  $2, 2147506138
+    SW   $1, $2, 0
+    LLI  $1, 0b1100001101000100
+    LWI  $2, 2147506139
     SW   $1, $2, 0
     JMP $0
-DISPCHAR:
-    BNE  $1, 0
-    JUMP CHARGG
-    BNE  $1, 1
-    JUMP CHARLEFT
-    BNE  $1, 2
-    JUMP CHARLEFT
-    BNE  $1, 3
-    JUMP CHARRIGHT
-    BNE  $1, 4
-    JUMP CHARRIGHT
-    JUMP CHARGG
-CHARGG:
-    LLI  $3, 0b0001100011000011
-    LWI  $2, 2147502443
-    SW   $3, $2, 0
-    LWI  $2, 2147502444
-    SW   $3, $2, 0
-    LWI  $2, 2147502445
-    SW   $3, $2, 0
-    LWI  $2, 2147502446
-    SW   $3, $2, 0
-    LWI  $2, 2147502447
-    SW   $3, $2, 0
-    LWI  $2, 2147502448
-    SW   $3, $2, 0
-    LWI  $2, 2147502449
-    SW   $3, $2, 0
-    LWI  $2, 2147502450
-    SW   $3, $2, 0
-    LWI  $2, 2147502451
-    SW   $3, $2, 0
-    LWI  $2, 2147502452
-    SW   $3, $2, 0
-    LWI  $2, 2147502539
-    SW   $3, $2, 0
-    LWI  $2, 2147502540
-    SW   $3, $2, 0
-    LWI  $2, 2147502541
-    SW   $3, $2, 0
-    LWI  $2, 2147502542
-    SW   $3, $2, 0
-    LWI  $2, 2147502543
-    SW   $3, $2, 0
-    LWI  $2, 2147502544
-    SW   $3, $2, 0
-    LWI  $2, 2147502545
-    SW   $3, $2, 0
-    LWI  $2, 2147502546
-    SW   $3, $2, 0
-    LWI  $2, 2147502547
-    SW   $3, $2, 0
-    LWI  $2, 2147502548
-    SW   $3, $2, 0
-    LWI  $2, 2147502635
-    SW   $3, $2, 0
-    LWI  $2, 2147502644
-    SW   $3, $2, 0
-    LWI  $2, 2147502731
-    SW   $3, $2, 0
-    LWI  $2, 2147502733
-    SW   $3, $2, 0
-    LWI  $2, 2147502738
-    SW   $3, $2, 0
-    LWI  $2, 2147502740
-    SW   $3, $2, 0
-    LWI  $2, 2147502827
-    SW   $3, $2, 0
-    LWI  $2, 2147502829
-    SW   $3, $2, 0
-    LWI  $2, 2147502834
-    SW   $3, $2, 0
-    LWI  $2, 2147502836
-    SW   $3, $2, 0
-    LWI  $2, 2147502923
-    SW   $3, $2, 0
-    LWI  $2, 2147502932
-    SW   $3, $2, 0
-    LWI  $2, 2147503019
-    SW   $3, $2, 0
-    LWI  $2, 2147503028
-    SW   $3, $2, 0
-    LLI  $3, 0b1111010011001110
-    LWI  $2, 2147502636
-    SW   $3, $2, 0
-    LWI  $2, 2147502637
-    SW   $3, $2, 0
-    LWI  $2, 2147502638
-    SW   $3, $2, 0
-    LWI  $2, 2147502639
-    SW   $3, $2, 0
-    LWI  $2, 2147502640
-    SW   $3, $2, 0
-    LWI  $2, 2147502641
-    SW   $3, $2, 0
-    LWI  $2, 2147502642
-    SW   $3, $2, 0
-    LWI  $2, 2147502643
-    SW   $3, $2, 0
-    LWI  $2, 2147502732
-    SW   $3, $2, 0
-    LWI  $2, 2147502734
-    SW   $3, $2, 0
-    LWI  $2, 2147502735
-    SW   $3, $2, 0
-    LWI  $2, 2147502736
-    SW   $3, $2, 0
-    LWI  $2, 2147502737
-    SW   $3, $2, 0
-    LWI  $2, 2147502739
-    SW   $3, $2, 0
-    LWI  $2, 2147502828
-    SW   $3, $2, 0
-    LWI  $2, 2147502830
-    SW   $3, $2, 0
-    LWI  $2, 2147502831
-    SW   $3, $2, 0
-    LWI  $2, 2147502832
-    SW   $3, $2, 0
-    LWI  $2, 2147502833
-    SW   $3, $2, 0
-    LWI  $2, 2147502835
-    SW   $3, $2, 0
-    LWI  $2, 2147502924
-    SW   $3, $2, 0
-    LWI  $2, 2147502925
-    SW   $3, $2, 0
-    LWI  $2, 2147502926
-    SW   $3, $2, 0
-    LWI  $2, 2147502927
-    SW   $3, $2, 0
-    LWI  $2, 2147502928
-    SW   $3, $2, 0
-    LWI  $2, 2147502929
-    SW   $3, $2, 0
-    LWI  $2, 2147502930
-    SW   $3, $2, 0
-    LWI  $2, 2147502931
-    SW   $3, $2, 0
-    LWI  $2, 2147503020
-    SW   $3, $2, 0
-    LWI  $2, 2147503021
-    SW   $3, $2, 0
-    LWI  $2, 2147503022
-    SW   $3, $2, 0
-    LWI  $2, 2147503023
-    SW   $3, $2, 0
-    LWI  $2, 2147503024
-    SW   $3, $2, 0
-    LWI  $2, 2147503025
-    SW   $3, $2, 0
-    LWI  $2, 2147503026
-    SW   $3, $2, 0
-    LWI  $2, 2147503027
-    SW   $3, $2, 0
-    LWI  $2, 2147503211
-    SW   $3, $2, 0
-    LWI  $2, 2147503212
-    SW   $3, $2, 0
-    LWI  $2, 2147503219
-    SW   $3, $2, 0
-    LWI  $2, 2147503220
-    SW   $3, $2, 0
-    LWI  $2, 2147503598
-    SW   $3, $2, 0
-    LWI  $2, 2147503601
-    SW   $3, $2, 0
-    LLI  $3, 0b0111100000000000
-    LWI  $2, 2147503117
-    SW   $3, $2, 0
-    LWI  $2, 2147503118
-    SW   $3, $2, 0
-    LWI  $2, 2147503121
-    SW   $3, $2, 0
-    LWI  $2, 2147503122
-    SW   $3, $2, 0
-    LLI  $3, 0b1010000000000000
-    LWI  $2, 2147503119
-    SW   $3, $2, 0
-    LWI  $2, 2147503120
-    SW   $3, $2, 0
-    LWI  $2, 2147503213
-    SW   $3, $2, 0
-    LWI  $2, 2147503214
-    SW   $3, $2, 0
-    LWI  $2, 2147503215
-    SW   $3, $2, 0
-    LWI  $2, 2147503216
-    SW   $3, $2, 0
-    LWI  $2, 2147503217
-    SW   $3, $2, 0
-    LWI  $2, 2147503218
-    SW   $3, $2, 0
-    LWI  $2, 2147503309
-    SW   $3, $2, 0
-    LWI  $2, 2147503310
-    SW   $3, $2, 0
-    LWI  $2, 2147503311
-    SW   $3, $2, 0
-    LWI  $2, 2147503312
-    SW   $3, $2, 0
-    LWI  $2, 2147503313
-    SW   $3, $2, 0
-    LWI  $2, 2147503314
-    SW   $3, $2, 0
-    LLI  $3, 0b0001000010101100
-    LWI  $2, 2147503405
-    SW   $3, $2, 0
-    LWI  $2, 2147503406
-    SW   $3, $2, 0
-    LWI  $2, 2147503407
-    SW   $3, $2, 0
-    LWI  $2, 2147503408
-    SW   $3, $2, 0
-    LWI  $2, 2147503409
-    SW   $3, $2, 0
-    LWI  $2, 2147503410
-    SW   $3, $2, 0
-    LLI  $3, 0b1101010000101100
-    LWI  $2, 2147503502
-    SW   $3, $2, 0
-    LWI  $2, 2147503505
-    SW   $3, $2, 0
-    JUMP CHARAFTERDEF
-CHARRIGHT:
-    LLI  $3, 0b0001100011000011
-    LWI  $2, 2147502443
-    SW   $3, $2, 0
-    LWI  $2, 2147502444
-    SW   $3, $2, 0
-    LWI  $2, 2147502445
-    SW   $3, $2, 0
-    LWI  $2, 2147502446
-    SW   $3, $2, 0
-    LWI  $2, 2147502447
-    SW   $3, $2, 0
-    LWI  $2, 2147502448
-    SW   $3, $2, 0
-    LWI  $2, 2147502449
-    SW   $3, $2, 0
-    LWI  $2, 2147502450
-    SW   $3, $2, 0
-    LWI  $2, 2147502451
-    SW   $3, $2, 0
-    LWI  $2, 2147502452
-    SW   $3, $2, 0
-    LWI  $2, 2147502539
-    SW   $3, $2, 0
-    LWI  $2, 2147502540
-    SW   $3, $2, 0
-    LWI  $2, 2147502541
-    SW   $3, $2, 0
-    LWI  $2, 2147502542
-    SW   $3, $2, 0
-    LWI  $2, 2147502543
-    SW   $3, $2, 0
-    LWI  $2, 2147502544
-    SW   $3, $2, 0
-    LWI  $2, 2147502545
-    SW   $3, $2, 0
-    LWI  $2, 2147502546
-    SW   $3, $2, 0
-    LWI  $2, 2147502547
-    SW   $3, $2, 0
-    LWI  $2, 2147502548
-    SW   $3, $2, 0
-    LWI  $2, 2147502635
-    SW   $3, $2, 0
-    LWI  $2, 2147502636
-    SW   $3, $2, 0
-    LWI  $2, 2147502731
-    SW   $3, $2, 0
-    LWI  $2, 2147502739
-    SW   $3, $2, 0
-    LWI  $2, 2147502827
-    SW   $3, $2, 0
-    LWI  $2, 2147502835
-    SW   $3, $2, 0
-    LWI  $2, 2147502923
-    SW   $3, $2, 0
-    LWI  $2, 2147502924
-    SW   $3, $2, 0
-    LWI  $2, 2147503019
-    SW   $3, $2, 0
-    LWI  $2, 2147503020
-    SW   $3, $2, 0
-    LLI  $3, 0b1101010000101100
-    LWI  $2, 2147502637
-    SW   $3, $2, 0
-    LWI  $2, 2147502638
-    SW   $3, $2, 0
-    LWI  $2, 2147502639
-    SW   $3, $2, 0
-    LWI  $2, 2147502640
-    SW   $3, $2, 0
-    LWI  $2, 2147502641
-    SW   $3, $2, 0
-    LWI  $2, 2147502642
-    SW   $3, $2, 0
-    LWI  $2, 2147502643
-    SW   $3, $2, 0
-    LWI  $2, 2147502644
-    SW   $3, $2, 0
-    LWI  $2, 2147502925
-    SW   $3, $2, 0
-    LWI  $2, 2147503021
-    SW   $3, $2, 0
-    LWI  $2, 2147503502
-    SW   $3, $2, 0
-    LWI  $2, 2147503505
-    SW   $3, $2, 0
-    LLI  $3, 0b1111010011001110
-    LWI  $2, 2147502732
-    SW   $3, $2, 0
-    LWI  $2, 2147502733
-    SW   $3, $2, 0
-    LWI  $2, 2147502734
-    SW   $3, $2, 0
-    LWI  $2, 2147502735
-    SW   $3, $2, 0
-    LWI  $2, 2147502736
-    SW   $3, $2, 0
-    LWI  $2, 2147502737
-    SW   $3, $2, 0
-    LWI  $2, 2147502738
-    SW   $3, $2, 0
-    LWI  $2, 2147502740
-    SW   $3, $2, 0
-    LWI  $2, 2147502828
-    SW   $3, $2, 0
-    LWI  $2, 2147502829
-    SW   $3, $2, 0
-    LWI  $2, 2147502830
-    SW   $3, $2, 0
-    LWI  $2, 2147502831
-    SW   $3, $2, 0
-    LWI  $2, 2147502832
-    SW   $3, $2, 0
-    LWI  $2, 2147502833
-    SW   $3, $2, 0
-    LWI  $2, 2147502834
-    SW   $3, $2, 0
-    LWI  $2, 2147502836
-    SW   $3, $2, 0
-    LWI  $2, 2147502926
-    SW   $3, $2, 0
-    LWI  $2, 2147502927
-    SW   $3, $2, 0
-    LWI  $2, 2147502928
-    SW   $3, $2, 0
-    LWI  $2, 2147502929
-    SW   $3, $2, 0
-    LWI  $2, 2147502930
-    SW   $3, $2, 0
-    LWI  $2, 2147502931
-    SW   $3, $2, 0
-    LWI  $2, 2147502932
-    SW   $3, $2, 0
-    LWI  $2, 2147503022
-    SW   $3, $2, 0
-    LWI  $2, 2147503023
-    SW   $3, $2, 0
-    LWI  $2, 2147503024
-    SW   $3, $2, 0
-    LWI  $2, 2147503025
-    SW   $3, $2, 0
-    LWI  $2, 2147503026
-    SW   $3, $2, 0
-    LWI  $2, 2147503027
-    SW   $3, $2, 0
-    LWI  $2, 2147503028
-    SW   $3, $2, 0
-    LWI  $2, 2147503215
-    SW   $3, $2, 0
-    LLI  $3, 0b0111100001000001
-    LWI  $2, 2147503117
-    SW   $3, $2, 0
-    LWI  $2, 2147503213
-    SW   $3, $2, 0
-    LLI  $3, 0b1010000000000000
-    LWI  $2, 2147503118
-    SW   $3, $2, 0
-    LWI  $2, 2147503119
-    SW   $3, $2, 0
-    LWI  $2, 2147503120
-    SW   $3, $2, 0
-    LWI  $2, 2147503121
-    SW   $3, $2, 0
-    LWI  $2, 2147503122
-    SW   $3, $2, 0
-    LWI  $2, 2147503214
-    SW   $3, $2, 0
-    LWI  $2, 2147503216
-    SW   $3, $2, 0
-    LWI  $2, 2147503217
-    SW   $3, $2, 0
-    LWI  $2, 2147503218
-    SW   $3, $2, 0
-    LWI  $2, 2147503309
-    SW   $3, $2, 0
-    LWI  $2, 2147503310
-    SW   $3, $2, 0
-    LWI  $2, 2147503311
-    SW   $3, $2, 0
-    LWI  $2, 2147503312
-    SW   $3, $2, 0
-    LWI  $2, 2147503313
-    SW   $3, $2, 0
-    LWI  $2, 2147503314
-    SW   $3, $2, 0
-    LLI  $3, 0b0001000010101100
-    LWI  $2, 2147503405
-    SW   $3, $2, 0
-    LWI  $2, 2147503406
-    SW   $3, $2, 0
-    LWI  $2, 2147503407
-    SW   $3, $2, 0
-    LWI  $2, 2147503408
-    SW   $3, $2, 0
-    LWI  $2, 2147503409
-    SW   $3, $2, 0
-    LWI  $2, 2147503410
-    SW   $3, $2, 0
-    BNE  $1, 3
-    JUMP CHARRIGHT1
-CHARRIGHT2:
-    JUMP CHARAFTERDEF
-CHARRIGHT1:
-    JUMP CHARAFTERDEF
-CHARLEFT:
-    LLI  $3, 0b0001100011000011
-    LWI  $2, 2147502539
-    SW   $3, $2, 0
-    LWI  $2, 2147502538
-    SW   $3, $2, 0
-    LWI  $2, 2147502537
-    SW   $3, $2, 0
-    LWI  $2, 2147502536
-    SW   $3, $2, 0
-    LWI  $2, 2147502535
-    SW   $3, $2, 0
-    LWI  $2, 2147502534
-    SW   $3, $2, 0
-    LWI  $2, 2147502533
-    SW   $3, $2, 0
-    LWI  $2, 2147502532
-    SW   $3, $2, 0
-    LWI  $2, 2147502531
-    SW   $3, $2, 0
-    LWI  $2, 2147502530
-    SW   $3, $2, 0
-    LWI  $2, 2147502635
-    SW   $3, $2, 0
-    LWI  $2, 2147502634
-    SW   $3, $2, 0
-    LWI  $2, 2147502633
-    SW   $3, $2, 0
-    LWI  $2, 2147502632
-    SW   $3, $2, 0
-    LWI  $2, 2147502631
-    SW   $3, $2, 0
-    LWI  $2, 2147502630
-    SW   $3, $2, 0
-    LWI  $2, 2147502629
-    SW   $3, $2, 0
-    LWI  $2, 2147502628
-    SW   $3, $2, 0
-    LWI  $2, 2147502627
-    SW   $3, $2, 0
-    LWI  $2, 2147502626
-    SW   $3, $2, 0
-    LWI  $2, 2147502731
-    SW   $3, $2, 0
-    LWI  $2, 2147502730
-    SW   $3, $2, 0
-    LWI  $2, 2147502827
-    SW   $3, $2, 0
-    LWI  $2, 2147502819
-    SW   $3, $2, 0
-    LWI  $2, 2147502923
-    SW   $3, $2, 0
-    LWI  $2, 2147502915
-    SW   $3, $2, 0
-    LWI  $2, 2147503019
-    SW   $3, $2, 0
-    LWI  $2, 2147503018
-    SW   $3, $2, 0
-    LWI  $2, 2147503115
-    SW   $3, $2, 0
-    LWI  $2, 2147503114
-    SW   $3, $2, 0
-    LLI  $3, 0b1101010000101100
-    LWI  $2, 2147502729
-    SW   $3, $2, 0
-    LWI  $2, 2147502728
-    SW   $3, $2, 0
-    LWI  $2, 2147502727
-    SW   $3, $2, 0
-    LWI  $2, 2147502726
-    SW   $3, $2, 0
-    LWI  $2, 2147502725
-    SW   $3, $2, 0
-    LWI  $2, 2147502724
-    SW   $3, $2, 0
-    LWI  $2, 2147502723
-    SW   $3, $2, 0
-    LWI  $2, 2147502722
-    SW   $3, $2, 0
-    LWI  $2, 2147503017
-    SW   $3, $2, 0
-    LWI  $2, 2147503113
-    SW   $3, $2, 0
-    LWI  $2, 2147503592
-    SW   $3, $2, 0
-    LWI  $2, 2147503589
-    SW   $3, $2, 0
-    LLI  $3, 0b1111010011001110
-    LWI  $2, 2147502826
-    SW   $3, $2, 0
-    LWI  $2, 2147502825
-    SW   $3, $2, 0
-    LWI  $2, 2147502824
-    SW   $3, $2, 0
-    LWI  $2, 2147502823
-    SW   $3, $2, 0
-    LWI  $2, 2147502822
-    SW   $3, $2, 0
-    LWI  $2, 2147502821
-    SW   $3, $2, 0
-    LWI  $2, 2147502820
-    SW   $3, $2, 0
-    LWI  $2, 2147502818
-    SW   $3, $2, 0
-    LWI  $2, 2147502922
-    SW   $3, $2, 0
-    LWI  $2, 2147502921
-    SW   $3, $2, 0
-    LWI  $2, 2147502920
-    SW   $3, $2, 0
-    LWI  $2, 2147502919
-    SW   $3, $2, 0
-    LWI  $2, 2147502918
-    SW   $3, $2, 0
-    LWI  $2, 2147502917
-    SW   $3, $2, 0
-    LWI  $2, 2147502916
-    SW   $3, $2, 0
-    LWI  $2, 2147502914
-    SW   $3, $2, 0
-    LWI  $2, 2147503016
-    SW   $3, $2, 0
-    LWI  $2, 2147503015
-    SW   $3, $2, 0
-    LWI  $2, 2147503014
-    SW   $3, $2, 0
-    LWI  $2, 2147503013
-    SW   $3, $2, 0
-    LWI  $2, 2147503012
-    SW   $3, $2, 0
-    LWI  $2, 2147503011
-    SW   $3, $2, 0
-    LWI  $2, 2147503010
-    SW   $3, $2, 0
-    LWI  $2, 2147503112
-    SW   $3, $2, 0
-    LWI  $2, 2147503111
-    SW   $3, $2, 0
-    LWI  $2, 2147503110
-    SW   $3, $2, 0
-    LWI  $2, 2147503109
-    SW   $3, $2, 0
-    LWI  $2, 2147503108
-    SW   $3, $2, 0
-    LWI  $2, 2147503107
-    SW   $3, $2, 0
-    LWI  $2, 2147503106
-    SW   $3, $2, 0
-    LWI  $2, 2147503303
-    SW   $3, $2, 0
-    LLI  $3, 0b0111100001000001
-    LWI  $2, 2147503209
-    SW   $3, $2, 0
-    LWI  $2, 2147503305
-    SW   $3, $2, 0
-    LLI  $3, 0b1010000000000000
-    LWI  $2, 2147503208
-    SW   $3, $2, 0
-    LWI  $2, 2147503207
-    SW   $3, $2, 0
-    LWI  $2, 2147503206
-    SW   $3, $2, 0
-    LWI  $2, 2147503205
-    SW   $3, $2, 0
-    LWI  $2, 2147503204
-    SW   $3, $2, 0
-    LWI  $2, 2147503304
-    SW   $3, $2, 0
-    LWI  $2, 2147503302
-    SW   $3, $2, 0
-    LWI  $2, 2147503301
-    SW   $3, $2, 0
-    LWI  $2, 2147503300
-    SW   $3, $2, 0
-    LWI  $2, 2147503401
-    SW   $3, $2, 0
-    LWI  $2, 2147503400
-    SW   $3, $2, 0
-    LWI  $2, 2147503399
-    SW   $3, $2, 0
-    LWI  $2, 2147503398
-    SW   $3, $2, 0
-    LWI  $2, 2147503397
-    SW   $3, $2, 0
-    LWI  $2, 2147503396
-    SW   $3, $2, 0
-    LLI  $3, 0b0001000010101100
-    LWI  $2, 2147503497
-    SW   $3, $2, 0
-    LWI  $2, 2147503496
-    SW   $3, $2, 0
-    LWI  $2, 2147503495
-    SW   $3, $2, 0
-    LWI  $2, 2147503494
-    SW   $3, $2, 0
-    LWI  $2, 2147503493
-    SW   $3, $2, 0
-    LWI  $2, 2147503492
-    SW   $3, $2, 0
-    BNE  $1, 1
-    JUMP CHARLEFT1
-CHARLEFT2:
-    JUMP CHARAFTERDEF
-CHARLEFT1:
-    JUMP CHARAFTERDEF
-CHARAFTERDEF:
-    JMP  $0
-DISPENEMY:
-    LWI  $13, 1 
-    LWI  $14, 96
-    LWI  $15, 64
-    SRL  $16,  $14, $13
-    LLI  $16, 0b1110011100101110
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  5
-    ADDi $6,  $6,  2
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY111001110010111037END
-    BEQ  $8,  1
-    JUMP DISPENEMY111001110010111037END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY111001110010111037END:
-    LLI  $16, 0b1110011101010001
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  6
-    ADDi $6,  $6,  2
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY111001110101000138END
-    BEQ  $8,  1
-    JUMP DISPENEMY111001110101000138END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY111001110101000138END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  9
-    ADDi $6,  $6,  9
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110011101010001153END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110011101010001153END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110011101010001153END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  12
-    ADDi $6,  $6,  11
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110011101010001188END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110011101010001188END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110011101010001188END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  8
-    ADDi $6,  $6,  12
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110011101010001200END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110011101010001200END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110011101010001200END:
-    LLI  $16, 0b1111011110010111
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  7
-    ADDi $6,  $6,  2
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY111101111001011139END
-    BEQ  $8,  1
-    JUMP DISPENEMY111101111001011139END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY111101111001011139END:
-    LLI  $16, 0b1110011100110001
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  8
-    ADDi $6,  $6,  2
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY111001110011000140END
-    BEQ  $8,  1
-    JUMP DISPENEMY111001110011000140END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY111001110011000140END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  8
-    ADDi $6,  $6,  3
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY111001110011000156END
-    BEQ  $8,  1
-    JUMP DISPENEMY111001110011000156END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY111001110011000156END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  10
-    ADDi $6,  $6,  4
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY111001110011000174END
-    BEQ  $8,  1
-    JUMP DISPENEMY111001110011000174END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY111001110011000174END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  9
-    ADDi $6,  $6,  11
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110011100110001185END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110011100110001185END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110011100110001185END:
-    LLI  $16, 0b1110011100101111
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  5
-    ADDi $6,  $6,  3
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY111001110010111153END
-    BEQ  $8,  1
-    JUMP DISPENEMY111001110010111153END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY111001110010111153END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  6
-    ADDi $6,  $6,  4
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY111001110010111170END
-    BEQ  $8,  1
-    JUMP DISPENEMY111001110010111170END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY111001110010111170END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  9
-    ADDi $6,  $6,  4
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY111001110010111173END
-    BEQ  $8,  1
-    JUMP DISPENEMY111001110010111173END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY111001110010111173END:
-    LLI  $16, 0b1110011100001110
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  6
-    ADDi $6,  $6,  3
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY111001110000111054END
-    BEQ  $8,  1
-    JUMP DISPENEMY111001110000111054END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY111001110000111054END:
-    LLI  $16, 0b1101111011101100
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  7
-    ADDi $6,  $6,  3
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY110111101110110055END
-    BEQ  $8,  1
-    JUMP DISPENEMY110111101110110055END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY110111101110110055END:
-    LLI  $16, 0b1110011100110000
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  9
-    ADDi $6,  $6,  3
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY111001110011000057END
-    BEQ  $8,  1
-    JUMP DISPENEMY111001110011000057END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY111001110011000057END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  10
-    ADDi $6,  $6,  5
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY111001110011000090END
-    BEQ  $8,  1
-    JUMP DISPENEMY111001110011000090END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY111001110011000090END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  10
-    ADDi $6,  $6,  11
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110011100110000186END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110011100110000186END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110011100110000186END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  11
-    ADDi $6,  $6,  11
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110011100110000187END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110011100110000187END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110011100110000187END:
-    LLI  $16, 0b1110111110010011
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  5
-    ADDi $6,  $6,  4
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY111011111001001169END
-    BEQ  $8,  1
-    JUMP DISPENEMY111011111001001169END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY111011111001001169END:
-    LLI  $16, 0b1101011011000111
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  7
-    ADDi $6,  $6,  4
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY110101101100011171END
-    BEQ  $8,  1
-    JUMP DISPENEMY110101101100011171END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY110101101100011171END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  8
-    ADDi $6,  $6,  5
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY110101101100011188END
-    BEQ  $8,  1
-    JUMP DISPENEMY110101101100011188END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY110101101100011188END:
-    LLI  $16, 0b1101111011101011
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  8
-    ADDi $6,  $6,  4
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY110111101110101172END
-    BEQ  $8,  1
-    JUMP DISPENEMY110111101110101172END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY110111101110101172END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  10
-    ADDi $6,  $6,  7
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1101111011101011122END
-    BEQ  $8,  1
-    JUMP DISPENEMY1101111011101011122END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1101111011101011122END:
-    LLI  $16, 0b1100111001110001
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  5
-    ADDi $6,  $6,  5
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY110011100111000185END
-    BEQ  $8,  1
-    JUMP DISPENEMY110011100111000185END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY110011100111000185END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  6
-    ADDi $6,  $6,  6
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1100111001110001102END
-    BEQ  $8,  1
-    JUMP DISPENEMY1100111001110001102END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1100111001110001102END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  6
-    ADDi $6,  $6,  7
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1100111001110001118END
-    BEQ  $8,  1
-    JUMP DISPENEMY1100111001110001118END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1100111001110001118END:
-    LLI  $16, 0b1101111011110001
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  6
-    ADDi $6,  $6,  5
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY110111101111000186END
-    BEQ  $8,  1
-    JUMP DISPENEMY110111101111000186END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY110111101111000186END:
-    LLI  $16, 0b1101111011001000
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  7
-    ADDi $6,  $6,  5
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY110111101100100087END
-    BEQ  $8,  1
-    JUMP DISPENEMY110111101100100087END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY110111101100100087END:
-    LLI  $16, 0b1101111100001110
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  9
-    ADDi $6,  $6,  5
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY110111110000111089END
-    BEQ  $8,  1
-    JUMP DISPENEMY110111110000111089END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY110111110000111089END:
-    LLI  $16, 0b1001010011101011
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  5
-    ADDi $6,  $6,  6
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1001010011101011101END
-    BEQ  $8,  1
-    JUMP DISPENEMY1001010011101011101END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1001010011101011101END:
-    LLI  $16, 0b1101111011000111
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  7
-    ADDi $6,  $6,  6
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1101111011000111103END
-    BEQ  $8,  1
-    JUMP DISPENEMY1101111011000111103END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1101111011000111103END:
-    LLI  $16, 0b1101111011101001
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  8
-    ADDi $6,  $6,  6
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1101111011101001104END
-    BEQ  $8,  1
-    JUMP DISPENEMY1101111011101001104END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1101111011101001104END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  8
-    ADDi $6,  $6,  7
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1101111011101001120END
-    BEQ  $8,  1
-    JUMP DISPENEMY1101111011101001120END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1101111011101001120END:
-    LLI  $16, 0b1101111100001100
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  9
-    ADDi $6,  $6,  6
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1101111100001100105END
-    BEQ  $8,  1
-    JUMP DISPENEMY1101111100001100105END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1101111100001100105END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  10
-    ADDi $6,  $6,  6
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1101111100001100106END
-    BEQ  $8,  1
-    JUMP DISPENEMY1101111100001100106END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1101111100001100106END:
-    LLI  $16, 0b1000010001000101
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  4
-    ADDi $6,  $6,  7
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1000010001000101116END
-    BEQ  $8,  1
-    JUMP DISPENEMY1000010001000101116END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1000010001000101116END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  4
-    ADDi $6,  $6,  8
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1000010001000101132END
-    BEQ  $8,  1
-    JUMP DISPENEMY1000010001000101132END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1000010001000101132END:
-    LLI  $16, 0b1001110100101100
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  5
-    ADDi $6,  $6,  7
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1001110100101100117END
-    BEQ  $8,  1
-    JUMP DISPENEMY1001110100101100117END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1001110100101100117END:
-    LLI  $16, 0b1101111011101010
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  9
-    ADDi $6,  $6,  7
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1101111011101010121END
-    BEQ  $8,  1
-    JUMP DISPENEMY1101111011101010121END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1101111011101010121END:
-    LLI  $16, 0b1001110100001011
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  5
-    ADDi $6,  $6,  8
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1001110100001011133END
-    BEQ  $8,  1
-    JUMP DISPENEMY1001110100001011133END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1001110100001011133END:
-    LLI  $16, 0b1011110111110001
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  6
-    ADDi $6,  $6,  8
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1011110111110001134END
-    BEQ  $8,  1
-    JUMP DISPENEMY1011110111110001134END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1011110111110001134END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  2
-    ADDi $6,  $6,  14
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1011110111110001226END
-    BEQ  $8,  1
-    JUMP DISPENEMY1011110111110001226END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1011110111110001226END:
-    LLI  $16, 0b1101011011001001
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  8
-    ADDi $6,  $6,  8
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1101011011001001136END
-    BEQ  $8,  1
-    JUMP DISPENEMY1101011011001001136END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1101011011001001136END:
-    LLI  $16, 0b1101111100001101
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  9
-    ADDi $6,  $6,  8
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1101111100001101137END
-    BEQ  $8,  1
-    JUMP DISPENEMY1101111100001101137END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1101111100001101137END:
-    LLI  $16, 0b1110011101010011
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  10
-    ADDi $6,  $6,  8
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110011101010011138END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110011101010011138END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110011101010011138END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  9
-    ADDi $6,  $6,  10
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110011101010011169END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110011101010011169END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110011101010011169END:
-    LLI  $16, 0b1001010011101001
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  3
-    ADDi $6,  $6,  9
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1001010011101001147END
-    BEQ  $8,  1
-    JUMP DISPENEMY1001010011101001147END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1001010011101001147END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  5
-    ADDi $6,  $6,  9
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1001010011101001149END
-    BEQ  $8,  1
-    JUMP DISPENEMY1001010011101001149END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1001010011101001149END:
-    LLI  $16, 0b0111110000100100
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  4
-    ADDi $6,  $6,  9
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY0111110000100100148END
-    BEQ  $8,  1
-    JUMP DISPENEMY0111110000100100148END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY0111110000100100148END:
-    LLI  $16, 0b1011010111010001
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  6
-    ADDi $6,  $6,  9
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1011010111010001150END
-    BEQ  $8,  1
-    JUMP DISPENEMY1011010111010001150END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1011010111010001150END:
-    LLI  $16, 0b1110111101110101
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  10
-    ADDi $6,  $6,  9
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110111101110101154END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110111101110101154END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110111101110101154END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  11
-    ADDi $6,  $6,  9
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110111101110101155END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110111101110101155END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110111101110101155END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  10
-    ADDi $6,  $6,  13
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110111101110101218END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110111101110101218END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110111101110101218END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  11
-    ADDi $6,  $6,  13
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110111101110101219END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110111101110101219END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110111101110101219END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  10
-    ADDi $6,  $6,  14
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110111101110101234END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110111101110101234END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110111101110101234END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  11
-    ADDi $6,  $6,  14
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110111101110101235END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110111101110101235END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110111101110101235END:
-    LLI  $16, 0b1010110110001110
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  2
-    ADDi $6,  $6,  10
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1010110110001110162END
-    BEQ  $8,  1
-    JUMP DISPENEMY1010110110001110162END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1010110110001110162END:
-    LLI  $16, 0b1000110010100111
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  3
-    ADDi $6,  $6,  10
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1000110010100111163END
-    BEQ  $8,  1
-    JUMP DISPENEMY1000110010100111163END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1000110010100111163END:
-    LLI  $16, 0b0111110000100011
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  4
-    ADDi $6,  $6,  10
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY0111110000100011164END
-    BEQ  $8,  1
-    JUMP DISPENEMY0111110000100011164END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY0111110000100011164END:
-    LLI  $16, 0b1000110010101000
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  5
-    ADDi $6,  $6,  10
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1000110010101000165END
-    BEQ  $8,  1
-    JUMP DISPENEMY1000110010101000165END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1000110010101000165END:
-    LLI  $16, 0b1011111000010001
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  6
-    ADDi $6,  $6,  10
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1011111000010001166END
-    BEQ  $8,  1
-    JUMP DISPENEMY1011111000010001166END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1011111000010001166END:
-    LLI  $16, 0b1110111101110110
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  8
-    ADDi $6,  $6,  10
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110111101110110168END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110111101110110168END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110111101110110168END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  13
-    ADDi $6,  $6,  10
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110111101110110173END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110111101110110173END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110111101110110173END:
-    LLI  $16, 0b1110011101010010
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  10
-    ADDi $6,  $6,  10
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110011101010010170END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110011101010010170END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110011101010010170END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  11
-    ADDi $6,  $6,  10
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110011101010010171END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110011101010010171END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110011101010010171END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  12
-    ADDi $6,  $6,  10
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110011101010010172END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110011101010010172END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110011101010010172END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  9
-    ADDi $6,  $6,  12
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110011101010010201END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110011101010010201END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110011101010010201END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  10
-    ADDi $6,  $6,  12
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110011101010010202END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110011101010010202END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110011101010010202END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  11
-    ADDi $6,  $6,  12
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110011101010010203END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110011101010010203END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110011101010010203END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  12
-    ADDi $6,  $6,  12
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110011101010010204END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110011101010010204END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110011101010010204END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  13
-    ADDi $6,  $6,  12
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110011101010010205END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110011101010010205END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110011101010010205END:
-    LLI  $16, 0b1010110110101111
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  2
-    ADDi $6,  $6,  11
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1010110110101111178END
-    BEQ  $8,  1
-    JUMP DISPENEMY1010110110101111178END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1010110110101111178END:
-    LLI  $16, 0b1000110010000111
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  3
-    ADDi $6,  $6,  11
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1000110010000111179END
-    BEQ  $8,  1
-    JUMP DISPENEMY1000110010000111179END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1000110010000111179END:
-    LLI  $16, 0b0111001111100010
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  4
-    ADDi $6,  $6,  11
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY0111001111100010180END
-    BEQ  $8,  1
-    JUMP DISPENEMY0111001111100010180END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY0111001111100010180END:
-    LLI  $16, 0b1001010011001001
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  5
-    ADDi $6,  $6,  11
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1001010011001001181END
-    BEQ  $8,  1
-    JUMP DISPENEMY1001010011001001181END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1001010011001001181END:
-    LLI  $16, 0b1101011010110101
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  6
-    ADDi $6,  $6,  11
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1101011010110101182END
-    BEQ  $8,  1
-    JUMP DISPENEMY1101011010110101182END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1101011010110101182END:
-    LLI  $16, 0b1111111111111000
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  7
-    ADDi $6,  $6,  11
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1111111111111000183END
-    BEQ  $8,  1
-    JUMP DISPENEMY1111111111111000183END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1111111111111000183END:
-    LLI  $16, 0b1110111101110100
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  8
-    ADDi $6,  $6,  11
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110111101110100184END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110111101110100184END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110111101110100184END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  13
-    ADDi $6,  $6,  11
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110111101110100189END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110111101110100189END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110111101110100189END:
-    LLI  $16, 0b1110111110011000
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  14
-    ADDi $6,  $6,  11
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110111110011000190END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110111110011000190END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110111110011000190END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  14
-    ADDi $6,  $6,  12
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110111110011000206END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110111110011000206END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110111110011000206END:
-    LLI  $16, 0b1011010110101111
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  2
-    ADDi $6,  $6,  12
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1011010110101111194END
-    BEQ  $8,  1
-    JUMP DISPENEMY1011010110101111194END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1011010110101111194END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  4
-    ADDi $6,  $6,  14
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1011010110101111228END
-    BEQ  $8,  1
-    JUMP DISPENEMY1011010110101111228END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1011010110101111228END:
-    LLI  $16, 0b1000110010000110
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  3
-    ADDi $6,  $6,  12
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1000110010000110195END
-    BEQ  $8,  1
-    JUMP DISPENEMY1000110010000110195END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1000110010000110195END:
-    LLI  $16, 0b1000010001100110
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  4
-    ADDi $6,  $6,  12
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1000010001100110196END
-    BEQ  $8,  1
-    JUMP DISPENEMY1000010001100110196END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1000010001100110196END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  3
-    ADDi $6,  $6,  14
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1000010001100110227END
-    BEQ  $8,  1
-    JUMP DISPENEMY1000010001100110227END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1000010001100110227END:
-    LLI  $16, 0b1011010111001111
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  5
-    ADDi $6,  $6,  12
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1011010111001111197END
-    BEQ  $8,  1
-    JUMP DISPENEMY1011010111001111197END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1011010111001111197END:
-    LLI  $16, 0b1110011100111000
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  6
-    ADDi $6,  $6,  12
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110011100111000198END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110011100111000198END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110011100111000198END:
-    LLI  $16, 0b1111011110110111
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  7
-    ADDi $6,  $6,  12
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1111011110110111199END
-    BEQ  $8,  1
-    JUMP DISPENEMY1111011110110111199END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1111011110110111199END:
-    LLI  $16, 0b1010110110101110
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  2
-    ADDi $6,  $6,  13
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1010110110101110210END
-    BEQ  $8,  1
-    JUMP DISPENEMY1010110110101110210END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1010110110101110210END:
-    LLI  $16, 0b1000010001100101
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  3
-    ADDi $6,  $6,  13
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1000010001100101211END
-    BEQ  $8,  1
-    JUMP DISPENEMY1000010001100101211END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1000010001100101211END:
-    LLI  $16, 0b1011010111010000
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  4
-    ADDi $6,  $6,  13
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1011010111010000212END
-    BEQ  $8,  1
-    JUMP DISPENEMY1011010111010000212END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1011010111010000212END:
-    LLI  $16, 0b1101111100011001
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  5
-    ADDi $6,  $6,  13
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1101111100011001213END
-    BEQ  $8,  1
-    JUMP DISPENEMY1101111100011001213END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1101111100011001213END:
-    LLI  $16, 0b1110111110010111
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  9
-    ADDi $6,  $6,  13
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110111110010111217END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110111110010111217END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110111110010111217END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  12
-    ADDi $6,  $6,  13
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110111110010111220END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110111110010111220END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110111110010111220END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  9
-    ADDi $6,  $6,  14
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110111110010111233END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110111110010111233END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110111110010111233END:
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  12
-    ADDi $6,  $6,  14
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1110111110010111236END
-    BEQ  $8,  1
-    JUMP DISPENEMY1110111110010111236END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1110111110010111236END:
-    LLI  $16, 0b1101111011111000
-    SUB  $6,  $3,  $1 
-    ADD  $5,  $6,  $16
-    SUB  $7,  $4,  $2 
-    ADD  $6,  $7,  $16
-    ADDi $5,  $5,  5
-    ADDi $6,  $6,  14
-    SLT  $7,  $5,  $14
-    SLT  $8,  $6,  $15
-    BEQ  $7,  1
-    JUMP DISPENEMY1101111011111000229END
-    BEQ  $8,  1
-    JUMP DISPENEMY1101111011111000229END
-    ADDi $10, $6, 0
-    LWI  $11, 16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MULTIPLICATION
-    ADD  $12, $12, $5
-    SW   $16, $12, 0
-DISPENEMY1101111011111000229END:
-    JMP  $0
-CHECKVOLUME:
-    LWI  $2, 2147483650
-    LW   $2, $2, 0
-    LWI  $3, 16
-    SRL  $2, $2, $3
-    ANDi $2, $2, 0b0000000000001111
-    BEQ  $2, 15
-    JMP  $0
-    JMP  $1
-DISPMAP:
-    LWI  $10, 0
-    LWI  $20, 2147500000
-DISPMAPLOOP:
-    LWI  $11, 96
-    LWI  $9,  LINE_NUMBER+5
-    JUMP MODULUS
-    ADDi $15, $12, 0
-    LWI  $16, 1
-    SRL  $16, $11, $16
-    SUB  $15, $15, $16
-    LWI  $9,  LINE_NUMBER+5
-    JUMP DIVISION
-    ADDi $16, $12, 0
-    LWI  $17, 64
-    LWI  $18, 1
-    SRL  $17, $17, $18
-    SUB  $16, $16, $17
-    ADDi $10, $10, 1
-    ADD  $3,  $1,  $15
-    ADD  $4,  $2,  $16
-    LWI  $5,  4
-    SRL  $3,  $3,  $5
-    SRL  $4,  $4,  $5
-    LWI  $5,  LINE_NUMBER+5
-    JUMP GETMAPCOLOR
-    ADD  $5,  $10, $20
-    SW   $6,  $5,  0
-    BEQ  $10, 6144
-    JUMP DISPMAPLOOP
-    JMP  $0
-GETMAPCOLOR:
-    BNE  $3, 0
-    JUMP MAPX0
-    BNE  $3, 1
-    JUMP MAPX1
-    BNE  $3, 2
-    JUMP MAPX2
-    BNE  $3, 3
-    JUMP MAPX3
-    BNE  $3, 4
-    JUMP MAPX4
-    BNE  $3, 5
-    JUMP MAPX5
-    BNE  $3, 6
-    JUMP MAPX6
-    BNE  $3, 7
-    JUMP MAPX7
-    BNE  $3, 8
-    JUMP MAPX8
-    BNE  $3, 9
-    JUMP MAPX9
-    BNE  $3, 10
-    JUMP MAPX10
-    BNE  $3, 11
-    JUMP MAPX11
-    BNE  $3, 12
-    JUMP MAPX12
-    BNE  $3, 13
-    JUMP MAPX13
-    BNE  $3, 14
-    JUMP MAPX14
-    BNE  $3, 15
-    JUMP MAPX15
-    BNE  $3, 16
-    JUMP MAPX16
-    BNE  $3, 17
-    JUMP MAPX17
-    BNE  $3, 18
-    JUMP MAPX18
-    BNE  $3, 19
-    JUMP MAPX19
-    BNE  $3, 20
-    JUMP MAPX20
-    BNE  $3, 21
-    JUMP MAPX21
-    BNE  $3, 22
-    JUMP MAPX22
-    BNE  $3, 23
-    JUMP MAPX23
-    BNE  $3, 24
-    JUMP MAPX24
-    LWI  $6, 0
-    JMP  $5
-MAPX0:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 6
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 9
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 10
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 11
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX1:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 6
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 9
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 10
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 11
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX2:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 6
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 9
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 10
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 11
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX3:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 6
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 9
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 10
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 11
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX4:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 6
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 9
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 10
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 11
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 12
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX5:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 6
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 9
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 10
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 11
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 12
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX6:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 6
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 7
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 8
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 9
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 10
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 11
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 12
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX7:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 6
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 7
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 8
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 9
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 10
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 11
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX8:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 6
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 7
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 8
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 9
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 10
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 11
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX9:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 6
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 9
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 10
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 11
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX10:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 6
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 9
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 10
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 11
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 12
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX11:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 6
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 9
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 10
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 11
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 12
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX12:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 6
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 9
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 10
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 11
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 12
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX13:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 6
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 9
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 10
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 11
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX14:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 6
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 9
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 10
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 11
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX15:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 6
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 9
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 10
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 11
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX16:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 6
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 7
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 8
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 9
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 10
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 11
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX17:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 6
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 9
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 10
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 11
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX18:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 6
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 9
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 10
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 11
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX19:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 6
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 9
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 10
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 11
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX20:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 6
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 9
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 10
-    LWI  $6, 0b1110111010110110
-    BNE  $4, 11
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX21:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 6
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 9
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 10
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 11
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX22:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 6
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 9
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 10
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 11
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX23:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 6
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 9
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 10
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 11
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
-MAPX24:
-    BNE  $4, 0
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 1
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 2
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 3
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 4
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 5
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 6
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 7
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 8
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 9
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 10
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 11
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 12
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 13
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 14
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 15
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 16
-    LWI  $6, 0b0110101101010000
-    BNE  $4, 17
-    LWI  $6, 0b0110101101010000
-    JMP  $5
 DIVISION:
     LWI  $12, 0
     LWI  $13, 0
@@ -26537,7 +29249,7 @@ MULTIPLICATIONLOOP:
     JUMP  MULTIPLICATIONLOOP
 BLINK:
     LWI  $3, 2147483648
-    LWI  $1, 0b1010101010101010
+    LLI  $1, 0b1010101010101010
 BLINKLOOP:
     INV  $1, $1
     SW   $1, $3, 0

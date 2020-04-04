@@ -22,21 +22,6 @@ Note:
 
 # Full NE assembly code of the game
 
-#Start Scene...
-
-gamecode.append("START:")
-gamecode.append("    LWI  $0, LINE_NUMBER+5")
-gamecode.append("    JUMP DISPSTART")
-gamecode.append(Functions.delayGenerator(0.5, "DELAYSTART"))
-gamecode.append("    LWI  $0, LINE_NUMBER+5")
-gamecode.append("    JUMP DISPWORD")
-gamecode.append(Functions.delayGenerator(0.5, "DELAYWORD"))
-gamecode.append("    LWI  $0, 0")
-gamecode.append("    LWI  $1, LINE_NUMBER+5")
-gamecode.append("    JUMP CHECKVOLUME")
-gamecode.append("    LWI  $0, LINE_NUMBER+5")
-
-#Game Loop initialization... Set game level (global) variables that *must not* be used by any function in the loop!
 gamecode.append("    LWI  $29, 0")                #$29: character state
 gamecode.append("    LWI  $27, 0")                #$27: chara x
 gamecode.append("    LWI  $28, 0")                #$28: chara y
@@ -56,7 +41,7 @@ gamecode.append("    BNE  $1,  0b00100")          #if btnL
 gamecode.append("    JUMP BTNLPRESSED")
 gamecode.append("    BNE  $1,  0b00010")          #if btnU
 gamecode.append("    JUMP BTNUPRESSED")
-gamecode.append("    JUMP CONTROLDEF")            #default: goto CONTROLDEF
+gamecode.append("    JUMP CONTROLEND")            #default: goto CONTROLDEF
 gamecode.append("BTNDPRESSED:")
 gamecode.append("    SUBi $28, $28, 1")           #move down
 gamecode.append("    LWI  $29, 0")                #set state: gg
@@ -80,7 +65,7 @@ gamecode.append("    SW   $5,  $6, 0")
 gamecode.append("    JUMP CONTROLEND")
 gamecode.append("BTNUPRESSED:")
 gamecode.append("    ADDi $28, $28, 1")           #move up
-gamecode.append("    LWI  $29, 5")                #set state: back
+gamecode.append("    LWI  $29, 0")                #set state: gg
 gamecode.append("    LLI  $5,  8")
 gamecode.append("    LWI  $6,  2147483648")
 gamecode.append("    SW   $5,  $6, 0")
@@ -91,16 +76,12 @@ gamecode.append("    LWI  $6,  2147483648")
 gamecode.append("    SW   $5,  $6, 0")
 gamecode.append("CONTROLEND:")
 
-#Display Map...
-gamecode.append("    LWI  $0,  LINE_NUMBER+5")    #set return addr
-gamecode.append("    JUMP DISPSIMPLEMAP")               #function call
-
 #Display character...
-gamecode.append("    ADDi $1,  $29, 0")           #ccopy char_state to $1
+gamecode.append("    ADDi $1,  $29, 0")           #copy char_state to $1
 gamecode.append("    ADDi $2,  $27, 0")           #x
 gamecode.append("    ADDi $3,  $28, 0")           #y
 gamecode.append("    LWI  $0,  LINE_NUMBER+5")    #set return addr
-gamecode.append("    JUMP DISPCHARA")              #function call
+gamecode.append("    JUMP DISPCHARA")             #function call
 
 gamecode.append(Functions.delayGenerator(0.01, "DELAYPOV"))
 
@@ -111,19 +92,50 @@ gamecode.append("    JUMP GAMELOOP")
 gamecode.append("    JUMP BLINK")
 
 #Load function definitions...
-gamecode.append(Functions.DISPSTART)
-gamecode.append(Functions.DISPWORD)
-#gamecode.append(Functions.DISPMENU)
 gamecode.append(Functions.DISPCHARA)
-#gamecode.append(Functions.DISPENEMY)
 gamecode.append(Functions.CHECKVOLUME)
-gamecode.append(Functions.DISPSIMPLEMAP)
-#gamecode.append(Functions.GETMAPCOLOR)
+gamecode.append(Functions.DISPMAP)
+gamecode.append(Functions.GETMAPCOLOR)
 gamecode.append(Functions.DIVISION)
 gamecode.append(Functions.MODULUS)
 gamecode.append(Functions.MULTIPLICATION)
 gamecode.append(Functions.BLINK)
 
-with open("Game.asm", "w") as src:
+'''
+#Test DISPCH
+maincode.append("    LWI  $20, 93")
+maincode.append("    LWI  $21, 61")
+maincode.append("    LWI  $10, 0 ")  #x
+maincode.append("    LWI  $11, 0 ")  #y
+maincode.append("    LWI  $3,  31") #ascii
+maincode.append("    LWI  $12, 16") #16
+maincode.append("    LLI  $2,  0b0010000111101010") #color
+maincode.append("TESTLOOP:")
+maincode.append("    SLT  $5,  $21, $11")
+maincode.append("    BNE  $5,  1")
+maincode.append("    JUMP TESTEND")
+maincode.append("    ADDi $2,  $2,  1")   #color ++
+maincode.append("    ADDi $3,  $3,  1")   #ascii ++
+maincode.append("    SLL  $1,  $10, $12")
+maincode.append("    OR   $1,  $1,  $11") #tl coord done
+maincode.append("    LWI  $0, LINE_NUMBER+5")
+maincode.append("    JUMP DISPCH")
+maincode.append("    SLT  $5,  $20, $10")
+maincode.append("    BNE  $5,  1")
+maincode.append("    JUMP LINEEND")
+maincode.append("    ADDi $10, $10, 4")
+maincode.append("    JUMP TESTLOOP")
+maincode.append("LINEEND:")
+maincode.append("    ADDi $11, $11, 6")
+maincode.append("    LWI  $10, 0")
+maincode.append("    JUMP TESTLOOP")
+maincode.append("TESTEND:")
+maincode.append("    JUMP BLINK")
+maincode.append(Functions.DISPCH)
+maincode.append(Functions.BLINK)
+maincode.append(Functions.MULTIPLICATION)
+'''
+
+with open("Main.asm", "w") as src:
     src.write('\n'.join(filter(lambda x: x, gamecode.toString().split('\n')))) #remove empty lines
-print("Game.asm generated!")
+print("Main.asm generated!")
