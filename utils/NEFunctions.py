@@ -55,6 +55,10 @@ with open("../bitmaps/bo_tail2.bitmap") as bmp:
     images["bo_tail2"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
 with open("../bitmaps/simplemap.bitmap") as bmp:
     images["simplemap"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
+with open("../bitmaps/success.bitmap") as bmp:
+    images["success"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
+with open("../bitmaps/fail.bitmap") as bmp:
+    images["fail"] = list(map(lambda x: x[:-1] if len(x)>=1 and x[-1]=='\n' else x, bmp.readlines()))
 
 DISPSTART = "DISPSTART:\n"
 START = {}
@@ -119,32 +123,59 @@ del WORDSTARTY
 del WORDX
 del WORDY
 
-DISPMENU = "DISPMENU:\n"
-MENUX = int(images["menu"][0])
-MENUY = int(images["menu"][1])
-MENUSTARTX = (OLEDX-MENUX)//2
-MENUSTARTY = (OLEDY-MENUY)//2
-MENU = {}
+DISPSUCCESS = "DISPSUCCESS:\n"
+SUCCESSX = int(images["success"][0])
+SUCCESSY = int(images["success"][1])
+SUCCESSSTARTX = (OLEDX-SUCCESSX)//2
+SUCCESSSTARTY = (OLEDY-SUCCESSY)//2
+SUCCESS = {}
 addr = -1
-for pix in images["menu"][2:]:
+for pix in images["success"][2:]:
     addr += 1
     if eval(pix) != 0:
-        if pix in MENU:
-            MENU[pix].append(addr)
+        if pix in SUCCESS:
+            SUCCESS[pix].append(addr)
         else:
-            MENU[pix] = [addr]
-for i in MENU:
+            SUCCESS[pix] = [addr]
+for i in SUCCESS:
     inst = "    LLI  $1, %s\n" % (i,)
-    for j in MENU[i]:
-        inst += "    LWI  $2, %d\n" % ((2147500000+MENUSTARTY*OLEDX+MENUSTARTX) + j//MENUX*OLEDX+j%MENUX,)
+    for j in SUCCESS[i]:
+        inst += "    LWI  $2, %d\n" % ((2147500000+SUCCESSSTARTY*OLEDX+SUCCESSSTARTX) + j//SUCCESSX*OLEDX+j%SUCCESSX,)
         inst += "    SW   $1, $2, 0\n"
-    DISPMENU += inst
-DISPMENU += "    JMP $0\n"
-del MENU
-del MENUSTARTX
-del MENUSTARTY
-del MENUX
-del MENUY
+    DISPSUCCESS += inst
+DISPSUCCESS += "    JMP $0\n"
+del SUCCESS
+del SUCCESSSTARTX
+del SUCCESSSTARTY
+del SUCCESSX
+del SUCCESSY
+
+DISPFAIL = "DISPFAIL:\n"
+FAILX = int(images["fail"][0])
+FAILY = int(images["fail"][1])
+FAILSTARTX = (OLEDX-FAILX)//2
+FAILSTARTY = (OLEDY-FAILY)//2
+FAIL = {}
+addr = -1
+for pix in images["fail"][2:]:
+    addr += 1
+    if eval(pix) != 0:
+        if pix in FAIL:
+            FAIL[pix].append(addr)
+        else:
+            FAIL[pix] = [addr]
+for i in FAIL:
+    inst = "    LLI  $1, %s\n" % (i,)
+    for j in FAIL[i]:
+        inst += "    LWI  $2, %d\n" % ((2147500000+FAILSTARTY*OLEDX+FAILSTARTX) + j//FAILX*OLEDX+j%FAILX,)
+        inst += "    SW   $1, $2, 0\n"
+    DISPFAIL += inst
+DISPFAIL += "    JMP $0\n"
+del FAIL
+del FAILSTARTX
+del FAILSTARTY
+del FAILX
+del FAILY
 
 '''
 #state: $1

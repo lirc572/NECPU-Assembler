@@ -48,10 +48,22 @@ gamecode.append("    LWI  $21, 43")    #door y
 gamecode.append("    SLT  $25, $20, $27")
 gamecode.append("    SLT  $26, $21, $28")
 gamecode.append("    BEQ  $25, 1")        #if met, skip
+gamecode.append("    JUMP FAILTEST")
+gamecode.append("    BEQ  $26, 1")        #if met, skip
+gamecode.append("    JUMP FAILTEST")
+gamecode.append("    JUMP GAMEOVER")
+
+#Fail test...
+gamecode.append("FAILTEST:")
+gamecode.append("    LWI  $20, 14")    #door x
+gamecode.append("    LWI  $21, 43")    #door y
+gamecode.append("    SLT  $25, $27, $20")
+gamecode.append("    SLT  $26, $21, $28")
+gamecode.append("    BEQ  $25, 1")        #if met, skip
 gamecode.append("    JUMP CONTROLHANDLE")
 gamecode.append("    BEQ  $26, 1")        #if met, skip
 gamecode.append("    JUMP CONTROLHANDLE")
-gamecode.append("    JUMP GAMEOVER")
+gamecode.append("    JUMP GAMEGG")
 
 #Control handling...
 gamecode.append("CONTROLHANDLE:")
@@ -70,7 +82,7 @@ gamecode.append("    BNE  $1,  0b00010")          #if btnU
 gamecode.append("    JUMP BTNUPRESSED")
 gamecode.append("    JUMP CONTROLDEF")            #default: goto CONTROLDEF
 gamecode.append("BTNDPRESSED:")
-gamecode.append("    SUBi $28, $28, 1")           #move down
+gamecode.append("    ADDi $28, $28, 1")           #move down
 gamecode.append("    LWI  $29, 0")                #set state: gg
 gamecode.append("    LLI  $5,  1")
 gamecode.append("    LWI  $6,  2147483648")
@@ -91,7 +103,7 @@ gamecode.append("    LWI  $6,  2147483648")
 gamecode.append("    SW   $5,  $6, 0")
 gamecode.append("    JUMP CONTROLEND")
 gamecode.append("BTNUPRESSED:")
-gamecode.append("    ADDi $28, $28, 1")           #move up
+gamecode.append("    SUBi $28, $28, 1")           #move up
 gamecode.append("    LWI  $29, 5")                #set state: back
 gamecode.append("    LLI  $5,  8")
 gamecode.append("    LWI  $6,  2147483648")
@@ -105,7 +117,7 @@ gamecode.append("CONTROLEND:")
 
 #Display Map...
 gamecode.append("    LWI  $0,  LINE_NUMBER+5")    #set return addr
-gamecode.append("    JUMP DISPSIMPLEMAP")               #function call
+gamecode.append("    JUMP DISPSIMPLEMAP")         #function call
 
 #Display character...
 gamecode.append("    ADDi $1,  $29, 0")           #ccopy char_state to $1
@@ -114,13 +126,22 @@ gamecode.append("    ADDi $3,  $28, 0")           #y
 gamecode.append("    LWI  $0,  LINE_NUMBER+5")    #set return addr
 gamecode.append("    JUMP DISPCHARA")             #function call
 
-gamecode.append(Functions.delayGenerator(0.01, "DELAYPOV"))
+gamecode.append(Functions.delayGenerator(0.03, "DELAYPOV"))
 
 #Goto GAMELOOP...
 gamecode.append("    JUMP GAMELOOP")
 
+#Gameover...
 gamecode.append("GAMEOVER:")
+gamecode.append("    LWI  $0, LINE_NUMBER+5")
+gamecode.append("    JUMP DISPSUCCESS")
+#Endless blinky to indicate end of program execution...
+gamecode.append("    JUMP BLINK")
 
+#GG...
+gamecode.append("GAMEGG:")
+gamecode.append("    LWI  $0, LINE_NUMBER+5")
+gamecode.append("    JUMP DISPFAIL")
 #Endless blinky to indicate end of program execution...
 gamecode.append("    JUMP BLINK")
 
@@ -133,6 +154,8 @@ gamecode.append(Functions.DISPSIMPLEMAP)
 gamecode.append(Functions.DIVISION)
 gamecode.append(Functions.MODULUS)
 gamecode.append(Functions.MULTIPLICATION)
+gamecode.append(Functions.DISPSUCCESS)
+gamecode.append(Functions.DISPFAIL)
 gamecode.append(Functions.BLINK)
 
 with open("Game.asm", "w") as src:
