@@ -118,7 +118,9 @@ def EncodeInst(instruction, line_number):
         return
     else:
         op = op.upper()
-        if op in ("SLT", "SEQ", "ADD", "SUB", "SLL", "SRL", "AND", "OR", "XOR"):
+        if op == "NOP":
+            return "32'd0"
+        elif op in ("SLT", "SEQ", "ADD", "SUB", "SLL", "SRL", "AND", "OR", "XOR"):
             if len(instruction) != 4:
                 raise ValueError("Instruction has abnormal format: '%s'" % (' '.join(instruction),))
             return EncodeTypeA(op, RegToNum(instruction[1]), RegToNum(instruction[2]), RegToNum(instruction[3]), 0)
@@ -179,16 +181,20 @@ def Assembler(source):
     code = []
     line_number = 0
     for line in source:
-        c = EncodeInst(line, line_number)
+        try:
+            c = EncodeInst(line, line_number)
+        except:
+            raise Exception("%s got error..." % (line,))
         if c != None:
             if type(c) == type(("not", "you")):
                 if len(code) != 0 and len(c) == 3 and disassemble(c[2])[0] == "J" and disassemble(code[-1])[0] == "B":
-                    tmp = code[-1]
-                    code = code[:-1]
+                    tmp = code[-1]    #Branch
+                    code = code[:-1]  #Removed branch
                     for i in c:
                         code.append(i)
                         line_number += 1
-                    code = code[:-1] + [tmp] + [code[-1]]
+                    code = code[:-1] + [tmp] + [code[-1]] #Code = LUI, LLI, Branch, JMP
+                    forward_jumps[-1] = (forward_jumps[-1][0]-1, forward_jumps[-1][1])
                 else:
                     for i in c:
                         code.append(i)
