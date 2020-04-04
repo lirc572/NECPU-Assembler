@@ -42,7 +42,19 @@ gamecode.append("    LWI  $27, 0")                #$27: chara x
 gamecode.append("    LWI  $28, 0")                #$28: chara y
 gamecode.append("GAMELOOP:")
 
+#Ending condition test...
+gamecode.append("    LWI  $20, 69")    #door x
+gamecode.append("    LWI  $21, 43")    #door y
+gamecode.append("    SLT  $25, $20, $27")
+gamecode.append("    SLT  $26, $21, $28")
+gamecode.append("    BEQ  $25, 1")        #if met, skip
+gamecode.append("    JUMP CONTROLHANDLE")
+gamecode.append("    BEQ  $26, 1")        #if met, skip
+gamecode.append("    JUMP CONTROLHANDLE")
+gamecode.append("    JUMP GAMEOVER")
+
 #Control handling...
+gamecode.append("CONTROLHANDLE:")
 gamecode.append("    LWI  $1,  2147483649")       #load addr of btns to $1
 gamecode.append("    LW   $1,  $1, 0")            #load btn data into $1
 gamecode.append("    LWI  $2,  27")               #bits to shift
@@ -100,12 +112,14 @@ gamecode.append("    ADDi $1,  $29, 0")           #ccopy char_state to $1
 gamecode.append("    ADDi $2,  $27, 0")           #x
 gamecode.append("    ADDi $3,  $28, 0")           #y
 gamecode.append("    LWI  $0,  LINE_NUMBER+5")    #set return addr
-gamecode.append("    JUMP DISPCHARA")              #function call
+gamecode.append("    JUMP DISPCHARA")             #function call
 
 gamecode.append(Functions.delayGenerator(0.01, "DELAYPOV"))
 
 #Goto GAMELOOP...
 gamecode.append("    JUMP GAMELOOP")
+
+gamecode.append("GAMEOVER:")
 
 #Endless blinky to indicate end of program execution...
 gamecode.append("    JUMP BLINK")
@@ -113,12 +127,9 @@ gamecode.append("    JUMP BLINK")
 #Load function definitions...
 gamecode.append(Functions.DISPSTART)
 gamecode.append(Functions.DISPWORD)
-#gamecode.append(Functions.DISPMENU)
 gamecode.append(Functions.DISPCHARA)
-#gamecode.append(Functions.DISPENEMY)
 gamecode.append(Functions.CHECKVOLUME)
 gamecode.append(Functions.DISPSIMPLEMAP)
-#gamecode.append(Functions.GETMAPCOLOR)
 gamecode.append(Functions.DIVISION)
 gamecode.append(Functions.MODULUS)
 gamecode.append(Functions.MULTIPLICATION)
