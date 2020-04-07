@@ -97,7 +97,7 @@ Note that the `BEQ` and `BNE` instructions of **NECPU** differ from those of **M
   - `JUMP [label]`
   - `JUMP` instruction complements the native `JMP` instruction by accepting a label instead of a raw memory address. It simplifies the programming experience.
   - To create a label, put `[label]:` before the instruction you want to jump to. The label can be any valid string.
-  - **Currently JUMP pseudo-instruction only supports jumping backwards (to a line that the assembler has already processed at the point)**
+  - **JUMP pseudo-instruction now supports jumping forward and backward!**
   - A `JUMP` pseudo-instruction is translated to the following 3 instructions:
     - `LUI $31 [Upper half of label's address]`
     - `LLI $31 [Lower half of label's address]`
